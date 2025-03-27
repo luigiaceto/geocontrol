@@ -58,7 +58,6 @@ GeoControl is a software system designed for monitoring physical and environment
 
 \<describe here each interface in the context diagram>
 
-\<GUIs will be described graphically in a separate document>
 
 |   Actor   | Logical Interface | Physical Interface |
 | :-------: | :---------------: | :----------------: |
