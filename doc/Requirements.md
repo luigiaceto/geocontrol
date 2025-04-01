@@ -40,11 +40,19 @@ GeoControl is a software system designed for monitoring physical and environment
 
 # Business Model
 
+- Government/Public Model : il sistema è stato originariamente commissionato e finanziato da dall'Unione delle Comunità Montane del Piemonte per monitorare dei parametri fisici e ambientali. In seguito il sistema stesso è stato successivamente commercializzato ad altri enti pubblici e privati.
+
 # Stakeholders
 
 | Stakeholder name | Description |
 | :--------------: | :---------: |
-| Stakeholder x..  |             |
+|       Admin      |             |
+|      Operator    |             |
+|       Viewer     |             |
+| Comunità Montane |             |
+    del Piemonte
+| Enti Pubblici e  |             |
+      Privati
 
 # Context Diagram and interfaces
 
