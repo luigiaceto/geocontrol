@@ -46,19 +46,21 @@ GeoControl is a software system designed for monitoring physical and environment
 
 | Stakeholder name | Description |
 | :--------------: | :---------: |
-|       Admin      |             |
-|      Operator    |             |
-|       Viewer     |             |
-| Comunità Montane |             |
-    del Piemonte
-| Enti Pubblici e  |             |
-      Privati
-
+|       Admin      |  Utente che ha accesso a tutte le risorse e gestisce Network e Utenti         |
+|      Operator    |  Utente che può gestire Network, Gateway e Sensori e inserire misurazioni           |
+|       Viewer     |  Utente che visualizza e consulta i dati del Sistema          |
+| Unione delle Comunità Montane del Piemonte | Committente principale del Sistema
+| Enti Pubblici e Privati| Università, Cittadine, Protezione Civile o aziende che usufruiscono dei servizi del Sistema |
+| Produttori di Componenti | Coloro che si occuppano di produzione e distribuzione dell'Hardware utilizzato dal Sistema |
+| Ambiente | Ambienti naturali e artificiali che vengono monitorati dai sensori del Sistema |
 # Context Diagram and interfaces
 
 ## Context Diagram
 
 \<Define here Context diagram using UML use case diagram>
+<p align="center">
+    <img src="img/Context_diagram.png" alt="" width="400">
+</p>
 
 \<actors are a subset of stakeholders>
 
@@ -69,7 +71,10 @@ GeoControl is a software system designed for monitoring physical and environment
 
 |   Actor   | Logical Interface | Physical Interface |
 | :-------: | :---------------: | :----------------: |
-| Actor x.. |                   |                    |
+| Admin |  GUI  | PC |
+| Operator | GUI | PC |
+| Viewer | GUI | PC, Smartphone |
+| Abiente |  | Sensori |
 
 # Stories and personas
 
@@ -78,6 +83,21 @@ GeoControl is a software system designed for monitoring physical and environment
 \<Persona is-an-instance-of actor>
 
 \<stories will be formalized later as scenarios in use cases>
+
+Persona1 : Uomo, Adulto, 50 anni, Lavora come informatico in una cittadina ad alto rischio sismico
+Storia : Il comune in cui lavora ha bisogno di un Sistema per monitorare l'attività sismica della città
+
+Persona2 : Donna, Giovane, 25 anni, Lavora in una riserva naturale come guida
+Storia : Ha bisogno di sapere in anticipo le condizioni climatiche, vento e eventuali catastrofi per evitare di mettere in pericolo i visitatori
+
+Persona3 : Uomo, Età media, 34 anni, Gestore hotel in alta quota aperto in periodo invernale
+Storia : Ha bisogno di un Sistema per monitorare il rischio di valanghe o temperature estreme al fine di migliorare l'esperienza di chi alloggia nell'hotel
+
+Persona4: Gruppo di Ricerca Universitario
+Storia: Hanno bisogno di dati ambientali per testare modelli di Machine Learning per predizioni metereologiche per una ricerca
+
+Persona5: Donna, Adulta, 46 anni, Preside di una Scuola Media
+Storia: Nell'attesa di un cambio struttura, la Preside ha bisogno di monitorare alcuni parametri particolari di quella attuale, vecchia e decadente, ad esempio crepe e fessurazioni o vibrazioni anomale.
 
 # Functional and non functional requirements
 
