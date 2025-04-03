@@ -100,7 +100,6 @@ Persona5: Donna, Adulta, 46 anni, Preside di una Scuola Media
 Storia: Nell'attesa di un cambio struttura, la Preside ha bisogno di monitorare alcuni parametri particolari di quella attuale, vecchia e decadente, ad esempio crepe e fessurazioni o vibrazioni anomale.
 
 # Functional and non functional requirements
-prova di push Luigi
 
 ## Functional Requirements
 
