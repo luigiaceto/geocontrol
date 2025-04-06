@@ -69,7 +69,7 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 \<Define here Context diagram using UML use case diagram>
 <p align="center">
-    <img src="img/context_diagram.png" alt="" width="400">
+    <img src="img/Context_diagram.png" alt="" width="400">
 </p>
 
 \<actors are a subset of stakeholders>
