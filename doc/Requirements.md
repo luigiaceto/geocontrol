@@ -36,23 +36,33 @@ Version: V1 - description of Geocontrol as described in the swagger
 
 # Informal description
 
-GeoControl is a software system designed for monitoring physical and environmental variables in various contexts: from hydrogeological analyses of mountain areas to the surveillance of historical buildings, and even the control of internal parameters (such as temperature or lighting) in residential or working environments.
+GeoControl è un software progettato per monitorare le variabili fisiche e ambientali in vari contesti: da analisi idrologiche di aree montane al sorvegliamento di edifici storici, e anche il controllo di parametri interni (quali temperatura o illuminazione) in aree residenziali o di lavoro.
 
 # Business Model
 
-- Government/Public Model : il sistema è stato originariamente commissionato e finanziato da dall'Unione delle Comunità Montane del Piemonte per monitorare dei parametri fisici e ambientali. In seguito il sistema stesso è stato successivamente commercializzato ad altri enti pubblici e privati.
+- Private-as-a-Service:
+  Una compagnia privata sviluppa e gestisce il sistema offrendo il servizio ad amministrazioni pubbliche su base contrattuale.
+
+- Software con licenza:
+  La compagnia che sviluppa Geocontrol vende il software offrendo licenza annuale o come one time purchase. Nella licenza annuale potrebbe essere incluso un pacchetto di supporto tecnico e manutenzione della parte hardware del systema (sensori e gateway).
+
+- Modello Open Core:
+  Si offre una versione open source del software e vengono venduti moduli premium con funzionalità più avanzate e servizi di personalizzazione e integrazione. E' utile per creare parallelamente una community di sviluppatori che contribuisce al miglioramento del prodotto.
+
+- Partnership:
+  Collaborare con produttori di sensori integrando al meglio il loro hardware con GeoControl e con società di consulenza ambientale/ingegneristica. Stabilire anche accordi di guadagno con partner che portano nuovi clienti.
 
 # Stakeholders
 
 | Stakeholder name | Description |
 | :--------------: | :---------: |
-|       Admin      |  Utente che ha accesso a tutte le risorse e gestisce Network e Utenti         |
-|      Operator    |  Utente che può gestire Network, Gateway e Sensori e inserire misurazioni           |
-|       Viewer     |  Utente che visualizza e consulta i dati del Sistema          |
-| Unione delle Comunità Montane del Piemonte | Committente principale del Sistema
-| Enti Pubblici e Privati| Università, Cittadine, Protezione Civile o aziende che usufruiscono dei servizi del Sistema |
-| Produttori di Componenti | Coloro che si occuppano di produzione e distribuzione dell'Hardware utilizzato dal Sistema |
-| Ambiente | Ambienti naturali e artificiali che vengono monitorati dai sensori del Sistema |
+|       Admin      |  Utente che ha accesso a tutte le risorse, inclusa la gestione di Networks e Utenti |
+|      Operator    |  Utente che può gestire Network, Gateway, Sensori e inserire misurazioni |
+|       Viewer     |  Utente che può solo consultare i dati |
+| Unione delle Comunità Montane del Piemonte | Committente principale del Sistema |
+| Enti Pubblici e Privati | Università, cittadine, Protezione Civile o aziende che vogliono usufruire dei servizi del Sistema |
+| Produttori di Componenti | Coloro che si occupano di produzione e distribuzione dell'Hardware utilizzato nel Sistema |
+
 # Context Diagram and interfaces
 
 ## Context Diagram
@@ -71,10 +81,9 @@ GeoControl is a software system designed for monitoring physical and environment
 
 |   Actor   | Logical Interface | Physical Interface |
 | :-------: | :---------------: | :----------------: |
-| Admin |  GUI  | PC |
-| Operator | GUI | PC |
-| Viewer | GUI | PC, Smartphone |
-| Abiente |  | Sensori |
+| Admin     | GUI               | PC                 |
+| Operator  | GUI               | PC                 |
+| Viewer    | GUI               | PC, Smartphone     |
 
 # Stories and personas
 
@@ -84,20 +93,20 @@ GeoControl is a software system designed for monitoring physical and environment
 
 \<stories will be formalized later as scenarios in use cases>
 
-Persona1 : Uomo, Adulto, 50 anni, Lavora come informatico in una cittadina ad alto rischio sismico
-Storia : Il comune in cui lavora ha bisogno di un Sistema per monitorare l'attività sismica della città
+- Persona1 : Uomo, Adulto, 50 anni, Lavora come informatico nel comune di una cittadina ad alto rischio sismico
+  Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della città
 
-Persona2 : Donna, Giovane, 25 anni, Lavora in una riserva naturale come guida
-Storia : Ha bisogno di sapere in anticipo le condizioni climatiche, vento e eventuali catastrofi per evitare di mettere in pericolo i visitatori
+- Persona2 : Donna, Giovane, 25 anni, lavora in una riserva naturale come guida
+  Storia : Ha bisogno di sapere in anticipo le condizioni climatiche per evitare di mettere in pericolo i visitatori durante le passeggiate
 
-Persona3 : Uomo, Età media, 34 anni, Gestore hotel in alta quota aperto in periodo invernale
-Storia : Ha bisogno di un Sistema per monitorare il rischio di valanghe o temperature estreme al fine di migliorare l'esperienza di chi alloggia nell'hotel
+- Persona3 : Uomo, Età media, 34 anni, gestore hotel in alta quota aperto in periodo invernale
+  Storia : Ha bisogno di un sistema per monitorare il rischio di valanghe o temperature estreme al fine di migliorare l'esperienza di chi alloggia nell'hotel
 
-Persona4: Gruppo di Ricerca Universitario
-Storia: Hanno bisogno di dati ambientali per testare modelli di Machine Learning per predizioni metereologiche per una ricerca
+- Persona4: Gruppo di ricerca universitario
+  Storia: Hanno bisogno di dati ambientali per testare modelli di machine learning per predizioni metereologiche per una ricerca
 
-Persona5: Donna, Adulta, 46 anni, Preside di una Scuola Media
-Storia: Nell'attesa di un cambio struttura, la Preside ha bisogno di monitorare alcuni parametri particolari di quella attuale, vecchia e decadente, ad esempio crepe e fessurazioni o vibrazioni anomale.
+- Persona5: Donna, Adulta, 46 anni, preside di una scuola media
+  Storia: Nell'attesa di un cambio struttura, la preside ha bisogno di monitorare alcuni parametri particolari di quella attuale, vecchia e decadente, ad esempio crepe e fessurazioni o vibrazioni anomale.
 
 # Functional and non functional requirements
 
@@ -109,9 +118,36 @@ Storia: Nell'attesa di un cambio struttura, la Preside ha bisogno di monitorare 
 
 |  ID   | Description |
 | :---: | :---------: |
-|  FR1  |             |
-|  FR2  |             |
-| FRx.. |             |
+|  FR1  | Autenticazione e gestione utenti |
+|  FR1.1 | Login e Logout degli utenti |
+|  FR1.2 | Creazione account |
+|  FR1.3 | Modifica account |
+|  FR1.4 | Definizione ruolo dell'account |
+|  FR2  | Gestione networks |
+|  FR2.1  | Creazione network |
+|  FR2.2  | Modifica network |
+|  FR2.3  | Rimozione network |
+|  FR3  | Gestione gateways |
+|  FR3.1 | Inserimento gateway in un network |
+|  FR3.2 | Modifica gateway |
+|  FR3.3 | Rimozione gateway da un network |
+|  FR4  | Gestione sensori |
+|  FR4.1 | Inserimento sensore in un gateway |
+|  FR4.2 | Modifica sensore |
+|  FR4.3 | Rimozione sensore da un gateway |
+|  FR5  | Calcolo statistiche delle misurazioni |
+|  FR5.1  | Calcolo media di misurazioni su un range temporale |
+|  FR5.2  | Calcolo varianza di misurazioni su un range temporale |
+|  FR5.3  | Calcolo threshold tramite media e varianza |
+|  FR6  | Conversione timestamp delle misurazioni in ISO 8601 tramite timezone UTC |
+|  FR7  | Collezionamento e memorizzazione delle misurazioni |
+|  FR7.1  | Lettura misurazioni di un network |
+|  FR7.2  | Lettura da gateway |
+|  FR7.3  | Lettura da sensore/i |
+|  FR7.4  | Lettura degli outliers di un sensore |
+|  FR7.5  | Lettura degli outliers di un network |
+|  FR7.6  | Lettura delle statistiche di un sensore |
+|  FR7.7  | Memorizzazione di misurazioni di un sensore |
 
 ## Non Functional Requirements
 
@@ -119,10 +155,10 @@ Storia: Nell'attesa di un cambio struttura, la Preside ha bisogno di monitorare 
 
 |   ID    | Type (efficiency, reliability, ..) | Description | Refers to |
 | :-----: | :--------------------------------: | :---------: | :-------: |
-|  NFR1   |                                    |             |           |
-|  NFR2   |                                    |             |           |
-|  NFR3   |                                    |             |           |
-| NFRx .. |                                    |             |           |
+|  NFR1   |  Reliability                       | Non devono essere perse più di 6 misurazioni per sensore ogni anno | FR7 |
+|  NFR2   |  Reliability                       | Il timestamp deve corrispondere all'esatto momento della misurazione | FR7 |
+|  NFR3   |  Reliability                       | Il flusso di misurazioni non deve essere interrotto | FR7 |
+|  NFR4   |  Domain                            | La misurazioni deve avvenire ogni 10 minuti | FR7 |
 
 # Use case diagram and use cases
 
@@ -178,6 +214,62 @@ Storia: Nell'attesa di un cambio struttura, la Preside ha bisogno di monitorare 
 \<use UML class diagram to define important terms, or concepts in the domain of the application, and their relationships>
 
 \<concepts must be used consistently all over the document, ex in use cases, requirements etc>
+
+- `Network`: gruppo logico di gateway (e sensori associati), identificati da un codice alfanumerico univoco (scelto in creazione). Può rappresentare, ad esempio, una rete di monitorazione per un'intero palazzo. Non corrisponde a un device fisico ma è un oggetto software per organizzare e gestire gruppi diversi di device.
+
+- `Gateway`: un device fisico identificato dal suo indirizzo MAC, fornito di intefaccia di rete e connesso tramite essa al sistema GeoControl.
+
+- `Sensore`: device fisico che misura la quantità fisica (temperatura, inclinazione, etc) ogni 10 minuti. Non è fornito di interfaccia di rete ma è identificato unicamente dal suo indirizzo MAC. Comunica esclusivamente con il suo gateway corrispondente tramite connessione seriale, mandando la misurazione.
+
+- `Misurazione`: è costituita dal valore misurato e dal timestamp della misurazione.
+
+- `Statistiche di misurazioni`: _media_ e _varianza_ di un insieme di misurazioni eseguite in un certo range temporale. Tramite questi due valori vengono poi calcolate una _upper threashold_ come media+2varianza e una _lower threshold_ come media-2varianza.
+
+- `Misurazione outlier`: ogni misurazione con valore più alto della upper threshold o più basso della lower threshold considerando un insieme di misurazioni su un range temporale.
+
+``` plantuml
+
+class Network {
+  - codice
+  - nome
+  - descrizione
+}
+
+class Gateway {
+ - MAC
+ - nome
+ - descrizione
+}
+
+class Sensore {
+ - MAC
+ - nome
+ - descrizione
+ - variabile
+ - unità di misura
+}
+
+class Misurazioni {
+  - data inizio
+  - data fine
+  - media
+  - varianza
+  - upper threshold
+  - lower threshold
+}
+
+class Misurazione {
+ - timestamp
+ - valore
+ - èOutlier
+}
+
+Network o-- "*" Gateway
+Gateway o-- "*" Sensore
+Sensore "1" -- "*" Misurazioni : associateA <
+Misurazione "*" -- "1" Misurazioni : in >
+
+```
 
 # System Design
 
