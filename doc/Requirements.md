@@ -69,7 +69,7 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 \<Define here Context diagram using UML use case diagram>
 <p align="center">
-    <img src="img/Context_diagram.png" alt="" width="400">
+    <img src="res/Context_diagram.png" alt="" width="400">
 </p>
 
 \<actors are a subset of stakeholders>
@@ -116,49 +116,60 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 \<they match to high level use cases>
 
-|   ID   | Description |
-| :----- | :---------- |
-|  FR1   | Autenticazione e gestione utenti |
-|  FR1.1 | Login e Logout degli utenti |
-|  FR1.2 | Creazione account |
-|  FR1.3 | Modifica account |
-|  FR1.4 | Definizione ruolo dell'account |
-|  FR2   | Gestione networks |
-|  FR2.1 | Creazione network |
-|  FR2.2 | Modifica network |
-|  FR2.3 | Rimozione network |
-|  FR3   | Gestione gateways |
-|  FR3.1 | Inserimento gateway in un network |
-|  FR3.2 | Modifica gateway |
-|  FR3.3 | Rimozione gateway da un network |
-|  FR4   | Gestione sensori |
-|  FR4.1 | Inserimento sensore in un gateway |
-|  FR4.2 | Modifica sensore |
-|  FR4.3 | Rimozione sensore da un gateway |
-|  FR5   | Calcolo statistiche delle misurazioni |
-|  FR5.1 | Calcolo media di misurazioni su un range temporale |
-|  FR5.2 | Calcolo varianza di misurazioni su un range temporale |
-|  FR5.3 | Calcolo threshold tramite media e varianza |
-|  FR6   | Conversione timestamp delle misurazioni in ISO 8601 tramite timezone UTC |
-|  FR7   | Collezionamento e memorizzazione delle misurazioni |
-|  FR7.1 | Lettura misurazioni di un network |
-|  FR7.2 | Lettura da gateway |
-|  FR7.3 | Lettura da sensore/i |
-|  FR7.4 | Lettura degli outliers di un sensore |
-|  FR7.5 | Lettura degli outliers di un network |
-|  FR7.6 | Lettura delle statistiche di un sensore |
-|  FR7.7 | Memorizzazione di misurazioni di un sensore |
+|  ID   | Description |
+| :---: | :---------: |
+|  FR1  | Gestione autenticazione utente |
+|  FR1.1 | Login utente |
+|  FR1.2 | Logout utente |
+|  FR2   | Gestione utenti|
+|  FR2.1 | Creazione account|
+|  FR2.2 | Recupero utenti |
+|  FR2.3 | Recupero utente specifico |
+|  FR2.4 | Eliminazione account |
+|  FR3  | Gestione networks |
+|  FR3.1  | Creazione network |
+|  FR3.2  | Recupero networks |
+|  FR3.2  | Recupero network specifica |
+|  FR3.3  | Modifica dati network |
+|  FR3.4  | Eliminazione network |
+|  FR4  | Gestione gateways |
+|  FR4.1 | Creazione gateway |
+|  FR4.2 | Recupero tutti gateway |
+|  FR4.3 | Recupero gateway specifico | 
+|  FR4.4 | Modifica dati gateway |
+|  FR4.5 | Eliminazione gateway |
+|  FR5  | Gestione sensori |
+|  FR5.1 | Creazione sensore |
+|  FR5.2 | Recupero tutti sensori per gateway specifico |
+|  FR5.3 | Recupero sensore specifico|
+|  FR5.4 | Modifica dati sensore |
+|  FR5.5 | Eliminazione sensore|
+|  FR6   | Calcolo statistiche misurazioni |
+|  FR6.1  | Calcolo media di misurazioni su range temporale |
+|  FR6.2  | Calcolo varianza di misurazioni su range temporale |
+|  FR6.3  | Calcolo threshold tramite media e varianza |
+|  FR7  | Collezionamento e memorizzazione misurazioni |
+|  FR7.1  | Lettura misurazioni network |
+|  FR7.2  | Lettura misurazioni gateway |
+|  FR7.3  | Lettura misurazioni sensore |
+|  FR7.4  | Lettura outliers sensore |
+|  FR7.5  | Lettura outliers network |
+|  FR7.6  | Lettura statistiche sensore |
+|  FR7.7  | Memorizzazione di misurazioni sensore |
 
 ## Non Functional Requirements
 
 \<Describe constraints on functional requirements>
 
 |   ID    | Type (efficiency, reliability, ..) | Description | Refers to |
-| :------ | :--------------------------------: | :---------- | :-------: |
-|  NFR1   |  Reliability                       | Non devono essere perse più di 6 misurazioni per sensore ogni anno | FR7 |
-|  NFR2   |  Reliability                       | Il timestamp deve corrispondere all'esatto momento della misurazione | FR7 |
-|  NFR3   |  Reliability                       | Il flusso di misurazioni non deve essere interrotto | FR7 |
-|  NFR4   |  Domain                            | La misurazioni deve avvenire ogni 10 minuti | FR7 |
+| :-----: | :--------------------------------: | :---------: | :-------: |
+|  NFR1   |  Domain                            | Il sistema deve convertire, memorizzare e restituire i timestamp nel formato ISO 8601 (UTC) | FR 6 |
+|  NFR2   |  Reliability                       | Non devono essere perse più di 6 misurazioni per sensore ogni anno | FR 6 |
+|  NFR3   |  Reliability                       | Il timestamp deve corrispondere all'esatto momento della misurazione | FR 6 |
+|  NFR4   |  Reliability                       | Il flusso di misurazioni non deve essere interrotto | FR 6 |
+|  NFR5   |  Domain                            | La misurazioni deve avvenire ogni 10 minuti | FR 6 |
+
+
 
 # Use case diagram and use cases
 

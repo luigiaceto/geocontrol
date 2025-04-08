@@ -86,7 +86,7 @@ _Creazione Issue:_
 - `Assignee`: siccome l'assegnazione della Issue a più persone è una feature Premium, assegnare a voi stessi, oppure a nessuno se ne occupano `2+` persone
 - `Labels`: ho definito 4 possibili Label nel Repo. Il tab "Labels" si trova sotto il tab "Manage"
 
-_Chiusura Issue:_
+_Chiusura Issue:_<br>
 In generale, la Issue dovrebbe essere chiusa in automatico dalla Merge Request relativa al momento della chiusura della MR se si è impostato correttamente il campo `Description` della MR. Spiegato meglio nella sezione della Merge Request.
 
 
@@ -109,6 +109,6 @@ _Creazione Merge Request:_
 - `Labels`: le Labels della Merge Request devono essere le stesse della Issue che sta risolvendo
 - Il resto della compilazione è libero (probabilmente meglio lasciare valori default)
 
-_Chiusura Merge Request:_
+_Chiusura Merge Request:_<br>
 Una volta eseguite e pushate tutte le Commit necessarie alla chiusura della Merge Request, eseguire la Merge Request tramite GitLab.
 Lasciare i valori di default (compreso il messaggio). Assicuratevi che il flag che elimina il Branch Effimero sia attivo.
