@@ -40,22 +40,22 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 # Business Model
 
-- Private-as-a-Service:
-  Una compagnia privata sviluppa e gestisce il sistema offrendo il servizio ad amministrazioni pubbliche su base contrattuale.
+- __Private-as-a-Service__:
+  una compagnia privata sviluppa e gestisce il sistema offrendo il servizio ad amministrazioni pubbliche su base contrattuale.
 
-- Software con licenza:
-  La compagnia che sviluppa Geocontrol vende il software offrendo licenza annuale o come one time purchase. Nella licenza annuale potrebbe essere incluso un pacchetto di supporto tecnico e manutenzione della parte hardware del systema (sensori e gateway).
+- __Software con licenza__:
+  la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale o come one time purchase. Nella licenza annuale potrebbe essere incluso un pacchetto di supporto tecnico e manutenzione della parte hardware del systema (sensori e gateway).
 
-- Modello Open Core:
-  Si offre una versione open source del software e vengono venduti moduli premium con funzionalità più avanzate e servizi di personalizzazione e integrazione. E' utile per creare parallelamente una community di sviluppatori che contribuisce al miglioramento del prodotto.
+- __Modello Open Core__:
+  si offre una versione open source del software e vengono venduti moduli premium con funzionalità più avanzate e servizi di personalizzazione e integrazione. È utile per creare parallelamente una community di sviluppatori che contribuisce al miglioramento del prodotto.
 
-- Partnership:
-  Collaborare con produttori di sensori integrando al meglio il loro hardware con GeoControl e con società di consulenza ambientale/ingegneristica. Stabilire anche accordi di guadagno con partner che portano nuovi clienti.
+- __partnership__:
+  collaborare con produttori di sensori integrando al meglio il loro hardware con GeoControl e con società di consulenza ambientale/ingegneristica. Stabilire anche accordi di guadagno con partner che portano nuovi clienti.
 
 # Stakeholders
 
 | Stakeholder name | Description |
-| :--------------: | :---------: |
+| :--------------- | :---------- |
 |       Admin      |  Utente che ha accesso a tutte le risorse, inclusa la gestione di Networks e Utenti |
 |      Operator    |  Utente che può gestire Network, Gateway, Sensori e inserire misurazioni |
 |       Viewer     |  Utente che può solo consultare i dati |
@@ -80,7 +80,7 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 
 |   Actor   | Logical Interface | Physical Interface |
-| :-------: | :---------------: | :----------------: |
+| :-------- | :---------------: | :----------------: |
 | Admin     | GUI               | PC                 |
 | Operator  | GUI               | PC                 |
 | Viewer    | GUI               | PC, Smartphone     |
@@ -116,45 +116,45 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 \<they match to high level use cases>
 
-|  ID   | Description |
-| :---: | :---------: |
-|  FR1  | Autenticazione e gestione utenti |
+|   ID   | Description |
+| :----- | :---------- |
+|  FR1   | Autenticazione e gestione utenti |
 |  FR1.1 | Login e Logout degli utenti |
 |  FR1.2 | Creazione account |
 |  FR1.3 | Modifica account |
 |  FR1.4 | Definizione ruolo dell'account |
-|  FR2  | Gestione networks |
-|  FR2.1  | Creazione network |
-|  FR2.2  | Modifica network |
-|  FR2.3  | Rimozione network |
-|  FR3  | Gestione gateways |
+|  FR2   | Gestione networks |
+|  FR2.1 | Creazione network |
+|  FR2.2 | Modifica network |
+|  FR2.3 | Rimozione network |
+|  FR3   | Gestione gateways |
 |  FR3.1 | Inserimento gateway in un network |
 |  FR3.2 | Modifica gateway |
 |  FR3.3 | Rimozione gateway da un network |
-|  FR4  | Gestione sensori |
+|  FR4   | Gestione sensori |
 |  FR4.1 | Inserimento sensore in un gateway |
 |  FR4.2 | Modifica sensore |
 |  FR4.3 | Rimozione sensore da un gateway |
-|  FR5  | Calcolo statistiche delle misurazioni |
-|  FR5.1  | Calcolo media di misurazioni su un range temporale |
-|  FR5.2  | Calcolo varianza di misurazioni su un range temporale |
-|  FR5.3  | Calcolo threshold tramite media e varianza |
-|  FR6  | Conversione timestamp delle misurazioni in ISO 8601 tramite timezone UTC |
-|  FR7  | Collezionamento e memorizzazione delle misurazioni |
-|  FR7.1  | Lettura misurazioni di un network |
-|  FR7.2  | Lettura da gateway |
-|  FR7.3  | Lettura da sensore/i |
-|  FR7.4  | Lettura degli outliers di un sensore |
-|  FR7.5  | Lettura degli outliers di un network |
-|  FR7.6  | Lettura delle statistiche di un sensore |
-|  FR7.7  | Memorizzazione di misurazioni di un sensore |
+|  FR5   | Calcolo statistiche delle misurazioni |
+|  FR5.1 | Calcolo media di misurazioni su un range temporale |
+|  FR5.2 | Calcolo varianza di misurazioni su un range temporale |
+|  FR5.3 | Calcolo threshold tramite media e varianza |
+|  FR6   | Conversione timestamp delle misurazioni in ISO 8601 tramite timezone UTC |
+|  FR7   | Collezionamento e memorizzazione delle misurazioni |
+|  FR7.1 | Lettura misurazioni di un network |
+|  FR7.2 | Lettura da gateway |
+|  FR7.3 | Lettura da sensore/i |
+|  FR7.4 | Lettura degli outliers di un sensore |
+|  FR7.5 | Lettura degli outliers di un network |
+|  FR7.6 | Lettura delle statistiche di un sensore |
+|  FR7.7 | Memorizzazione di misurazioni di un sensore |
 
 ## Non Functional Requirements
 
 \<Describe constraints on functional requirements>
 
 |   ID    | Type (efficiency, reliability, ..) | Description | Refers to |
-| :-----: | :--------------------------------: | :---------: | :-------: |
+| :------ | :--------------------------------: | :---------- | :-------: |
 |  NFR1   |  Reliability                       | Non devono essere perse più di 6 misurazioni per sensore ogni anno | FR7 |
 |  NFR2   |  Reliability                       | Il timestamp deve corrispondere all'esatto momento della misurazione | FR7 |
 |  NFR3   |  Reliability                       | Il flusso di misurazioni non deve essere interrotto | FR7 |
@@ -171,7 +171,7 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 ### Use case 1, UC1
 
 | Actors Involved  |                                                                      |
-| :--------------: | :------------------------------------------------------------------: |
+| :--------------: | :------------------------------------------------------------------- |
 |   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
 |  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
 | Nominal Scenario |         \<Textual description of actions executed by the UC>         |
@@ -189,7 +189,7 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 \<only relevant scenarios should be described>
 
 |  Scenario 1.1  |                                                                            |
-| :------------: | :------------------------------------------------------------------------: |
+| :------------- | :------------------------------------------------------------------------- |
 |  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
 | Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
 |     Step#      |                                Description                                 |
@@ -223,9 +223,12 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 - `Misurazione`: è costituita dal valore misurato e dal timestamp della misurazione.
 
-- `Statistiche di misurazioni`: _media_ e _varianza_ di un insieme di misurazioni eseguite in un certo range temporale. Tramite questi due valori vengono poi calcolate una _upper threashold_ come media+2varianza e una _lower threshold_ come media-2varianza.
+- `Statistiche di misurazioni`: _media_ ($\sigma$) e _varianza_ ($\mu$) di un insieme di misurazioni eseguite in un certo range temporale. Tramite questi due valori vengono poi calcolate:
+	- _upper threashold_ = $\mu+2\sigma$
+	- _lower threshold_ = $\mu-2\sigma$.
 
-- `Misurazione outlier`: ogni misurazione con valore più alto della upper threshold o più basso della lower threshold considerando un insieme di misurazioni su un range temporale.
+
+- `Misurazione Outlier`: ogni misurazione con valore più alto della `upperThreshold` o più basso della `lowerThreshold` considerando un insieme di misurazioni su un range temporale.
 
 ``` plantuml
 
@@ -254,14 +257,14 @@ class Misurazioni {
   - data fine
   - media
   - varianza
-  - upper threshold
-  - lower threshold
+  - upperThreshold
+  - lowerThreshold
 }
 
 class Misurazione {
  - timestamp
  - valore
- - èOutlier
+ - isOutlier
 }
 
 Network o-- "*" Gateway
@@ -280,3 +283,4 @@ Misurazione "*" -- "1" Misurazioni : in >
 # Deployment Diagram
 
 \<describe here deployment diagram >
+
