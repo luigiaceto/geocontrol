@@ -223,11 +223,88 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 |      3       |  Sistema : legge username e password fornite dall'Utente                                                                          |
 |4 | Sistema  : non trova l'Utente in base all'username. L'Utente non è autorizzato |
 
-### Use case 2, UC2
+### Use case 2, Registrazione (UC2)
 
+| Actors Involved  |   Admin                            |
+| :--------------: | :------------------------------------------------------------------- |
+|   Precondition   | L'Utente non ha un account  |
+|  Post condition  |  L'Utente si è registrato   |
+| Nominal Scenario |         Scenario 2.1         |
+|     Variants     |                     Nessuna                    |
+|    Exceptions    |                        Scenario 2.2, 2.3                        |
 
+### Scenario 2.1
+|  Scenario 2.1  |  Registrazione completata         |
+| :------------- | :------------------------------------------------------------------------- |
+|  Precondition  | L'Utente non è registrato |
+| Post condition |  L'Utente si è registrato  |
+|     Step#      |                                Description                                 |
+|       1        |  Utente : chiede di registrarsi                             |
+|       2        |  Sistema : richiede username, nome, cognome, ruolo e password       |
+|      3         |  Utente : fornisce username, nome, cognome, ruolo e password           |
+|      4         | Sistema  : legge username, nome, cognome, ruolo e password |
+|      5         | Sistema : controlla che l'username non sia ancora associato ad un account. L'username non è ancora stato usato|
+|      6         | Sistema : crea un nuovo Utente con le informazioni fornite|
 
-### Use case x, UCx
+### Scenario 2.2
+|  Scenario 2.2  |  Utente già esistente         |
+| :------------- | :------------------------------------------------------------------------- |
+|  Precondition  | L'Utente non è registrato |
+| Post condition |  Registrazione fallita  |
+|     Step#      |                                Description                                 |
+|       1        |  Utente : chiede di registrarsi                             |
+|       2        |  Sistema : richiede username, nome, cognome, ruolo e password       |
+|      3         |  Utente : fornisce username, nome, cognome, ruolo e password           |
+|      4         | Sistema  : legge username, nome, cognome, ruolo e password |
+|      5         | Sistema : controlla che l'username non sia ancora associato ad un account. L'username esiste già. Viene fornito un messaggio di errore|
+
+### Scenario 2.3
+|  Scenario 2.3  |  Campi vuoti         |
+| :------------- | :------------------------------------------------------------------------- |
+|  Precondition  | L'Utente non è registrato |
+| Post condition |  Registrazione fallita  |
+|     Step#      |                                Description                                 |
+|       1        |  Utente : chiede di registrarsi                             |
+|       2        |  Sistema : richiede username, nome, cognome, ruolo e password       |
+|      3         |  Utente : fornisce username, nome, cognome, ruolo e password           |
+|      4         | Sistema  : legge username, nome, cognome, ruolo e password |
+|      5         | Sistema : controlla che tutti i parametri siano riempiti. Almeno uno è vuoto. Viene fornito un messaggio di errore|
+
+### Use case 3, Cancellazione Account
+
+| Actors Involved  |   Admin    |
+| :--------------: | :------------------------------------------------------------------- |
+|   Precondition   | L'Utente ha un account  |
+|  Post condition  |  L'account viene eliminato  |
+| Nominal Scenario |         Scenario 3.1         |
+|     Variants     |                     Nessuna                    |
+|    Exceptions    |                        Scenario 3.2                        |
+
+### Scenario 3.1
+|  Scenario 3.1  |  Cancellazione effettuata         |
+| :------------- | :------------------------------------------------------------------------- |
+|  Precondition  | L'Utente ha un account |
+| Post condition |  L'account viene eliminato  |
+|     Step#      |                                Description                                 |
+|       1        |  Utente : chiede di eliminare Utente U                             |
+|       2        |  Sistema : richiede username dell'Utente U      |
+|      3         |  Utente : fornisce l'username dell'Utente U        |
+|      4         | Sistema  : legge l'username |
+|      5         | Sistema : cerca le informazioni relative all'Utente U. U viene trovato|
+|      6         | Sistema : elimina l'account dell'Utente U|
+
+### Scenario 3.2
+|  Scenario 3.2  |  Utente inesistente         |
+| :------------- | :------------------------------------------------------------------------- |
+|  Precondition  | L'Utente ha un account |
+| Post condition |  Viene mostrato un errore  |
+|     Step#      |                                Description                                 |
+|       1        |  Utente : chiede di eliminare Utente U                             |
+|       2        |  Sistema : richiede username dell'Utente U      |
+|      3         |  Utente : fornisce l'username dell'Utente U        |
+|      4         | Sistema  : legge l'username |
+|      5         | Sistema : cerca le informazioni relative all'Utente U. U non viene trovato|
+|      6         | Sistema : mostra un messaggio di errore in cui dice che l'Utente U non esiste|
 
 ..
 
