@@ -205,15 +205,15 @@ Gateways -[hidden]d- Sensori
 
 \<next describe here each use case in the UCD>
 
-### Use case 1, UC1
+### Use case 1, Login (UC1)
 
-| Actors Involved  |                                                                      |
+| Actors Involved  |   Admin, Operator, Viewer                                                                 |
 | :--------------: | :------------------------------------------------------------------- |
-|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
-|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
-| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
-|     Variants     |                      \<other normal executions>                      |
-|    Exceptions    |                        \<exceptions, errors >                        |
+|   Precondition   | L'Utente non ha ancora effettuato il login  |
+|  Post condition  |  L'Utente completa il login   |
+| Nominal Scenario |         Scenario 1.1         |
+|     Variants     |                     Nessuna                    |
+|    Exceptions    |                        Scenario 1.2, 1.3                        |
 
 ##### Scenario 1.1
 
@@ -225,22 +225,44 @@ Gateways -[hidden]d- Sensori
 
 \<only relevant scenarios should be described>
 
-|  Scenario 1.1  |                                                                            |
+|  Scenario 1.1  |  Login completato                                                                        |
 | :------------- | :------------------------------------------------------------------------- |
-|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
-| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
+|  Precondition  | L'Utente è registrato |
+| Post condition |  L'Utente effetua il login  |
 |     Step#      |                                Description                                 |
-|       1        |                                                                            |
-|       2        |                                                                            |
-|      ...       |                                                                            |
+|       1        |  Sistema : richiede username e password per il login                                                                          |
+|       2        |  Utente : fornisce username e password                                                                          |
+|      3       |  Sistema : legge username e password fornite dall'Utente                                                                          |
+|4 | Sistema : Sistema : trova l'Utente in base all'username |
+| 5 | Sistema : confronta la password fornita con la password associata all'Utente. In caso di match, l'Utente effettua il login|
 
 ##### Scenario 1.2
 
-##### Scenario 1.x
+|  Scenario 1.2  |  Password errata                                                                        |
+| :------------- | :------------------------------------------------------------------------- |
+|  Precondition  | L'Utente è registrato |
+| Post condition |  L'Utente non effetua il login  |
+|     Step#      |                                Description                                 |
+|       1        |  Sistema : richiede username e password per il login                                                                          |
+|       2        |  Utente : fornisce username e password                                                                          |
+|      3       |  Sistema : legge username e password fornite dall'Utente                                                                          |
+|4 | Sistema : trova l'Utente in base all'username |
+| 5 | Sistema : confronta la password fornita con la password associata all'Utente. Le password non matchano, l'Utente non effettua il login|
+##### Scenario 1.3
+
+|  Scenario 1.1  |  Utente non registrato                                                                        |
+| :------------- | :------------------------------------------------------------------------- |
+|  Precondition  | L'Utente non è registrato |
+| Post condition |  L'Utente non effetua il login  |
+|     Step#      |                                Description                                 |
+|       1        |  Sistema : richiede username e password per il login                                                                          |
+|       2        |  Utente : fornisce username e password                                                                          |
+|      3       |  Sistema : legge username e password fornite dall'Utente                                                                          |
+|4 | Sistema  : non trova l'Utente in base all'username. L'Utente non è autorizzato |
 
 ### Use case 2, UC2
 
-..
+
 
 ### Use case x, UCx
 
