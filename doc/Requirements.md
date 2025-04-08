@@ -1731,6 +1731,21 @@ class Statistiche {
   - lowerThreshold
 }
 
+class Misurazione {
+ - timestamp
+ - valore
+ - isOutlier
+}
+
+class Statistiche {
+  - startDate
+  - endDate
+  - mean
+  - variance
+  - upperThreshold
+  - lowerThreshold
+}
+
 Utente <|-- Viewer
 Viewer <|-l- Operator
 Operator <|-l- Admin
