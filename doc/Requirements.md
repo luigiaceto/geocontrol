@@ -13,7 +13,7 @@ Version: V1 - description of Geocontrol as described in the swagger
 - [Requirements Document - GeoControl](#requirements-document---geocontrol)
 - [Contents](#contents)
 - [Informal description](#informal-description)
-- [Business model](#business-model)
+- [Business Model](#business-model)
 - [Stakeholders](#stakeholders)
 - [Context Diagram and interfaces](#context-diagram-and-interfaces)
   - [Context Diagram](#context-diagram)
@@ -24,12 +24,30 @@ Version: V1 - description of Geocontrol as described in the swagger
   - [Non Functional Requirements](#non-functional-requirements)
 - [Use case diagram and use cases](#use-case-diagram-and-use-cases)
   - [Use case diagram](#use-case-diagram)
-    - [Use case 1, UC1](#use-case-1-uc1)
-      - [Scenario 1.1](#scenario-11)
-      - [Scenario 1.2](#scenario-12)
-      - [Scenario 1.x](#scenario-1x)
-    - [Use case 2, UC2](#use-case-2-uc2)
-    - [Use case x, UCx](#use-case-x-ucx)
+    - [Use case 1, Login (UC1)](#use-case-1-login-uc1)
+        - [Scenario 1.1](#scenario-11)
+        - [Scenario 1.2](#scenario-12)
+        - [Scenario 1.3](#scenario-13)
+        - [Scenario 1.4](#scenario-14)
+        - [Scenario 1.5](#scenario-15)
+    - [Use case 2, Registrazione (UC2)](#use-case-2-registrazione-uc2)
+    - [Scenario 2.1](#scenario-21)
+    - [Scenario 2.2](#scenario-22)
+    - [Scenario 2.3](#scenario-23)
+    - [Use case 3, Cancellazione Account](#use-case-3-cancellazione-account)
+    - [Scenario 3.1](#scenario-31)
+    - [Scenario 3.2](#scenario-32)
+    - [Use case 4, Gestione Networks](#use-case-4-gestione-networks)
+    - [Scenario 4.1: Recupero di tutte le Reti](#scenario-41-recupero-di-tutte-le-reti)
+    - [Scenario 4.2: Recupero di una Rete specifica](#scenario-42-recupero-di-una-rete-specifica)
+    - [Scenario 4.3: Creazione di una Nuova Rete](#scenario-43-creazione-di-una-nuova-rete)
+    - [Scenario 4.4: Aggiornamento della Rete](#scenario-44-aggiornamento-della-rete)
+    - [Scenario 4.5: Cancellazione della Rete](#scenario-45-cancellazione-della-rete)
+    - [Scenario 4.6: Errore di Autorizzazione (401 Unauthorized)](#scenario-46-errore-di-autorizzazione-401-unauthorized)
+    - [Scenario 4.7: Errore di Permessi Insufficienti (403 Forbidden)](#scenario-47-errore-di-permessi-insufficienti-403-forbidden)
+    - [Scenario 4.8: Errore Interno del Server (500 Internal Server Error)](#scenario-48-errore-interno-del-server-500-internal-server-error)
+    - [Scenario 4.9: Rete Non Trovata (404 Not Found)](#scenario-49-rete-non-trovata-404-not-found)
+    - [Scenario 4.10: Conflitto (409 Conflict)](#scenario-410-conflitto-409-conflict)
 - [Glossary](#glossary)
 - [System Design](#system-design)
 - [Deployment Diagram](#deployment-diagram)
@@ -173,10 +191,10 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 | Actors Involved  |   Admin, Operator, Viewer                                                                 |
 | :--------------: | :------------------------------------------------------------------- |
 |   Precondition   | L'Utente non ha ancora effettuato il login  |
-|  Post condition  |  L'Utente completa il login   |
+|  Post condition  |  L'Utente ottiene un token di accesso per sessioni future   |
 | Nominal Scenario |         Scenario 1.1         |
 |     Variants     |                     Nessuna                    |
-|    Exceptions    |                        Scenario 1.2, 1.3                        |
+|    Exceptions    |      Scenario 1.2, 1.3, 1.4, 1.5                      |
 
 ##### Scenario 1.1
 
@@ -188,40 +206,67 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 \<only relevant scenarios should be described>
 
-|  Scenario 1.1  |  Login completato                                                                        |
+|  Scenario 1.1  |  Login con successo                                                                        |
 | :------------- | :------------------------------------------------------------------------- |
 |  Precondition  | L'Utente è registrato |
-| Post condition |  L'Utente effetua il login  |
+| Post condition |  L'Utente effettua il login  |
 |     Step#      |                                Description                                 |
-|       1        |  Sistema : richiede username e password per il login                                                                          |
-|       2        |  Utente : fornisce username e password                                                                          |
-|      3       |  Sistema : legge username e password fornite dall'Utente                                                                          |
-|4 | Sistema : Sistema : trova l'Utente in base all'username |
-| 5 | Sistema : confronta la password fornita con la password associata all'Utente. In caso di match, l'Utente effettua il login|
+|       1        |  Il sistema richiede username e password per il login                                                                          |
+|       2        |  L'utente fornisce username e password                                                                          |
+|      3       |  Il sistema legge username e password fornite dall'utente                                                                          |
+|4 | Il sistema verifica le credenziali |
+| 5 | Il sistema restituisce un codice 200 e un token di accesso in formato JSON. Consente quindi l'accesso all'utente|
 
 ##### Scenario 1.2
 
-|  Scenario 1.2  |  Password errata                                                                        |
+|  Scenario 1.2  | Login con dati non validi                                                          |
 | :------------- | :------------------------------------------------------------------------- |
 |  Precondition  | L'Utente è registrato |
-| Post condition |  L'Utente non effetua il login  |
+| Post condition |  L'Utente non effettua il login  |
 |     Step#      |                                Description                                 |
-|       1        |  Sistema : richiede username e password per il login                                                                          |
-|       2        |  Utente : fornisce username e password                                                                          |
-|      3       |  Sistema : legge username e password fornite dall'Utente                                                                          |
-|4 | Sistema : trova l'Utente in base all'username |
-| 5 | Sistema : confronta la password fornita con la password associata all'Utente. Le password non matchano, l'Utente non effettua il login|
+|       1        |  Il sistema richiede username e password per il login                                                                          |
+|       2        |  L'Utente fornisce username e password                                                                          |
+|      3       |  Il sistema legge username e password fornite dall'Utente                                                                          |
+|4 | Il sistema verifica che i dati siano corretti |
+| 5 | Il sistema restituisce un codice 400 e un messaggio di errore, l'Utente non è autorizzato all'accesso|
 ##### Scenario 1.3
 
-|  Scenario 1.1  |  Utente non registrato                                                                        |
+|  Scenario 1.3  |  Login con credenziali errate                                                                       |
 | :------------- | :------------------------------------------------------------------------- |
-|  Precondition  | L'Utente non è registrato |
-| Post condition |  L'Utente non effetua il login  |
+|  Precondition  | L'Utente è registrato |
+| Post condition |  L'Utente non effettua il login  |
 |     Step#      |                                Description                                 |
-|       1        |  Sistema : richiede username e password per il login                                                                          |
-|       2        |  Utente : fornisce username e password                                                                          |
-|      3       |  Sistema : legge username e password fornite dall'Utente                                                                          |
-|4 | Sistema  : non trova l'Utente in base all'username. L'Utente non è autorizzato |
+|       1        |  Il sistema richiede username e password per il login                                                                          |
+|       2        |  L'Utente fornisce username e password                                                                          |
+|      3       |  Il sistema legge username e password fornite dall'Utente                                                                          |
+|4 | Il sistema verifica che le credenziali siano corrette |
+|5 | Il sistema restituisce un codice 401 e un messaggio di errore. L'Utente non è autorizzato all'accesso|
+
+
+##### Scenario 1.4
+
+|  Scenario 1.4  |  Login con utente non trovato                                                                 |
+| :------------- | :------------------------------------------------------------------------- |
+|  Precondition  | L'Utente è registrato |
+| Post condition |  L'Utente non effettua il login  |
+|     Step#      |                                Description                                 |
+|       1        |  Il sistema richiede username e password per il login                                                                          |
+|       2        |  L'Utente fornisce username e password                                                                          |
+|      3       |  Il sistema legge username e password fornite dall'Utente                                                                          |
+|4 | Il sistema verifica che l'username non esiste |
+|5 | Il sistema  restituisce un codice 404 e un messaggio di errore indicando che l'utente non è stato trovato |
+
+##### Scenario 1.5
+
+|  Scenario 1.5  |  Login con errore interno                                                         |
+| :------------- | :------------------------------------------------------------------------- |
+|  Precondition  | L'Utente è registrato |
+| Post condition |  L'Utente non effettua il login  |
+|     Step#      |                                Description                                 |
+|       1        |  Il sistema richiede username e password per il login                                                                          |
+|       2        |  L'Utente fornisce username e password                                                                          |
+|      3       |  Il sistema tenta di verificare le credenziali, ma si verifica un errore interno                                                      |
+| 4 | Il sistema restituisce un codice 500 e un messaggio di errore indicando un errore interno al server |
 
 ### Use case 2, Registrazione (UC2)
 
@@ -305,6 +350,128 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 |      4         | Sistema  : legge l'username |
 |      5         | Sistema : cerca le informazioni relative all'Utente U. U non viene trovato|
 |      6         | Sistema : mostra un messaggio di errore in cui dice che l'Utente U non esiste|
+
+
+
+### Use case 4, Gestione Networks
+
+| Actors Involved  |   Admin, Operator, Viewer    |
+| :--------------: | :------------------------------------------------------------------- |
+|   Precondition   |  L'utente è autenticato e ha i permessi per visualizzare, creare, aggiornare o cancellare le reti. |
+|  Post condition  |  La rete è stata gestita correttamente  |
+| Nominal Scenario |        Scenario 4.1: Recupero di tutte le reti (GET /networks), Scenario 4.2: Creazione di una nuova rete (POST /networks), Scenario 4.3: Aggiornamento della rete (PATCH /networks), Scenario 4.4: Cancellazione della rete (DELETE /networks)      |
+|     Variants     |               Nessuna                    |
+|    Exceptions    |      Scenario 4.6: Errore di autorizzazione (401), Scenario 4.7: Errore di permessi insufficienti (403), Scenario 4.8: Errore interno del server (500), Scenario 4.9: Rete non trovata (404), Scenario 4.10: Conflitto (409)                  |
+
+### Scenario 4.1: Recupero di tutte le Reti 
+
+| Precondition    | L'utente è autenticato correttamente e ha i permessi per visualizzare le reti |
+| :-------------------: | :-------------------------------------------------------------------------- |
+| Post condition    | Il sistema restituisce l'elenco di tutte le reti registrate |
+| Step#             | Description |
+| 1                 | L'utente invia una richiesta GET a `/networks` con il token di autenticazione valido |
+| 2                 | Il sistema verifica la validità del token di autenticazione |
+| 3                 | Il sistema recupera tutte le reti |
+| 4                 | Il sistema restituisce una lista di tutte le reti con il codice 200 e i dati in formato JSON |
+
+### Scenario 4.2: Recupero di una Rete specifica 
+
+| Precondition    | L'utente è autenticato correttamente e ha i permessi per visualizzare le reti |
+| :-------------------: | :-------------------------------------------------------------------------- |
+| Post condition    | Il sistema restituisce la rete specifica |
+| Step#             | Description |
+| 1                 | L'utente invia una richiesta GET a `/networks/{networkCode}` con il token di autenticazione valido |
+| 2                 | Il sistema verifica la validità del codice di rete e del token di autenticazione |
+| 3                 | Il sistema recupera la rete richiesta |
+| 4                 | Il sistema restituisce una la rete con il codice 200 e i dati in formato JSON |
+
+### Scenario 4.3: Creazione di una Nuova Rete 
+
+| Precondition     | L'utente (Admin e Operator) è autenticato e ha i permessi per creare una rete |
+| :-------------------: | :------------------------------------------------------- |
+| Post condition    | Una nuova rete è stata creata nel sistema|
+| Step#             | Description |
+| 1                 | L'utente invia una richiesta POST a `/networks` con i dati della rete |
+| 2                 | Il sistema verifica che i dati siano completi e validi |
+| 3                 | Il sistema crea una nuova rete |
+| 4                 | Il sistema restituisce una risposta con codice 201, indicando che la rete è stata creata correttamente. |
+
+
+### Scenario 4.4: Aggiornamento della Rete 
+
+| Precondition     | L'utente (Admin e Operator) è autenticato e ha i permessi per aggiornare la rete |
+| :-------------------: | :---------------------------------------------------------- |
+| Post condition    | La rete è stata aggiornata correttamente nel sistema |
+| Step#            | Description |
+| 1                 | L'utente invia una richiesta PATCH a `/networks/{networkCode}` con i dati da aggiornare |
+| 2                 | Il sistema verifica la validità dei dati di aggiornamento |
+| 3                | Il sistema aggiorna i dati della rete |
+| 4                 | Il sistema restituisce una risposta con codice 204, indicando che l'aggiornamento è stato effettuato correttamente |
+
+### Scenario 4.5: Cancellazione della Rete
+
+| Precondition     | L'utente (Admin e Operator) è autenticato e ha i permessi per cancellare la rete |
+| :-------------------: | :-------------------------------------------------------- |
+| Post condition    | La rete è stata cancellata correttamente dal sistema. |
+| Step#             | Description |
+| 1                 | L'utente invia una richiesta DELETE a `/networks/{networkCode}`. |
+| 2                 | Il sistema verifica la validità del codice di rete e l'autenticazione |
+| 3                 | Il sistema cancella la rete |
+| 4                 | Il sistema restituisce una risposta con codice 204, indicando che la rete è stata cancellata correttamente |
+
+### Scenario 4.6: Errore di Autorizzazione (401 Unauthorized)
+
+| Precondition     | L'utente invia una richiesta senza token o con un token non valido |
+| :-------------------: | :--------------------------------------------------------------- |
+| Post condition    | Il sistema restituisce un errore di autorizzazione (401) |
+| Step#            | Description |
+| 1                 | L'utente invia una richiesta senza un token valido |
+| 2                 | Il sistema verifica il token e rileva che non è valido |
+| 3                 | Il sistema restituisce un errore con codice 401 |
+
+
+### Scenario 4.7: Errore di Permessi Insufficienti (403 Forbidden)
+
+| Precondition     | L'utente non ha i permessi per accedere alla rete richiesta |
+| :-------------------: | :------------------------------------------------------- |
+| Post condition    | Il sistema restituisce un errore di permessi insufficienti (403) |
+| Step#             | Description |
+| 1                 | L'utente invia una richiesta con il proprio token valido |
+| 2                 | Il sistema verifica il token e le autorizzazioni dell'utente |
+| 3                 | Il sistema restituisce un errore con codice 403 |
+
+
+### Scenario 4.8: Errore Interno del Server (500 Internal Server Error)
+
+| Precondition     | Durante l'elaborazione della richiesta qualcosa non funziona nel server |
+| :-------------------: | :-------------------------------------------------------------- |
+| Post condition    | Il sistema restituisce un errore interno (500) |
+| Step#             | Description |
+| 1                 | L'utente invia una richiesta valida |
+| 2                 | Il sistema cerca di elaborare la richiesta, ma si verifica un errore interno |
+| 3                 | Il sistema restituisce un errore con codice 500 |
+
+
+### Scenario 4.9: Rete Non Trovata (404 Not Found)
+
+| Precondition     | L'utente invia una richiesta con un codice di rete che non esiste |
+| :-------------------: | :------------------------------------------------------------ |
+| Post condition    | Il sistema restituisce un errore con codice 404, indicando che la rete non è stata trovata |
+| Step#             | Description |
+| 1               | L'utente invia una richiesta con un codice di rete non valido |
+| 2                 | Il sistema verifica che la rete non esista |
+| 3                 | Il sistema restituisce un errore con codice 404 |
+
+### Scenario 4.10: Conflitto (409 Conflict)
+
+| Precondition     | L'utente cerca di creare o aggiornare una rete con un codice già esistente |
+| :-------------------: | :------------------------------------------------------------------- |
+| Post condition    | Il sistema restituisce un errore di conflitto (409) |
+| Step#             | Description |
+| 1                 | L'utente invia una richiesta con un codice di rete già esistente |
+| 2                 | Il sistema rileva il conflitto di codice |
+| 3                 | Il sistema restituisce un errore con codice 409 |
+
 
 ..
 
