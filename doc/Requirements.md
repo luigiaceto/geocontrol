@@ -206,16 +206,16 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 \<only relevant scenarios should be described>
 
-|  Scenario 1.1  |  Login con successo                                                                        |
+|  Scenario 1.1  |  Login con successo                                                        |
 | :------------- | :------------------------------------------------------------------------- |
-|  Precondition  | L'Utente è registrato |
-| Post condition |  L'Utente effettua il login  |
+|  Precondition  | L'Utente è registrato                                                      |
+| Post condition |  L'Utente effettua il login                                                |
 |     Step#      |                                Description                                 |
-|       1        |  Il sistema richiede username e password per il login                                                                          |
-|       2        |  L'utente fornisce username e password                                                                          |
-|      3       |  Il sistema legge username e password fornite dall'utente                                                                          |
-|4 | Il sistema verifica le credenziali |
-| 5 | Il sistema restituisce un codice 200 e un token di accesso in formato JSON. Consente quindi l'accesso all'utente|
+|       1        |  Il sistema richiede username e password per il login                      |
+|       2        |  L'utente fornisce username e password                                     |
+|       3        |  Il sistema legge username e password fornite dall'utente                  |
+|       4        | Il sistema verifica le credenziali                                         |
+|       5        | Il sistema restituisce un codice 200 e un token di accesso in formato JSON. Consente quindi l'accesso all'utente |
 
 ##### Scenario 1.2
 
@@ -227,8 +227,8 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 |       1        |  Il sistema richiede username e password per il login                                                                          |
 |       2        |  L'Utente fornisce username e password                                                                          |
 |      3       |  Il sistema legge username e password fornite dall'Utente                                                                          |
-|4 | Il sistema verifica che i dati siano corretti |
-| 5 | Il sistema restituisce un codice 400 e un messaggio di errore, l'Utente non è autorizzato all'accesso|
+|4 | Il sistema verifica le credenziali |
+| 5 | Il sistema restituisce un codice 400 e un messaggio di errore, i dati di input non sono validi |
 ##### Scenario 1.3
 
 |  Scenario 1.3  |  Login con credenziali errate                                                                       |
@@ -239,8 +239,8 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 |       1        |  Il sistema richiede username e password per il login                                                                          |
 |       2        |  L'Utente fornisce username e password                                                                          |
 |      3       |  Il sistema legge username e password fornite dall'Utente                                                                          |
-|4 | Il sistema verifica che le credenziali siano corrette |
-|5 | Il sistema restituisce un codice 401 e un messaggio di errore. L'Utente non è autorizzato all'accesso|
+|4 | Il sistema verifica che le credenziali |
+|5 | Il sistema restituisce un codice 401 e un messaggio di errore, username o password errati |
 
 
 ##### Scenario 1.4
@@ -253,8 +253,8 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 |       1        |  Il sistema richiede username e password per il login                                                                          |
 |       2        |  L'Utente fornisce username e password                                                                          |
 |      3       |  Il sistema legge username e password fornite dall'Utente                                                                          |
-|4 | Il sistema verifica che l'username non esiste |
-|5 | Il sistema  restituisce un codice 404 e un messaggio di errore indicando che l'utente non è stato trovato |
+|4 | Il sistema verifica le credenziali |
+|5 | Il sistema  restituisce un codice 404 e un messaggio di errore, l'utente non è stato trovato |
 
 ##### Scenario 1.5
 
