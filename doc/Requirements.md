@@ -102,12 +102,16 @@ la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale 
 
 | Stakeholder name | Description |
 | :--------------- | :---------- |
-|       Admin      |  Utente che ha accesso a tutte le risorse, inclusa la gestione di Networks e Utenti |
-|      Operator    |  Utente che può gestire Network, Gateway, Sensori e inserire misurazioni |
-|       Viewer     |  Utente che può solo consultare i dati |
+| Admin |  Utente che ha accesso a tutte le risorse e funzionalità del sistema, inclusa la gestione degli Utenti |
+| Operator |  Utente che può gestire Network, Gateway, Sensori e inserire Misurazioni |
+| Viewer |  Utente che può solo consultare i dati |
 | Unione delle Comunità Montane del Piemonte | Committente principale del Sistema |
-| Enti Pubblici e Privati | Università, cittadine, Protezione Civile o aziende che vogliono usufruire dei servizi del Sistema |
-| Produttori di Componenti | Coloro che si occupano di produzione e distribuzione dell'Hardware utilizzato nel Sistema |
+| Aziende Private | Aziende che vogliono monitorare i propri edifici o aree di lavoro |
+| Enti di Ricerca | Università e centri di ricerca che sono interessati ai dati raccolti dal Sistema |
+| Enti Governativi | Enti che si occupano di monitoraggio ambientale e gestione del territorio |
+| Produttori di Componenti | Aziende che si occupano di produzione e distribuzione delle componenti Hardware utilizzate nel Sistema |
+| Manutentori | Tecnici che si occupano della manutenzione e del monitoraggio delle componenti Hardware su cui si basa il Sistema |
+| Servizio di Pagamento Licenza | Servizio di pagamento per l'acquisto della licenza del Software |
 
 # Context Diagram and Interfaces
 
@@ -245,7 +249,7 @@ __Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitora
 | FR6.6 | Ottenimento Elenco Outliers di Network Specifico |
 | FR6.7 | Ottenimento Elenco Outliers di Sensore Specifico |
 
-#### Access Rights
+#### Table of Rights
 
 | FR    | Viewer             | Operator           | Admin              |
 | :---: | :----------------: | :----------------: | :----------------: |
