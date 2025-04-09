@@ -8,23 +8,120 @@ Count only effort spent on GeoControl (so do not count effort spent in virtual l
 
 These figures will not be used to evaluate neither the project nor the team, they are meant as practical application of basic project management.
 
-|      Week      | requirement engineering | design | coding | unit testing | integration testing | acceptance testing | containerization | management |
-| :------------: | :---------------------: | :----: | :----: | :----------: | :-----------------: | :----------------: | :--------------: | :--------: |
-|  Mar 24 - 30   |                         |        |        |              |                     |                    |                  |            |
-| Mar 31 - Apr 6 |                         |        |        |              |                     |                    |                  |            |
-|   Apr 7 - 13   |                         |        |        |              |                     |                    |                  |            |
-|  Apr 14 - 20   |                         |        |        |              |                     |                    |                  |            |
-|  Apr 21 - 27   |                         |        |        |              |                     |                    |                  |            |
-| Apr 28 - May 4 |                         |        |        |              |                     |                    |                  |            |
-|   May 5 - 11   |                         |        |        |              |                     |                    |                  |            |
-|  May 12 - 18   |                         |        |        |              |                     |                    |                  |            |
-|  May 19 - 25   |                         |        |        |              |                     |                    |                  |            |
-| May 26 - Jun 1 |                         |        |        |              |                     |                    |                  |            |
-|   Jun 2 - 8    |                         |        |        |              |                     |                    |                  |            |
-|   Jun 9 - 15   |                         |        |        |              |                     |                    |                  |            |
-|  Jun 16 - 22   |                         |        |        |              |                     |                    |                  |            |
-|  Jun 23 - 29   |                         |        |        |              |                     |                    |                  |            |
-| Jun 30 - Jul 6 |                         |        |        |              |                     |                    |                  |            |
-|   Jul 7 - 13   |                         |        |        |              |                     |                    |                  |            |
-|  Jul 14 - 20   |                         |        |        |              |                     |                    |                  |            |
-|  Jul 21 - 27   |                         |        |        |              |                     |                    |                  |            |
+| Week | Requirement Engineering | Design | Coding | Unit Testing | Integration Testing | Acceptance Testing | Containerization | Management |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Mar 24 - 30    | | | | | | | | |
+| Mar 31 - Apr 6 | | | | | | | | |
+| Apr 7 - 13     | | | | | | | | |
+| Apr 14 - 20    | | | | | | | | |
+| Apr 21 - 27    | | | | | | | | |
+| Apr 28 - May 4 | | | | | | | | |
+| May 5 - 11     | | | | | | | | |
+| May 12 - 18    | | | | | | | | |
+| May 19 - 25    | | | | | | | | |
+| May 26 - Jun 1 | | | | | | | | |
+| Jun 2 - 8      | | | | | | | | |
+| Jun 9 - 15     | | | | | | | | |
+| Jun 16 - 22    | | | | | | | | |
+| Jun 23 - 29    | | | | | | | | |
+| Jun 30 - Jul 6 | | | | | | | | |
+| Jul 7 - 13     | | | | | | | | |
+| Jul 14 - 20    | | | | | | | | |
+| Jul 21 - 27    | | | | | | | | |
+
+
+## Timesheet per Team Member
+
+Suddivisione dei Timesheet utile per rendere più comoda la somma finale che fatta in ognuna delle fasi di sviluppo del progetto da riportare nella tabella generale.
+
+### Timesheet Filippo
+
+| Week | Requirement Engineering | Design | Coding | Unit Testing | Integration Testing | Acceptance Testing | Containerization | Management |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Mar 24 - 30    | | | | | | | | |
+| Mar 31 - Apr 6 | | | | | | | | |
+| Apr 7 - 13     | | | | | | | | |
+| Apr 14 - 20    | | | | | | | | |
+| Apr 21 - 27    | | | | | | | | |
+| Apr 28 - May 4 | | | | | | | | |
+| May 5 - 11     | | | | | | | | |
+| May 12 - 18    | | | | | | | | |
+| May 19 - 25    | | | | | | | | |
+| May 26 - Jun 1 | | | | | | | | |
+| Jun 2 - 8      | | | | | | | | |
+| Jun 9 - 15     | | | | | | | | |
+| Jun 16 - 22    | | | | | | | | |
+| Jun 23 - 29    | | | | | | | | |
+| Jun 30 - Jul 6 | | | | | | | | |
+| Jul 7 - 13     | | | | | | | | |
+| Jul 14 - 20    | | | | | | | | |
+| Jul 21 - 27    | | | | | | | | |
+
+### Timesheet Michele
+
+| Week | Requirement Engineering | Design | Coding | Unit Testing | Integration Testing | Acceptance Testing | Containerization | Management |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Mar 24 - 30    | | | | | | | | |
+| Mar 31 - Apr 6 | | | | | | | | |
+| Apr 7 - 13     | | | | | | | | |
+| Apr 14 - 20    | | | | | | | | |
+| Apr 21 - 27    | | | | | | | | |
+| Apr 28 - May 4 | | | | | | | | |
+| May 5 - 11     | | | | | | | | |
+| May 12 - 18    | | | | | | | | |
+| May 19 - 25    | | | | | | | | |
+| May 26 - Jun 1 | | | | | | | | |
+| Jun 2 - 8      | | | | | | | | |
+| Jun 9 - 15     | | | | | | | | |
+| Jun 16 - 22    | | | | | | | | |
+| Jun 23 - 29    | | | | | | | | |
+| Jun 30 - Jul 6 | | | | | | | | |
+| Jul 7 - 13     | | | | | | | | |
+| Jul 14 - 20    | | | | | | | | |
+| Jul 21 - 27    | | | | | | | | |
+
+### Timesheet Luigi
+
+| Week | Requirement Engineering | Design | Coding | Unit Testing | Integration Testing | Acceptance Testing | Containerization | Management |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Mar 24 - 30    | | | | | | | | |
+| Mar 31 - Apr 6 | | | | | | | | |
+| Apr 7 - 13     | | | | | | | | |
+| Apr 14 - 20    | | | | | | | | |
+| Apr 21 - 27    | | | | | | | | |
+| Apr 28 - May 4 | | | | | | | | |
+| May 5 - 11     | | | | | | | | |
+| May 12 - 18    | | | | | | | | |
+| May 19 - 25    | | | | | | | | |
+| May 26 - Jun 1 | | | | | | | | |
+| Jun 2 - 8      | | | | | | | | |
+| Jun 9 - 15     | | | | | | | | |
+| Jun 16 - 22    | | | | | | | | |
+| Jun 23 - 29    | | | | | | | | |
+| Jun 30 - Jul 6 | | | | | | | | |
+| Jul 7 - 13     | | | | | | | | |
+| Jul 14 - 20    | | | | | | | | |
+| Jul 21 - 27    | | | | | | | | |
+
+### Timesheet Marcello
+
+| Week | Requirement Engineering | Design | Coding | Unit Testing | Integration Testing | Acceptance Testing | Containerization | Management |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Mar 24 - 30    | | | | | | | | |
+| Mar 31 - Apr 6 | | | | | | | | |
+| Apr 7 - 13     | | | | | | | | |
+| Apr 14 - 20    | | | | | | | | |
+| Apr 21 - 27    | | | | | | | | |
+| Apr 28 - May 4 | | | | | | | | |
+| May 5 - 11     | | | | | | | | |
+| May 12 - 18    | | | | | | | | |
+| May 19 - 25    | | | | | | | | |
+| May 26 - Jun 1 | | | | | | | | |
+| Jun 2 - 8      | | | | | | | | |
+| Jun 9 - 15     | | | | | | | | |
+| Jun 16 - 22    | | | | | | | | |
+| Jun 23 - 29    | | | | | | | | |
+| Jun 30 - Jul 6 | | | | | | | | |
+| Jul 7 - 13     | | | | | | | | |
+| Jul 14 - 20    | | | | | | | | |
+| Jul 21 - 27    | | | | | | | | |
