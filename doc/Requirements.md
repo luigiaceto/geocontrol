@@ -22,6 +22,7 @@ Version: V1 - description of Geocontrol as described in the swagger
   * [Functional and Non-Functional Requirements](#functional-and-non-functional-requirements)
     + [Functional Requirements](#functional-requirements)
       - [Access Rights](#access-rights)
+      - [Access Rights](#access-rights)
     + [Non-Functional Requirements](#non-functional-requirements)
   * [Use Case Diagram and Use Cases](#use-case-diagram-and-use-cases)
     + [Use Case Diagram](#use-case-diagram)
@@ -32,13 +33,9 @@ Version: V1 - description of Geocontrol as described in the swagger
         * [Scenario 1.1](#scenario-11)
         * [Scenario 1.2](#scenario-12)
         * [Scenario 1.3](#scenario-13)
-<<<<<<< HEAD
         * [Scenario 1.4](#scenario-14)
         * [Scenario 1.5](#scenario-15)
       - [Use Case 2 (UC2): Creazione Account](#use-case-2--uc2---creazione-account)
-=======
-      - [Use case 2, Registrazione (UC2)](#use-case-2--registrazione--uc2-)
->>>>>>> 97a2223 (Fix: minor changes)
         * [Scenario 2.1](#scenario-21)
         * [Scenario 2.2](#scenario-22)
         * [Scenario 2.3](#scenario-23)
@@ -341,7 +338,7 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | Post-condition   | Utente ha ottenuto un Token per le richieste successive |
 | Nominal Scenario | Scenario 1.1 |
 | Variants         | // |
-| Exceptions       | Scenari: 1.2, 1.3 |
+| Exceptions       | Scenari: 1.2, 1.3, 1.4, 1.5 |
 
 ##### Scenario 1.1
 
@@ -374,7 +371,6 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | 3              | _System_: legge credenziali (Username e Password) |
 | 4              | _System_: cerca Username; Username non trovato |
 | 5              | _System_: mostra messaggio di errore. Utente non trovato |
->>>>>>> 97a2223 (Fix: minor changes)
 
 ##### Scenario 1.3
 
