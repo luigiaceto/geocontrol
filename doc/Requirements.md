@@ -223,7 +223,7 @@ Gateways -[hidden]d- Sensori
 
 \<next describe here each use case in the UCD>
 
-### Use case 1, Login (UC1)
+### Use case 1, Autorizzazione Utente (UC1)
 
 | Actors Involved  |   Admin, Operator, Viewer                                                                 |
 | :--------------: | :------------------------------------------------------------------- |
@@ -243,12 +243,12 @@ Gateways -[hidden]d- Sensori
 
 \<only relevant scenarios should be described>
 
-|  Scenario 1.1  |  Login con successo                                                        |
+|  Scenario 1.1  |  Autorizzazione avvenuta con successo                                                        |
 | :------------- | :------------------------------------------------------------------------- |
 |  Precondition  | L'Utente è registrato                                                      |
-| Post condition |  L'Utente effettua il login                                                |
+| Post condition |  L'Utente viene autorizzato                                                |
 |     Step#      |                                Description                                 |
-|       1        |  Il sistema richiede username e password per il login                      |
+|       1        |  Il sistema richiede username e password per essere autorizzato                      |
 |       2        |  L'utente fornisce username e password                                     |
 |       3        |  Il sistema legge username e password fornite dall'utente                  |
 |       4        | Il sistema verifica le credenziali                                         |
@@ -256,24 +256,24 @@ Gateways -[hidden]d- Sensori
 
 ##### Scenario 1.2
 
-|  Scenario 1.2  | Login con dati non validi                                                          |
+|  Scenario 1.2  | Autorizzazione con dati non validi                                                          |
 | :------------- | :------------------------------------------------------------------------- |
 |  Precondition  | L'Utente è registrato |
-| Post condition |  L'Utente non effettua il login  |
+| Post condition |  L'Utente non viene autorizzato  |
 |     Step#      |                                Description                                 |
-|       1        |  Il sistema richiede username e password per il login                                                                          |
+|       1        |  Il sistema richiede username e password per essere autorizzato                                                                          |
 |       2        |  L'Utente fornisce username e password                                                                          |
 |      3       |  Il sistema legge username e password fornite dall'Utente                                                                          |
 |4 | Il sistema verifica le credenziali |
 | 5 | Il sistema restituisce un codice 400 e un messaggio di errore, i dati di input non sono validi |
 ##### Scenario 1.3
 
-|  Scenario 1.3  |  Login con credenziali errate                                                                       |
+|  Scenario 1.3  |  Autorizzazione con credenziali errate                                                                       |
 | :------------- | :------------------------------------------------------------------------- |
 |  Precondition  | L'Utente è registrato |
-| Post condition |  L'Utente non effettua il login  |
+| Post condition |  L'Utente non viene autorizzato  |
 |     Step#      |                                Description                                 |
-|       1        |  Il sistema richiede username e password per il login                                                                          |
+|       1        |  Il sistema richiede username e password per essere autorizzato             |
 |       2        |  L'Utente fornisce username e password                                                                          |
 |      3       |  Il sistema legge username e password fornite dall'Utente                                                                          |
 |4 | Il sistema verifica che le credenziali |
@@ -282,12 +282,12 @@ Gateways -[hidden]d- Sensori
 
 ##### Scenario 1.4
 
-|  Scenario 1.4  |  Login con utente non trovato                                                                 |
+|  Scenario 1.4  |  Autorizzazione con utente non trovato                                                                 |
 | :------------- | :------------------------------------------------------------------------- |
 |  Precondition  | L'Utente è registrato |
-| Post condition |  L'Utente non effettua il login  |
+| Post condition |  L'Utente non viene autorizzato  |
 |     Step#      |                                Description                                 |
-|       1        |  Il sistema richiede username e password per il login                                                                          |
+|       1        |  Il sistema richiede username e password per essere autorizzato                                                                          |
 |       2        |  L'Utente fornisce username e password                                                                          |
 |      3       |  Il sistema legge username e password fornite dall'Utente                                                                          |
 |4 | Il sistema verifica le credenziali |
@@ -295,12 +295,12 @@ Gateways -[hidden]d- Sensori
 
 ##### Scenario 1.5
 
-|  Scenario 1.5  |  Login con errore interno                                                         |
+|  Scenario 1.5  |  Autorizzazione con errore interno                                                         |
 | :------------- | :------------------------------------------------------------------------- |
 |  Precondition  | L'Utente è registrato |
-| Post condition |  L'Utente non effettua il login  |
+| Post condition |  L'Utente non viene autorizzato  |
 |     Step#      |                                Description                                 |
-|       1        |  Il sistema richiede username e password per il login                                                                          |
+|       1        |  Il sistema richiede username e password per essere autorizzato          |
 |       2        |  L'Utente fornisce username e password                                                                          |
 |      3       |  Il sistema tenta di verificare le credenziali, ma si verifica un errore interno                                                      |
 | 4 | Il sistema restituisce un codice 500 e un messaggio di errore indicando un errore interno al server |
