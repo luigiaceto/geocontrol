@@ -21,6 +21,7 @@ Version: V1 - description of Geocontrol as described in the swagger
   * [Stories and Personas](#stories-and-personas)
   * [Functional and Non-Functional Requirements](#functional-and-non-functional-requirements)
     + [Functional Requirements](#functional-requirements)
+      - [Access Rights](#access-rights)
     + [Non-Functional Requirements](#non-functional-requirements)
   * [Use Case Diagram and Use Cases](#use-case-diagram-and-use-cases)
     + [Use Case Diagram](#use-case-diagram)
@@ -31,24 +32,39 @@ Version: V1 - description of Geocontrol as described in the swagger
         * [Scenario 1.1](#scenario-11)
         * [Scenario 1.2](#scenario-12)
         * [Scenario 1.3](#scenario-13)
-      - [Use case 2, Registrazione (UC2)](#use-case-2--registrazione--uc2-)
+        * [Scenario 1.4](#scenario-14)
+        * [Scenario 1.5](#scenario-15)
+      - [Use Case 2 (UC2): Creazione Account](#use-case-2--uc2---creazione-account)
         * [Scenario 2.1](#scenario-21)
         * [Scenario 2.2](#scenario-22)
         * [Scenario 2.3](#scenario-23)
-      - [Use case 3, Cancellazione Account](#use-case-3--cancellazione-account)
+        * [Scenario 2.4](#scenario-24)
+        * [Scenario 2.5](#scenario-25)
+        * [Scenario 2.6](#scenario-26)
+      - [Use Case 3 (UC3): Ottenimento Utente](#use-case-3--uc3---ottenimento-utente)
         * [Scenario 3.1](#scenario-31)
         * [Scenario 3.2](#scenario-32)
-      - [Use case 4, Gestione Networks](#use-case-4--gestione-networks)
-        * [Scenario 4.1: Recupero di tutte le Reti](#scenario-41--recupero-di-tutte-le-reti)
-        * [Scenario 4.2: Recupero di una Rete specifica](#scenario-42--recupero-di-una-rete-specifica)
-        * [Scenario 4.3: Creazione di una Nuova Rete](#scenario-43--creazione-di-una-nuova-rete)
-        * [Scenario 4.4: Aggiornamento della Rete](#scenario-44--aggiornamento-della-rete)
-        * [Scenario 4.5: Cancellazione della Rete](#scenario-45--cancellazione-della-rete)
-        * [Scenario 4.6: Errore di Autorizzazione (401 Unauthorized)](#scenario-46--errore-di-autorizzazione--401-unauthorized-)
-        * [Scenario 4.7: Errore di Permessi Insufficienti (403 Forbidden)](#scenario-47--errore-di-permessi-insufficienti--403-forbidden-)
-        * [Scenario 4.8: Errore Interno del Server (500 Internal Server Error)](#scenario-48--errore-interno-del-server--500-internal-server-error-)
-        * [Scenario 4.9: Rete Non Trovata (404 Not Found)](#scenario-49--rete-non-trovata--404-not-found-)
-        * [Scenario 4.10: Conflitto (409 Conflict)](#scenario-410--conflitto--409-conflict-)
+        * [Scenario 3.3](#scenario-33)
+        * [Scenario 3.4](#scenario-34)
+        * [Scenario 3.5](#scenario-35)
+        * [Scenario 3.6](#scenario-36)
+      - [Use Case 4 (UC4): Eliminazione Account](#use-case-4--uc4---eliminazione-account)
+        * [Scenario 4.1](#scenario-41)
+        * [Scenario 4.2](#scenario-42)
+        * [Scenario 4.3](#scenario-43)
+        * [Scenario 4.4](#scenario-44)
+        * [Scenario 4.5](#scenario-45)
+      - [Use case 5, Gestione Networks](#use-case-5--gestione-networks)
+        * [Scenario 5.1: Recupero di tutte le Reti](#scenario-51--recupero-di-tutte-le-reti)
+        * [Scenario 5.2: Recupero di una Rete specifica](#scenario-52--recupero-di-una-rete-specifica)
+        * [Scenario 5.3: Creazione di una Nuova Rete](#scenario-53--creazione-di-una-nuova-rete)
+        * [Scenario 5.4: Aggiornamento della Rete](#scenario-54--aggiornamento-della-rete)
+        * [Scenario 5.5: Cancellazione della Rete](#scenario-55--cancellazione-della-rete)
+        * [Scenario 5.6: Errore di Autorizzazione (401 Unauthorized)](#scenario-56--errore-di-autorizzazione--401-unauthorized-)
+        * [Scenario 5.7: Errore di Permessi Insufficienti (403 Forbidden)](#scenario-57--errore-di-permessi-insufficienti--403-forbidden-)
+        * [Scenario 5.8: Errore Interno del Server (500 Internal Server Error)](#scenario-58--errore-interno-del-server--500-internal-server-error-)
+        * [Scenario 5.9: Rete Non Trovata (404 Not Found)](#scenario-59--rete-non-trovata--404-not-found-)
+        * [Scenario 5.10: Conflitto (409 Conflict)](#scenario-410--conflitto--409-conflict-)
   * [Glossary](#glossary)
     + [Glossary Diagram](#glossary-diagram)
   * [System Design](#system-design)
@@ -139,36 +155,36 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 
 \<they match to high level use cases>
 
-|  ID   | Description |
-| :---- | :---------- |
-| FR1   | Gestione Utente |
-| FR1.1 | Autenticazione Utente |
+|  ID   | Description | User Story |
+| :---- | :---------- | :--------- |
+| __FR1__   | __Gestione Utente__ |
+| FR1.1 | Autenticazione Utente | COME Utente<br>VOGLIO autenticarmi al sistema<br>PER accedere a tutte le funzionalità |
 | FR1.2 | Creazione Account|
 | FR1.3 | Ottenimento Elenco Utenti |
 | FR1.4 | Ottenimento Utente Specifico |
 | FR1.5 | Eliminazione Account |
-| FR2   | Gestione Networks |
+| __FR2__   | __Gestione Networks__ |
 | FR2.1 | Creazione Network |
 | FR2.2 | Ottenimento Elenco Networks |
 | FR2.3 | Ottenimento Network Specifico |
 | FR2.4 | Modifica Dati Network |
 | FR2.5 | Eliminazione Network |
-| FR3   | Gestione Gateways |
+| __FR3__   | __Gestione Gateways__ |
 | FR3.1 | Creazione Gateway |
 | FR3.2 | Ottenimento Elenco Gateway per Network Specifico |
 | FR3.3 | Ottenimento Gateway Specifico | 
 | FR3.4 | Modifica Dati Gateway |
 | FR3.5 | Eliminazione Gateway |
-| FR4   | Gestione Sensori |
+| __FR4__   | __Gestione Sensori__ |
 | FR4.1 | Creazione Sensore |
 | FR4.2 | Ottenimento Elenco Sensori per Gateway Specifico |
 | FR4.3 | Ottenimento Sensore Specifico |
 | FR4.4 | Modifica Dati Sensore |
 | FR4.5 | Eliminazione Sensore|
-| FR5   | Calcolo Statistiche su Misurazioni |
+| __FR5__   | __Calcolo Statistiche su Misurazioni__ |
 | FR5.1 | Calcolo Media su Misurazioni in Range Temporale |
 | FR5.2 | Calcolo Varianza su Misurazioni in Range Temporale |
-| FR6   | Gestione Misurazioni |
+| __FR6__   | __Gestione Misurazioni__ |
 | FR6.1 | Creazione Misurazione |
 | FR6.2 | Ottenimento Elenco Misurazioni di Network Specifico |
 | FR6.3 | Ottenimento Elenco Misurazioni di Sensore Specifico |
@@ -176,6 +192,40 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | FR6.5 | Ottenimento Elenco Statistiche di Sensore Specifico |
 | FR6.6 | Ottenimento Elenco Outliers di Network Specifico |
 | FR6.7 | Ottenimento Elenco Outliers di Sensore Specifico |
+
+#### Access Rights
+
+| FR    | Viewer             | Operator           | Admin              |
+| :---: | :----------------: | :----------------: | :----------------: |
+| FR1.1 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR1.2 | :x:                | :x:                | :white_check_mark: |
+| FR1.3 | :x:                | :x:                | :white_check_mark: |
+| FR1.4 | :x:                | :x:                | :white_check_mark: |
+| FR1.5 | :x:                | :x:                | :white_check_mark: |
+| FR2.1 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR2.2 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR2.3 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR2.4 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR2.5 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR3.1 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR3.2 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR3.3 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR3.4 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR3.5 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR4.1 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR4.2 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR4.3 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR4.4 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR4.5 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR5.1 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR5.2 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR6.1 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR6.2 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR6.3 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR6.4 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR6.5 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR6.6 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR6.7 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ### Non-Functional Requirements
 
@@ -238,6 +288,8 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 
 \###############################################
 
+__NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente uno dei possibili Attori che può eseguire il Caso d'Uso (anche quando solo 1 attore è possibile). Non va confuso con il termine "Utente" che compare in alcune Pre-condition e Post-condition.  
+
 #### Use case 1 (UC1): Autenticazione al Sistema
 
 | UC1              | Use Case 1: Autenticazione al Sistema | 
@@ -247,7 +299,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | Post-condition   | Utente ha ottenuto un Token per le richieste successive |
 | Nominal Scenario | Scenario 1.1 |
 | Variants         | // |
-| Exceptions       | Scenari: 1.2, 1.3 |
+| Exceptions       | Scenari: 1.2, 1.3, 1.4, 1.5 |
 
 ##### Scenario 1.1
 
@@ -261,20 +313,18 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | 3              | _System_: legge credenziali (Username e Password) |
 | 4              | _System_: cerca Username; Username trovato |
 | 5			  	 | _System_: verifica Password; Password corretta |
-| 6              | _System_: autorizza Utente e restituisce Token |
+| 6              | _System_: autorizza Utente e restituisce Token __(Code 200)__ |
 
 ##### Scenario 1.2
-
-| UC1 - S1.2     | Scenario 1.2: Autenticazione al Sistema (Utente non Esiste) |
+| UC1 - S1.2     | Scenario 1.2: Autenticazione al Sistema (Input Invalido) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente non esiste nel sistema |
+| Pre-condition  | // |
 | Post-condition | Utente non è autenticato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _System_: richiede credenziali (Username e Password) |
-| 2              | _Utente_: fornisce credenziali (Username e Password) |
-| 3              | _System_: legge credenziali (Username e Password) |
-| 4              | _System_: cerca Username; Username non trovato |
-| 5              | _System_: mostra messaggio di errore. Utente non trovato |
+| 2              | _Utente_: fornisce un Input Invalido |
+| 3              | _System_: legge Input fornito |
+| 4              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
 
 ##### Scenario 1.3
 
@@ -288,107 +338,282 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | 3              | _System_: legge credenziali (Username e Password) |
 | 4              | _System_: cerca Username; Username trovato |
 | 5              | _System_: verifica Password; Password errata |
-| 6              | _System_: mostra messaggio di errore. Password errata |
+| 6              | _System_: mostra messaggio di errore. Password errata __(Code 401)__ |
+
+##### Scenario 1.4
+
+| UC1 - S1.4     | Scenario 1.4: Autenticazione al Sistema (Utente non Esiste) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non esiste nel sistema |
+| Post-condition | Utente non è autenticato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _System_: richiede credenziali (Username e Password) |
+| 2              | _Utente_: fornisce credenziali (Username e Password) |
+| 3              | _System_: legge credenziali (Username e Password) |
+| 4              | _System_: cerca Username; Username non trovato |
+| 5              | _System_: mostra messaggio di errore. Utente non trovato __(Code 404)__ |
+
+##### Scenario 1.5
+
+| UC1 - S1.5     | Scenario 1.5: Autenticazione al Sistema (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Utente non è autenticato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _System_: richiede credenziali (Username e Password) |
+| 2              | _Utente_: fornisce credenziali (Username e Password) |
+| 3              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
 
+#### Use Case 2 (UC2): Creazione Account
 
-#### Use case 2, Registrazione (UC2)
-
-| Actors Involved  |   Admin                            |
-| :--------------: | :------------------------------------------------------------------- |
-|   Pre-Condition  | L'Utente non ha un account  |
-|  Post-Condition  |  L'Utente si è registrato   |
-| Nominal Scenario |         Scenario 2.1         |
-|     Variants     |                     Nessuna                    |
-|    Exceptions    |    Scenario 2.2, 2.3, 2.4, 2.5, 2.6          |
+| UC2              | Use Case 2: Creazione Account |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin |
+| Pre-condition    | Utente (di cui creare Account) non ha un account |
+| Post-condition   | Account relativo all'Utente è creato |
+| Nominal Scenario | Scenario 2.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 2.2, 2.3, 2.4, 2.5, 2.6 |
 
 ##### Scenario 2.1
-|  Scenario 2.1  |  Registrazione completata         |
-| :------------- | :------------------------------------------------------------------------- |
-|  Pre-Condition | L'Utente non è registrato |
-| Post-Condition |  L'Utente si è registrato  |
-|     Step#      |                                Description                                 |
-|       1        |  L'Utente chiede di creare un account                             |
-|       2        |  Il Sistema controlla che l'Utente sia autorizzato e che abbia i diritti sufficienti|
-|       3        |  Il Sistema richiede username, nome, cognome, ruolo e password       |
-|      4         |  L'Utente fornisce username, nome, cognome, ruolo e password           |
-|      5         | Il Sistema legge username, nome, cognome, ruolo e password |
-|      6         | Il Sistema controlla che tutti i parametri siano riempiti. Tutti i parametri sono riempiti|
-|      7         | Il Sistema controlla che l'username non sia ancora associato ad un account. L'username non è ancora stato usato|
-|      8         | Il Sistema crea un nuovo Utente con le informazioni fornite e restituisce un messaggio codice 200 |
+
+| UC2 - S2.1     | Scenario 2.1: Creazione Account (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato; Utente (di cui creare Account) non ha un account |
+| Post-condition | Account relativo all'Utente è creato |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un account |
+| 2              | _System_: richiede username, password, type |
+| 3              | _Utente_: fornisce username, password, type |
+| 4              | _System_: legge username, password, type |
+| 5              | _System_: verifica uso Username; Username non è in uso |
+| 6			     | _System_: crea e memorizza nuovo Account __(Code 201)__ |
 
 ##### Scenario 2.2
-|  Scenario 2.2  |  Utente già esistente         |
-| :------------- | :------------------------------------------------------------------------- |
-|  Pre-Condition | L'Utente non è registrato |
-| Post-Condition |  Registrazione fallita  |
-|     Step#      |                                Description                                 |
-|       1        |  L'Utente chiede di creare un account                             |
-|       2        |  Il Sistema controlla che l'Utente sia autorizzato e che abbia i diritti sufficienti|
-|       3        |  Il Sistema richiede username, nome, cognome, ruolo e password       |
-|      4         |  L'Utente fornisce username, nome, cognome, ruolo e password           |
-|      5         | Il Sistema legge username, nome, cognome, ruolo e password |
-|      6         | Il Sistema controlla che tutti i parametri siano riempiti. Almeno uno è vuoto. Il Sistema restituisce un messaggio di errore con codice 400|
+
+| UC2 - S2.2     | Scenario 2.2: Creazione Account (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Account non creato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un account |
+| 2              | _System_: richiede username, password, type |
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
 
 ##### Scenario 2.3
-|  Scenario 2.3  |  Campi vuoti         |
-| :------------- | :------------------------------------------------------------------------- |
-|  Pre-Condition | L'Utente non è registrato |
-| Post-Condition |  Registrazione fallita  |
-|     Step#      |                                Description                                 |
-|       1        |  L'Utente chiede di creare un account                             |
-|      2         | Il Sistema tenta di controllare che l'Utente sia autorizzato o abbia i diritti sufficienti, ma si verifica un errore.|
-|      3         | Il sistema restituisce un codice 500 e un messaggio di errore indicando un errore interno al server |
 
-#### Use case 3, Cancellazione Account
+| UC2 - S2.3     | Scenario 2.3: Creazione Account (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin non è autenticato |
+| Post-condition | Account non creato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un account |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
 
-| Actors Involved  |   Admin    |
-| :--------------: | :------------------------------------------------------------------- |
-|   Pre-Condition  | L'Utente ha un account  |
-|  Post-Condition  |  L'account viene eliminato  |
-| Nominal Scenario |         Scenario 3.1         |
-|     Variants     |                     Nessuna                    |
-|    Exceptions    |                        Scenario 3.2                        |
+##### Scenario 2.4
+
+| UC2 - S2.4     | Scenario 2.4: Creazione Account (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Admin`) |
+| Post-condition | Account non creato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un account |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 2.5
+
+| UC2 - S2.5     | Scenario 2.5: Creazione Account (Username in Uso) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato; Utente (di cui creare Account) ha già un account |
+| Post-condition | Account non creato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un account |
+| 2              | _System_: richiede username, password, type |
+| 3              | _Utente_: fornisce username, password, type |
+| 4              | _System_: legge username, password, type |
+| 5              | _System_: verifica uso Username; Username in uso |
+| 6			     | _System_: mostra messaggio di errore. Username in uso __(Code 409)__ |
+
+##### Scenario 2.6
+
+| UC2 - S2.6     | Scenario 2.6: Creazione Account (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Account non creato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un account |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+
+#### Use Case 3 (UC3): Ottenimento Utente
+
+| UC3              | Use Case 3: Ottenimento Utente |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin |
+| Pre-condition    | // |
+| Post-condition   | Informazioni di almeno un Utente sono state ottenute |
+| Nominal Scenario | Scenario 3.1 |
+| Variants         | Scenario 3.2 |
+| Exceptions       | Scenari: 3.3, 3.4, 3.5, 3.6 |
 
 ##### Scenario 3.1
-|  Scenario 3.1  |  Cancellazione effettuata         |
-| :------------- | :------------------------------------------------------------------------- |
-|  Pre-Condition  | L'Utente ha un account |
-| Post-Condition |  L'account viene eliminato  |
-|     Step#      |                                Description                                 |
-|       1        |  Utente : chiede di eliminare Utente U                             |
-|       2        |  Sistema : richiede username dell'Utente U      |
-|      3         |  Utente : fornisce l'username dell'Utente U        |
-|      4         | Sistema  : legge l'username |
-|      5         | Sistema : cerca le informazioni relative all'Utente U. U viene trovato|
-|      6         | Sistema : elimina l'account dell'Utente U|
+
+| UC3 - S3.1     | Scenario 3.1: Ottenimento Elenco Utenti (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato |
+| Post-condition | Elenco di Utenti è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco di Utenti |
+| 2              | _System_: ottiene l'elenco di Utenti |
+| 3              | _System_: restituisce l'elenco di Utenti __(Code 200)__ |
 
 ##### Scenario 3.2
-|  Scenario 3.2  |  Utente inesistente         |
-| :------------- | :------------------------------------------------------------------------- |
-|  Pre-Condition  | L'Utente ha un account |
-| Post-Condition |  Viene mostrato un errore  |
-|     Step#      |                                Description                                 |
-|       1        |  Utente : chiede di eliminare Utente U                             |
-|       2        |  Sistema : richiede username dell'Utente U      |
-|      3         |  Utente : fornisce l'username dell'Utente U        |
-|      4         | Sistema  : legge l'username |
-|      5         | Sistema : cerca le informazioni relative all'Utente U. U non viene trovato|
-|      6         | Sistema : mostra un messaggio di errore in cui dice che l'Utente U non esiste|
+
+| UC3 - S3.2     | Scenario 3.2: Ottenimento Utente Specifico (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato; Utente ricercato esiste |
+| Post-condition | Informazioni su Utente ricerato sono state ottenute |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Utente Specifico |
+| 2              | _System_: richiede userName dell'Utente ricercato |
+| 3              | _Utente_: fornisce userName dell'Utente ricercato |
+| 4              | _System_: legge userName fornito |
+| 5              | _System_: verifica userName; Utente esiste |
+| 6              | _System_: restituisce informazioni su Utente __(Code 200)__ |
+
+##### Scenario 3.3
+
+| UC3 - S3.3     | Scenario 3.3: Ottenimento Utente (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin non è autenticato |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni Utenti |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 3.4
+
+| UC3 - S3.4     | Scenario 3.4: Ottenimento Utente (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Admin`) |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni Utenti |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 3.5
+
+| UC3 - S3.5     | Scenario 3.5: Ottenimento Utente (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni Utenti |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+##### Scenario 3.6
+
+| UC3 - S3.6     | Scenario 3.6: Ottenimento Utente Specifico (Utente non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato; Utente ricercato non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Utente Specifico |
+| 2              | _System_: richiede userName dell'Utente ricercato |
+| 3              | _Utente_: fornisce userName dell'Utente ricercato |
+| 4              | _System_: legge userName fornito |
+| 5              | _System_: verifica userName; Utente non esiste |
+| 6              | _System_: mostra messaggio di errore. Utente non trovato __(Code 404)__ |
+
+
+#### Use Case 4 (UC4): Eliminazione Account
+
+| UC4              | Use Case 4: Eliminazione Account |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin |
+| Pre-condition    | Account (associato a Utente da eliminare) esiste |
+| Post-condition   | Account (associato a Utente da eliminare) è stato eliminato |
+| Nominal Scenario | Scenario 4.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 4.2, 4.3, 4.4, 4.5 |
+
+##### Scenario 4.1
+
+| UC4 - S4.1     | Scenario 4.1: Eliminazione Account (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato; Account (associato a Utente da eliminare) esiste |
+| Post-condition | Account (associato a Utente da eliminare) è stato eliminato |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare Account associato a Utente |
+| 2              | _System_: richiede userName dell'Utente da eliminare |
+| 3              | _Utente_: fornisce userName dell'Utente da eliminare |
+| 4              | _System_: legge userName fornito |
+| 5              | _System_: verifica userName; Utente esiste |
+| 6              | _System_: elimina Account associato a Utente __(Code 204)__ |
+
+##### Scenario 4.2
+
+| UC4 - S4.2     | Scenario 4.2: Eliminazione Account (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin non è autenticato |
+| Post-condition | Account non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare Account associato a Utente |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 4.3
+
+| UC4 - S4.3     | Scenario 4.3: Eliminazione Account (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Admin`) |
+| Post-condition | Account non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare Account associato a Utente |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 4.4
+
+| UC4 - S4.4     | Scenario 4.4: Eliminazione Account (Utente non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato; Account (associato a Utente da eliminare) non esiste |
+| Post-condition | Account non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare Account associato a Utente |
+| 2              | _System_: richiede userName dell'Utente da eliminare |
+| 3              | _Utente_: fornisce userName dell'Utente da eliminare |
+| 4              | _System_: legge userName fornito |
+| 5              | _System_: verifica userName; Utente non esiste |
+| 6              | _System_: mostra messaggio di errore. Utente non trovato __(Code 404)__ |
+
+##### Scenario 4.5
+
+| UC4 - S4.5     | Scenario 4.5: Eliminazione Account (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Account non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare Account associato a Utente |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
 
 
-#### Use case 4, Gestione Networks
+
+
+
+#### Use case 5, Gestione Networks
 
 | Actors Involved  |   Admin, Operator, Viewer    |
 | :--------------: | :------------------------------------------------------------------- |
 |   Pre-Condition  |  L'utente è autenticato e ha i permessi per visualizzare, creare, aggiornare o cancellare le reti. |
 |  Post-Condition  |  La rete è stata gestita correttamente  |
-| Nominal Scenario |        Scenario 4.1: Recupero di tutte le reti (GET /networks), Scenario 4.2: Creazione di una nuova rete (POST /networks), Scenario 4.3: Aggiornamento della rete (PATCH /networks), Scenario 4.4: Cancellazione della rete (DELETE /networks)      |
+| Nominal Scenario |        Scenario 5.1: Recupero di tutte le reti (GET /networks), Scenario 5.2: Creazione di una nuova rete (POST /networks), Scenario 5.3: Aggiornamento della rete (PATCH /networks), Scenario 5.4: Cancellazione della rete (DELETE /networks)      |
 |     Variants     |               Nessuna                    |
-|    Exceptions    |      Scenario 4.6: Errore di autorizzazione (401), Scenario 4.7: Errore di permessi insufficienti (403), Scenario 4.8: Errore interno del server (500), Scenario 4.9: Rete non trovata (404), Scenario 4.10: Conflitto (409)                  |
+|    Exceptions    |      Scenario 5.6: Errore di autorizzazione (401), Scenario 5.7: Errore di permessi insufficienti (403), Scenario 5.8: Errore interno del server (500), Scenario 5.9: Rete non trovata (404), Scenario 5.10: Conflitto (409)                  |
 
-##### Scenario 4.1: Recupero di tutte le Reti 
+##### Scenario 5.1: Recupero di tutte le Reti 
 
 | Pre-Condition   | L'utente è autenticato correttamente e ha i permessi per visualizzare le reti |
 | :-------------------: | :-------------------------------------------------------------------------- |
@@ -399,7 +624,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | 3                 | Il sistema recupera tutte le reti |
 | 4                 | Il sistema restituisce una lista di tutte le reti con il codice 200 e i dati in formato JSON |
 
-##### Scenario 4.2: Recupero di una Rete specifica 
+##### Scenario 5.2: Recupero di una Rete specifica 
 
 | Pre-Condition   | L'utente è autenticato correttamente e ha i permessi per visualizzare le reti |
 | :-------------------: | :-------------------------------------------------------------------------- |
@@ -410,7 +635,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | 3                 | Il sistema recupera la rete richiesta |
 | 4                 | Il sistema restituisce una la rete con il codice 200 e i dati in formato JSON |
 
-##### Scenario 4.3: Creazione di una Nuova Rete 
+##### Scenario 5.3: Creazione di una Nuova Rete 
 
 | Pre-Condition    | L'utente (Admin e Operator) è autenticato e ha i permessi per creare una rete |
 | :-------------------: | :------------------------------------------------------- |
@@ -422,7 +647,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | 4                 | Il sistema restituisce una risposta con codice 201, indicando che la rete è stata creata correttamente. |
 
 
-##### Scenario 4.4: Aggiornamento della Rete 
+##### Scenario 5.4: Aggiornamento della Rete 
 
 | Pre-Condition    | L'utente (Admin e Operator) è autenticato e ha i permessi per aggiornare la rete |
 | :-------------------: | :---------------------------------------------------------- |
@@ -433,7 +658,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | 3                | Il sistema aggiorna i dati della rete |
 | 4                 | Il sistema restituisce una risposta con codice 204, indicando che l'aggiornamento è stato effettuato correttamente |
 
-##### Scenario 4.5: Cancellazione della Rete
+##### Scenario 5.5: Cancellazione della Rete
 
 | Pre-Condition    | L'utente (Admin e Operator) è autenticato e ha i permessi per cancellare la rete |
 | :-------------------: | :-------------------------------------------------------- |
@@ -444,7 +669,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | 3                 | Il sistema cancella la rete |
 | 4                 | Il sistema restituisce una risposta con codice 204, indicando che la rete è stata cancellata correttamente |
 
-##### Scenario 4.6: Errore di Autorizzazione (401 Unauthorized)
+##### Scenario 5.6: Errore di Autorizzazione (401 Unauthorized)
 
 | Pre-Condition    | L'utente invia una richiesta senza token o con un token non valido |
 | :-------------------: | :--------------------------------------------------------------- |
@@ -455,7 +680,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | 3                 | Il sistema restituisce un errore con codice 401 |
 
 
-##### Scenario 4.7: Errore di Permessi Insufficienti (403 Forbidden)
+##### Scenario 5.7: Errore di Permessi Insufficienti (403 Forbidden)
 
 | Pre-Condition    | L'utente non ha i permessi per accedere alla rete richiesta |
 | :-------------------: | :------------------------------------------------------- |
@@ -466,7 +691,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | 3                 | Il sistema restituisce un errore con codice 403 |
 
 
-##### Scenario 4.8: Errore Interno del Server (500 Internal Server Error)
+##### Scenario 5.8: Errore Interno del Server (500 Internal Server Error)
 
 | Pre-Condition    | Durante l'elaborazione della richiesta qualcosa non funziona nel server |
 | :-------------------: | :-------------------------------------------------------------- |
@@ -477,7 +702,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | 3                 | Il sistema restituisce un errore con codice 500 |
 
 
-##### Scenario 4.9: Rete Non Trovata (404 Not Found)
+##### Scenario 5.9: Rete Non Trovata (404 Not Found)
 
 | Pre-Condition    | L'utente invia una richiesta con un codice di rete che non esiste |
 | :-------------------: | :------------------------------------------------------------ |
@@ -487,7 +712,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | 2                 | Il sistema verifica che la rete non esista |
 | 3                 | Il sistema restituisce un errore con codice 404 |
 
-##### Scenario 4.10: Conflitto (409 Conflict)
+##### Scenario 5.10: Conflitto (409 Conflict)
 
 | Pre-Condition    | L'utente cerca di creare o aggiornare una rete con un codice già esistente |
 | :-------------------: | :------------------------------------------------------------------- |
