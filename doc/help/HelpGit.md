@@ -13,6 +13,24 @@ Comodità in Bash:
 git fetch --all && git pull --all
 ```
 
+Il comando `git fetch --all` scarica tutte le informazioni remote (ma non i Branch stessi).
+
+Il comando `git pull --all` rende up-to-date tutti i Branch locali che hanno corrispettivo remoto.
+
+## Muoversi tra Branch esistenti:
+
+I seguenti comandi possono anche essere utilizzati su Branch remoti che ancora non esistevano in locale. 
+
+```
+git checkout <nome-branch>
+```
+
+Oppure
+
+```
+git switch <nome-branch>
+```
+
 ## Creazione Nuovi Branch:
 
 Preferibile rispetto a fare una Commit direttamente sul Branch principale corrente.
@@ -25,18 +43,6 @@ Oppure
 
 ```
 git switch -c <nome-nuovo-branch>
-```
-
-## Muoversi tra Branch esistenti:
-
-```
-git checkout <nome-branch>
-```
-
-Oppure
-
-```
-git switch <nome-branch>
 ```
 
 ## Eliminare Branch Locali che non esistono più in Remoto:
@@ -67,3 +73,10 @@ Dopo aver usato questo comando, per fare push è necessario usare il tag `--forc
 git push --force
 ```
 
+## Rebase di un Branch:
+
+Usare solo se sai quello che stai facendo e perché.
+```
+git rebase <branch-princiaple> <branch-su-cui-fare-rebase>
+```
+Le probabilità di conflitti sono alte dopo un rebase.
