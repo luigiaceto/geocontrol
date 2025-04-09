@@ -41,7 +41,7 @@ Come indicato dalle Best Practices, le commit non dovrebbero essere "orfane" ma 
 I messaggi di commit devono rispettare la seguente convenzione:
 
 ```
-<type> [(optional branch tag)]: <Description>
+<type>[ (optional branch tag)]: <Description>
 
 [Optional Body]
 ```
