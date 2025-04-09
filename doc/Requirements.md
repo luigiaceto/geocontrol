@@ -174,20 +174,30 @@ Gateways -[hidden]d- Sensori
 
 \<stories will be formalized later as scenarios in use cases>
 
-- Persona1 : Uomo, Adulto, 50 anni, Lavora come informatico nel comune di una cittadina ad alto rischio sismico
-Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della città
+### Persona1 - "Luca"
+Uomo, Adulto, 50 anni, Informatico, Impiegato al Comune di una cittadina ad alto rischio sismico
 
-- Persona2 : Donna, Giovane, 25 anni, lavora in una riserva naturale come guida
-  Storia : Ha bisogno di sapere in anticipo le condizioni climatiche per evitare di mettere in pericolo i visitatori durante le passeggiate
+__Story__: ha bisogno di un Sistema per monitorare l'attività sismica della città
 
-- Persona3 : Uomo, Età media, 34 anni, gestore hotel in alta quota aperto in periodo invernale
-  Storia : Ha bisogno di un sistema per monitorare il rischio di valanghe o temperature estreme al fine di migliorare l'esperienza di chi alloggia nell'hotel
+### Persona2 - "Giulia"
+Donna, Giovane, 25 anni, Guida in una Riserva Naturale
 
-- Persona4: Gruppo di ricerca universitario
-  Storia: Hanno bisogno di dati ambientali per testare modelli di machine learning per predizioni metereologiche per una ricerca
+__Story__: ha bisogno di conoscere i rischi idrogeologici potenziali dei suoi percorsi per evitare di mettere in pericolo i visitatori durante le passeggiate
 
-- Persona5: Donna, Adulta, 46 anni, preside di una scuola media
-  Storia: Nell'attesa di un cambio struttura, la preside ha bisogno di monitorare alcuni parametri particolari di quella attuale, vecchia e decadente, ad esempio crepe e fessurazioni o vibrazioni anomale.
+### Persona3 - "Marco"
+Uomo, Giovane Adulto, 34 anni, Gestore Hotel in alta quota aperto in periodo invernale
+
+__Story__: ha bisogno di un sistema per monitorare il rischio di valanghe o temperature estreme al fine di migliorare l'esperienza di chi alloggia nell'hotel
+
+### Persona4 - "Francesco"
+Uomo, Adulta, 40 anni, Ricercatore Universitario
+
+__Story__: hanno bisogno di dati ambientali per addestrare modelli di Machine Learning per predizioni metereologiche per una ricerca
+
+### Persona5 - "Silvia"
+Donna, Adulta, 46 anni, Preside di una Scuola Media
+
+__Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitorare alcuni parametri particolari di quella attuale, vecchia e decadente, ad esempio crepe e fessurazioni o vibrazioni anomale.
 
 ## Functional and Non-Functional Requirements
 
@@ -330,7 +340,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 
 \###############################################
 
-__NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente uno dei possibili Attori che può eseguire il Caso d'Uso (anche quando solo 1 attore è possibile). Non va confuso con il termine "Utente" che compare in alcune Pre-condition e Post-condition.  
+__NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Step, è genericamente uno dei possibili Attori che può eseguire il Caso d'Uso (anche quando solo 1 attore è possibile) (in pratica è una variabile che sostituisce l'attore). Non va confuso con il termine "Utente" che compare in alcune Pre-condition, Post-condition e Step.  
 
 #### Use case 1 (UC1): Autenticazione al Sistema
 
