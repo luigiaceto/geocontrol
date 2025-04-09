@@ -11,65 +11,80 @@ Version: V1 - description of Geocontrol as described in the swagger
 ## Contents
 
 - [Requirements Document - GeoControl](#requirements-document---geocontrol)
-  * [Contents](#contents)
-  * [Informal Description](#informal-description)
-  * [Business Model](#business-model)
-  * [Stakeholders](#stakeholders)
-  * [Context Diagram and Interfaces](#context-diagram-and-interfaces)
-    + [Context Diagram](#context-diagram)
-    + [Interfaces](#interfaces)
-  * [Stories and Personas](#stories-and-personas)
-  * [Functional and Non-Functional Requirements](#functional-and-non-functional-requirements)
-    + [Functional Requirements](#functional-requirements)
+  - [Contents](#contents)
+  - [Informal Description](#informal-description)
+  - [Business Model](#business-model)
+  - [Stakeholders](#stakeholders)
+  - [Context Diagram and Interfaces](#context-diagram-and-interfaces)
+    - [Context Diagram](#context-diagram)
+    - [Interfaces](#interfaces)
+  - [Stories and Personas](#stories-and-personas)
+  - [Functional and Non-Functional Requirements](#functional-and-non-functional-requirements)
+    - [Functional Requirements](#functional-requirements)
       - [Access Rights](#access-rights)
-      - [Access Rights](#access-rights)
-    + [Non-Functional Requirements](#non-functional-requirements)
-  * [Use Case Diagram and Use Cases](#use-case-diagram-and-use-cases)
-    + [Use Case Diagram](#use-case-diagram)
-    + [Use Cases](#use-cases)
-      - [Use Case 0 (UC0): Template for Use Cases](#use-case-0--uc0---template-for-use-cases)
-        * [Scenario 0.1](#scenario-01)
-      - [Use case 1 (UC1): Autenticazione al Sistema](#use-case-1--uc1---autenticazione-al-sistema)
-        * [Scenario 1.1](#scenario-11)
-        * [Scenario 1.2](#scenario-12)
-        * [Scenario 1.3](#scenario-13)
-        * [Scenario 1.4](#scenario-14)
-        * [Scenario 1.5](#scenario-15)
-      - [Use Case 2 (UC2): Creazione Account](#use-case-2--uc2---creazione-account)
-        * [Scenario 2.1](#scenario-21)
-        * [Scenario 2.2](#scenario-22)
-        * [Scenario 2.3](#scenario-23)
-        * [Scenario 2.4](#scenario-24)
-        * [Scenario 2.5](#scenario-25)
-        * [Scenario 2.6](#scenario-26)
-      - [Use Case 3 (UC3): Ottenimento Utente](#use-case-3--uc3---ottenimento-utente)
-        * [Scenario 3.1](#scenario-31)
-        * [Scenario 3.2](#scenario-32)
-        * [Scenario 3.3](#scenario-33)
-        * [Scenario 3.4](#scenario-34)
-        * [Scenario 3.5](#scenario-35)
-        * [Scenario 3.6](#scenario-36)
-      - [Use Case 4 (UC4): Eliminazione Account](#use-case-4--uc4---eliminazione-account)
-        * [Scenario 4.1](#scenario-41)
-        * [Scenario 4.2](#scenario-42)
-        * [Scenario 4.3](#scenario-43)
-        * [Scenario 4.4](#scenario-44)
-        * [Scenario 4.5](#scenario-45)
-      - [Use case 5, Gestione Networks](#use-case-5--gestione-networks)
-        * [Scenario 5.1: Recupero di tutte le Reti](#scenario-51--recupero-di-tutte-le-reti)
-        * [Scenario 5.2: Recupero di una Rete specifica](#scenario-52--recupero-di-una-rete-specifica)
-        * [Scenario 5.3: Creazione di una Nuova Rete](#scenario-53--creazione-di-una-nuova-rete)
-        * [Scenario 5.4: Aggiornamento della Rete](#scenario-54--aggiornamento-della-rete)
-        * [Scenario 5.5: Cancellazione della Rete](#scenario-55--cancellazione-della-rete)
-        * [Scenario 5.6: Errore di Autorizzazione (401 Unauthorized)](#scenario-56--errore-di-autorizzazione--401-unauthorized-)
-        * [Scenario 5.7: Errore di Permessi Insufficienti (403 Forbidden)](#scenario-57--errore-di-permessi-insufficienti--403-forbidden-)
-        * [Scenario 5.8: Errore Interno del Server (500 Internal Server Error)](#scenario-58--errore-interno-del-server--500-internal-server-error-)
-        * [Scenario 5.9: Rete Non Trovata (404 Not Found)](#scenario-59--rete-non-trovata--404-not-found-)
-        * [Scenario 5.10: Conflitto (409 Conflict)](#scenario-410--conflitto--409-conflict-)
-  * [Glossary](#glossary)
-    + [Glossary Diagram](#glossary-diagram)
-  * [System Design](#system-design)
-  * [Deployment Diagram](#deployment-diagram)
+    - [Non-Functional Requirements](#non-functional-requirements)
+  - [Use Case Diagram and Use Cases](#use-case-diagram-and-use-cases)
+    - [Use Case Diagram](#use-case-diagram)
+    - [Use Cases](#use-cases)
+      - [Use Case 0 (UC0): Template for Use Cases](#use-case-0-uc0-template-for-use-cases)
+        - [Scenario 0.1](#scenario-01)
+      - [Use case 1 (UC1): Autenticazione al Sistema](#use-case-1-uc1-autenticazione-al-sistema)
+        - [Scenario 1.1](#scenario-11)
+        - [Scenario 1.2](#scenario-12)
+        - [Scenario 1.3](#scenario-13)
+        - [Scenario 1.4](#scenario-14)
+        - [Scenario 1.5](#scenario-15)
+      - [Use Case 2 (UC2): Creazione Account](#use-case-2-uc2-creazione-account)
+        - [Scenario 2.1](#scenario-21)
+        - [Scenario 2.2](#scenario-22)
+        - [Scenario 2.3](#scenario-23)
+        - [Scenario 2.4](#scenario-24)
+        - [Scenario 2.5](#scenario-25)
+        - [Scenario 2.6](#scenario-26)
+      - [Use Case 3 (UC3): Ottenimento Utente](#use-case-3-uc3-ottenimento-utente)
+        - [Scenario 3.1](#scenario-31)
+        - [Scenario 3.2](#scenario-32)
+        - [Scenario 3.3](#scenario-33)
+        - [Scenario 3.4](#scenario-34)
+        - [Scenario 3.5](#scenario-35)
+        - [Scenario 3.6](#scenario-36)
+      - [Use Case 4 (UC4): Eliminazione Account](#use-case-4-uc4-eliminazione-account)
+        - [Scenario 4.1](#scenario-41)
+        - [Scenario 4.2](#scenario-42)
+        - [Scenario 4.3](#scenario-43)
+        - [Scenario 4.4](#scenario-44)
+        - [Scenario 4.5](#scenario-45)
+      - [Use case 5, Creazione Network](#use-case-5-creazione-network)
+        - [Scenario 5.1](#scenario-51)
+        - [Scenario 5.2](#scenario-52)
+        - [Scenario 5.3](#scenario-53)
+        - [Scenario 5.4](#scenario-54)
+        - [Scenario 5.5](#scenario-55)
+        - [Scenario 5.6](#scenario-56)
+      - [Use Case 6 (UC6): Ottenimento Network](#use-case-6-uc6-ottenimento-network)
+        - [Scenario 6.1](#scenario-61)
+        - [Scenario 6.2](#scenario-62)
+        - [Scenario 6.3](#scenario-63)
+        - [Scenario 6.4](#scenario-64)
+        - [Scenario 6.5](#scenario-65)
+      - [Use Case 7 (UC7): Eliminazione Network](#use-case-7-uc7-eliminazione-network)
+        - [Scenario 7.1](#scenario-71)
+        - [Scenario 7.2](#scenario-72)
+        - [Scenario 7.3](#scenario-73)
+        - [Scenario 7.4](#scenario-74)
+        - [Scenario 7.5](#scenario-75)
+      - [Use Case 8 (UC8): Modifica Network](#use-case-8-uc8-modifica-network)
+        - [Scenario 8.1](#scenario-81)
+        - [Scenario 8.2](#scenario-82)
+        - [Scenario 8.3](#scenario-83)
+        - [Scenario 8.4](#scenario-84)
+        - [Scenario 8.5](#scenario-85)
+        - [Scenario 8.6](#scenario-86)
+        - [Scenario 8.7](#scenario-87)
+  - [Glossary](#glossary)
+    - [Glossary Diagram](#glossary-diagram)
+  - [System Design](#system-design)
+  - [Deployment Diagram](#deployment-diagram)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a> TODO: TOGLIERE STA ROBA POI</i></small>
 
@@ -199,7 +214,7 @@ __Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitora
 | FR1.3 | Ottenimento Elenco Utenti |
 | FR1.4 | Ottenimento Utente Specifico |
 | FR1.5 | Eliminazione Account |
-| __FR2__   | __Gestione Networks__ |
+| __FR2__   | __Gestione Networks__ | 
 | FR2.1 | Creazione Network |
 | FR2.2 | Ottenimento Elenco Networks |
 | FR2.3 | Ottenimento Network Specifico |
@@ -228,8 +243,6 @@ __Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitora
 | FR6.5 | Ottenimento Elenco Statistiche di Sensore Specifico |
 | FR6.6 | Ottenimento Elenco Outliers di Network Specifico |
 | FR6.7 | Ottenimento Elenco Outliers di Sensore Specifico |
-| __FR7__   | __Gestione Timestamp__ |
-| FR7.1 | Conversione Timestamp a Tempo Locale |
 
 #### Table of Rights
 
@@ -264,7 +277,6 @@ __Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitora
 | FR6.5 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | FR6.6 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | FR6.7 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| FR7.1 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ### Non-Functional Requirements
 
@@ -272,8 +284,8 @@ __Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitora
 
 |  ID  | Type        | Description | Refers to |
 | :--: | :---------- | :---------- | :-------: |
-| NFR1 | Domain      | I Timestamp sono convertiti e memorizzati in formato ISO 8601 (UTC) | FR6 |
-| NFR2 | Reliability | Non devono essere perse più di 6 Misurazioni per Sensore all'anno | FR6 |
+| NFR1 | Domain      | Il formato dei Timestamp deve essere il formato ISO 8601 (UTC) | FR6 |
+| NFR2 | Reliability | Non devono essere perse più di 6 misurazioni per sensore ogni anno | FR6 |
 | NFR3 | Reliability | Il timestamp deve corrispondere all'esatto momento della misurazione | FR6 |
 | NFR4 | Reliability | Il flusso di misurazioni non deve essere interrotto | FR6 |
 | NFR5 | Domain      | La misurazioni deve avvenire ogni 10 minuti | FR6 |
@@ -347,11 +359,11 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Pre-condition  | Utente esiste nel sistema |
 | Post-condition | Utente ha ottenuto un Token per le richieste successive |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _System_: richiede credenziali (`username` e `password`) |
-| 2              | _Utente_: fornisce credenziali (`username` e `password`) |
-| 3              | _System_: legge credenziali (`username` e `password`) |
-| 4              | _System_: cerca `username`; `username` trovato |
-| 5			  	 | _System_: verifica `password`; `password` corretta |
+| 1              | _System_: richiede credenziali (Username e Password) |
+| 2              | _Utente_: fornisce credenziali (Username e Password) |
+| 3              | _System_: legge credenziali (Username e Password) |
+| 4              | _System_: cerca Username; Username trovato |
+| 5			  	 | _System_: verifica Password; Password corretta |
 | 6              | _System_: autorizza Utente e restituisce Token __(Code 200)__ |
 
 ##### Scenario 1.2
@@ -378,11 +390,11 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Pre-condition  | Utente esiste nel sistema |
 | Post-condition | Utente non è autenticato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _System_: richiede credenziali (`username` e `password`) |
-| 2              | _Utente_: fornisce credenziali (`username` e `password`) |
-| 3              | _System_: legge credenziali (`username` e `password`) |
-| 4              | _System_: cerca `username`; `username` trovato |
-| 5              | _System_: verifica `password`; `password` errata |
+| 1              | _System_: richiede credenziali (Username e Password) |
+| 2              | _Utente_: fornisce credenziali (Username e Password) |
+| 3              | _System_: legge credenziali (Username e Password) |
+| 4              | _System_: cerca Username; Username trovato |
+| 5              | _System_: verifica Password; Password errata |
 | 6              | _System_: mostra messaggio di errore. Password errata __(Code 401)__ |
 
 ##### Scenario 1.4
@@ -392,10 +404,10 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Pre-condition  | Utente non esiste nel sistema |
 | Post-condition | Utente non è autenticato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _System_: richiede credenziali (`username` e `password`) |
-| 2              | _Utente_: fornisce credenziali (`username` e `password`) |
-| 3              | _System_: legge credenziali (`username` e `password`) |
-| 4              | _System_: cerca `username`; `username` non trovato |
+| 1              | _System_: richiede credenziali (Username e Password) |
+| 2              | _Utente_: fornisce credenziali (Username e Password) |
+| 3              | _System_: legge credenziali (Username e Password) |
+| 4              | _System_: cerca Username; Username non trovato |
 | 5              | _System_: mostra messaggio di errore. Utente non trovato __(Code 404)__ |
 
 ##### Scenario 1.5
@@ -405,8 +417,8 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Pre-condition  | // |
 | Post-condition | Utente non è autenticato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _System_: richiede credenziali (`username` e `password`) |
-| 2              | _Utente_: fornisce credenziali (`username` e `password`) |
+| 1              | _System_: richiede credenziali (Username e Password) |
+| 2              | _Utente_: fornisce credenziali (Username e Password) |
 | 3              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
 
@@ -429,10 +441,10 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Account relativo all'Utente è creato |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di creare un account |
-| 2              | _System_: richiede `username`, `password`, `type` |
-| 3              | _Utente_: fornisce `username`, `password`, `type` |
-| 4              | _System_: legge `username`, `password`, `type` |
-| 5              | _System_: verifica uso `username`; `username` non è in uso |
+| 2              | _System_: richiede username, password, type |
+| 3              | _Utente_: fornisce username, password, type |
+| 4              | _System_: legge username, password, type |
+| 5              | _System_: verifica uso Username; Username non è in uso |
 | 6			     | _System_: crea e memorizza nuovo Account __(Code 201)__ |
 
 ##### Scenario 2.2
@@ -443,7 +455,7 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Account non creato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di creare un account |
-| 2              | _System_: richiede `username`, `password`, `type` |
+| 2              | _System_: richiede username, password, type |
 | 3              | _Utente_: fornisce Input Invalido |
 | 4              | _System_: legge Input fornito |
 | 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
@@ -476,11 +488,11 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Account non creato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di creare un account |
-| 2              | _System_: richiede `username`, `password`, `type` |
-| 3              | _Utente_: fornisce `username`, `password`, `type` |
-| 4              | _System_: legge `username`, `password`, `type` |
-| 5              | _System_: verifica uso `username`; `username` in uso |
-| 6			     | _System_: mostra messaggio di errore. Username __(Code 409)__ |
+| 2              | _System_: richiede username, password, type |
+| 3              | _Utente_: fornisce username, password, type |
+| 4              | _System_: legge username, password, type |
+| 5              | _System_: verifica uso Username; Username in uso |
+| 6			     | _System_: mostra messaggio di errore. Username in uso __(Code 409)__ |
 
 ##### Scenario 2.6
 
@@ -523,10 +535,10 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Informazioni su Utente ricerato sono state ottenute |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di ottenere informazioni su Utente Specifico |
-| 2              | _System_: richiede `userName` dell'Utente ricercato |
-| 3              | _Utente_: fornisce `userName` dell'Utente ricercato |
-| 4              | _System_: legge `userName` fornito |
-| 5              | _System_: verifica `userName`; Utente esiste |
+| 2              | _System_: richiede userName dell'Utente ricercato |
+| 3              | _Utente_: fornisce userName dell'Utente ricercato |
+| 4              | _System_: legge userName fornito |
+| 5              | _System_: verifica userName; Utente esiste |
 | 6              | _System_: restituisce informazioni su Utente __(Code 200)__ |
 
 ##### Scenario 3.3
@@ -567,10 +579,10 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di ottenere informazioni su Utente Specifico |
-| 2              | _System_: richiede `userName` dell'Utente ricercato |
-| 3              | _Utente_: fornisce `userName` dell'Utente ricercato |
-| 4              | _System_: legge `userName` fornito |
-| 5              | _System_: verifica `userName`; Utente non esiste |
+| 2              | _System_: richiede userName dell'Utente ricercato |
+| 3              | _Utente_: fornisce userName dell'Utente ricercato |
+| 4              | _System_: legge userName fornito |
+| 5              | _System_: verifica userName; Utente non esiste |
 | 6              | _System_: mostra messaggio di errore. Utente non trovato __(Code 404)__ |
 
 
@@ -593,10 +605,10 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Account (associato a Utente da eliminare) è stato eliminato |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di eliminare Account associato a Utente |
-| 2              | _System_: richiede `userName` dell'Utente da eliminare |
-| 3              | _Utente_: fornisce `userName` dell'Utente da eliminare |
-| 4              | _System_: legge `userName` fornito |
-| 5              | _System_: verifica `userName`; Utente esiste |
+| 2              | _System_: richiede userName dell'Utente da eliminare |
+| 3              | _Utente_: fornisce userName dell'Utente da eliminare |
+| 4              | _System_: legge userName fornito |
+| 5              | _System_: verifica userName; Utente esiste |
 | 6              | _System_: elimina Account associato a Utente __(Code 204)__ |
 
 ##### Scenario 4.2
@@ -627,10 +639,10 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Account non eliminato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di eliminare Account associato a Utente |
-| 2              | _System_: richiede `userName` dell'Utente da eliminare |
-| 3              | _Utente_: fornisce `userName` dell'Utente da eliminare |
-| 4              | _System_: legge `userName` fornito |
-| 5              | _System_: verifica `userName`; Utente non esiste |
+| 2              | _System_: richiede userName dell'Utente da eliminare |
+| 3              | _Utente_: fornisce userName dell'Utente da eliminare |
+| 4              | _System_: legge userName fornito |
+| 5              | _System_: verifica userName; Utente non esiste |
 | 6              | _System_: mostra messaggio di errore. Utente non trovato __(Code 404)__ |
 
 ##### Scenario 4.5
