@@ -489,20 +489,23 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 \<concepts must be used consistently all over the document, ex in use cases, requirements etc>
 
-- `Network`: gruppo logico di gateway (e sensori associati), identificati da un codice alfanumerico univoco (scelto in creazione). Può rappresentare, ad esempio, una rete di monitorazione per un'intero palazzo. Non corrisponde a un device fisico ma è un oggetto software per organizzare e gestire gruppi diversi di device.
+- __Network__: gruppo logico di gateway (e sensori associati), identificati da un codice alfanumerico univoco (scelto in creazione). Può rappresentare, ad esempio, una rete di monitorazione per un'intero palazzo. Non corrisponde a un device fisico ma è un oggetto software per organizzare e gestire gruppi diversi di device.
 
-- `Gateway`: un device fisico identificato dal suo indirizzo MAC, fornito di intefaccia di rete e connesso tramite essa al sistema GeoControl.
+- __Gateway__: un device fisico identificato dal suo indirizzo MAC, fornito di intefaccia di rete e connesso tramite essa al sistema GeoControl. Inoltre è connesso ad uno o più sensori attraverso interfacce seriali, tramite cui riceve le misurazioni e i rispettivi timestamp. Si occupa infine della conversione digitale dei dati e di trasmetterli al Network.
 
-- `Sensore`: device fisico che misura la quantità fisica (temperatura, inclinazione, etc) ogni 10 minuti. Non è fornito di interfaccia di rete ma è identificato unicamente dal suo indirizzo MAC. Comunica esclusivamente con il suo gateway corrispondente tramite connessione seriale, mandando la misurazione.
+- __Sensore__: device fisico che misura la quantità fisica (temperatura, inclinazione, etc) ogni 10 minuti. Non è fornito di interfaccia di rete ma è identificato unicamente dal suo indirizzo MAC. Comunica esclusivamente con il suo gateway corrispondente tramite connessione seriale, mandando la misurazione e il rispettivo timestamp
 
-- `Misurazione`: è costituita dal valore misurato e dal timestamp della misurazione.
+- __Misurazione__: è costituita dal valore misurato e dal timestamp della misurazione, cioè l'esatto momento della misurazione (il sensore manda la data al gateway in formato ISO 8601 con la timezone locale).
 
-- `Statistiche di misurazioni`: _media_ ($\sigma$) e _varianza_ ($\mu$) di un insieme di misurazioni eseguite in un certo range temporale. Tramite questi due valori vengono poi calcolate:
+- __Statistiche di Misurazioni__: _media_ ($\sigma$) e _varianza_ ($\mu$) di un insieme di misurazioni eseguite in un certo range temporale. Tramite questi due valori vengono poi calcolate:
 	- _upper threashold_ = $\mu+2\sigma$
 	- _lower threshold_ = $\mu-2\sigma$.
 
+  Queste due servono infine per identificare potenziali valori anomali, al di fuori dalle threshold.
 
-- `Misurazione Outlier`: ogni misurazione con valore più alto della `upperThreshold` o più basso della `lowerThreshold` considerando un insieme di misurazioni su un range temporale.
+- __Misurazione Outlier__: (o semplicemente `outlier`) è una misurazione con valore più alto della `upperThreshold` o più basso della `lowerThreshold` viene considerato un valore anomalo e viene evidenziato come Misurazione Outlier.
+
+- __Formato ISO 8601__: è uno standard internazionale per la rappresentazione di date e orari, serve per evitare ambiguità nei formati di data e ora usati in diverse parti del mondo.
 
 ``` plantuml
 
