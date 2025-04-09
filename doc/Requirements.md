@@ -72,7 +72,6 @@ Version: V1 - description of Geocontrol as described in the swagger
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a> TODO: TOGLIERE STA ROBA POI</i></small>
 
-
 ## Informal Description
 
 GeoControl è un software progettato per monitorare le variabili fisiche e ambientali in vari contesti: da analisi idrologiche di aree montane al sorvegliamento di edifici storici, e anche il controllo di parametri interni (quali temperatura o illuminazione) in aree residenziali o di lavoro.
@@ -90,16 +89,12 @@ la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale 
 | Operator |  Utente che può gestire Network, Gateway, Sensori e inserire Misurazioni |
 | Viewer |  Utente che può solo consultare i dati |
 | Unione delle Comunità Montane del Piemonte | Committente principale del Sistema |
-| Aziende Private | Aziende che vogliono monitorare i propri edifici o aree di lavoro |
-| Enti di Ricerca | Università e centri di ricerca che sono interessati ai dati raccolti dal Sistema |
-| Enti Governativi | Enti che si occupano di monitoraggio ambientale e gestione del territorio |
-| Produttori di Componenti | Aziende che si occupano di produzione e distribuzione delle componenti Hardware utilizzate nel Sistema |
-| Manutentori | Tecnici che si occupano della manutenzione e del monitoraggio delle componenti Hardware su cui si basa il Sistema |
-| Servizio di Pagamento Licenza | Servizio di pagamento per l'acquisto della licenza del Software |
+| Enti Pubblici e Privati | Università, cittadine, Protezione Civile o aziende che vogliono usufruire dei servizi del Sistema |
+| Produttori di Componenti | Coloro che si occupano di produzione e distribuzione dell'Hardware utilizzato nel Sistema |
 
-# Context Diagram and Interfaces
+## Context Diagram and interfaces
 
-## Context Diagram
+### Context Diagram
 
 __NOTE su DIAGRAMMA__:<br>
 - In più punti dello Swagger viene suggerito come Gateways e Sensori siano entrambi entità esterne a GeoControl System. Non è specificato da nessuna parte se queste componenti siano poi effettivamente vendute dalla stessa azienda insieme al sistema. Si assume che GeoControl possa funzionare con qualsiasi Gateway e Sensore compatibile (anche di terze parti) per cui si possono considerare entità esterne al sistema.
@@ -143,7 +138,7 @@ Gateways -[hidden]d- Sensori
 ```
 
 
-## Interfaces
+### Interfaces
 
 \<describe here each interface in the context diagram>
 
@@ -1605,6 +1600,8 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | 3              | _System_: restituisce errore InternalServerError __(Code 500)__ |
 
 
+..
+
 ## Glossary
 
 \<use UML class diagram to define important terms, or concepts in the domain of the application, and their relationships>
@@ -1767,17 +1764,17 @@ Statistiche "*" -- "1" Sensore : is related >
 ```
 
 
-# System Design
+## System Design
 
 __NOTE su DIAGRAMMA__:<br>
 - Vale anche qui la nota del Context Diagram.
 - Si assume che il "token-based authentication mechanism" non sia qualcosa di esterno, ma sia compreso nel sistema. Inoltre, viene considerato come un "modulo" o "componente" a se stante.
 
-## System Diagram - Draw.io
+### System Diagram - Draw.io
 
 ![System Diagram - Draw.io](./res/System_Diagram.png)
 
-## System Diagram - PlantUML
+### System Diagram - PlantUML
 
 ``` plantuml
 
@@ -1810,17 +1807,17 @@ AuthenticationUnit "1" -u-o GS
 ```
 
 
-# Deployment Diagram
+## Deployment Diagram
 
 __NOTE su DIAGRAMMA__:<br>
 - Il diagramma PlantUML viene generato in modo atroce, non lo si consideri più di tanto.
 - Le due componenti "\<\<executionEnvironment>>" del Nodo ClientApp sono da intendersi in alternativa. 
 
-## Deployment Diagram - Draw.io
+### Deployment Diagram - Draw.io
 
 ![Deployment Diagram - Draw.io](./res/Deployment_Diagram.png)
 
-## Deployment Diagram - PlantUML
+### Deployment Diagram - PlantUML
 
 ``` plantuml
 
