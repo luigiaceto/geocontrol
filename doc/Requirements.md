@@ -25,14 +25,12 @@ Version: V1 - description of Geocontrol as described in the swagger
   * [Use Case Diagram and Use Cases](#use-case-diagram-and-use-cases)
     + [Use Case Diagram](#use-case-diagram)
     + [Use Cases](#use-cases)
-      - [Use Case 0: Template for Use Cases](#use-case-0--template-for-use-cases)
+      - [Use Case 0 (UC0): Template for Use Cases](#use-case-0--uc0---template-for-use-cases)
         * [Scenario 0.1](#scenario-01)
-      - [Use case 1, Login (UC1)](#use-case-1--login--uc1-)
+      - [Use case 1 (UC1): Autenticazione al Sistema](#use-case-1--uc1---autenticazione-al-sistema)
         * [Scenario 1.1](#scenario-11)
         * [Scenario 1.2](#scenario-12)
         * [Scenario 1.3](#scenario-13)
-        * [Scenario 1.4](#scenario-14)
-        * [Scenario 1.5](#scenario-15)
       - [Use case 2, Registrazione (UC2)](#use-case-2--registrazione--uc2-)
         * [Scenario 2.1](#scenario-21)
         * [Scenario 2.2](#scenario-22)
@@ -278,7 +276,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attivit√† sismica della citt√
 | Post-condition   | Utente ha ottenuto un Token per le richieste successive |
 | Nominal Scenario | Scenario 1.1 |
 | Variants         | // |
-| Exceptions       | Scenari: 1.2, 1.3, 1.4, 1.5 |
+| Exceptions       | Scenari: 1.2, 1.3 |
 
 ##### Scenario 1.1
 
@@ -301,11 +299,11 @@ Storia : Ha bisogno di un Sistema per monitorare l'attivit√† sismica della citt√
 | Pre-condition  | Utente non esiste nel sistema |
 | Post-condition | Utente non √® autenticato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              |  _System_: richiede credenziali (Username e Password) |
-| 2              |  _Utente_: fornisce credenziali (Username e Password) |
-| 3              |  _System_: legge credenziali (Username e Password) |
-| 4              |  _System_: cerca Username; Username non trovato |
-| 5              |  _System_: mostra messaggio di errore. Utente non trovato |
+| 1              | _System_: richiede credenziali (Username e Password) |
+| 2              | _Utente_: fornisce credenziali (Username e Password) |
+| 3              | _System_: legge credenziali (Username e Password) |
+| 4              | _System_: cerca Username; Username non trovato |
+| 5              | _System_: mostra messaggio di errore. Utente non trovato |
 
 ##### Scenario 1.3
 
