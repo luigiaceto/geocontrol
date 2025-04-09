@@ -218,6 +218,8 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | FR6.5 | Ottenimento Elenco Statistiche di Sensore Specifico |
 | FR6.6 | Ottenimento Elenco Outliers di Network Specifico |
 | FR6.7 | Ottenimento Elenco Outliers di Sensore Specifico |
+| __FR7__   | __Gestione Timestamp__ |
+| FR7.1 | Conversione Timestamp a Tempo Locale |
 
 #### Access Rights
 
@@ -252,6 +254,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | FR6.5 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | FR6.6 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | FR6.7 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR7.1 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ### Non-Functional Requirements
 
@@ -259,8 +262,8 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 
 |  ID  | Type        | Description | Refers to |
 | :--: | :---------- | :---------- | :-------: |
-| NFR1 | Domain      | Il formato dei Timestamp deve essere il formato ISO 8601 (UTC) | FR6 |
-| NFR2 | Reliability | Non devono essere perse più di 6 misurazioni per sensore ogni anno | FR6 |
+| NFR1 | Domain      | I Timestamp sono convertiti e memorizzati in formato ISO 8601 (UTC) | FR6 |
+| NFR2 | Reliability | Non devono essere perse più di 6 Misurazioni per Sensore all'anno | FR6 |
 | NFR3 | Reliability | Il timestamp deve corrispondere all'esatto momento della misurazione | FR6 |
 | NFR4 | Reliability | Il flusso di misurazioni non deve essere interrotto | FR6 |
 | NFR5 | Domain      | La misurazioni deve avvenire ogni 10 minuti | FR6 |
@@ -314,7 +317,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 
 \###############################################
 
-__NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente uno dei possibili Attori che può eseguire il Caso d'Uso (anche quando solo 1 attore è possibile). Non va confuso con il termine "Utente" che compare in alcune Pre-condition e Post-condition.  
+__NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Step, è genericamente uno dei possibili Attori che può eseguire il Caso d'Uso (anche quando solo 1 attore è possibile). Non va confuso con il termine "Utente" che compare in alcune Pre-condition, Post-condition e Step.  
 
 #### Use case 1 (UC1): Autenticazione al Sistema
 
@@ -334,11 +337,11 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Pre-condition  | Utente esiste nel sistema |
 | Post-condition | Utente ha ottenuto un Token per le richieste successive |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _System_: richiede credenziali (Username e Password) |
-| 2              | _Utente_: fornisce credenziali (Username e Password) |
-| 3              | _System_: legge credenziali (Username e Password) |
-| 4              | _System_: cerca Username; Username trovato |
-| 5			  	 | _System_: verifica Password; Password corretta |
+| 1              | _System_: richiede credenziali (`username` e `password`) |
+| 2              | _Utente_: fornisce credenziali (`username` e `password`) |
+| 3              | _System_: legge credenziali (`username` e `password`) |
+| 4              | _System_: cerca `username`; `username` trovato |
+| 5			  	 | _System_: verifica `password`; `password` corretta |
 | 6              | _System_: autorizza Utente e restituisce Token __(Code 200)__ |
 
 ##### Scenario 1.2
@@ -347,7 +350,7 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Pre-condition  | // |
 | Post-condition | Utente non è autenticato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _System_: richiede credenziali (Username e Password) |
+| 1              | _System_: richiede credenziali (`username` e `password`) |
 | 2              | _Utente_: fornisce un Input Invalido |
 | 3              | _System_: legge Input fornito |
 | 4              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
@@ -359,11 +362,11 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Pre-condition  | Utente esiste nel sistema |
 | Post-condition | Utente non è autenticato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _System_: richiede credenziali (Username e Password) |
-| 2              | _Utente_: fornisce credenziali (Username e Password) |
-| 3              | _System_: legge credenziali (Username e Password) |
-| 4              | _System_: cerca Username; Username trovato |
-| 5              | _System_: verifica Password; Password errata |
+| 1              | _System_: richiede credenziali (`username` e `password`) |
+| 2              | _Utente_: fornisce credenziali (`username` e `password`) |
+| 3              | _System_: legge credenziali (`username` e `password`) |
+| 4              | _System_: cerca `username`; `username` trovato |
+| 5              | _System_: verifica `password`; `password` errata |
 | 6              | _System_: mostra messaggio di errore. Password errata __(Code 401)__ |
 
 ##### Scenario 1.4
@@ -373,10 +376,10 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Pre-condition  | Utente non esiste nel sistema |
 | Post-condition | Utente non è autenticato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _System_: richiede credenziali (Username e Password) |
-| 2              | _Utente_: fornisce credenziali (Username e Password) |
-| 3              | _System_: legge credenziali (Username e Password) |
-| 4              | _System_: cerca Username; Username non trovato |
+| 1              | _System_: richiede credenziali (`username` e `password`) |
+| 2              | _Utente_: fornisce credenziali (`username` e `password`) |
+| 3              | _System_: legge credenziali (`username` e `password`) |
+| 4              | _System_: cerca `username`; `username` non trovato |
 | 5              | _System_: mostra messaggio di errore. Utente non trovato __(Code 404)__ |
 
 ##### Scenario 1.5
@@ -386,8 +389,8 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Pre-condition  | // |
 | Post-condition | Utente non è autenticato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _System_: richiede credenziali (Username e Password) |
-| 2              | _Utente_: fornisce credenziali (Username e Password) |
+| 1              | _System_: richiede credenziali (`username` e `password`) |
+| 2              | _Utente_: fornisce credenziali (`username` e `password`) |
 | 3              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
 
@@ -410,10 +413,10 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Account relativo all'Utente è creato |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di creare un account |
-| 2              | _System_: richiede username, password, type |
-| 3              | _Utente_: fornisce username, password, type |
-| 4              | _System_: legge username, password, type |
-| 5              | _System_: verifica uso Username; Username non è in uso |
+| 2              | _System_: richiede `username`, `password`, `type` |
+| 3              | _Utente_: fornisce `username`, `password`, `type` |
+| 4              | _System_: legge `username`, `password`, `type` |
+| 5              | _System_: verifica uso `username`; `username` non è in uso |
 | 6			     | _System_: crea e memorizza nuovo Account __(Code 201)__ |
 
 ##### Scenario 2.2
@@ -424,7 +427,7 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Account non creato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di creare un account |
-| 2              | _System_: richiede username, password, type |
+| 2              | _System_: richiede `username`, `password`, `type` |
 | 3              | _Utente_: fornisce Input Invalido |
 | 4              | _System_: legge Input fornito |
 | 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
@@ -457,11 +460,11 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Account non creato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di creare un account |
-| 2              | _System_: richiede username, password, type |
-| 3              | _Utente_: fornisce username, password, type |
-| 4              | _System_: legge username, password, type |
-| 5              | _System_: verifica uso Username; Username in uso |
-| 6			     | _System_: mostra messaggio di errore. Username in uso __(Code 409)__ |
+| 2              | _System_: richiede `username`, `password`, `type` |
+| 3              | _Utente_: fornisce `username`, `password`, `type` |
+| 4              | _System_: legge `username`, `password`, `type` |
+| 5              | _System_: verifica uso `username`; `username` in uso |
+| 6			     | _System_: mostra messaggio di errore. Username __(Code 409)__ |
 
 ##### Scenario 2.6
 
@@ -504,10 +507,10 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Informazioni su Utente ricerato sono state ottenute |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di ottenere informazioni su Utente Specifico |
-| 2              | _System_: richiede userName dell'Utente ricercato |
-| 3              | _Utente_: fornisce userName dell'Utente ricercato |
-| 4              | _System_: legge userName fornito |
-| 5              | _System_: verifica userName; Utente esiste |
+| 2              | _System_: richiede `userName` dell'Utente ricercato |
+| 3              | _Utente_: fornisce `userName` dell'Utente ricercato |
+| 4              | _System_: legge `userName` fornito |
+| 5              | _System_: verifica `userName`; Utente esiste |
 | 6              | _System_: restituisce informazioni su Utente __(Code 200)__ |
 
 ##### Scenario 3.3
@@ -548,10 +551,10 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di ottenere informazioni su Utente Specifico |
-| 2              | _System_: richiede userName dell'Utente ricercato |
-| 3              | _Utente_: fornisce userName dell'Utente ricercato |
-| 4              | _System_: legge userName fornito |
-| 5              | _System_: verifica userName; Utente non esiste |
+| 2              | _System_: richiede `userName` dell'Utente ricercato |
+| 3              | _Utente_: fornisce `userName` dell'Utente ricercato |
+| 4              | _System_: legge `userName` fornito |
+| 5              | _System_: verifica `userName`; Utente non esiste |
 | 6              | _System_: mostra messaggio di errore. Utente non trovato __(Code 404)__ |
 
 
@@ -574,10 +577,10 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Account (associato a Utente da eliminare) è stato eliminato |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di eliminare Account associato a Utente |
-| 2              | _System_: richiede userName dell'Utente da eliminare |
-| 3              | _Utente_: fornisce userName dell'Utente da eliminare |
-| 4              | _System_: legge userName fornito |
-| 5              | _System_: verifica userName; Utente esiste |
+| 2              | _System_: richiede `userName` dell'Utente da eliminare |
+| 3              | _Utente_: fornisce `userName` dell'Utente da eliminare |
+| 4              | _System_: legge `userName` fornito |
+| 5              | _System_: verifica `userName`; Utente esiste |
 | 6              | _System_: elimina Account associato a Utente __(Code 204)__ |
 
 ##### Scenario 4.2
@@ -608,10 +611,10 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente
 | Post-condition | Account non eliminato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di eliminare Account associato a Utente |
-| 2              | _System_: richiede userName dell'Utente da eliminare |
-| 3              | _Utente_: fornisce userName dell'Utente da eliminare |
-| 4              | _System_: legge userName fornito |
-| 5              | _System_: verifica userName; Utente non esiste |
+| 2              | _System_: richiede `userName` dell'Utente da eliminare |
+| 3              | _Utente_: fornisce `userName` dell'Utente da eliminare |
+| 4              | _System_: legge `userName` fornito |
+| 5              | _System_: verifica `userName`; Utente non esiste |
 | 6              | _System_: mostra messaggio di errore. Utente non trovato __(Code 404)__ |
 
 ##### Scenario 4.5
