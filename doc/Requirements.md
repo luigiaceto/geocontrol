@@ -43,8 +43,8 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 - __Private-as-a-Service__:
   una compagnia privata sviluppa e gestisce il sistema offrendo il servizio ad amministrazioni pubbliche su base contrattuale.
 
-- __Software con licenza__:
-  la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale o come one time purchase. Nella licenza annuale potrebbe essere incluso un pacchetto di supporto tecnico e manutenzione della parte hardware del systema (sensori e gateway).
+- __Sistema Software su licenza__:
+  la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale o come one-time-purchase. Vi sono diversi Tier di licenza tra cui quelli più avanzati potrebbero includere supporto tecnico e manutenzione della parte hardware del systema (sensori e gateway).
 
 - __Modello Open Core__:
   si offre una versione open source del software e vengono venduti moduli premium con funzionalità più avanzate e servizi di personalizzazione e integrazione. È utile per creare parallelamente una community di sviluppatori che contribuisce al miglioramento del prodotto.
@@ -118,44 +118,41 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 |  ID   | Description |
 | :---: | :---------: |
-|  FR1  | Gestione autenticazione utente |
-|  FR1.1 | Login utente |
-|  FR1.2 | Logout utente |
-|  FR2   | Gestione utenti|
-|  FR2.1 | Creazione account|
-|  FR2.2 | Recupero utenti |
-|  FR2.3 | Recupero utente specifico |
-|  FR2.4 | Eliminazione account |
-|  FR3  | Gestione networks |
-|  FR3.1  | Creazione network |
-|  FR3.2  | Recupero networks |
-|  FR3.2  | Recupero network specifica |
-|  FR3.3  | Modifica dati network |
-|  FR3.4  | Eliminazione network |
-|  FR4  | Gestione gateways |
-|  FR4.1 | Creazione gateway |
-|  FR4.2 | Recupero tutti gateway |
-|  FR4.3 | Recupero gateway specifico | 
-|  FR4.4 | Modifica dati gateway |
-|  FR4.5 | Eliminazione gateway |
-|  FR5  | Gestione sensori |
-|  FR5.1 | Creazione sensore |
-|  FR5.2 | Recupero tutti sensori per gateway specifico |
-|  FR5.3 | Recupero sensore specifico|
-|  FR5.4 | Modifica dati sensore |
-|  FR5.5 | Eliminazione sensore|
-|  FR6   | Calcolo statistiche misurazioni |
-|  FR6.1  | Calcolo media di misurazioni su range temporale |
-|  FR6.2  | Calcolo varianza di misurazioni su range temporale |
-|  FR6.3  | Calcolo threshold tramite media e varianza |
-|  FR7  | Collezionamento e memorizzazione misurazioni |
-|  FR7.1  | Lettura misurazioni network |
-|  FR7.2  | Lettura misurazioni gateway |
-|  FR7.3  | Lettura misurazioni sensore |
-|  FR7.4  | Lettura outliers sensore |
-|  FR7.5  | Lettura outliers network |
-|  FR7.6  | Lettura statistiche sensore |
-|  FR7.7  | Memorizzazione di misurazioni sensore |
+|  FR1  | Gestione Utente |
+|  FR1.1 | Login Utente |
+|  FR1.2 | Creazione Account|
+|  FR1.3 | Ottenimento Elenco Utenti |
+|  FR1.4 | Ottenimento Utente Specifico |
+|  FR1.5 | Eliminazione Account |
+|  FR2  | Gestione Networks |
+|  FR2.1  | Creazione Network |
+|  FR2.2  | Ottenimento Elenco Networks |
+|  FR2.3  | Ottenimento Network Specifico |
+|  FR2.4  | Modifica Dati Network |
+|  FR2.5  | Eliminazione Network |
+|  FR3  | Gestione Gateways |
+|  FR3.1 | Creazione Gateway |
+|  FR3.2 | Ottenimento Elenco Gateway per Network Specifico |
+|  FR3.3 | Ottenimento Gateway Specifico | 
+|  FR3.4 | Modifica Dati Gateway |
+|  FR3.5 | Eliminazione Gateway |
+|  FR4  | Gestione Sensori |
+|  FR4.1 | Creazione Sensore |
+|  FR4.2 | Ottenimento Elenco Sensori per Gateway Specifico |
+|  FR4.3 | Ottenimento Sensore Specifico |
+|  FR4.4 | Modifica Dati Sensore |
+|  FR4.5 | Eliminazione Sensore|
+|  FR5   | Calcolo Statistiche su Misurazioni |
+|  FR5.1  | Calcolo Media su Misurazioni in Range Temporale |
+|  FR5.2  | Calcolo Varianza su Misurazioni in Range Temporale |
+|  FR6  | Gestione Misurazioni |
+|  FR6.1  | Creazione Misurazione |
+|  FR6.2  | Ottenimento Elenco Misurazioni di Network Specifico |
+|  FR6.3  | Ottenimento Elenco Misurazioni di Sensore Specifico |
+|  FR6.4  | Ottenimento Elenco Statistiche di Network Specifico |
+|  FR6.5  | Ottenimento Elenco Statistiche di Sensore Specifico |
+|  FR6.6  | Ottenimento Elenco Outliers di Network Specifico |
+|  FR6.7  | Ottenimento Elenco Outliers di Sensore Specifico |
 
 ## Non Functional Requirements
 
@@ -263,7 +260,7 @@ class Sensore {
  - unità di misura
 }
 
-class Misurazioni {
+class Statistica {
   - data inizio
   - data fine
   - media
@@ -278,8 +275,8 @@ class Misurazione {
  - isOutlier
 }
 
-Network o-- "*" Gateway
-Gateway o-- "*" Sensore
+Network *-- "*" Gateway
+Gateway *-- "*" Sensore
 Sensore "1" -- "*" Misurazioni : associateA <
 Misurazione "*" -- "1" Misurazioni : in >
 
