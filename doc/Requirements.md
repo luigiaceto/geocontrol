@@ -327,7 +327,7 @@ __Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitora
 
 \###############################################
 
-__NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Step, è genericamente uno dei possibili Attori che può eseguire il Caso d'Uso (anche quando solo 1 attore è possibile) (in pratica è una variabile che sostituisce l'attore). Non va confuso con il termine "Utente" che compare in alcune Pre-condition, Post-condition e Step.  
+__NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente uno dei possibili Attori che può eseguire il Caso d'Uso (anche quando solo 1 attore è possibile). Non va confuso con il termine "Utente" che compare in alcune Pre-condition e Post-condition.
 
 #### Use case 1 (UC1): Autenticazione al Sistema
 
@@ -360,8 +360,7 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | Pre-condition  | // |
 | Post-condition | Utente non è autenticato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-<<<<<<< HEAD
-| 1              | _System_: richiede credenziali (`username` e `password`) |
+| 1              | _System_: richiede credenziali (Username e Password) |
 | 2              | _Utente_: fornisce un Input Invalido |
 | 3              | _System_: legge Input fornito |
 | 4              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
