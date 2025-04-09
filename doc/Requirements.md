@@ -245,8 +245,8 @@ Gateways -[hidden]d- Sensori
 
 |  Scenario 1.1  |  Login con successo                                                        |
 | :------------- | :------------------------------------------------------------------------- |
-|  Precondition  | L'Utente è registrato |
-| Post condition |  L'Utente effettua il login  |
+|  Precondition  | L'Utente è registrato                                                      |
+| Post condition |  L'Utente effettua il login                                                |
 |     Step#      |                                Description                                 |
 |       1        |  Il sistema richiede username e password per il login                      |
 |       2        |  L'utente fornisce username e password                                     |
