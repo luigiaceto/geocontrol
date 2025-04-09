@@ -142,7 +142,7 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 |  FR1.3 | Ottenimento Elenco Utenti |
 |  FR1.4 | Ottenimento Utente Specifico |
 |  FR1.5 | Eliminazione Account |
-|  FR2  | Gestione Networks |
+|  FR2   | Gestione Networks |
 |  FR2.1  | Creazione Network |
 |  FR2.2  | Ottenimento Elenco Networks |
 |  FR2.3  | Ottenimento Network Specifico |
@@ -194,11 +194,11 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 \<next describe here each use case in the UCD>
 
-### Use case 1, Autorizzazione Utente (UC1)
+### Use case 1, Autenticazione Utente (UC1)
 
 | Actors Involved  |   Admin, Operator, Viewer                                                                 |
 | :--------------: | :------------------------------------------------------------------- |
-|   Precondition   | L'Utente non ha ancora effettuato il login  |
+|   Precondition   | L'Utente ha un account e non è ancora autenticato  |
 |  Post condition  |  L'Utente ottiene un token di accesso per sessioni future   |
 | Nominal Scenario |         Scenario 1.1         |
 |     Variants     |                     Nessuna                    |
@@ -214,12 +214,12 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 \<only relevant scenarios should be described>
 
-|  Scenario 1.1  |  Autorizzazione avvenuta con successo                                                        |
+|  Scenario 1.1  |  Token generato con successo                                                        |
 | :------------- | :------------------------------------------------------------------------- |
-|  Precondition  | L'Utente è registrato                                                      |
-| Post condition |  L'Utente viene autorizzato                                                |
+|  Precondition  | L'Utente ha un account                                                      |
+| Post condition |  L'Utente viene autenticato                                                |
 |     Step#      |                                Description                                 |
-|       1        |  Il sistema richiede username e password per essere autorizzato                      |
+|       1        |  Il sistema richiede username e password per essere autenticato                      |
 |       2        |  L'utente fornisce username e password                                     |
 |       3        |  Il sistema legge username e password fornite dall'utente                  |
 |       4        | Il sistema verifica le credenziali                                         |
@@ -227,24 +227,24 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 ##### Scenario 1.2
 
-|  Scenario 1.2  | Autorizzazione con dati non validi                                                          |
+|  Scenario 1.2  | Dati non validi                                                          |
 | :------------- | :------------------------------------------------------------------------- |
-|  Precondition  | L'Utente è registrato |
-| Post condition |  L'Utente non viene autorizzato  |
+|  Precondition  | L'Utente ha un account |
+| Post condition |  L'Utente non viene autenticato  |
 |     Step#      |                                Description                                 |
-|       1        |  Il sistema richiede username e password per essere autorizzato                                                                          |
+|       1        |  Il sistema richiede username e password per essere autenticato                                                                          |
 |       2        |  L'Utente fornisce username e password                                                                          |
 |      3       |  Il sistema legge username e password fornite dall'Utente                                                                          |
 |4 | Il sistema verifica le credenziali |
 | 5 | Il sistema restituisce un codice 400 e un messaggio di errore, i dati di input non sono validi |
 ##### Scenario 1.3
 
-|  Scenario 1.3  |  Autorizzazione con credenziali errate                                                                       |
+|  Scenario 1.3  |  Credenziali errate         |
 | :------------- | :------------------------------------------------------------------------- |
-|  Precondition  | L'Utente è registrato |
-| Post condition |  L'Utente non viene autorizzato  |
+|  Precondition  | L'Utente ha un account |
+| Post condition |  L'Utente non viene autenticato  |
 |     Step#      |                                Description                                 |
-|       1        |  Il sistema richiede username e password per essere autorizzato             |
+|       1        |  Il sistema richiede username e password per essere autenticato             |
 |       2        |  L'Utente fornisce username e password                                                                          |
 |      3       |  Il sistema legge username e password fornite dall'Utente                                                                          |
 |4 | Il sistema verifica che le credenziali |
@@ -253,12 +253,12 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 ##### Scenario 1.4
 
-|  Scenario 1.4  |  Autorizzazione con utente non trovato                                                                 |
+|  Scenario 1.4  |  Utente non trovato     |
 | :------------- | :------------------------------------------------------------------------- |
-|  Precondition  | L'Utente è registrato |
-| Post condition |  L'Utente non viene autorizzato  |
+|  Precondition  | L'Utente ha un account |
+| Post condition |  L'Utente non viene autenticato  |
 |     Step#      |                                Description                                 |
-|       1        |  Il sistema richiede username e password per essere autorizzato                                                                          |
+|       1        |  Il sistema richiede username e password per essere autenticato                                                                          |
 |       2        |  L'Utente fornisce username e password                                                                          |
 |      3       |  Il sistema legge username e password fornite dall'Utente                                                                          |
 |4 | Il sistema verifica le credenziali |
@@ -266,62 +266,94 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 ##### Scenario 1.5
 
-|  Scenario 1.5  |  Autorizzazione con errore interno                                                         |
+|  Scenario 1.5  |  Errore interno del server                       |
 | :------------- | :------------------------------------------------------------------------- |
-|  Precondition  | L'Utente è registrato |
-| Post condition |  L'Utente non viene autorizzato  |
-|     Step#      |                                Description                                 |
-|       1        |  Il sistema richiede username e password per essere autorizzato          |
+|  Precondition  | L'Utente ha un account |
+| Post condition |  L'Utente non viene autenticato  |
+|     Step#      |                                Description                              |
+|       1        |  Il sistema richiede username e password per essere autenticato          |
 |       2        |  L'Utente fornisce username e password                                                                          |
-|      3       |  Il sistema tenta di verificare le credenziali, ma si verifica un errore interno                                                      |
+|      3       |  Il sistema tenta di verificare le credenziali, ma si verifica un errore                                                     |
 | 4 | Il sistema restituisce un codice 500 e un messaggio di errore indicando un errore interno al server |
 
-### Use case 2, Registrazione (UC2)
+### Use case 2, Creazione Utente (UC2)
 
 | Actors Involved  |   Admin                            |
 | :--------------: | :------------------------------------------------------------------- |
 |   Precondition   | L'Utente non ha un account  |
-|  Post condition  |  L'Utente si è registrato   |
+|  Post condition  |  L'Utente ha un account   |
 | Nominal Scenario |         Scenario 2.1         |
 |     Variants     |                     Nessuna                    |
-|    Exceptions    |                        Scenario 2.2, 2.3                        |
+|    Exceptions    |    Scenario 2.2, 2.3, 2.4, 2.5, 2.6          |
 
 ### Scenario 2.1
-|  Scenario 2.1  |  Registrazione completata         |
+|  Scenario 2.1  |  Creazione Utente completata         |
 | :------------- | :------------------------------------------------------------------------- |
-|  Precondition  | L'Utente non è registrato |
-| Post condition |  L'Utente si è registrato  |
+|  Precondition  | L'Utente non ha un account |
+| Post condition |  L'Utente ha un account  |
 |     Step#      |                                Description                                 |
-|       1        |  Utente : chiede di registrarsi                             |
-|       2        |  Sistema : richiede username, nome, cognome, ruolo e password       |
-|      3         |  Utente : fornisce username, nome, cognome, ruolo e password           |
-|      4         | Sistema  : legge username, nome, cognome, ruolo e password |
-|      5         | Sistema : controlla che l'username non sia ancora associato ad un account. L'username non è ancora stato usato|
-|      6         | Sistema : crea un nuovo Utente con le informazioni fornite|
+|       1        |  L'Utente chiede di creare un account                             |
+|       2        |  Il Sistema controlla che l'Utente sia autorizzato e che abbia i diritti sufficienti|
+|       3        |  Il Sistema richiede username, nome, cognome, ruolo e password       |
+|      4         |  L'Utente fornisce username, nome, cognome, ruolo e password           |
+|      5         | Il Sistema legge username, nome, cognome, ruolo e password |
+|      6         | Il Sistema controlla che tutti i parametri siano riempiti. Tutti i parametri sono riempiti|
+|      7         | Il Sistema controlla che l'username non sia ancora associato ad un account. L'username non è ancora stato usato|
+|      8         | Il Sistema crea un nuovo Utente con le informazioni fornite e restituisce un messaggio codice 200 |
 
 ### Scenario 2.2
-|  Scenario 2.2  |  Utente già esistente         |
+|  Scenario 2.2  |  Dati in input non validi         |
 | :------------- | :------------------------------------------------------------------------- |
-|  Precondition  | L'Utente non è registrato |
-| Post condition |  Registrazione fallita  |
+|  Precondition  | L'Utente non ha un account |
+| Post condition |  Creazione account fallita  |
 |     Step#      |                                Description                                 |
-|       1        |  Utente : chiede di registrarsi                             |
-|       2        |  Sistema : richiede username, nome, cognome, ruolo e password       |
-|      3         |  Utente : fornisce username, nome, cognome, ruolo e password           |
-|      4         | Sistema  : legge username, nome, cognome, ruolo e password |
-|      5         | Sistema : controlla che l'username non sia ancora associato ad un account. L'username esiste già. Viene fornito un messaggio di errore|
+|       1        |  L'Utente chiede di creare un account                             |
+|       2        |  Il Sistema controlla che l'Utente sia autorizzato e che abbia i diritti sufficienti|
+|       3        |  Il Sistema richiede username, nome, cognome, ruolo e password       |
+|      4         |  L'Utente fornisce username, nome, cognome, ruolo e password           |
+|      5         | Il Sistema legge username, nome, cognome, ruolo e password |
+|      6         | Il Sistema controlla che tutti i parametri siano riempiti. Almeno uno è vuoto. Il Sistema restituisce un messaggio di errore con codice 400|
 
 ### Scenario 2.3
-|  Scenario 2.3  |  Campi vuoti         |
+|  Scenario 2.3  |  Utente non autorizzato         |
 | :------------- | :------------------------------------------------------------------------- |
-|  Precondition  | L'Utente non è registrato |
-| Post condition |  Registrazione fallita  |
+|  Precondition  | L'Utente non ha un account |
+| Post condition |  Creazione account fallita  |
 |     Step#      |                                Description                                 |
-|       1        |  Utente : chiede di registrarsi                             |
-|       2        |  Sistema : richiede username, nome, cognome, ruolo e password       |
-|      3         |  Utente : fornisce username, nome, cognome, ruolo e password           |
-|      4         | Sistema  : legge username, nome, cognome, ruolo e password |
-|      5         | Sistema : controlla che tutti i parametri siano riempiti. Almeno uno è vuoto. Viene fornito un messaggio di errore|
+|       1        |  L'Utente chiede di creare un account                             |
+|       2        |  Il Sistema controlla che l'Utente sia autorizzato e abbia i diritti sufficienti. L'Utente non è autorizzato a creare un account. Il Sistema restituisce un messaggio di errore con codice 401     |
+
+### Scenario 2.4
+|  Scenario 2.4  |  Diritti insufficenti         |
+| :------------- | :------------------------------------------------------------------------- |
+|  Precondition  | L'Utente non ha un account |
+| Post condition |  Creazione account fallita  |
+|     Step#      |                                Description                                 |
+|       1        |  L'Utente chiede di creare un account                             |
+|       2        |  Il Sistema controlla che l'Utente sia autorizzato e abbia i diritti sufficienti. L'Utente non ha diritti sufficienti a creare un account. Il Sistema restituisce un messaggio di errore con codice 403     |
+
+### Scenario 2.5
+|  Scenario 2.5  |  Utente già esistente         |
+| :------------- | :------------------------------------------------------------------------- |
+|  Precondition  | L'Utente non ha un account |
+| Post condition |  Creazione Account fallita  |
+|     Step#      |                                Description                                 |
+|       1        |  L'Utente chiede di creare un account                             |
+|       2        |  Il Sistema richiede username, nome, cognome, ruolo e password       |
+|       3       |  Il Sistema controlla che l'Utente sia autorizzato e che abbia i diritti sufficienti|
+|      4         |  L'Utente fornisce username, nome, cognome, ruolo e password           |
+|      5         | Il Sistema legge username, nome, cognome, ruolo e password |
+|      6         | Il Sistema controlla che l'username non sia ancora associato ad un account. L'username esiste già. Il Sistema restituisce un messaggio di errore con codice 409|
+
+### Scenario 2.6
+|  Scenario 2.6  | Errore Interno del Server         |
+| :------------- | :------------------------------------------------------------------------- |
+|  Precondition  | L'Utente non ha un account |
+| Post condition |  Creazione Account fallita  |
+|     Step#      |                                Description                                 |
+|       1        |  L'Utente chiede di creare un account                             |
+|      2         | Il Sistema tenta di controllare che l'Utente sia autorizzato o abbia i diritti sufficienti, ma si verifica un errore.|
+|      3         | Il sistema restituisce un codice 500 e un messaggio di errore indicando un errore interno al server |
 
 ### Use case 3, Cancellazione Account
 
