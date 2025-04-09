@@ -10,16 +10,14 @@ Consider the GeoControl project as described in the swagger, assume that you are
 
 # Estimate by size
 
-###
-
-|                                                                                                         | Estimate |
-| ------------------------------------------------------------------------------------------------------- | -------- |
-| NC = Estimated number of classes to be developed                                                        |          |
-| A = Estimated average size per class, in LOC                                                            |          |
-| S = Estimated size of project, in LOC (= NC \* A)                                                       |          |
-| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour)                    |          |
-| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro)                                     |          |
-| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week ) |          |
+|                                         | Estimate |
+| :-------------------------------------- | :------- |
+| NC = Estimated number of classes to be developed | |
+| A = Estimated average size per class, in LOC | |
+| S = Estimated size of project, in LOC (= NC \* A) | |
+| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour) | |
+| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | |
+| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week) | |
 
 # Estimate by product decomposition
 
