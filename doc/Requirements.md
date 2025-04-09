@@ -19,9 +19,14 @@ Version: V1 - description of Geocontrol as described in the swagger
     - [Context Diagram](#context-diagram)
     - [Interfaces](#interfaces)
   - [Stories and Personas](#stories-and-personas)
+    - [Persona1 - "Luca"](#persona1---luca)
+    - [Persona2 - "Giulia"](#persona2---giulia)
+    - [Persona3 - "Marco"](#persona3---marco)
+    - [Persona4 - "Francesco"](#persona4---francesco)
+    - [Persona5 - "Silvia"](#persona5---silvia)
   - [Functional and Non-Functional Requirements](#functional-and-non-functional-requirements)
     - [Functional Requirements](#functional-requirements)
-      - [Access Rights](#access-rights)
+      - [Table of Rights](#table-of-rights)
     - [Non-Functional Requirements](#non-functional-requirements)
   - [Use Case Diagram and Use Cases](#use-case-diagram-and-use-cases)
     - [Use Case Diagram](#use-case-diagram)
@@ -111,12 +116,16 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 | Stakeholder name | Description |
 | :--------------- | :---------- |
-|       Admin      |  Utente che ha accesso a tutte le risorse, inclusa la gestione di Networks e Utenti |
-|      Operator    |  Utente che può gestire Network, Gateway, Sensori e inserire misurazioni |
-|       Viewer     |  Utente che può solo consultare i dati |
+| Admin |  Utente che ha accesso a tutte le risorse e funzionalità del sistema, inclusa la gestione degli Utenti |
+| Operator |  Utente che può gestire Network, Gateway, Sensori e inserire Misurazioni |
+| Viewer |  Utente che può solo consultare i dati |
 | Unione delle Comunità Montane del Piemonte | Committente principale del Sistema |
-| Enti Pubblici e Privati | Università, cittadine, Protezione Civile o aziende che vogliono usufruire dei servizi del Sistema |
-| Produttori di Componenti | Coloro che si occupano di produzione e distribuzione dell'Hardware utilizzato nel Sistema |
+| Aziende Private | Aziende che vogliono monitorare i propri edifici o aree di lavoro |
+| Enti di Ricerca | Università e centri di ricerca che sono interessati ai dati raccolti dal Sistema |
+| Enti Governativi | Enti che si occupano di monitoraggio ambientale e gestione del territorio |
+| Produttori di Componenti | Aziende che si occupano di produzione e distribuzione delle componenti Hardware utilizzate nel Sistema |
+| Manutentori | Tecnici che si occupano della manutenzione e del monitoraggio delle componenti Hardware su cui si basa il Sistema |
+| Servizio di Pagamento Licenza | Servizio di pagamento per l'acquisto della licenza del Software |
 
 ## Context Diagram and Interfaces
 
@@ -148,20 +157,30 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 \<stories will be formalized later as scenarios in use cases>
 
-- Persona1 : Uomo, Adulto, 50 anni, Lavora come informatico nel comune di una cittadina ad alto rischio sismico
-Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della città
+### Persona1 - "Luca"
+Uomo, Adulto, 50 anni, Informatico, Impiegato al Comune di una cittadina ad alto rischio sismico
 
-- Persona2 : Donna, Giovane, 25 anni, lavora in una riserva naturale come guida
-  Storia : Ha bisogno di sapere in anticipo le condizioni climatiche per evitare di mettere in pericolo i visitatori durante le passeggiate
+__Story__: ha bisogno di un Sistema per monitorare l'attività sismica della città
 
-- Persona3 : Uomo, Età media, 34 anni, gestore hotel in alta quota aperto in periodo invernale
-  Storia : Ha bisogno di un sistema per monitorare il rischio di valanghe o temperature estreme al fine di migliorare l'esperienza di chi alloggia nell'hotel
+### Persona2 - "Giulia"
+Donna, Giovane, 25 anni, Guida in una Riserva Naturale
 
-- Persona4: Gruppo di ricerca universitario
-  Storia: Hanno bisogno di dati ambientali per testare modelli di machine learning per predizioni metereologiche per una ricerca
+__Story__: ha bisogno di conoscere i rischi idrogeologici potenziali dei suoi percorsi per evitare di mettere in pericolo i visitatori durante le passeggiate
 
-- Persona5: Donna, Adulta, 46 anni, preside di una scuola media
-  Storia: Nell'attesa di un cambio struttura, la preside ha bisogno di monitorare alcuni parametri particolari di quella attuale, vecchia e decadente, ad esempio crepe e fessurazioni o vibrazioni anomale.
+### Persona3 - "Marco"
+Uomo, Giovane Adulto, 34 anni, Gestore Hotel in alta quota aperto in periodo invernale
+
+__Story__: ha bisogno di un sistema per monitorare il rischio di valanghe o temperature estreme al fine di migliorare l'esperienza di chi alloggia nell'hotel
+
+### Persona4 - "Francesco"
+Uomo, Adulta, 40 anni, Ricercatore Universitario
+
+__Story__: hanno bisogno di dati ambientali per addestrare modelli di Machine Learning per predizioni metereologiche per una ricerca
+
+### Persona5 - "Silvia"
+Donna, Adulta, 46 anni, Preside di una Scuola Media
+
+__Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitorare alcuni parametri particolari di quella attuale, vecchia e decadente, ad esempio crepe e fessurazioni o vibrazioni anomale.
 
 ## Functional and Non-Functional Requirements
 
@@ -171,10 +190,10 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 
 \<they match to high level use cases>
 
-|  ID   | Description | User Story |
-| :---- | :---------- | :--------- |
+|  ID   | Description |
+| :---- | :---------- |
 | __FR1__   | __Gestione Utente__ |
-| FR1.1 | Autenticazione Utente | COME Utente<br>VOGLIO autenticarmi al sistema<br>PER accedere a tutte le funzionalità |
+| FR1.1 | Autenticazione Utente |
 | FR1.2 | Creazione Account|
 | FR1.3 | Ottenimento Elenco Utenti |
 | FR1.4 | Ottenimento Utente Specifico |
@@ -209,7 +228,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 | FR6.6 | Ottenimento Elenco Outliers di Network Specifico |
 | FR6.7 | Ottenimento Elenco Outliers di Sensore Specifico |
 
-#### Access Rights
+#### Table of Rights
 
 | FR    | Viewer             | Operator           | Admin              |
 | :---: | :----------------: | :----------------: | :----------------: |
@@ -304,7 +323,7 @@ Storia : Ha bisogno di un Sistema per monitorare l'attività sismica della citt�
 
 \###############################################
 
-__NOTA:__ In tutti gli Scenari, l'_Utente_ indicato negli Step, è genericamente uno dei possibili Attori che può eseguire il Caso d'Uso (anche quando solo 1 attore è possibile). Non va confuso con il termine "Utente" che compare in alcune Pre-condition e Post-condition.  
+__NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Step, è genericamente uno dei possibili Attori che può eseguire il Caso d'Uso (anche quando solo 1 attore è possibile). Non va confuso con il termine "Utente" che compare in alcune Pre-condition, Post-condition e Step.  
 
 #### Use case 1 (UC1): Autenticazione al Sistema
 
