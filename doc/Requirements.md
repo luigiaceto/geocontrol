@@ -780,7 +780,7 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | Pre-condition  | // |
 | Post-condition | Nessuna informazione restituita; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: chiede di ottenere chiede di ottenere elenco o Network specifica |
+| 1              | _Utente_: chiede di ottenere elenco o Network specifica |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
 ##### Scenario 6.5
@@ -791,7 +791,7 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di ottenere una Network specifica |
-| 2              | _System_:  richiede codice identificativo della Rete (networkCode) |
+| 2              | _System_: richiede codice identificativo della Rete (networkCode) |
 | 3              | _Utente_: fornisce networkCode |
 | 4              | _System_: legge networkCode fornito |
 | 5              | _System_: verifica networkCode; Network non trovata |
@@ -925,7 +925,7 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 
 ##### Scenario 8.5
 
-| UC8 - S8.5     | Scenario 8.5: Modifica Network (Dati Non Validi) |
+| UC8 - S8.5     | Scenario 8.5: Modifica Network (Input Invalido) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato con ruolo adeguato; network esistente |
 | Post-condition | Network non modificata; mostrato messaggio di errore |
