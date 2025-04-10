@@ -40,17 +40,8 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 # Business Model
 
-- __Private-as-a-Service__:
-  una compagnia privata sviluppa e gestisce il sistema offrendo il servizio ad amministrazioni pubbliche su base contrattuale.
-
-- __Sistema Software su licenza__:
-  la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale o come one-time-purchase. Vi sono diversi Tier di licenza tra cui quelli più avanzati potrebbero includere supporto tecnico e manutenzione della parte hardware del systema (sensori e gateway).
-
-- __Modello Open Core__:
-  si offre una versione open source del software e vengono venduti moduli premium con funzionalità più avanzate e servizi di personalizzazione e integrazione. È utile per creare parallelamente una community di sviluppatori che contribuisce al miglioramento del prodotto.
-
-- __partnership__:
-  collaborare con produttori di sensori integrando al meglio il loro hardware con GeoControl e con società di consulenza ambientale/ingegneristica. Stabilire anche accordi di guadagno con partner che portano nuovi clienti.
+__Sistema Software su licenza__:
+la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale o come one-time-purchase. Vi sono diversi Tier di licenza tra cui quelli più avanzati che includono supporto tecnico e manutenzione della parte hardware del sistema (sensori e gateway).
 
 # Stakeholders
 
@@ -288,7 +279,55 @@ Misurazione "*" -- "1" Misurazioni : in >
 
 \<must be consistent with Context diagram>
 
+``` plantuml
+
+class Sistema GeoControl {
+  +F1 GestioneUtente()
+  +F2 GestioneNetworks()
+  +F3 GestioneGateways()
+  +F4 GestioneSensori()
+  +F5 CalcoloStatisticheMisurazioni()
+  +F6 GestioneMisurazioni()
+}
+
+class Server {
+
+}
+
+artifact "Network Software" as Network Software
+
+class Gateway {
+
+}
+
+class Sensore {
+
+}
+
+class Sistema di Autenticazione {
+
+}
+
+class Database {
+
+}
+
+Sistema GeoControl o-- Server 
+Network Software --> Server
+Sistema GeoControl o-- Gateways
+Sistema GeoControl o-- Sensori
+Sistema GeoControl o-- DataBase
+Sistema GeoControl o-- Autenticatore di Utenti
+
+```
+
 # Deployment Diagram
 
 \<describe here deployment diagram >
 
+``` plantuml
+
+node "Server" {
+  artifact "GeoControl Network Software"
+}
+ plantuml
