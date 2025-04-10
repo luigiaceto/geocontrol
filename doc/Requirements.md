@@ -284,7 +284,7 @@ Misurazione "*" -- "1" Misurazioni : in >
 
 ``` plantuml
 
-class Sistema GeoControl {
+class SistemaGeoControl {
   +F1 GestioneUtente()
   +F2 GestioneNetworks()
   +F3 GestioneGateways()
@@ -293,34 +293,12 @@ class Sistema GeoControl {
   +F6 GestioneMisurazioni()
 }
 
-class Server {
-
-}
-
-artifact "Network Software" as Network Software
-
-class Gateway {
-
-}
-
-class Sensore {
-
-}
-
-class Sistema di Autenticazione {
-
-}
-
-class Database {
-
-}
-
-Sistema GeoControl o-- Server 
-Network Software --> Server
-Sistema GeoControl o-- Gateways
-Sistema GeoControl o-- Sensori
-Sistema GeoControl o-- DataBase
-Sistema GeoControl o-- Autenticatore di Utenti
+SistemaGeoControl o-- Server 
+GeoControlNetworkSoftware --> Server
+SistemaGeoControl o-- Gateways
+SistemaGeoControl o-- Sensori
+SistemaGeoControl o-- DataBase
+SistemaGeoControl o-- AutenticatoreDiUtenti
 
 ```
 
@@ -328,10 +306,6 @@ Sistema GeoControl o-- Autenticatore di Utenti
 
 \<describe here deployment diagram >
 
-``` plantuml
-
-node "Server" {
-  artifact "GeoControl Network Software"
-}
-
-```
+<p align="center">
+    <img src="res/Deployment_diagram.png" alt="" width="400">
+</p>
