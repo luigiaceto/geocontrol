@@ -788,7 +788,7 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | Pre-condition  | // |
 | Post-condition | Nessuna informazione restituita; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: chiede di ottenere chiede di ottenere elenco o Network specifica |
+| 1              | _Utente_: chiede di ottenere elenco o Network specifica |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
 ##### Scenario 6.5
@@ -799,7 +799,7 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di ottenere una Network specifica |
-| 2              | _System_:  richiede codice identificativo della Rete (networkCode) |
+| 2              | _System_: richiede codice identificativo della Rete (networkCode) |
 | 3              | _Utente_: fornisce networkCode |
 | 4              | _System_: legge networkCode fornito |
 | 5              | _System_: verifica networkCode; Network non trovata |
@@ -934,7 +934,7 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 
 ##### Scenario 8.5
 
-| UC8 - S8.5     | Scenario 8.5: Modifica Network (Dati Non Validi) |
+| UC8 - S8.5     | Scenario 8.5: Modifica Network (Input Invalido) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato con ruolo adeguato; network esistente |
 | Post-condition | Network non modificata; mostrato messaggio di errore |
@@ -960,6 +960,430 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | // |
 | Post-condition | Network non modificata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_:  invia richiesta di aggiornamento |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
+
+#### Use case 9, Creazione Gateway
+
+| UC9              | Use Case 9: Creazione Gateway |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Utente autenticato con ruolo adeguato (Admin o Operator)   |
+| Post-condition   | Gateway creato |
+| Nominal Scenario | Scenario 9.1 |
+| Variants         | // |
+| Exceptions       | Scenario 9.2, 9.3, 9.4, 9.5, 9.6, 9.7 |
+
+##### Scenario 9.1
+
+| UC9 - S9.1     | Scenario 9.1: Creazione Gateway (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | L'utente è autenticato e ha i permessi per creare un gateway |
+| Post-condition | Un nuovo gateway è stato creato nel sistema |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una rete con un certo networkCode |
+| 2              | _System_: legge il networkCode |
+| 3              | _System_: verifica che la rete esista. La rete esiste |
+| 4              | _System_: richiede macAddress, nome e descrizione della Gateway da creare|
+| 5              | _Utente_: fornisce macAddress, nome e descrizione |
+| 6              | _System_: legge i dati forniti|
+| 7              | _System_: verifica che il macAddress non sia già in uso. Non è in uso|
+| 8			         | _System_: crea e memorizza nuovo Gateway __(Code 201)__ |
+
+##### Scenario 9.2
+
+| UC9 - S9.2     | Scenario 9.2: Creazione Gateway (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | L'utente è autenticato e ha i permessi per creare un gateway |
+| Post-condition | Gateway non creata; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una rete con un certo networkCode |
+| 2              | _System_: legge il networkCode |
+| 3              | _System_: verifica che la rete esista. La rete esiste |
+| 4              | _System_: richiede macAddress, nome e descrizione della Gateway da creare|
+| 5              | _Utente_: fornisce macAddress, nome e descrizione |
+| 6              | _System_: legge i dati forniti|
+| 7              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
+
+##### Scenario 9.3
+
+| UC9 - S9.3     | Scenario 9.3: Creazione Gateway (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non autenticato |
+| Post-condition | Gateway non creata; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una rete con un certo networkCode |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 9.4
+
+| UC9 - S9.4     | Scenario 9.4: Creazione Gateway (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato ma con ruolo diverso da Admin o Operator|
+| Post-condition | Gateway non creata; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una rete con un certo networkCode |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 9.5
+
+| UC9 - S9.5     | Scenario 9.5: Creazione Gateway (Network non trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; networkCode non corrisponde ad alcuna network esistente|
+| Post-condition | Gateway non creata; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una rete con un certo networkCode |
+| 2              | _System_: legge il networkCode |
+| 3              | _System_: verifica che la rete esista.|
+| 4              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 9.6
+
+| UC9 - S9.6     | Scenario 9.6: Creazione Gateway (macAddress già in uso) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | L'utente è autenticato e ha i permessi per creare un gateway |
+| Post-condition | Gateway non creata; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una rete con un certo networkCode |
+| 2              | _System_: legge il networkCode |
+| 3              | _System_: verifica che la rete esista. La rete esiste |
+| 4              | _System_: richiede macAddress, nome e descrizione della Gateway da creare|
+| 5              | _Utente_: fornisce macAddress, nome e descrizione |
+| 6              | _System_: legge i dati forniti|
+| 7              | _System_: verifica che il macAddress non sia già in uso. |
+| 8			         | _System_: mostra messaggio di errore. MacAddress già in uso __(Code 409)__ |
+
+##### Scenario 9.7
+
+| UC9 - S9.7     | Scenario 9.7: Creazione Gateway (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Gateway non creata; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una rete con un certo networkCode |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+#### Use case 10, Creazione Gateway
+
+| UC10              | Use Case 10: Ottenimento Gateway |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator \| Viewer |
+| Pre-condition    | //  |
+| Post-condition   | Informazioni di almeno un Gateway sono state ottenute |
+| Nominal Scenario | Scenario 10.1 |
+| Variants         | Scenario 10.2 |
+| Exceptions       | Scenario 10.3, 10.4, 10.5, 10.6 |
+
+##### Scenario 10.1
+
+| UC10 - S10.1     | Scenario 10.1: Ottenimento Elenco Gateway (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco dei Gateway è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco dei Gateway per una Network|
+| 2              | _System_: richiede codice identificativo della Rete a cui appartiene il Gateway(networkCode) |
+| 3              | _Utente_: fornisce networkCode | 
+| 4              | _System_: legge networkCode fornito |
+| 5              | _System_: verifica l'esistenza del networkCode. networkCode trovato |
+| 6              | _System_: restituisce l'elenco dei Gateway __(Code 200)__ |
+
+##### Scenario 10.2
+
+| UC10 - S10.2     | Scenario 10.2: Ottenimento Gateway Specifica (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Gateway ricercato esiste |
+| Post-condition | Informazioni sul Gateway ricercato sono state ottenute |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Gateway Specifico |
+| 2              | _System_: richiede codice identificativo della Rete a cui appartiene il Gateway(networkCode) |
+| 3              | _Utente_: fornisce networkCode |
+| 4              | _System_: legge networkCode fornito |
+| 5              | _System_: verifica esistenza della Network; Network trovata |
+| 6              | _System_: richiede codice identificativo del Gateway cercato (macAddress) |
+| 7              | _Utente_: fornisce macAddress |
+| 8              | _System_: legge macAddress fornito |
+| 9              | _System_: verifica esistenza del Gateway. Gateway trovato |
+| 10              | _System_: restituisce informazioni sul Gateway __(Code 200)__ |
+
+##### Scenario 10.3
+
+| UC10 - S10.3     | Scenario 10.3: Ottenimento Gateway (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere elenco o Gateway specifico |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 10.4
+
+| UC10 - S10.4    | Scenario 6.4: Ottenimento Gateway (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Nessuna informazione restituita; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere elenco o Gateway |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+##### Scenario 10.5
+
+| UC10 - S10.5     | Scenario 10.5: Ottenimento Gateway (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; networkCode non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere elenco o Gateway specifico per una Network|
+| 2              | _System_: richiede codice identificativo della Rete (networkCode) |
+| 3              | _Utente_: fornisce networkCode | 
+| 4              | _System_: legge networkCode fornito |
+| 5              | _System_: verifica l'esistenza del networkCode |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 10.6
+
+| UC10 - S10.6     | Scenario 10.6: Ottenimento Gateway Specifico (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; networkCode non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Gateway Specifico |
+| 2              | _System_: richiede codice identificativo della Rete a cui appartiene il Gateway(networkCode) |
+| 3              | _Utente_: fornisce networkCode |
+| 4              | _System_: legge networkCode fornito |
+| 5              | _System_: verifica esistenza della Network; Network trovata |
+| 6              | _System_: richiede codice identificativo del Gateway cercato (macAddress) |
+| 7              | _Utente_: fornisce macAddress |
+| 8              | _System_: legge macAddress fornito |
+| 9              | _System_: verifica esistenza del Gateway |
+| 10             | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+#### Use Case 11 (UC11): Eliminazione Gateway
+
+| UC11             | Use Case 11: Eliminazione Gateway |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Gateway da eliminare esiste |
+| Post-condition   | Gateway è stato eliminato |
+| Nominal Scenario | Scenario 11.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 11.2, 11.3, 11.4, 11.5, 11.6 |
+
+##### Scenario 11.1
+
+| UC11 - S11.1     | Scenario 11.1: Eliminazione Gateway (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo Admin o Operator; gateway esiste |
+| Post-condition | Gateway è stato eliminato |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Gateway |
+| 2              | _System_: richiede networkCode della network a cui appartiene il Gateway da eliminare |
+| 3              | _Utente_: fornisce networkCode |
+| 4              | _System_: legge networkCode fornito |
+| 5              | _System_: verifica esistenza della rete. Rete trovata |
+| 6              | _System_: richiede macAddress del Gateway da eliminare |
+| 7              | _Utente_: fornisce macAddress |
+| 8              | _System_: legge macAddress fornito |
+| 9              | _System_: verifica esistenza del Gateway. Gateway trovato |
+| 10             | _System_: elimina il Gateway __(Code 204)__ |
+
+##### Scenario 11.2
+
+| UC11 - S11.2   | Scenario 11.2: Eliminazione Gateway (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Gateway non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 11.3
+
+| UC11 - S11.3   | Scenario 11.3: Eliminazione Gateway (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato ma con ruolo diverso da Admin o Operator |
+| Post-condition | Gateway non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 11.4
+
+| UC11 - S11.4     | Scenario 11.4: Eliminazione Gateway (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; networkCode non corrisponde ad alcuna network esistente |
+| Post-condition | Gateway non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Gateway |
+| 2              | _System_: richiede networkCode della network a cui appartiene il Gateway da eliminare |
+| 3              | _Utente_: fornisce networkCode |
+| 4              | _System_: legge networkCode fornito |
+| 5              | _System_: verifica esistenza della rete |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 11.5
+
+| UC11 - S11.5     | Scenario 11.5: Eliminazione Gateway (Gateway non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; networkCode non corrisponde ad alcuna network esistente |
+| Post-condition | Network non eliminata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Gateway |
+| 2              | _System_: richiede networkCode della network a cui appartiene il Gateway da eliminare |
+| 3              | _Utente_: fornisce networkCode |
+| 4              | _System_: legge networkCode fornito |
+| 5              | _System_: verifica esistenza della rete. Rete trovata |
+| 6              | _System_: richiede macAddress del Gateway da eliminare |
+| 7              | _Utente_: fornisce macAddress |
+| 8              | _System_: legge macAddress fornito |
+| 9              | _System_: verifica esistenza del Gateway |
+| 6              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 11.6
+
+| UC11 - S11.6     | Scenario 11.6: Eliminazione Gateway (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Gateway non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+#### Use Case 12 (UC12): Modifica Gateway
+
+| UC12             | Use Case 12: Modifica Gateway|
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Gateway da modificare esiste |
+| Post-condition   | Gateway è stato aggiornato |
+| Nominal Scenario | Scenario 12.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8 |
+
+##### Scenario 12.1
+
+| UC12 - S12.1     | Scenario 12.1: Modifica Gateway (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo Admin o Operator; gateway esiste; dati validi |
+| Post-condition | Gateway è stato aggiornato |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: richiede networkCode della network a cui appartiene il Gateway da modificare |
+| 3              | _Utente_: fornisce networkCode |
+| 4              | _System_: legge networkCode fornito |
+| 5              | _System_: verifica esistenza della rete. Rete trovata |
+| 6              | _System_: richiede macAddress del Gateway da modificare |
+| 7              | _Utente_: fornisce macAddress |
+| 8              | _System_: legge macAddress fornito |
+| 9              | _System_: verifica esistenza del Gateway. Gateway trovato |
+| 10             | _System_: richiede i dati da aggiornare |
+| 11             | _System_: fornisce i dati da aggiornare |
+| 12             | _System_: legge i dati |
+| 13             | _SYstem_: valida i dati forniti |
+| 14             | _System_: aggiorna il gateway __(Code 204)__ |
+
+##### Scenario 12.2
+
+| UC12 - S12.2     | Scenario 12.2: Modifica Gateway (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 12.3
+
+| UC12 - S12.3     | Scenario 12.3: Modifica Gateway (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato ma con ruolo diverso da Admin o Operator |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta di aggiornamento |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 12.4
+
+| UC12 - S12.4     | Scenario 12.4: Modifica Gateway (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; networkCode non corrisponde ad alcuna network esistente |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: richiede networkCode della network a cui appartiene il Gateway da modificare |
+| 3              | _Utente_: fornisce networkCode |
+| 4              | _System_: legge networkCode fornito |
+| 5              | _System_: verifica esistenza della rete |
+| 3              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 12.5
+
+| UC12 - S12.5     | Scenario 12.5: Modifica Gateway (Gateway non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; macAddress non corrisponde ad alcun gateway esistente |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: richiede networkCode della network a cui appartiene il Gateway da modificare |
+| 3              | _Utente_: fornisce networkCode |
+| 4              | _System_: legge networkCode fornito |
+| 5              | _System_: verifica esistenza della rete. Rete trovata |
+| 6              | _System_: richiede macAddress del Gateway da modificare |
+| 7              | _Utente_: fornisce macAddress |
+| 8              | _System_: legge macAddress fornito |
+| 9              | _System_: verifica esistenza del Gateway |
+| 3              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 12.6
+
+| UC12 - S12.6     | Scenario 12.6: Modifica Gateway (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; gateway esistente |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: richiede networkCode della network a cui appartiene il Gateway da modificare |
+| 3              | _Utente_: fornisce networkCode |
+| 4              | _System_: legge networkCode fornito |
+| 5              | _System_: verifica esistenza della rete. Rete trovata |
+| 6              | _System_: richiede macAddress del Gateway da modificare |
+| 7              | _Utente_: fornisce macAddress |
+| 8              | _System_: legge macAddress fornito |
+| 9              | _System_: verifica esistenza del Gateway. Gateway trovato |
+| 10             | _System_: richiede i dati da aggiornare |
+| 11             | _System_: fornisce i dati da aggiornare |
+| 12             | _System_: legge i dati |
+| 13             | _System_: mostra messaggio di errore. Input non valido __(Code 400)__ |
+
+##### Scenario 12.7
+
+| UC12 - S12.7   | Scenario 12.7: Modifica Gateway (macAddress già in uso) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; nuovo macAddress fornito è già usato da un altro gateway |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: richiede networkCode della network a cui appartiene il Gateway da modificare |
+| 3              | _Utente_: fornisce networkCode |
+| 4              | _System_: legge networkCode fornito |
+| 5              | _System_: verifica esistenza della rete. Rete trovata |
+| 6              | _System_: richiede macAddress del Gateway da modificare |
+| 7              | _Utente_: fornisce macAddress |
+| 8              | _System_: legge macAddress fornito |
+| 9              | _System_: verifica esistenza del Gateway. Gateway trovato |
+| 10             | _System_: richiede i dati da aggiornare |
+| 11             | _System_: fornisce i dati da aggiornare (macAddress) |
+| 12             | _System_: legge i dati |
+| 13             | _SYstem_: verifica i dati forniti; rileva conflitto nel del macAddress |
+| 3              | _System_: mostra messaggio di errore. macAddress già in uso __(Code 409)__ |
+
+##### Scenario 12.8
+
+| UC12- S12.8     | Scenario 12.8: Modifica Gateway (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_:  invia richiesta di aggiornamento |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
