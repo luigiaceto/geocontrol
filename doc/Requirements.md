@@ -333,4 +333,5 @@ Sistema GeoControl o-- Autenticatore di Utenti
 node "Server" {
   artifact "GeoControl Network Software"
 }
- plantuml
+
+```
