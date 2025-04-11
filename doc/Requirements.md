@@ -1024,7 +1024,7 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | 1              | _Utente_: invia richiesta per creare un nuovo gateway in una rete con un certo networkCode |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
-#### Use case 10, Creazione Gateway
+#### Use case 10, Ottenimento Gateway
 
 | UC10              | Use Case 10: Ottenimento Gateway |
 | :--------------- | :--------------------------------- |
@@ -1347,6 +1347,236 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_:  invia richiesta di aggiornamento |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
+
+
+##### Use Case 17 (UC17): Creazione Misurazione
+
+| UC17              | Use Case 17: Creazione Misurazione |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    |Network, Gateway e Sensor esistono e sono accessibili; utente autenticato   |
+| Post-condition   | Una nuova Misurazione è stata creata |
+| Nominal Scenario | Scenario 17.1 |
+| Variants         | // |
+| Exceptions       | Scenario 17.2, 17.3, 17.4, 17.5, 17.6|
+
+##### Scenario 17.1
+
+| UC17 - S17.1     | Scenario 17.1: Creazione Misurazione (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  |Utente autenticato con ruolo Admin o Operator; risorse esistenti; dati validi |
+| Post-condition | Una nuova misurazione è stata creata |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia una richiesta POST per creare una Misurazione indicando networkCode, gatewayMac, sensorMac, createdAt e value |
+| 2              | _System_:legge i parametri e il corpo della richiesta |
+| 3              | _System_: verifica esistenza di Network, Gateway e Sensor |
+| 4              | _System_: valida i dati della misurazione |
+| 5              | _System_: crea la Misurazione __(Code 201)__ |
+
+##### Scenario 17.2
+
+| UC17 - S17.2     | Scenario 17.2: Creazione Misurazione (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non autenticato |
+| Post-condition | Misurazione non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta POST senza credenziali valide |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 17.3
+
+| UC17 - S17.3     | Scenario 17.3: Creazione Misurazione (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato ma con ruolo diverso da Admin o Operator |
+| Post-condition | Misurazione non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: tenta di creare una Misurazione |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 17.4
+
+| UC17 - S17.4     | Scenario 17.4: Creazione Misurazione (Dati Non Validi) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; risorse esistenti |
+| Post-condition | Misurazione non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta con dati mancanti o malformati (createdAt o value assente) |
+| 2              | _System_: valida i dati e rileva l'errore|
+| 3              | _System_: mostra messaggio di errore. Dati non validi __(Code 400)__ |
+
+##### Scenario 17.5
+
+| UC17 - S17.5     | Scenario 17.5: Creazione Misurazione (Risorsa Non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; una tra Network, Gateway o Sensor non esiste |
+| Post-condition | Misurazione non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta per creare una Misurazione associata a una risorsa inesistente |
+| 2              | _System_:verifica networkCode, gatewayMac, sensorMac; almeno uno non trovato|
+| 3              | _System_: mostra messaggio di errore. Risorsa non trovata __(Code 404)__ |
+
+##### Scenario 17.6
+
+| UC17 - S17.6     | Scenario 17.6: Creazione Misurazione (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Misurazione non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta per creare una Misurazione |
+| 2              | _System_:si verifica un errore imprevisto durante l’elaborazione |
+| 3              | _System_: mostra messaggio di errore. Errore interno __(Code 500)__ |
+
+
+##### Use Case 18 (UC18): Visualizzazione Dati Sensori per Network Specifica
+
+| UC18              | Use Case 18: Visualizzazione Dati Sensori per Network Specifica |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator \| Viewer |
+| Pre-condition    | Esiste una Network con sensori registrati. Utente autenticato.   |
+| Post-condition   | L’utente ha visualizzato i dati richiesti per i sensori (misurazioni, statistiche o outlier) |
+| Nominal Scenario | Scenario 18.1 |
+| Variants         | Scenario 18.2, 18.3 |
+| Exceptions       | Scenario 18.4, 18.5, 18.6|
+
+##### Scenario 18.1
+
+| UC18 - S18.1     | Scenario 18.1: Recupero delle Misurazioni |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato. Network e sensori esistono. |
+| Post-condition | L’utente visualizza tutte le misurazioni richieste. |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta GET /networks/{networkCode}/measurements con opzionali sensorMacs, startDate, endDate |
+| 2              | _System_: valida i parametri e autentica l’utente |
+| 3              | _System_: restituisce misurazioni per i sensori specificati nel range temporale __(Code 200)__ |
+
+##### Scenario 18.2
+
+| UC18 - S18.2     | Scenario 18.2: Recupero delle Statistiche |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato. Network e sensori esistono |
+| Post-condition | L’utente visualizza statistiche aggregate |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta GET /networks/{networkCode}/stats con opzionali sensorMacs, startDate, endDate |
+| 2              | _System_: valida i parametri e autentica l’utente |
+| 3              | _System_: restituisce le statistiche (media, varianza, soglie) per i sensori indicati __(Code 200)__ |
+
+##### Scenario 18.3
+
+| UC18 - S18.3     | Scenario 18.3: Recupero Outlier |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato. Network e sensori esistono |
+| Post-condition | L’utente visualizza solo i dati identificati come outlier |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta GET /networks/{networkCode}/outliers con opzionali sensorMacs, startDate, endDate |
+| 2              | _System_: valida i parametri e autentica l’utente |
+| 3              | _System_: restituisce solo le misurazioni fuori soglia per i sensori specificati __(Code 200)__ |
+
+##### Scenario 18.4
+
+| UC18 - S18.4     | Scenario 18.4: Utente Non Autenticato |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | L’utente non ha effettuato l'accesso o il token è invalido |
+| Post-condition | Nessun dato restituito. Mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta senza token o con token errato |
+| 2              | _System_: restituisce errore Unauthorized __(Code 401)__ |
+
+##### Scenario 18.5
+
+| UC18 - S18.5     | Scenario 18.5: Network Non Trovata |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Il codice della Network (networkCode) non è valido o non esiste |
+| Post-condition | Nessun dato restituito. Mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta con networkCode inesistente |
+| 2              | _System_: restituisce errore NotFound __(Code 404)__ |
+
+##### Scenario 18.6
+
+| UC18 - S18.6     | Scenario 18.6: Errore Interno |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Condizione imprevista lato server |
+| Post-condition | Nessun dato restituito. Mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta valida |
+| 2              | _System_: si verifica un errore interno |
+| 3              | _System_: restituisce errore InternalServerError __(Code 500)__ |
+
+
+##### Use Case 19 (UC19): Visualizzazione Dati Sensore Specifico
+
+| UC19              | Use Case 19: Visualizzazione Dati Sensore Specifico |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator \| Viewer |
+| Pre-condition    | Esiste una Network con un sensore registrato. Utente autenticato   |
+| Post-condition   | L’utente ha visualizzato i dati richiesti per il sensore specificato (misurazioni, statistiche o outlier) |
+| Nominal Scenario | Scenario 19.1 |
+| Variants         | Scenario 19.2, 19.3 |
+| Exceptions       | Scenario 19.4, 19.5, 19.6|
+
+##### Scenario 19.1
+
+| UC19 - S19.1     | Scenario 18.6: Recupero Delle Misurazioni |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato. Il sensore esiste nella network specificata |
+| Post-condition | L’utente visualizza tutte le misurazioni del sensore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta GET /networks/{networkCode}/gateways/{gatewayMac}/sensors/{sensorMac}/measurements con startDate e endDate opzionali |
+| 2              | _System_: valida i parametri e autentica l’utente |
+| 3              | _System_: restituisce misurazioni dettagliate per il sensore indicato nel range temporale __(Code 200)__ |
+
+##### Scenario 19.2
+
+| UC19 - S19.2     | Scenario 19.2: Recupero delle Statistiche |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato. Il sensore esiste nella Network specificata |
+| Post-condition | L’utente visualizza statistiche aggregate del sensore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta GET /networks/{networkCode}/gateways/{gatewayMac}/sensors/{sensorMac}/stats con startDate e endDate opzionali |
+| 2              | _System_: valida i parametri e autentica l’utente |
+| 3              | _System_: restituisce statistiche (media, varianza, soglie) per il sensore indicato __(Code 200)__ |
+
+##### Scenario 19.3
+
+| UC19 - S19.3     | Scenario 19.3: Recupero Outlier |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato. Il sensore esiste nella Network specificata |
+| Post-condition | L’utente visualizza solo le misurazioni identificate come outlier |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta GET /networks/{networkCode}/gateways/{gatewayMac}/sensors/{sensorMac}/outliers con startDate e endDate opzionali |
+| 2              | _System_: valida i parametri e autentica l’utente |
+| 3              | _System_: restituisce solo le misurazioni fuori soglia __(Code 200)__ |
+
+##### Scenario 19.4
+
+| UC19 - S19.4     | Scenario 19.4: Utente Non Autenticato |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | L’utente non ha effettuato l'accesso o il token è invalido |
+| Post-condition | Nessun dato restituito. Mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta senza token o con token errato |
+| 2              | _System_: restituisce errore Unauthorized __(Code 401)__ |
+
+##### Scenario 19.5
+
+| UC19 - S19.5     | Scenario 19.5: Sensore Non Trovato |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Il networkCode, gatewayMac o sensorMac non esiste o non è corretto |
+| Post-condition | Nessun dato restituito. Mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta con parametri non validi o riferiti a entità inesistenti |
+| 2              | _System_: restituisce errore NotFound __(Code 404)__ |
+
+##### Scenario 19.6
+
+| UC19 - S19.6     | Scenario 19.6: Errore Interno |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Condizione imprevista lato server |
+| Post-condition | Nessun dato restituito. Mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: invia richiesta valida |
+| 2              | _System_: si verifica un errore interno |
+| 3              | _System_: restituisce errore InternalServerError __(Code 500)__ |
 
 
 ## Glossary
