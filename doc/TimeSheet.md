@@ -40,7 +40,7 @@ Suddivisione dei Timesheet utile per rendere più comoda la somma finale che fat
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | Mar 24 - 30    | 0  | | | | | | | |
 | Mar 31 - Apr 6 | 2  | | | | | | | |
-| Apr 7 - 13     | 22 | | | | | | | |
+| Apr 7 - 13     | 32 | | | | | | | |
 | Apr 14 - 20    | | | | | | | | |
 | Apr 21 - 27    | | | | | | | | |
 | Apr 28 - May 4 | | | | | | | | |
