@@ -192,7 +192,8 @@ __NOTE su DIAGRAMMA__:<br>
 
 #### Context Diagram - Draw.io
 
-[Context Diagram - Draw.io](./res/Context_Diagram.png)
+<!-- [Context Diagram - Draw.io](./res/Context_Diagram.png) -->
+<img src="./res/Context_Diagram.png" alt="Context Diagram - Draw.io"/>
 
 #### Context Diagram - PlantUML
 
