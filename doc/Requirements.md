@@ -733,7 +733,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 3              | _Utente_: fornisce `code`, `name`, `description` |
 | 2              | _System_: legge `code`, `name`, `description` |
 | 3              | _System_: verifica uso `code`; `code` non è in uso |
-| 4			     | _System_: crea e memorizza nuova Network __(Code 201)__ |
+| 4			         | _System_: crea e memorizza nuova Network __(Code 201)__ |
 
 ##### Scenario 5.2
 
@@ -1050,86 +1050,84 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Pre-condition  | L'utente è autenticato e ha i permessi per creare un gateway |
 | Post-condition | Un nuovo gateway è stato creato nel sistema |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una Network con un certo `networkCode` |
-| 2              | _System_: legge il `networkCode` |
-| 3              | _System_: verifica che la Network esista. La Network esiste |
-| 4              | _System_: richiede macAddress, nome e descrizione della Gateway da creare|
-| 5              | _Utente_: fornisce macAddress, nome e descrizione |
-| 6              | _System_: legge i dati forniti|
-| 7              | _System_: verifica che il macAddress non sia già in uso. Non è in uso|
-| 8			         | _System_: crea e memorizza nuovo Gateway __(Code 201)__ |
+| 1              | _Utente_: chiede di creare un Gateway |
+| 2              | _System_: richiede `networkCode` e {`macAddress`,`name`,`description`}|
+| 3              | _Utente_: fornisce `networkCode` e {`macAddress`,`name`,`description`} |
+| 4              | _System_: legge `networkCode` e {`macAddress`,`name`,`description`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` trovato|
+| 6              | _System_: verifica uso `macAddress` ; `macAddress` non in uso|
+| 7			         | _System_: crea e memorizza nuovo Gateway __(Code 201)__ |
 
 ##### Scenario 9.2
 
 | UC9 - S9.2     | Scenario 9.2: Creazione Gateway (Input Invalido) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | L'utente è autenticato e ha i permessi per creare un gateway |
-| Post-condition | Gateway non creata; mostrato messaggio d'errore |
+| Pre-condition  | Utente (Admin o Operator) autenticato |
+| Post-condition | Gateway non creato; mostrato messaggio d'errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una Network con un certo `networkCode` |
-| 2              | _System_: legge il `networkCode` |
-| 3              | _System_: verifica che la Network esista. La Network esiste |
-| 4              | _System_: richiede macAddress, nome e descrizione della Gateway da creare|
-| 5              | _Utente_: fornisce macAddress, nome e descrizione |
-| 6              | _System_: legge i dati forniti|
-| 7              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
+| 1              | _Utente_: chiede di creare un Gateway |
+| 2              | _System_: richiede `networkCode` e {`macAddress`,`name`,`description`}|
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
 
 ##### Scenario 9.3
 
 | UC9 - S9.3     | Scenario 9.3: Creazione Gateway (Non Autorizzato) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente non autenticato |
-| Post-condition | Gateway non creata; mostrato messaggio d'errore |
+| Post-condition | Gateway non creato; mostrato messaggio d'errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una Network con un certo `networkCode` |
+| 1              | _Utente_: chiede di creare un Gateway |
 | 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
 
 ##### Scenario 9.4
 
 | UC9 - S9.4     | Scenario 9.4: Creazione Gateway (Permessi Insufficienti) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato ma con ruolo diverso da Admin o Operator|
-| Post-condition | Gateway non creata; mostrato messaggio d'errore |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`)|
+| Post-condition | Gateway non creato; mostrato messaggio d'errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una Network con un certo `networkCode` |
+| 1              | _Utente_: chiede di creare un Gateway |
 | 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
 
 ##### Scenario 9.5
 
 | UC9 - S9.5     | Scenario 9.5: Creazione Gateway (Network non trovata) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato con ruolo adeguato; `networkCode` non corrisponde ad alcuna network esistente|
-| Post-condition | Gateway non creata; mostrato messaggio d'errore |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Gateway non creato; mostrato messaggio d'errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una Network con un certo `networkCode` |
-| 2              | _System_: legge il `networkCode` |
-| 3              | _System_: verifica che la Network esista.|
-| 4              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+| 1              | _Utente_: chiede di creare un Gateway |
+| 2              | _System_: richiede `networkCode` e {`macAddress`,`name`,`description`}|
+| 3              | _Utente_: fornisce `networkCode` e {`macAddress`,`name`,`description`} |
+| 4              | _System_: legge `networkCode` e {`macAddress`,`name`,`description`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` non trovato|
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
 
 ##### Scenario 9.6
 
 | UC9 - S9.6     | Scenario 9.6: Creazione Gateway (macAddress già in uso) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | L'utente è autenticato e ha i permessi per creare un gateway |
-| Post-condition | Gateway non creata; mostrato messaggio d'errore |
+| Pre-condition  | Utente autenticato; macAddress inserito già in uso |
+| Post-condition | Gateway non creato; mostrato messaggio d'errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una Network con un certo `networkCode` |
-| 2              | _System_: legge il `networkCode` |
-| 3              | _System_: verifica che la Network esista. La Network esiste |
-| 4              | _System_: richiede macAddress, nome e descrizione della Gateway da creare|
-| 5              | _Utente_: fornisce macAddress, nome e descrizione |
-| 6              | _System_: legge i dati forniti|
-| 7              | _System_: verifica che il macAddress non sia già in uso. |
-| 8			         | _System_: mostra messaggio di errore. MacAddress già in uso __(Code 409)__ |
+| 1              | _Utente_: chiede di creare un Gateway |
+| 2              | _System_: richiede `networkCode` e {`macAddress`,`name`,`description`}|
+| 3              | _Utente_: fornisce `networkCode` e {`macAddress`,`name`,`description`} |
+| 4              | _System_: legge `networkCode` e {`macAddress`,`name`,`description`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` trovato|
+| 6              | _System_: verifica uso `macAddress` ; `macAddress` già in uso|
+| 7			         | _System_: mostra messaggio di errore. MacAddress già in uso __(Code 409)__ |
 
 ##### Scenario 9.7
 
 | UC9 - S9.7     | Scenario 9.7: Creazione Gateway (Errore Interno) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | // |
-| Post-condition | Gateway non creata; mostrato messaggio d'errore |
+| Post-condition | Gateway non creato; mostrato messaggio d'errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta per creare un nuovo gateway in una Network con un certo `networkCode` |
+| 1              | _Utente_: chiede di creare un Gateway |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
 #### Use case 10, Ottenimento Gateway
@@ -1141,7 +1139,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Post-condition   | Informazioni di almeno un Gateway sono state ottenute |
 | Nominal Scenario | Scenario 10.1 |
 | Variants         | Scenario 10.2 |
-| Exceptions       | Scenario 10.3, 10.4, 10.5, 10.6 |
+| Exceptions       | Scenario 10.3, 10.4, 10.5, 10.6, 10.7 |
 
 ##### Scenario 10.1
 
@@ -1151,29 +1149,26 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Post-condition | Elenco dei Gateway è stato ottenuto |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di ottenere l'elenco dei Gateway per una Network|
-| 2              | _System_: richiede codice identificativo della Network a cui appartiene il Gateway(`networkCode`) |
+| 2              | _System_: richiede `networkCode`a cui appartiene il Gateway|
 | 3              | _Utente_: fornisce `networkCode` | 
-| 4              | _System_: legge `networkCode` fornito |
-| 5              | _System_: verifica l'esistenza del `networkCode`. `networkCode` trovato |
+| 4              | _System_: legge `networkCode` |
+| 5              | _System_: verifica esistenza `networkCode`. `networkCode` trovato |
 | 6              | _System_: restituisce l'elenco dei Gateway __(Code 200)__ |
 
 ##### Scenario 10.2
 
-| UC10 - S10.2     | Scenario 10.2: Ottenimento Gateway Specifica (Successful) |
+| UC10 - S10.2     | Scenario 10.2: Ottenimento Gateway Specifico (Successful) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato; Gateway ricercato esiste |
 | Post-condition | Informazioni sul Gateway ricercato sono state ottenute |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di ottenere informazioni su Gateway Specifico |
-| 2              | _System_: richiede codice identificativo della Network a cui appartiene il Gateway(`networkCode`) |
-| 3              | _Utente_: fornisce `networkCode` |
-| 4              | _System_: legge `networkCode` fornito |
-| 5              | _System_: verifica esistenza della Network; Network trovata |
-| 6              | _System_: richiede codice identificativo del Gateway cercato (macAddress) |
-| 7              | _Utente_: fornisce macAddress |
-| 8              | _System_: legge macAddress fornito |
-| 9              | _System_: verifica esistenza del Gateway. Gateway trovato |
-| 10              | _System_: restituisce informazioni sul Gateway __(Code 200)__ |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` |
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _System_: restituisce informazioni sul Gateway __(Code 200)__ |
 
 ##### Scenario 10.3
 
@@ -1192,39 +1187,50 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Pre-condition  | // |
 | Post-condition | Nessuna informazione restituita; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: chiede di ottenere elenco o Gateway |
+| 1              | _Utente_: chiede di ottenere elenco o Gateway specifico|
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
 ##### Scenario 10.5
 
 | UC10 - S10.5     | Scenario 10.5: Ottenimento Gateway (Network non Trovata) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato; `networkCode` non esiste |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: chiede di ottenere elenco o Gateway specifico per una Network|
-| 2              | _System_: richiede codice identificativo della Network (`networkCode`) |
-| 3              | _Utente_: fornisce `networkCode` | 
+| 1              | _Utente_: chiede di ottenere l'elenco dei Gateway per una Network|
+| 2              | _System_: richiede `networkCode`a cui appartiene il Gateway |
+| 3              | _Utente_: fornisce `networkCode` |
 | 4              | _System_: legge `networkCode` fornito |
-| 5              | _System_: verifica l'esistenza del `networkCode` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
 | 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
 
 ##### Scenario 10.6
 
-| UC10 - S10.6     | Scenario 10.6: Ottenimento Gateway Specifico (Network non Trovata) |
+| UC10 - S10.6     | Scenario 10.6: Ottenimento Gateway Specifico(Network non Trovata) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato; `networkCode` non esiste |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di ottenere informazioni su Gateway Specifico |
-| 2              | _System_: richiede codice identificativo della Network a cui appartiene il Gateway(`networkCode`) |
-| 3              | _Utente_: fornisce `networkCode` |
-| 4              | _System_: legge `networkCode` fornito |
-| 5              | _System_: verifica esistenza della Network; Network trovata |
-| 6              | _System_: richiede codice identificativo del Gateway cercato (macAddress) |
-| 7              | _Utente_: fornisce macAddress |
-| 8              | _System_: legge macAddress fornito |
-| 9              | _System_: verifica esistenza del Gateway |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` |
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 10.7
+
+| UC10 - S10.7     | Scenario 10.7: Ottenimento Gateway Specifico (Gateway non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Gateway non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Gateway Specifico |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` |
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
 | 10             | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
 
 #### Use Case 11 (UC11): Eliminazione Gateway
@@ -1246,14 +1252,11 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Post-condition | Gateway è stato eliminato |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di eliminare un Gateway |
-| 2              | _System_: richiede `networkCode` della network a cui appartiene il Gateway da eliminare |
-| 3              | _Utente_: fornisce `networkCode` |
-| 4              | _System_: legge `networkCode` fornito |
-| 5              | _System_: verifica esistenza della Network. Network trovata |
-| 6              | _System_: richiede macAddress del Gateway da eliminare |
-| 7              | _Utente_: fornisce macAddress |
-| 8              | _System_: legge macAddress fornito |
-| 9              | _System_: verifica esistenza del Gateway. Gateway trovato |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` |
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
 | 10             | _System_: elimina il Gateway __(Code 204)__ |
 
 ##### Scenario 11.2
@@ -1270,7 +1273,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 | UC11 - S11.3   | Scenario 11.3: Eliminazione Gateway (Permessi Insufficienti) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato ma con ruolo diverso da Admin o Operator |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
 | Post-condition | Gateway non eliminato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di eliminare un Gateway |
@@ -1284,29 +1287,26 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Post-condition | Gateway non eliminato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di eliminare un Gateway |
-| 2              | _System_: richiede `networkCode` della network a cui appartiene il Gateway da eliminare |
-| 3              | _Utente_: fornisce `networkCode` |
-| 4              | _System_: legge `networkCode` fornito |
-| 5              | _System_: verifica esistenza della Network |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` |
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
 | 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
 
 ##### Scenario 11.5
 
 | UC11 - S11.5     | Scenario 11.5: Eliminazione Gateway (Gateway non Trovato) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato con ruolo adeguato; `networkCode` non corrisponde ad alcuna network esistente |
-| Post-condition | Network non eliminata; mostrato messaggio di errore |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `gatewayMac` non corrisponde ad alcun gateway esistente |
+| Post-condition | Gateway non eliminato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di eliminare un Gateway |
-| 2              | _System_: richiede `networkCode` della network a cui appartiene il Gateway da eliminare |
-| 3              | _Utente_: fornisce `networkCode` |
-| 4              | _System_: legge `networkCode` fornito |
-| 5              | _System_: verifica esistenza della Network. Network trovata |
-| 6              | _System_: richiede macAddress del Gateway da eliminare |
-| 7              | _Utente_: fornisce macAddress |
-| 8              | _System_: legge macAddress fornito |
-| 9              | _System_: verifica esistenza del Gateway |
-| 6              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` |
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
 
 ##### Scenario 11.6
 
@@ -1337,19 +1337,13 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Post-condition | Gateway è stato aggiornato |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di modificare un Gateway |
-| 2              | _System_: richiede `networkCode` della network a cui appartiene il Gateway da modificare |
-| 3              | _Utente_: fornisce `networkCode` |
-| 4              | _System_: legge `networkCode` fornito |
-| 5              | _System_: verifica esistenza della Network. Network trovata |
-| 6              | _System_: richiede macAddress del Gateway da modificare |
-| 7              | _Utente_: fornisce macAddress |
-| 8              | _System_: legge macAddress fornito |
-| 9              | _System_: verifica esistenza del Gateway. Gateway trovato |
-| 10             | _System_: richiede i dati da aggiornare |
-| 11             | _System_: fornisce i dati da aggiornare |
-| 12             | _System_: legge i dati |
-| 13             | _SYstem_: valida i dati forniti |
-| 14             | _System_: aggiorna il gateway __(Code 204)__ |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _SYstem_: verifica uso `macAddress`; `macAddress` non è in uso |
+| 8              | _System_: aggiorna il Gateway __(Code 204)__ |
 
 ##### Scenario 12.2
 
@@ -1365,10 +1359,10 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 | UC12 - S12.3     | Scenario 12.3: Modifica Gateway (Permessi Insufficienti) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato ma con ruolo diverso da Admin o Operator |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
 | Post-condition | Gateway non modificato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta di aggiornamento |
+| 1              | _Utente_: chiede di modificare un Gateway |
 | 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
 
 ##### Scenario 12.4
@@ -1379,11 +1373,11 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Post-condition | Gateway non modificato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di modificare un Gateway |
-| 2              | _System_: richiede `networkCode` della network a cui appartiene il Gateway da modificare |
-| 3              | _Utente_: fornisce `networkCode` |
-| 4              | _System_: legge `networkCode` fornito |
-| 5              | _System_: verifica esistenza della Network |
-| 3              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
 
 ##### Scenario 12.5
 
@@ -1393,15 +1387,12 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Post-condition | Gateway non modificato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di modificare un Gateway |
-| 2              | _System_: richiede `networkCode` della network a cui appartiene il Gateway da modificare |
-| 3              | _Utente_: fornisce `networkCode` |
-| 4              | _System_: legge `networkCode` fornito |
-| 5              | _System_: verifica esistenza della Network. Network trovata |
-| 6              | _System_: richiede macAddress del Gateway da modificare |
-| 7              | _Utente_: fornisce macAddress |
-| 8              | _System_: legge macAddress fornito |
-| 9              | _System_: verifica esistenza del Gateway |
-| 3              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
 
 ##### Scenario 12.6
 
@@ -1411,40 +1402,26 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Post-condition | Gateway non modificato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di modificare un Gateway |
-| 2              | _System_: richiede `networkCode` della network a cui appartiene il Gateway da modificare |
-| 3              | _Utente_: fornisce `networkCode` |
-| 4              | _System_: legge `networkCode` fornito |
-| 5              | _System_: verifica esistenza della Network. Network trovata |
-| 6              | _System_: richiede macAddress del Gateway da modificare |
-| 7              | _Utente_: fornisce macAddress |
-| 8              | _System_: legge macAddress fornito |
-| 9              | _System_: verifica esistenza del Gateway. Gateway trovato |
-| 10             | _System_: richiede i dati da aggiornare |
-| 11             | _System_: fornisce i dati da aggiornare |
-| 12             | _System_: legge i dati |
-| 13             | _System_: mostra messaggio di errore. Input non valido __(Code 400)__ |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
 
 ##### Scenario 12.7
 
 | UC12 - S12.7   | Scenario 12.7: Modifica Gateway (macAddress già in uso) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato; nuovo macAddress fornito è già usato da un altro gateway |
+| Pre-condition  | Utente autenticato; `macAddress` fornito è già usato da un altro gateway |
 | Post-condition | Gateway non modificato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di modificare un Gateway |
-| 2              | _System_: richiede `networkCode` della network a cui appartiene il Gateway da modificare |
-| 3              | _Utente_: fornisce `networkCode` |
-| 4              | _System_: legge `networkCode` fornito |
-| 5              | _System_: verifica esistenza della Network. Network trovata |
-| 6              | _System_: richiede macAddress del Gateway da modificare |
-| 7              | _Utente_: fornisce macAddress |
-| 8              | _System_: legge macAddress fornito |
-| 9              | _System_: verifica esistenza del Gateway. Gateway trovato |
-| 10             | _System_: richiede i dati da aggiornare |
-| 11             | _System_: fornisce i dati da aggiornare (macAddress) |
-| 12             | _System_: legge i dati |
-| 13             | _SYstem_: verifica i dati forniti; rileva conflitto nel del macAddress |
-| 3              | _System_: mostra messaggio di errore. macAddress già in uso __(Code 409)__ |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _SYstem_: verifica uso `macAddress`; `macAddress` già in uso |
+| 8              | _System_: mostra messaggio di errore. macAddress già in uso __(Code 409)__ |
 
 ##### Scenario 12.8
 
@@ -1453,9 +1430,495 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Pre-condition  | // |
 | Post-condition | Gateway non modificato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_:  invia richiesta di aggiornamento |
+| 1              | _Utente_:  hiede di modificare un Gateway |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
 
+#### Use case 13(UC13): Creazione Sensore
+
+| UC13             | Use Case 13: Creazione Sensore |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Utente autenticato con ruolo adeguato (Admin o Operator)   |
+| Post-condition   | Sensore creato |
+| Nominal Scenario | Scenario 13.1 |
+| Variants         | // |
+| Exceptions       | Scenario 13.2, 13.3, 13.4, 13.5, 13.6, 13.7, 13.8 |
+
+##### Scenario 13.1
+
+| UC13 - S13.1     | Scenario 13.1: Creazione Sensore (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | L'utente è autenticato e ha i permessi per creare un sensore |
+| Post-condition | Un nuovo sensore è stato creato nel sistema |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` trovato|
+| 5              | _System_: verifica esistenza `gatewayMac` ; `gatewayMac` trovato|
+| 6              | _System_: verifica uso `macAddress` ; `macAddress` non in uso|
+| 7			         | _System_: crea e memorizza nuovo Sensore __(Code 201)__ |
+
+##### Scenario 13.2
+
+| UC13 - S13.2     | Scenario 13.2: Creazione Sensore (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Admin o Operator) autenticato |
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
+
+##### Scenario 13.3
+
+| UC13 - S13.3   | Scenario 13.3: Creazione Sensore (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non autenticato |
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 13.4
+
+| UC13 - S13.4   | Scenario 13.4: Creazione Sensore (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`)|
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 13.5
+
+| UC13 - S13.5   | Scenario 13.5: Creazione Sensore (Network non trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` non trovato|
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 13.6
+
+| UC13 - S13.6   | Scenario 13.6: Creazione Sensore (Gateway non trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Gateway ricercato non esiste |
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` trovato|
+| 6              | _System_: verifica esistenza `gatewayMac` ; `gatewayMac` non trovato|
+| 7			         | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 13.7
+
+| UC13 - S13.7   | Scenario 13.7: Creazione Sensore (macAddress già in uso) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; macAddress già in uso |
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` trovato|
+| 6              | _System_: verifica esistenza `gatewayMac` ; `gatewayMac` non trovato|
+| 7              | _System_: verifica uso `macAddress` ; `macAddress` già in uso|
+| 8			         | _System_: mostra messaggio di errore. MacAddress già in uso __(Code 409)__ |
+
+
+##### Scenario 13.8
+
+| UC13 - S13.8   | Scenario 13.8: Creazione Sensore (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+#### Use case 14 (UC14): Ottenimento Gateway
+
+| UC14             | Use Case 14: Ottenimento Sensore |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator \| Viewer |
+| Pre-condition    | //  |
+| Post-condition   | Informazioni di almeno un Sensore sono state ottenute |
+| Nominal Scenario | Scenario 14.1 |
+| Variants         | Scenario 14.2 |
+| Exceptions       | Scenario 14.3, 14.4, 14.5, 14.6, 14.7, 14.8, 14.9 |
+
+##### Scenario 14.1
+
+| UC14 - S14.1   | Scenario 14.1: Ottenimento Elenco Sensori (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco dei Sensori è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco dei Sensori per una Gateway|
+| 2              | _System_: richiede `networkCode` e `gatewayMac` del Gateway a cui appartiene il Sensore|
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` | 
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`. `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`. `gatewayMac` trovato |
+| 7              | _System_: restituisce l'elenco dei Sensori __(Code 200)__ |
+
+##### Scenario 14.2
+
+| UC14 - S14.2   | Scenario 14.2: Ottenimento Sensore Specifico (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Sensore ricercato esiste |
+| Post-condition | Informazioni sul Sensore ricercato sono state ottenute |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 8              | _System_: restituisce informazioni sul Sensore __(Code 200)__ |
+
+##### Scenario 14.3
+
+| UC14 - S14.3     | Scenario 14.3: Ottenimento Sensore (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere elenco o Sensore specifico |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 14.4
+
+| UC14 - S14.4   | Scenario 14.4: Ottenimento Sensore (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Nessuna informazione restituita; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere elenco o Sensore specifico |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+##### Scenario 14.5
+
+| UC14 - S14.5   | Scenario 10.5: Ottenimento Elenco Sensori (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco dei Sensori per una Gateway|
+| 2              | _System_: richiede `networkCode` e `gatewayMac` del Gateway a cui appartiene il Sensore|
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` | 
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`. `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 14.6
+
+| UC14 - S14.6   | Scenario 14.6: Ottenimento Sensore Specifico (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 14.7
+
+| UC14 - S14.7   | Scenario 14.7: Ottenimento Elenco Sensori (Gateway non trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Gateway non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco dei Sensori per una Gateway|
+| 2              | _System_: richiede `networkCode` e `gatewayMac` del Gateway a cui appartiene il Sensore|
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` | 
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`. `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`. `gatewayMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 14.8
+
+| UC14 - S14.8   | Scenario 14.8: Ottenimento Sensore Specifico (Gateway non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Gateway non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 14.9
+
+| UC14 - S14.9   | Scenario 14.9: Ottenimento Sensore Specifico (Sensore non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Sensore non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` non trovato |
+| 8              | _System_: mostra messaggio di errore. Sensore non trovato __(Code 404)__ |
+
+#### Use Case 15 (UC15): Eliminazione Sensore
+
+| UC15             | Use Case 15: Eliminazione Sensore |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Sensore da eliminare esiste |
+| Post-condition   | Sensore è stato eliminato |
+| Nominal Scenario | Scenario 15.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 15.2, 15.3, 15.4, 15.5, 15.6, 15.7 |
+
+##### Scenario 15.1
+
+| UC15 - S15.1   | Scenario 15.1: Eliminazione Sensore (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo Admin o Operator; sensore esiste |
+| Post-condition | Sensore è stato eliminato |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 8             | _System_: elimina il Sensore __(Code 204)__ |
+
+##### Scenario 15.2
+
+| UC15 - S15.2   | Scenario 15.2: Eliminazione Sensore (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Sensore non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 15.3
+
+| UC15 - S15.3   | Scenario 15.3: Eliminazione Sensore (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
+| Post-condition | Sensore non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 15.4
+
+| UC15 - S15.4   | Scenario 15.4: Eliminazione Sensore (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `networkCode` non corrisponde ad alcuna network esistente |
+| Post-condition | Sensore non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 15.5
+
+| UC15 - S15.5   | Scenario 15.5: Eliminazione Sensore (Gateway non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `gatewayMac` non corrisponde ad alcun gateway esistente |
+| Post-condition | Sensore non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 15.6
+
+| UC15 - S15.6   | Scenario 15.6: Eliminazione Sensore (Sensore non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `sensorMac` non corrisponde ad alcun sensore esistente |
+| Post-condition | Sensore non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 7              | _System_: verifica esistenza `sensoreMac`; `sensorMac` non trovato |
+| 8              | _System_: mostra messaggio di errore. Sensore non trovato __(Code 404)__ |
+
+##### Scenario 15.7
+
+| UC15 - S15.7   | Scenario 15.7: Eliminazione Sensore (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Sensore non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+#### Use Case 16 (UC16): Modifica Sensore
+
+| UC16             | Use Case 16: Modifica Sensore|
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Sensore da modificare esiste |
+| Post-condition   | Sensore è stato aggiornato |
+| Nominal Scenario | Scenario 16.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 16.2, 16.3, 16.4, 16.5, 16.6, 16.7, 16.8, 16.9 |
+
+##### Scenario 16.1
+
+| UC16 - S16.1   | Scenario 16.1: Modifica Sensore (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo Admin o Operator; gateway esiste; dati validi |
+| Post-condition | Sensore è stato aggiornato |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 8              | _SYstem_: verifica uso `macAddress`; `macAddress` non è in uso |
+| 9              | _System_: aggiorna il Sensore __(Code 204)__ |
+
+##### Scenario 16.2
+
+| UC16 - S16.2     | Scenario 12.2: Modifica Sensore (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 16.3
+
+| UC16 - S16.3   | Scenario 16.3: Modifica Sensore (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 16.4
+
+| UC16 - S16.4   | Scenario 16.4: Modifica Sensore (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `networkCode` non corrisponde ad alcuna network esistente |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 16.5
+
+| UC16 - S16.5     | Scenario 16.5: Modifica Sensore (Gateway non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `gatewayMac` non corrisponde ad alcun gateway esistente |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 16.6
+
+| UC16 - S16.6     | Scenario 16.6: Modifica Sensore (Sensore non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `sensorMac` non corrisponde ad alcun sensore esistente |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 6              | _System_: verifica esistenza `sensorMac`; `sensorMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Sensore non trovato __(Code 404)__ |
+
+##### Scenario 16.7
+
+| UC16 - S16.7   | Scenario 16.7: Modifica Sensore (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; sensore esistente |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
+
+##### Scenario 16.8
+
+| UC16 - S16.8   | Scenario 16.8: Modifica Sensore (macAddress già in uso) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; `macAddress` fornito è già usato da un altro sensore |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 8              | _SYstem_: verifica uso `macAddress`; `macAddress` già in uso |
+| 3              | _System_: mostra messaggio di errore. MacAddress già in uso __(Code 409)__ |
+
+##### Scenario 16.9
+
+| UC16- S16.9     | Scenario 16.9: Modifica Sensore (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_:  hiede di modificare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
 
 ##### Use Case 17 (UC17): Creazione Misurazione
 
