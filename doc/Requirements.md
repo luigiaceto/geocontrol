@@ -209,7 +209,7 @@ rectangle System {
 }
 
 rectangle "<< actor >>\n\n Gateways\n[physical]" as Gateways
-rectangle "<< actor >>\n\n Sensori\n[physical]" as Sensori
+rectangle "\n Sensori\n[physical]" as Sensori
 
 Actor Admin
 Actor Operator
