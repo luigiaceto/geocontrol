@@ -1613,7 +1613,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 14.5
 
-| UC14 - S14.5   | Scenario 10.5: Ottenimento Elenco Sensori (Network non Trovata) |
+| UC14 - S14.5   | Scenario 14.5: Ottenimento Elenco Sensori (Network non Trovata) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato; Network ricercata non esiste |
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
@@ -1925,8 +1925,8 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | UC17              | Use Case 17: Creazione Misurazione |
 | :--------------- | :--------------------------------- |
 | Actors Involved  | Admin \| Operator |
-| Pre-condition    |Network, Gateway e Sensor esistono e sono accessibili; utente autenticato   |
-| Post-condition   | Una nuova Misurazione è stata creata |
+| Pre-condition    | Utente (Admin o Operator) è autenticato   |
+| Post-condition   | Misurazione è creata |
 | Nominal Scenario | Scenario 17.1 |
 | Variants         | // |
 | Exceptions       | Scenario 17.2, 17.3, 17.4, 17.5, 17.6|
@@ -1935,14 +1935,17 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 | UC17 - S17.1     | Scenario 17.1: Creazione Misurazione (Successful) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  |Utente autenticato con ruolo Admin o Operator; risorse esistenti; dati validi |
-| Post-condition | Una nuova misurazione è stata creata |
+| Pre-condition  | Utente (Admin o Operator) autenticato |
+| Post-condition | Misurazione è creata |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia una richiesta POST per creare una Misurazione indicando `networkCode`, gatewayMac, sensorMac, createdAt e value |
-| 2              | _System_:legge i parametri e il corpo della richiesta |
-| 3              | _System_: verifica esistenza di Network, Gateway e Sensor |
-| 4              | _System_: valida i dati della misurazione |
-| 5              | _System_: crea la Misurazione __(Code 201)__ |
+| 1              | _Utente_: chiede di creare una misurazione | 
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 4              | _System_:legge `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 5              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 5              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 6              | _System_: crea e memorizza nuova Misurazione __(Code 201)__ |
 
 ##### Scenario 17.2
 
@@ -1951,40 +1954,45 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Pre-condition  | Utente non autenticato |
 | Post-condition | Misurazione non creata; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta POST senza credenziali valide |
+| 1              | _Utente_: chiede di creare una Misurazione |
 | 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
 
 ##### Scenario 17.3
 
 | UC17 - S17.3     | Scenario 17.3: Creazione Misurazione (Permessi Insufficienti) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato ma con ruolo diverso da Admin o Operator |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
 | Post-condition | Misurazione non creata; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: tenta di creare una Misurazione |
+| 1              | _Utente_: chiede di creare una Misurazione |
 | 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
 
 ##### Scenario 17.4
 
-| UC17 - S17.4     | Scenario 17.4: Creazione Misurazione (Dati Non Validi) |
+| UC17 - S17.4     | Scenario 17.4: Creazione Misurazione (Input Invalido) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato; risorse esistenti |
+| Pre-condition  | Utente (Admin o Operator) autenticato |
 | Post-condition | Misurazione non creata; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta con dati mancanti o malformati (createdAt o value assente) |
-| 2              | _System_: valida i dati e rileva l'errore|
-| 3              | _System_: mostra messaggio di errore. Dati non validi __(Code 400)__ |
+| 1              | _Utente_: chiede di creare una Misurazione |
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
 
 ##### Scenario 17.5
 
-| UC17 - S17.5     | Scenario 17.5: Creazione Misurazione (Risorsa Non Trovata) |
+| UC17 - S17.5     | Scenario 17.5: Creazione Misurazione (Network/ Gateway/Sensore Non Trovato) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato; una tra Network, Gateway o Sensor non esiste |
+| Pre-condition  | Utente autenticato; Network, Gateway o Sensore non esiste |
 | Post-condition | Misurazione non creata; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta per creare una Misurazione associata a una risorsa inesistente |
-| 2              | _System_:verifica `networkCode`, gatewayMac, sensorMac; almeno uno non trovato|
-| 3              | _System_: mostra messaggio di errore. Risorsa non trovata __(Code 404)__ |
+| 1              | _Utente_: chiede di creare una Misurazione |
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 4              | _System_:legge `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 5              | _System_:verifica `networkCode`, `gatewayMac`, `sensorMac`; almeno uno non trovato |
+| 6              | _System_: mostra messaggio di errore. Risorsa non trovata __(Code 404)__ |
 
 ##### Scenario 17.6
 
@@ -1993,9 +2001,8 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Pre-condition  | // |
 | Post-condition | Misurazione non creata; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta per creare una Misurazione |
-| 2              | _System_:si verifica un errore imprevisto durante l’elaborazione |
-| 3              | _System_: mostra messaggio di errore. Errore interno __(Code 500)__ |
+| 1              | _Utente_: chide di creare una Misurazione |
+| 2              | _System_: mostra messaggio di errore. Errore interno al Server __(Code 500)__ |
 
 
 ##### Use Case 18 (UC18): Visualizzazione Dati Sensori per Network Specifica
