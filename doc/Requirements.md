@@ -54,16 +54,51 @@ la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale 
 | Enti Pubblici e Privati | Università, cittadine, Protezione Civile o aziende che vogliono usufruire dei servizi del Sistema |
 | Produttori di Componenti | Coloro che si occupano di produzione e distribuzione dell'Hardware utilizzato nel Sistema |
 
-# Context Diagram and interfaces
+# Context Diagram and Interfaces
 
 ## Context Diagram
 
-\<Define here Context diagram using UML use case diagram>
-<p align="center">
-    <img src="res/Context_diagram.png" alt="" width="400">
-</p>
+__NOTE su DIAGRAMMA__:<br>
+- In più punti dello Swagger viene suggerito come Gateways e Sensori siano entrambi entità esterne a GeoControl System. Non è specificato da nessuna parte se queste componenti siano poi effettivamente vendute dalla stessa azienda insieme al sistema. Si assume che GeoControl possa funzionare con qualsiasi Gateway e Sensore compatibile (anche di terze parti) per cui si possono considerare entità esterne al sistema.
 
-\<actors are a subset of stakeholders>
+### Context Diagram - Draw.io
+
+[Context Diagram - Draw.io](./res/Context_Diagram.png)
+
+### Context Diagram - PlantUML
+
+``` plantuml
+
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+
+rectangle System {
+    (GeoControl System) as UC
+}
+
+rectangle "<< actor >>\n\n Gateways\n[physical]" as Sensori
+rectangle "<< actor >>\n\n Sensori\n[physical]" as Gateways
+
+Actor Admin
+Actor Operator
+Actor Viewer
+
+Admin -l-> UC
+Operator -l-> UC
+Viewer -l-> UC
+
+Sensori -r-> UC
+Gateways -r-> UC
+
+
+Admin -[hidden]- Operator
+Admin -[hidden]l- Viewer
+Gateways -[hidden]d- Sensori
+@enduml
+
+```
+
 
 ## Interfaces
 
@@ -108,42 +143,45 @@ la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale 
 \<they match to high level use cases>
 
 |  ID   | Description |
-| :---: | :---------: |
-|  FR1  | Gestione Utente |
-|  FR1.1 | Login Utente |
-|  FR1.2 | Creazione Account|
-|  FR1.3 | Ottenimento Elenco Utenti |
-|  FR1.4 | Ottenimento Utente Specifico |
-|  FR1.5 | Eliminazione Account |
-|  FR2  | Gestione Networks |
-|  FR2.1  | Creazione Network |
-|  FR2.2  | Ottenimento Elenco Networks |
-|  FR2.3  | Ottenimento Network Specifico |
-|  FR2.4  | Modifica Dati Network |
-|  FR2.5  | Eliminazione Network |
-|  FR3  | Gestione Gateways |
-|  FR3.1 | Creazione Gateway |
-|  FR3.2 | Ottenimento Elenco Gateway per Network Specifico |
-|  FR3.3 | Ottenimento Gateway Specifico | 
-|  FR3.4 | Modifica Dati Gateway |
-|  FR3.5 | Eliminazione Gateway |
-|  FR4  | Gestione Sensori |
-|  FR4.1 | Creazione Sensore |
-|  FR4.2 | Ottenimento Elenco Sensori per Gateway Specifico |
-|  FR4.3 | Ottenimento Sensore Specifico |
-|  FR4.4 | Modifica Dati Sensore |
-|  FR4.5 | Eliminazione Sensore|
-|  FR5   | Calcolo Statistiche su Misurazioni |
-|  FR5.1  | Calcolo Media su Misurazioni in Range Temporale |
-|  FR5.2  | Calcolo Varianza su Misurazioni in Range Temporale |
-|  FR6  | Gestione Misurazioni |
-|  FR6.1  | Creazione Misurazione |
-|  FR6.2  | Ottenimento Elenco Misurazioni di Network Specifico |
-|  FR6.3  | Ottenimento Elenco Misurazioni di Sensore Specifico |
-|  FR6.4  | Ottenimento Elenco Statistiche di Network Specifico |
-|  FR6.5  | Ottenimento Elenco Statistiche di Sensore Specifico |
-|  FR6.6  | Ottenimento Elenco Outliers di Network Specifico |
-|  FR6.7  | Ottenimento Elenco Outliers di Sensore Specifico |
+| :---- | :---------- |
+| __FR1__   | __Gestione Utente__ |
+| FR1.1 | Autenticazione Utente |
+| FR1.2 | Creazione Account|
+| FR1.3 | Ottenimento Elenco Utenti |
+| FR1.4 | Ottenimento Utente Specifico |
+| FR1.5 | Eliminazione Account |
+| __FR2__   | __Gestione Networks__ |
+| FR2.1 | Creazione Network |
+| FR2.2 | Ottenimento Elenco Networks |
+| FR2.3 | Ottenimento Network Specifico |
+| FR2.4 | Modifica Dati Network |
+| FR2.5 | Eliminazione Network |
+| __FR3__   | __Gestione Gateways__ |
+| FR3.1 | Creazione Gateway |
+| FR3.2 | Ottenimento Elenco Gateway per Network Specifico |
+| FR3.3 | Ottenimento Gateway Specifico | 
+| FR3.4 | Modifica Dati Gateway |
+| FR3.5 | Eliminazione Gateway |
+| __FR4__   | __Gestione Sensori__ |
+| FR4.1 | Creazione Sensore |
+| FR4.2 | Ottenimento Elenco Sensori per Gateway Specifico |
+| FR4.3 | Ottenimento Sensore Specifico |
+| FR4.4 | Modifica Dati Sensore |
+| FR4.5 | Eliminazione Sensore|
+| __FR5__   | __Calcolo Statistiche su Misurazioni__ |
+| FR5.1 | Calcolo Media su Misurazioni in Range Temporale |
+| FR5.2 | Calcolo Varianza su Misurazioni in Range Temporale |
+| __FR6__   | __Gestione Misurazioni__ |
+| FR6.1 | Creazione Misurazione |
+| FR6.2 | Ottenimento Elenco Misurazioni di Network Specifico |
+| FR6.3 | Ottenimento Elenco Misurazioni di Sensore Specifico |
+| FR6.4 | Ottenimento Elenco Statistiche di Network Specifico |
+| FR6.5 | Ottenimento Elenco Statistiche di Sensore Specifico |
+| FR6.6 | Ottenimento Elenco Outliers di Network Specifico |
+| FR6.7 | Ottenimento Elenco Outliers di Sensore Specifico |
+| __FR7__   | __Gestione Timestamp__ |
+| FR7.1 | Conversione Timestamp a Tempo Locale |
+
 
 ## Non Functional Requirements
 
@@ -277,6 +315,10 @@ Si assume che questo Diagramma del Glossario non debba essere un vero e proprio 
 - Si è scelto di non rappresentare il concetto di "oggetto Misurazione e Statistiche" (ovvero quello che negli Schemas dello Swagger è definito come `Measurements`), in quanto non è qualcosa di tangile dal punto di vista concettuale ma è semplicemente un modo per raggruppare un singolo output.
 - La relazione tra `Operator` e `Misurazione` potrebbe essere omessa in quanto vi è un collegamento implicito tramite `Network`. In ogni caso su questo vi è ambiguità in quanto non è chiaro se le misurazioni siano inserite ogni 10 minuti al momento che il Sensore le produce o se un Operator debba inserirle manualmente. 
 
+### Glossary Diagram - Draw.io
+
+![Glossary Diagram - Draw.io](./res/Glossary_Diagram.png)
+
 ### Glossary Diagram - PlantUML
 
 ``` plantuml
@@ -350,40 +392,61 @@ Statistiche "*" -- "1" Sensore : is related >
 
 ```
 
-### Glossary Diagram - Draw.io
-
-![Glossary Diagram - Draw.io](./res/Glossary_Diagram.png)
-
 
 # System Design
 
-\<describe here system design>
+__NOTE su DIAGRAMMA__:<br>
+- Vale anche qui la nota del Context Diagram.
+- Si assume che il "token-based authentication mechanism" non sia qualcosa di esterno, ma sia compreso nel sistema. Inoltre, viene considerato come un "modulo" o "componente" a se stante.
 
-\<must be consistent with Context diagram>
+## System Diagram - Draw.io
+
+![System Diagram - Draw.io](./res/System_Diagram.png)
+
+## System Diagram - PlantUML
 
 ``` plantuml
 
-class "GeoControl System" {
-  +F1 GestioneUtente()
-  +F2 GestioneNetworks()
-  +F3 GestioneGateways()
-  +F4 GestioneSensori()
-  +F5 CalcoloStatisticheMisurazioni()
-  +F6 GestioneMisurazioni()
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+
+
+class "GeoControl System" as GS {
+  F1 - Gestione Utente()
+  F2 - Gestione Networks()
+  F3 - Gestione Gateways()
+  F4 - Gestione Sensori()
+  F5 - Calcolo Statistiche su Misurazioni()
+  F6 - Gestione Misurazioni()
+  F7 - Gestione Timestamp()
 }
 
-"GeoControl System" o-- Server 
-GeoControlNetworkSoftware --> Server
-"GeoControl System" o-- Gateways
-"GeoControl System" o-- Sensori
-"GeoControl System" o-- Database
+class Network {}
+
+class AuthenticationUnit {
+  F1.1 - Autenticazione Utente()
+}
+
+Network "*" -u-o GS
+AuthenticationUnit "1" -u-o GS
+
+@enduml
 
 ```
 
+
 # Deployment Diagram
 
-\<describe here deployment diagram >
+___NOTE su DIAGRAMMA__:<br>
+- s
 
-<p align="center">
-    <img src="res/Deployment_diagram.png" alt="" width="400">
-</p>
+## Deployment Diagram - Draw.io
+
+![Deployment Diagram - Draw.io](./res/Deployment_Diagram.png)
+
+## Deployment Diagram - PlantUML
+
+``` plantuml
+
+```
