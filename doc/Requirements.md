@@ -189,6 +189,7 @@ la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale 
 
 __NOTE su DIAGRAMMA__:<br>
 - In più punti dello Swagger viene suggerito come Gateways e Sensori siano entrambi entità esterne a GeoControl System. Non è specificato da nessuna parte se queste componenti siano poi effettivamente vendute dalla stessa azienda insieme al sistema. Si assume che GeoControl possa funzionare con qualsiasi Gateway e Sensore compatibile (anche di terze parti) per cui si possono considerare entità esterne al sistema.
+- Il collegamento tra Gateway e Sensori è probabilmente un abuso di notazione. L'intento è evidenziare come i Sensori non sono né interni al sistema né si interfacciano direttamente con esso, ma sono indirettamente collegati tramite i Gateway. Questo collegamento sarà meglio dettagliato nel Deployment Diagram.
 
 #### Context Diagram - Draw.io
 
@@ -207,8 +208,8 @@ rectangle System {
     (GeoControl System) as UC
 }
 
-rectangle "<< actor >>\n\n Gateways\n[physical]" as Sensori
-rectangle "<< actor >>\n\n Sensori\n[physical]" as Gateways
+rectangle "<< actor >>\n\n Gateways\n[physical]" as Gateways
+rectangle "<< actor >>\n\n Sensori\n[physical]" as Sensori
 
 Actor Admin
 Actor Operator
@@ -218,7 +219,7 @@ Admin -l-> UC
 Operator -l-> UC
 Viewer -l-> UC
 
-Sensori -r-> UC
+Gateways -u- Sensori
 Gateways -r-> UC
 
 
@@ -231,11 +232,12 @@ Gateways -[hidden]d- Sensori
 
 ### Interfaces
 
-|   Actor   | Logical Interface | Physical Interface |
-| :-------- | :---------------: | :----------------: |
-| Admin     | GUI               | PC                 |
-| Operator  | GUI               | PC                 |
-| Viewer    | GUI               | PC, Smartphone     |
+|   Actor   | Logical Interface      | Physical Interface |
+| :-------- | :--------------------: | :----------------: |
+| Admin     | GUI                    | PC                 |
+| Operator  | GUI                    | PC                 |
+| Viewer    | GUI                    | PC, Smartphone     |
+| Gateways  | Internet Protocol (IP) | Internet           |
 
 
 ## Stories and Personas
