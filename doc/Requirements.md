@@ -40,17 +40,8 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 # Business Model
 
-- __Private-as-a-Service__:
-  una compagnia privata sviluppa e gestisce il sistema offrendo il servizio ad amministrazioni pubbliche su base contrattuale.
-
-- __Sistema Software su licenza__:
-  la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale o come one-time-purchase. Vi sono diversi Tier di licenza tra cui quelli più avanzati potrebbero includere supporto tecnico e manutenzione della parte hardware del systema (sensori e gateway).
-
-- __Modello Open Core__:
-  si offre una versione open source del software e vengono venduti moduli premium con funzionalità più avanzate e servizi di personalizzazione e integrazione. È utile per creare parallelamente una community di sviluppatori che contribuisce al miglioramento del prodotto.
-
-- __partnership__:
-  collaborare con produttori di sensori integrando al meglio il loro hardware con GeoControl e con società di consulenza ambientale/ingegneristica. Stabilire anche accordi di guadagno con partner che portano nuovi clienti.
+__Sistema Software su Licenza__:
+la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale o come one-time-purchase. Vi sono diversi Tier di licenza tra cui quelli più avanzati che includono supporto tecnico e manutenzione della parte hardware del sistema (sensori e gateway).
 
 # Stakeholders
 
@@ -63,16 +54,51 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 | Enti Pubblici e Privati | Università, cittadine, Protezione Civile o aziende che vogliono usufruire dei servizi del Sistema |
 | Produttori di Componenti | Coloro che si occupano di produzione e distribuzione dell'Hardware utilizzato nel Sistema |
 
-# Context Diagram and interfaces
+# Context Diagram and Interfaces
 
 ## Context Diagram
 
-\<Define here Context diagram using UML use case diagram>
-<p align="center">
-    <img src="res/Context_diagram.png" alt="" width="400">
-</p>
+__NOTE su DIAGRAMMA__:<br>
+- In più punti dello Swagger viene suggerito come Gateways e Sensori siano entrambi entità esterne a GeoControl System. Non è specificato da nessuna parte se queste componenti siano poi effettivamente vendute dalla stessa azienda insieme al sistema. Si assume che GeoControl possa funzionare con qualsiasi Gateway e Sensore compatibile (anche di terze parti) per cui si possono considerare entità esterne al sistema.
 
-\<actors are a subset of stakeholders>
+### Context Diagram - Draw.io
+
+[Context Diagram - Draw.io](./res/Context_Diagram.png)
+
+### Context Diagram - PlantUML
+
+``` plantuml
+
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+
+rectangle System {
+    (GeoControl System) as UC
+}
+
+rectangle "<< actor >>\n\n Gateways\n[physical]" as Sensori
+rectangle "<< actor >>\n\n Sensori\n[physical]" as Gateways
+
+Actor Admin
+Actor Operator
+Actor Viewer
+
+Admin -l-> UC
+Operator -l-> UC
+Viewer -l-> UC
+
+Sensori -r-> UC
+Gateways -r-> UC
+
+
+Admin -[hidden]- Operator
+Admin -[hidden]l- Viewer
+Gateways -[hidden]d- Sensori
+@enduml
+
+```
+
 
 ## Interfaces
 
@@ -117,42 +143,45 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 \<they match to high level use cases>
 
 |  ID   | Description |
-| :---: | :---------: |
-|  FR1  | Gestione Utente |
-|  FR1.1 | Login Utente |
-|  FR1.2 | Creazione Account|
-|  FR1.3 | Ottenimento Elenco Utenti |
-|  FR1.4 | Ottenimento Utente Specifico |
-|  FR1.5 | Eliminazione Account |
-|  FR2  | Gestione Networks |
-|  FR2.1  | Creazione Network |
-|  FR2.2  | Ottenimento Elenco Networks |
-|  FR2.3  | Ottenimento Network Specifico |
-|  FR2.4  | Modifica Dati Network |
-|  FR2.5  | Eliminazione Network |
-|  FR3  | Gestione Gateways |
-|  FR3.1 | Creazione Gateway |
-|  FR3.2 | Ottenimento Elenco Gateway per Network Specifico |
-|  FR3.3 | Ottenimento Gateway Specifico | 
-|  FR3.4 | Modifica Dati Gateway |
-|  FR3.5 | Eliminazione Gateway |
-|  FR4  | Gestione Sensori |
-|  FR4.1 | Creazione Sensore |
-|  FR4.2 | Ottenimento Elenco Sensori per Gateway Specifico |
-|  FR4.3 | Ottenimento Sensore Specifico |
-|  FR4.4 | Modifica Dati Sensore |
-|  FR4.5 | Eliminazione Sensore|
-|  FR5   | Calcolo Statistiche su Misurazioni |
-|  FR5.1  | Calcolo Media su Misurazioni in Range Temporale |
-|  FR5.2  | Calcolo Varianza su Misurazioni in Range Temporale |
-|  FR6  | Gestione Misurazioni |
-|  FR6.1  | Creazione Misurazione |
-|  FR6.2  | Ottenimento Elenco Misurazioni di Network Specifico |
-|  FR6.3  | Ottenimento Elenco Misurazioni di Sensore Specifico |
-|  FR6.4  | Ottenimento Elenco Statistiche di Network Specifico |
-|  FR6.5  | Ottenimento Elenco Statistiche di Sensore Specifico |
-|  FR6.6  | Ottenimento Elenco Outliers di Network Specifico |
-|  FR6.7  | Ottenimento Elenco Outliers di Sensore Specifico |
+| :---- | :---------- |
+| __FR1__   | __Gestione Utente__ |
+| FR1.1 | Autenticazione Utente |
+| FR1.2 | Creazione Account|
+| FR1.3 | Ottenimento Elenco Utenti |
+| FR1.4 | Ottenimento Utente Specifico |
+| FR1.5 | Eliminazione Account |
+| __FR2__   | __Gestione Networks__ |
+| FR2.1 | Creazione Network |
+| FR2.2 | Ottenimento Elenco Networks |
+| FR2.3 | Ottenimento Network Specifico |
+| FR2.4 | Modifica Dati Network |
+| FR2.5 | Eliminazione Network |
+| __FR3__   | __Gestione Gateways__ |
+| FR3.1 | Creazione Gateway |
+| FR3.2 | Ottenimento Elenco Gateway per Network Specifico |
+| FR3.3 | Ottenimento Gateway Specifico | 
+| FR3.4 | Modifica Dati Gateway |
+| FR3.5 | Eliminazione Gateway |
+| __FR4__   | __Gestione Sensori__ |
+| FR4.1 | Creazione Sensore |
+| FR4.2 | Ottenimento Elenco Sensori per Gateway Specifico |
+| FR4.3 | Ottenimento Sensore Specifico |
+| FR4.4 | Modifica Dati Sensore |
+| FR4.5 | Eliminazione Sensore|
+| __FR5__   | __Calcolo Statistiche su Misurazioni__ |
+| FR5.1 | Calcolo Media su Misurazioni in Range Temporale |
+| FR5.2 | Calcolo Varianza su Misurazioni in Range Temporale |
+| __FR6__   | __Gestione Misurazioni__ |
+| FR6.1 | Creazione Misurazione |
+| FR6.2 | Ottenimento Elenco Misurazioni di Network Specifico |
+| FR6.3 | Ottenimento Elenco Misurazioni di Sensore Specifico |
+| FR6.4 | Ottenimento Elenco Statistiche di Network Specifico |
+| FR6.5 | Ottenimento Elenco Statistiche di Sensore Specifico |
+| FR6.6 | Ottenimento Elenco Outliers di Network Specifico |
+| FR6.7 | Ottenimento Elenco Outliers di Sensore Specifico |
+| __FR7__   | __Gestione Timestamp__ |
+| FR7.1 | Conversione Timestamp a Tempo Locale |
+
 
 ## Non Functional Requirements
 
@@ -223,72 +252,239 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 
 \<concepts must be used consistently all over the document, ex in use cases, requirements etc>
 
-- `Network`: gruppo logico di gateway (e sensori associati), identificati da un codice alfanumerico univoco (scelto in creazione). Può rappresentare, ad esempio, una rete di monitorazione per un'intero palazzo. Non corrisponde a un device fisico ma è un oggetto software per organizzare e gestire gruppi diversi di device.
+## Glossary Terms
 
-- `Gateway`: un device fisico identificato dal suo indirizzo MAC, fornito di intefaccia di rete e connesso tramite essa al sistema GeoControl.
+- __Utente__: è un attore del sistema, può essere un Admin, un Operator o un Viewer.<br> È identificato da uno `username` (a volte detto `userName`) e dettagliato con `password` e `type`.
+	- `username`: identificativo unicovo di un `Utente`. [Lunghezza Minima: 1]
+	- `password`: utilizzata in combinazione con lo `username` per autenticare un `Utente` nel sistema (ricevendo un `Token`). [Lunghezza Minima: 5]
+	- `type`: è il tipo di `Utente`, definisce il ruolo dell'Utente e il livello di accesso alle funzionalità. Può essere:
+		- `admin`: identifica un `Utente` di tipo `Admin`.
+		- `operator`: identifica un `Utente` di tipo `Operator`.
+		- `viewer`: identifica un `Utente` di tipo `Viewer`.
 
-- `Sensore`: device fisico che misura la quantità fisica (temperatura, inclinazione, etc) ogni 10 minuti. Non è fornito di interfaccia di rete ma è identificato unicamente dal suo indirizzo MAC. Comunica esclusivamente con il suo gateway corrispondente tramite connessione seriale, mandando la misurazione.
+	- __Account__: è un Alias di `Utente`. È in pratica la rappresentazione in forma di dato di un Utente del sistema. Si definisce questo Alias per non confondersi tra il concetto di Utente come dato o classe del sistema (Utente, User) e il concetto di Utente come Attore, ovvero una persona fisica del mondo reale che interagisce con il sistema.
 
-- `Misurazione`: è costituita dal valore misurato e dal timestamp della misurazione.
+- __Admin__: è un Utente con accesso completo alle risorse e alle funzionalità. Può gestire completamente i tutti Network (e quindi tutti i Gateway e Sensori) e tutti gli Utenti (Account). 
 
-- `Statistiche di misurazioni`: _media_ ($\sigma$) e _varianza_ ($\mu$) di un insieme di misurazioni eseguite in un certo range temporale. Tramite questi due valori vengono poi calcolate:
-	- _upper threashold_ = $\mu+2\sigma$
-	- _lower threshold_ = $\mu-2\sigma$.
+- __Operator__: è un Utente con accesso a tutte le funzionalità di gestione dei Network (e quindi di tutti i Gateway e Sensori) ma senza accesso alla gestione degli Utenti (Account).
 
+- __Viewer__: è un utente con accesso limitato al sistema. Può solo visualizzare i dati del sistema (tutti) ma non può modificarli. Non ha accesso alla visualizzazione e gestione degli Utenti (Account).
 
-- `Misurazione Outlier`: ogni misurazione con valore più alto della `upperThreshold` o più basso della `lowerThreshold` considerando un insieme di misurazioni su un range temporale.
+- __Network__: raggruppamento Logico di `Gateway` (e corrispettivi `Sensori` associati). Non corrisponde a un device fisico ma è una entità software per organizzare e gestire gruppi di device. (Esempio: un singolo Network monitora un singolo comune o singolo edificio).<br> È identificato da un `code` (a volte detto `networkCode`) e dettagliato con `name` e `description`.
+	- `code`: identificativo univoco di un `Network`. [Alfanumerico, Lunghezza Minima: 1]
+	- `name`: nome del `Network`. [Nessun Formato Specificato]
+	- `description`: descrizione del `Network`. [Nessun Formato Specificato]
+
+- __Gateway__: device fisico dotato di una interfaccia di rete e connesso al GeoControl System tramite essa; è collegato a uno o più `Sensori` tramite una interfaccia seriale dalla quale riceve le informazioni delle `Misurazioni`. È in grado di eseguire la conversione digitale dei dati ottenuti dai `Sensori` e trasmetterli sulla rete.<br> È identificato da un `macAddess` (a volte detto `gatewayMac`) e dettagliato con `name` e `description`.
+	- `macAddress`: identificativo univoco di un `Gateway`. [Indirizzo MAC (standard Ethernet)]
+	- `name`: nome del `Gateway`. [Nessun Formato Specificato]
+	- `description`: descrizione del `Gateway`. [Nessun Formato Specificato] 
+
+- __Sensore__: device fisico che esegue le effettive misurazioni delle "quantità fisiche" (le misurazioni vengono eseguite ogni 10 minuti). Non dispone di una interfaccia di rete. È associato a un solo `Gateway` al quale è collegato mediante una connessione seriale. Oltre ai dati della misurazione, il `Sensore` invia anche il timestamp della misurazione nel Formato ISO 8601 nella timezone locale.<br> È identificato da un `macAddress` (a volte detto `sensorMac`) e dettagliato con `name`, `description`, `variable` (a volte detto `value`) e `unit`.
+	- `macAddress`: identificativo univoco di un `Sensore`. [Indirizzo MAC (standard Ethernet)]
+	- `name`: nome del `Sensore`. [Nessun Formato Specificato]
+	- `description`: descrizione del `Sensore`. [Nessun Formato Specificato]
+	- `variable`: misura del "dato fisico" misurato dal `Sensore`. [Nessun Formato Specificato]
+	- `unit`: unità di misura del valore `variable`. [Nessun Formato Specificato] 
+
+- __Misurazione__: è eseguita da un `Sensore`, collezionate dal `Gateway` corrispondente, inviata sul `Network` corrispondente e memorizzata dal GeoControl System.<br> Include `timestamp` (a volte detto `createdAt`), `value`, `isOutlier`.
+	- `timestamp`: momento in cui è stata eseguita la misurazione. È convertito dal sistema nella timezone UTC. [Formato ISO 8601]
+	- `value`: valore associato alla misurazione (ovvero valore della misura `variable` del `Sensore`). [Numero Reale]
+	- `isOutlier`: indica se il valore di `value` è fuori dalle threshold `upperThreshold` e `lowerThreshold`. A differenza degli altri attributi, non è un dato persistente. [Booleano]
+
+- __Statistiche di Misurazioni__: (o semplicemente __Statistiche__) è un insieme di valori calcolati rispetto a un insieme di `Misurazioni` identificate da un range temporale.<br> Include `startDate`, `endDate`, `mean`, `variance`, `upperThreshold` e `lowerThreshold`.
+	- `startDate`: timestamp di inizio del range temporale. [Formato ISO 8601]
+	- `endDate`: timestamp di fine del range temporale. [Formato ISO 8601]
+	- `mean`: Media delle misurazioni eseguite nel range temporale. Indicato con $\mu$. [Numero Reale]
+	- `variance`: Varianza delle misurazioni eseguite nel range temporale. Indicato con $\sigma$. [Numero Reale]
+	- `upperThreshold`: threshold superiore utilizzato per l'Outlier Detection. Calcolato tramite Media e varianza. [Numero Reale]
+		- `upperThreshold` $= \mu+2\sigma$.
+	- `lowerThreshold`: threshold inferiore utilizzato per l'Outlier Detection. Calcolato tramite Media e varianza. [Numero Reale]
+		- `lowerThreshold` $= \mu-2\sigma$.
+
+- __Misurazione Outlier__: (o semplicemente __Outlier__) è una `Misurazione` il cui valore `value` è più alto della `upperThreshold` o più basso della `lowerThreshold`. L'insieme delle `Misurazioni` Outlier è un sottoinsieme delle `Misurazioni`.
+
+- __Formato ISO 8601__: è uno standard internazionale per la rappresentazione di date e orari. Ha lo scopo di evitare ambiguità e confusione tra le varie rappresentazioni di date e orari.
+	- __Timezone UTC__: è la Timezone del Coordinated Universal Time (UTC), ovvero il fuso orario standard universale di riferimento. UTC non cambia con l'ora legale, quindi rimane costante durante tutto l'anno.
+
+## Glossary Diagram
+
+__NOTE su DIAGRAMMA__:<br>
+Si assume che questo Diagramma del Glossario non debba essere un vero e proprio UML Class Diagram. In pratica questo diagramma rappresenta concetti e relazioni piuttosto che classi. Si specifica questo in quanto sono state fatte delle scelte appartentemente ambigue.
+- Ovviamente non avrebbe senso rappresentare sia le classi dei Ruoli (Admin, Operator, Viewer) che avere l'attributo di tipo enum `type` in Utente (anzi non avrebbe proprio senso rappresentare Utente in primo luogo, in quanto Viewer è sufficiente). Lo si è fatto in modo da poter rappresentare esplicitamente le relazioni tra i singoli ruoli e le singole funzionalità.
+- Si è scelto di non rappresentare il concetto di "oggetto Misurazione e Statistiche" (ovvero quello che negli Schemas dello Swagger è definito come `Measurements`), in quanto non è qualcosa di tangile dal punto di vista concettuale ma è semplicemente un modo per raggruppare un singolo output.
+- La relazione tra `Operator` e `Misurazione` potrebbe essere omessa in quanto vi è un collegamento implicito tramite `Network`. In ogni caso su questo vi è ambiguità in quanto non è chiaro se le misurazioni siano inserite ogni 10 minuti al momento che il Sensore le produce o se un Operator debba inserirle manualmente. 
+
+### Glossary Diagram - Draw.io
+
+![Glossary Diagram - Draw.io](./res/Glossary_Diagram.png)
+
+### Glossary Diagram - PlantUML
 
 ``` plantuml
 
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+
+abstract class Utente {
+  - username
+  - password
+  - type : enum {admin, operator, viewer}
+}
+
+class Admin {}
+class Operator {}
+class Viewer {}
+
 class Network {
-  - codice
-  - nome
-  - descrizione
+  - code
+  - name
+  - description
 }
 
 class Gateway {
- - MAC
- - nome
- - descrizione
+  - macAddress
+  - name
+  - description
 }
 
 class Sensore {
- - MAC
- - nome
- - descrizione
- - variabile
- - unità di misura
+  - macAddress
+  - name
+  - description
+  - variable
+  - unit
 }
 
-class Statistica {
-  - data inizio
-  - data fine
-  - media
-  - varianza
+class Misurazione {
+  - timestamp
+  - value
+  - isOutlier
+}
+
+class Statistiche {
+  - startDate
+  - endDate
+  - mean
+  - variance
   - upperThreshold
   - lowerThreshold
 }
 
-class Misurazione {
- - timestamp
- - valore
- - isOutlier
-}
+Utente <|-- Viewer
+Viewer <|-l- Operator
+Operator <|-l- Admin
 
-Network *-- "*" Gateway
-Gateway *-- "*" Sensore
-Sensore "1" -- "*" Misurazioni : associateA <
-Misurazione "*" -- "1" Misurazioni : in >
+Operator -- Network : manages >
+Viewer -- Network : views >
+Viewer -- Misurazione : views >
+Viewer -- Statistiche : views >
+Operator -- Misurazione : inserts > 
+
+Network *-r- "*" Gateway
+Gateway *-r- "*" Sensore
+Sensore "1" --> "0..*" Misurazione : produces >
+
+Statistiche "*" -- "*" Misurazione : is computed from >
+Statistiche "*" -- "1" Sensore : is related >
+@enduml
 
 ```
 
+
 # System Design
 
-\<describe here system design>
+__NOTE su DIAGRAMMA__:<br>
+- Vale anche qui la nota del Context Diagram.
+- Si assume che il "token-based authentication mechanism" non sia qualcosa di esterno, ma sia compreso nel sistema. Inoltre, viene considerato come un "modulo" o "componente" a se stante.
 
-\<must be consistent with Context diagram>
+## System Diagram - Draw.io
+
+![System Diagram - Draw.io](./res/System_Diagram.png)
+
+## System Diagram - PlantUML
+
+``` plantuml
+
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+
+
+class "GeoControl System" as GS {
+  F1 - Gestione Utente()
+  F2 - Gestione Networks()
+  F3 - Gestione Gateways()
+  F4 - Gestione Sensori()
+  F5 - Calcolo Statistiche su Misurazioni()
+  F6 - Gestione Misurazioni()
+  F7 - Gestione Timestamp()
+}
+
+class Network {}
+
+class AuthenticationUnit {
+  F1.1 - Autenticazione Utente()
+}
+
+Network "*" -u-o GS
+AuthenticationUnit "1" -u-o GS
+
+@enduml
+
+```
+
 
 # Deployment Diagram
 
-\<describe here deployment diagram >
+__NOTE su DIAGRAMMA__:<br>
+- Il diagramma PlantUML viene generato in modo atroce, non lo si consideri più di tanto.
+- Le due componenti "\<\<executionEnvironment>>" del Nodo ClientApp sono da intendersi in alternativa. 
 
+## Deployment Diagram - Draw.io
+
+![Deployment Diagram - Draw.io](./res/Deployment_Diagram.png)
+
+## Deployment Diagram - PlantUML
+
+``` plantuml
+
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+
+
+node "Server" <<device>> as Server {
+    artifact "GeoControl System" <<artifact>> as GCS
+
+    database "GeoControl Database" as DB
+}
+
+node Gateway <<device>> {
+    component "Network Interface"
+}
+
+node Sensore <<device>>
+
+node ClientApp <<device>> {
+    component Browser <<executionEnvironment>> as Browser {
+        artifact "Front-end WebApp" <<artifact>> as FE
+    }
+
+    component "Android/iOS" <<executionEnvironment>> as Mobile {
+        artifact "Mobile App" <<artifact>>
+    }
+
+}
+
+GCS -d- DB
+
+Server "1" -l- "*" Gateway: Internet Protocol (IP)
+Gateway "1" -d- "*" Sensore: Serial Connection
+Server "1" -r- "0..*" ClientApp: HTTPS
+
+Browser -u[hidden]- Mobile
+@enduml
+
+```
