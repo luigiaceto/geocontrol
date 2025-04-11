@@ -12,148 +12,186 @@ Version: V1 - description of Geocontrol as described in the swagger
 ## Contents
 
 - [Requirements Document - GeoControl](#requirements-document---geocontrol)
-  * [Contents](#contents)
-  * [Informal Description](#informal-description)
-  * [Business Model](#business-model)
-  * [Stakeholders](#stakeholders)
-  * [Context Diagram and Interfaces](#context-diagram-and-interfaces)
-    + [Context Diagram](#context-diagram)
+  - [Contents](#contents)
+  - [Informal Description](#informal-description)
+  - [Business Model](#business-model)
+  - [Stakeholders](#stakeholders)
+  - [Context Diagram and Interfaces](#context-diagram-and-interfaces)
+    - [Context Diagram](#context-diagram)
       - [Context Diagram - Draw.io](#context-diagram---drawio)
       - [Context Diagram - PlantUML](#context-diagram---plantuml)
-    + [Interfaces](#interfaces)
-  * [Stories and Personas](#stories-and-personas)
-    + [Persona1 - "Luca"](#persona1----luca-)
-    + [Persona2 - "Giulia"](#persona2----giulia-)
-    + [Persona3 - "Marco"](#persona3----marco-)
-    + [Persona4 - "Francesco"](#persona4----francesco-)
-    + [Persona5 - "Silvia"](#persona5----silvia-)
-  * [Functional and Non-Functional Requirements](#functional-and-non-functional-requirements)
-    + [Functional Requirements](#functional-requirements)
+    - [Interfaces](#interfaces)
+  - [Stories and Personas](#stories-and-personas)
+    - [Persona1 - "Luca"](#persona1---luca)
+    - [Persona2 - "Giulia"](#persona2---giulia)
+    - [Persona3 - "Marco"](#persona3---marco)
+    - [Persona4 - "Francesco"](#persona4---francesco)
+    - [Persona5 - "Silvia"](#persona5---silvia)
+  - [Functional and Non-Functional Requirements](#functional-and-non-functional-requirements)
+    - [Functional Requirements](#functional-requirements)
       - [Table of Rights](#table-of-rights)
-    + [Non-Functional Requirements](#non-functional-requirements)
-  * [Use Case Diagram and Use Cases](#use-case-diagram-and-use-cases)
-    + [Use Case Diagram](#use-case-diagram)
+    - [Non-Functional Requirements](#non-functional-requirements)
+  - [Use Case Diagram and Use Cases](#use-case-diagram-and-use-cases)
+    - [Use Case Diagram](#use-case-diagram)
       - [Use Case Diagram - Draw.io](#use-case-diagram---drawio)
       - [Use Case Diagram - PlantUML](#use-case-diagram---plantuml)
-    + [Use Cases](#use-cases)
-      - [Use Case 0 (UC0): Template for Use Cases](#use-case-0--uc0---template-for-use-cases)
-        * [Scenario 0.1](#scenario-01)
-      - [Use case 1 (UC1): Autenticazione al Sistema](#use-case-1--uc1---autenticazione-al-sistema)
-        * [Scenario 1.1](#scenario-11)
-        * [Scenario 1.2](#scenario-12)
-        * [Scenario 1.3](#scenario-13)
-        * [Scenario 1.4](#scenario-14)
-        * [Scenario 1.5](#scenario-15)
-      - [Use Case 2 (UC2): Creazione Account](#use-case-2--uc2---creazione-account)
-        * [Scenario 2.1](#scenario-21)
-        * [Scenario 2.2](#scenario-22)
-        * [Scenario 2.3](#scenario-23)
-        * [Scenario 2.4](#scenario-24)
-        * [Scenario 2.5](#scenario-25)
-        * [Scenario 2.6](#scenario-26)
-      - [Use Case 3 (UC3): Ottenimento Account Utente](#use-case-3--uc3---ottenimento-account-utente)
-        * [Scenario 3.1](#scenario-31)
-        * [Scenario 3.2](#scenario-32)
-        * [Scenario 3.3](#scenario-33)
-        * [Scenario 3.4](#scenario-34)
-        * [Scenario 3.5](#scenario-35)
-        * [Scenario 3.6](#scenario-36)
-      - [Use Case 4 (UC4): Eliminazione Account](#use-case-4--uc4---eliminazione-account)
-        * [Scenario 4.1](#scenario-41)
-        * [Scenario 4.2](#scenario-42)
-        * [Scenario 4.3](#scenario-43)
-        * [Scenario 4.4](#scenario-44)
-        * [Scenario 4.5](#scenario-45)
-      - [Use case 5, Creazione Network](#use-case-5--creazione-network)
-        * [Scenario 5.1](#scenario-51)
-        * [Scenario 5.2](#scenario-52)
-        * [Scenario 5.3](#scenario-53)
-        * [Scenario 5.4](#scenario-54)
-        * [Scenario 5.5](#scenario-55)
-        * [Scenario 5.6](#scenario-56)
-      - [Use Case 6 (UC6): Ottenimento Network](#use-case-6--uc6---ottenimento-network)
-        * [Scenario 6.1](#scenario-61)
-        * [Scenario 6.2](#scenario-62)
-        * [Scenario 6.3](#scenario-63)
-        * [Scenario 6.4](#scenario-64)
-        * [Scenario 6.5](#scenario-65)
-      - [Use Case 7 (UC7): Eliminazione Network](#use-case-7--uc7---eliminazione-network)
-        * [Scenario 7.1](#scenario-71)
-        * [Scenario 7.2](#scenario-72)
-        * [Scenario 7.3](#scenario-73)
-        * [Scenario 7.4](#scenario-74)
-        * [Scenario 7.5](#scenario-75)
-      - [Use Case 8 (UC8): Modifica Network](#use-case-8--uc8---modifica-network)
-        * [Scenario 8.1](#scenario-81)
-        * [Scenario 8.2](#scenario-82)
-        * [Scenario 8.3](#scenario-83)
-        * [Scenario 8.4](#scenario-84)
-        * [Scenario 8.5](#scenario-85)
-        * [Scenario 8.6](#scenario-86)
-        * [Scenario 8.7](#scenario-87)
-      - [Use case 9, Creazione Gateway](#use-case-9--creazione-gateway)
-        * [Scenario 9.1](#scenario-91)
-        * [Scenario 9.2](#scenario-92)
-        * [Scenario 9.3](#scenario-93)
-        * [Scenario 9.4](#scenario-94)
-        * [Scenario 9.5](#scenario-95)
-        * [Scenario 9.6](#scenario-96)
-        * [Scenario 9.7](#scenario-97)
-      - [Use case 10, Ottenimento Gateway](#use-case-10--ottenimento-gateway)
-        * [Scenario 10.1](#scenario-101)
-        * [Scenario 10.2](#scenario-102)
-        * [Scenario 10.3](#scenario-103)
-        * [Scenario 10.4](#scenario-104)
-        * [Scenario 10.5](#scenario-105)
-        * [Scenario 10.6](#scenario-106)
-      - [Use Case 11 (UC11): Eliminazione Gateway](#use-case-11--uc11---eliminazione-gateway)
-        * [Scenario 11.1](#scenario-111)
-        * [Scenario 11.2](#scenario-112)
-        * [Scenario 11.3](#scenario-113)
-        * [Scenario 11.4](#scenario-114)
-        * [Scenario 11.5](#scenario-115)
-        * [Scenario 11.6](#scenario-116)
-      - [Use Case 12 (UC12): Modifica Gateway](#use-case-12--uc12---modifica-gateway)
-        * [Scenario 12.1](#scenario-121)
-        * [Scenario 12.2](#scenario-122)
-        * [Scenario 12.3](#scenario-123)
-        * [Scenario 12.4](#scenario-124)
-        * [Scenario 12.5](#scenario-125)
-        * [Scenario 12.6](#scenario-126)
-        * [Scenario 12.7](#scenario-127)
-        * [Scenario 12.8](#scenario-128)
-        * [Use Case 17 (UC17): Creazione Misurazione](#use-case-17--uc17---creazione-misurazione)
-        * [Scenario 17.1](#scenario-171)
-        * [Scenario 17.2](#scenario-172)
-        * [Scenario 17.3](#scenario-173)
-        * [Scenario 17.4](#scenario-174)
-        * [Scenario 17.5](#scenario-175)
-        * [Scenario 17.6](#scenario-176)
-        * [Use Case 18 (UC18): Visualizzazione Dati Sensori per Network Specifica](#use-case-18--uc18---visualizzazione-dati-sensori-per-network-specifica)
-        * [Scenario 18.1](#scenario-181)
-        * [Scenario 18.2](#scenario-182)
-        * [Scenario 18.3](#scenario-183)
-        * [Scenario 18.4](#scenario-184)
-        * [Scenario 18.5](#scenario-185)
-        * [Scenario 18.6](#scenario-186)
-        * [Use Case 19 (UC19): Visualizzazione Dati Sensore Specifico](#use-case-19--uc19---visualizzazione-dati-sensore-specifico)
-        * [Scenario 19.1](#scenario-191)
-        * [Scenario 19.2](#scenario-192)
-        * [Scenario 19.3](#scenario-193)
-        * [Scenario 19.4](#scenario-194)
-        * [Scenario 19.5](#scenario-195)
-        * [Scenario 19.6](#scenario-196)
-  * [Glossary](#glossary)
-    + [Glossary Terms](#glossary-terms)
-    + [Glossary Diagram](#glossary-diagram)
+    - [Use Cases](#use-cases)
+      - [Use Case 0 (UC0): Template for Use Cases](#use-case-0-uc0-template-for-use-cases)
+        - [Scenario 0.1](#scenario-01)
+      - [Use case 1 (UC1): Autenticazione al Sistema](#use-case-1-uc1-autenticazione-al-sistema)
+        - [Scenario 1.1](#scenario-11)
+        - [Scenario 1.2](#scenario-12)
+        - [Scenario 1.3](#scenario-13)
+        - [Scenario 1.4](#scenario-14)
+        - [Scenario 1.5](#scenario-15)
+      - [Use Case 2 (UC2): Creazione Account](#use-case-2-uc2-creazione-account)
+        - [Scenario 2.1](#scenario-21)
+        - [Scenario 2.2](#scenario-22)
+        - [Scenario 2.3](#scenario-23)
+        - [Scenario 2.4](#scenario-24)
+        - [Scenario 2.5](#scenario-25)
+        - [Scenario 2.6](#scenario-26)
+      - [Use Case 3 (UC3): Ottenimento Account Utente](#use-case-3-uc3-ottenimento-account-utente)
+        - [Scenario 3.1](#scenario-31)
+        - [Scenario 3.2](#scenario-32)
+        - [Scenario 3.3](#scenario-33)
+        - [Scenario 3.4](#scenario-34)
+        - [Scenario 3.5](#scenario-35)
+        - [Scenario 3.6](#scenario-36)
+      - [Use Case 4 (UC4): Eliminazione Account](#use-case-4-uc4-eliminazione-account)
+        - [Scenario 4.1](#scenario-41)
+        - [Scenario 4.2](#scenario-42)
+        - [Scenario 4.3](#scenario-43)
+        - [Scenario 4.4](#scenario-44)
+        - [Scenario 4.5](#scenario-45)
+      - [Use case 5 (UC5): Creazione Network](#use-case-5-uc5-creazione-network)
+        - [Scenario 5.1](#scenario-51)
+        - [Scenario 5.2](#scenario-52)
+        - [Scenario 5.3](#scenario-53)
+        - [Scenario 5.4](#scenario-54)
+        - [Scenario 5.5](#scenario-55)
+        - [Scenario 5.6](#scenario-56)
+      - [Use Case 6 (UC6): Ottenimento Network](#use-case-6-uc6-ottenimento-network)
+        - [Scenario 6.1](#scenario-61)
+        - [Scenario 6.2](#scenario-62)
+        - [Scenario 6.3](#scenario-63)
+        - [Scenario 6.4](#scenario-64)
+        - [Scenario 6.5](#scenario-65)
+      - [Use Case 7 (UC7): Eliminazione Network](#use-case-7-uc7-eliminazione-network)
+        - [Scenario 7.1](#scenario-71)
+        - [Scenario 7.2](#scenario-72)
+        - [Scenario 7.3](#scenario-73)
+        - [Scenario 7.4](#scenario-74)
+        - [Scenario 7.5](#scenario-75)
+      - [Use Case 8 (UC8): Modifica Network](#use-case-8-uc8-modifica-network)
+        - [Scenario 8.1](#scenario-81)
+        - [Scenario 8.2](#scenario-82)
+        - [Scenario 8.3](#scenario-83)
+        - [Scenario 8.4](#scenario-84)
+        - [Scenario 8.5](#scenario-85)
+        - [Scenario 8.6](#scenario-86)
+        - [Scenario 8.7](#scenario-87)
+      - [Use case 9, Creazione Gateway](#use-case-9-creazione-gateway)
+        - [Scenario 9.1](#scenario-91)
+        - [Scenario 9.2](#scenario-92)
+        - [Scenario 9.3](#scenario-93)
+        - [Scenario 9.4](#scenario-94)
+        - [Scenario 9.5](#scenario-95)
+        - [Scenario 9.6](#scenario-96)
+        - [Scenario 9.7](#scenario-97)
+      - [Use case 10, Ottenimento Gateway](#use-case-10-ottenimento-gateway)
+        - [Scenario 10.1](#scenario-101)
+        - [Scenario 10.2](#scenario-102)
+        - [Scenario 10.3](#scenario-103)
+        - [Scenario 10.4](#scenario-104)
+        - [Scenario 10.5](#scenario-105)
+        - [Scenario 10.6](#scenario-106)
+        - [Scenario 10.7](#scenario-107)
+      - [Use Case 11 (UC11): Eliminazione Gateway](#use-case-11-uc11-eliminazione-gateway)
+        - [Scenario 11.1](#scenario-111)
+        - [Scenario 11.2](#scenario-112)
+        - [Scenario 11.3](#scenario-113)
+        - [Scenario 11.4](#scenario-114)
+        - [Scenario 11.5](#scenario-115)
+        - [Scenario 11.6](#scenario-116)
+      - [Use Case 12 (UC12): Modifica Gateway](#use-case-12-uc12-modifica-gateway)
+        - [Scenario 12.1](#scenario-121)
+        - [Scenario 12.2](#scenario-122)
+        - [Scenario 12.3](#scenario-123)
+        - [Scenario 12.4](#scenario-124)
+        - [Scenario 12.5](#scenario-125)
+        - [Scenario 12.6](#scenario-126)
+        - [Scenario 12.7](#scenario-127)
+        - [Scenario 12.8](#scenario-128)
+      - [Use case 13(UC13): Creazione Sensore](#use-case-13uc13-creazione-sensore)
+        - [Scenario 13.1](#scenario-131)
+        - [Scenario 13.2](#scenario-132)
+        - [Scenario 13.3](#scenario-133)
+        - [Scenario 13.4](#scenario-134)
+        - [Scenario 13.5](#scenario-135)
+        - [Scenario 13.6](#scenario-136)
+        - [Scenario 13.7](#scenario-137)
+        - [Scenario 13.8](#scenario-138)
+      - [Use case 14 (UC14): Ottenimento Gateway](#use-case-14-uc14-ottenimento-gateway)
+        - [Scenario 14.1](#scenario-141)
+        - [Scenario 14.2](#scenario-142)
+        - [Scenario 14.3](#scenario-143)
+        - [Scenario 14.4](#scenario-144)
+        - [Scenario 14.5](#scenario-145)
+        - [Scenario 14.6](#scenario-146)
+        - [Scenario 14.7](#scenario-147)
+        - [Scenario 14.8](#scenario-148)
+        - [Scenario 14.9](#scenario-149)
+      - [Use Case 15 (UC15): Eliminazione Sensore](#use-case-15-uc15-eliminazione-sensore)
+        - [Scenario 15.1](#scenario-151)
+        - [Scenario 15.2](#scenario-152)
+        - [Scenario 15.3](#scenario-153)
+        - [Scenario 15.4](#scenario-154)
+        - [Scenario 15.5](#scenario-155)
+        - [Scenario 15.6](#scenario-156)
+        - [Scenario 15.7](#scenario-157)
+      - [Use Case 16 (UC16): Modifica Sensore](#use-case-16-uc16-modifica-sensore)
+        - [Scenario 16.1](#scenario-161)
+        - [Scenario 16.2](#scenario-162)
+        - [Scenario 16.3](#scenario-163)
+        - [Scenario 16.4](#scenario-164)
+        - [Scenario 16.5](#scenario-165)
+        - [Scenario 16.6](#scenario-166)
+        - [Scenario 16.7](#scenario-167)
+        - [Scenario 16.8](#scenario-168)
+        - [Scenario 16.9](#scenario-169)
+        - [Use Case 17 (UC17): Creazione Misurazione](#use-case-17-uc17-creazione-misurazione)
+        - [Scenario 17.1](#scenario-171)
+        - [Scenario 17.2](#scenario-172)
+        - [Scenario 17.3](#scenario-173)
+        - [Scenario 17.4](#scenario-174)
+        - [Scenario 17.5](#scenario-175)
+        - [Scenario 17.6](#scenario-176)
+        - [Use Case 18 (UC18): Ottenimento Dati Sensori per Network Specifica](#use-case-18-uc18-ottenimento-dati-sensori-per-network-specifica)
+        - [Scenario 18.1](#scenario-181)
+        - [Scenario 18.2](#scenario-182)
+        - [Scenario 18.3](#scenario-183)
+        - [Scenario 18.4](#scenario-184)
+        - [Scenario 18.5](#scenario-185)
+        - [Scenario 18.6](#scenario-186)
+        - [Use Case 19 (UC19): Ottenimento Dati per Sensore Specifico](#use-case-19-uc19-ottenimento-dati-per-sensore-specifico)
+        - [Scenario 19.1](#scenario-191)
+        - [Scenario 19.2](#scenario-192)
+        - [Scenario 19.3](#scenario-193)
+        - [Scenario 19.4](#scenario-194)
+        - [Scenario 19.5](#scenario-195)
+        - [Scenario 19.6](#scenario-196)
+  - [Glossary](#glossary)
+    - [Glossary Terms](#glossary-terms)
+    - [Glossary Diagram](#glossary-diagram)
       - [Glossary Diagram - Draw.io](#glossary-diagram---drawio)
       - [Glossary Diagram - PlantUML](#glossary-diagram---plantuml)
-  * [System Design](#system-design)
-    + [System Diagram - Draw.io](#system-diagram---drawio)
-    + [System Diagram - PlantUML](#system-diagram---plantuml)
-  * [Deployment Diagram](#deployment-diagram)
-    + [Deployment Diagram - Draw.io](#deployment-diagram---drawio)
-    + [Deployment Diagram - PlantUML](#deployment-diagram---plantuml)
+  - [System Design](#system-design)
+    - [System Diagram - Draw.io](#system-diagram---drawio)
+    - [System Diagram - PlantUML](#system-diagram---plantuml)
+  - [Deployment Diagram](#deployment-diagram)
+    - [Deployment Diagram - Draw.io](#deployment-diagram---drawio)
+    - [Deployment Diagram - PlantUML](#deployment-diagram---plantuml)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a> TODO: TOGLIERE STA ROBA POI</i></small>
 
@@ -2027,8 +2065,8 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 2              | _System_: richiede `networkCode`,`sensorMacs`,`startDate` e `endDate` |
 | 3              | _Utente_: fornisce `networkCode`,`sensorMacs`,`startDate` e `endDate` |
 | 4              | _System_:legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
-| 5              | _System_:verifica esistenza `networkCode`.  `networkCode` trovato |
-| 6              | _System_:verifica formato `startDate` e  `endDate`.Formato corretto |
+| 5              | _System_:verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_:verifica formato `startDate` e  `endDate`; formato corretto |
 | 7              | _System_: restituisce misurazioni dati sensori per Network specifica __(Code 200)__ |
 
 ##### Scenario 18.2
@@ -2042,8 +2080,8 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 2              | _System_: richiede `networkCode`,`sensorMacs`,`startDate` e `endDate` |
 | 3              | _Utente_: fornisce `networkCode`,`sensorMacs`,`startDate` e `endDate` |
 | 4              | _System_:legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
-| 5              | _System_:verifica esistenza `networkCode`.  `networkCode` trovato |
-| 6              | _System_:verifica formato `startDate` e  `endDate`.Formato corretto |
+| 5              | _System_:verifica esistenza `networkCode`;  `networkCode` trovato |
+| 6              | _System_:verifica formato `startDate` e  `endDate`; formato corretto |
 | 7              | _System_: restituisce statistiche dati sensori per Network specifica __(Code 200)__ |
 
 ##### Scenario 18.3
@@ -2057,8 +2095,8 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 2              | _System_: richiede `networkCode`,`sensorMacs`,`startDate` e `endDate` |
 | 3              | _Utente_: fornisce `networkCode`,`sensorMacs`,`startDate` e `endDate` |
 | 4              | _System_:legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
-| 5              | _System_:verifica esistenza `networkCode`.  `networkCode` trovato |
-| 6              | _System_:verifica formato `startDate` e  `endDate`.Formato corretto |
+| 5              | _System_:verifica esistenza `networkCode`;  `networkCode` trovato |
+| 6              | _System_:verifica formato `startDate` e  `endDate`; formato corretto |
 | 7              | _System_: restituisce outlier dati sensori per Network specifica __(Code 200)__ |
 
 ##### Scenario 18.4
@@ -2082,7 +2120,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 2              | _System_: richiede `networkCode`della Network ricercata |
 | 3              | _Utente_: fornisce `networkCode` della Network ricercata |
 | 4              | _System_:legge `networkCode` fornito |
-| 5              | _System_:verifica esistenza `networkCode`;  `networkCode` non trovata |
+| 5              | _System_:verifica esistenza `networkCode`; `networkCode` non trovato |
 | 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
 
 ##### Scenario 18.6
@@ -2096,80 +2134,101 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
 
-##### Use Case 19 (UC19): Visualizzazione Dati Sensore Specifico
+##### Use Case 19 (UC19): Ottenimento Dati per Sensore Specifico
 
-| UC19              | Use Case 19: Visualizzazione Dati Sensore Specifico |
+| UC19              | Use Case 19: Ottenimento Dati per Sensore Specifico |
 | :--------------- | :--------------------------------- |
 | Actors Involved  | Admin \| Operator \| Viewer |
-| Pre-condition    | Esiste una Network con un sensore registrato. Utente autenticato   |
-| Post-condition   | L’utente ha visualizzato i dati richiesti per il sensore specificato (misurazioni, statistiche o outlier) |
+| Pre-condition    | //  |
+| Post-condition   | Informazioni dati per Sensore Specifico sono state ottenute |
 | Nominal Scenario | Scenario 19.1 |
 | Variants         | Scenario 19.2, 19.3 |
 | Exceptions       | Scenario 19.4, 19.5, 19.6|
 
 ##### Scenario 19.1
 
-| UC19 - S19.1     | Scenario 18.6: Recupero Delle Misurazioni |
+| UC19 - S19.1     | Scenario 19.1: Ottenimento Misurazioni per Sensore Specifico (Successful) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato. Il sensore esiste nella network specificata |
-| Post-condition | L’utente visualizza tutte le misurazioni del sensore |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco delle Misurazioni è stato ottenuto |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta GET /networks/{`networkCode`}/gateways/{gatewayMac}/sensors/{sensorMac}/measurements con startDate e endDate opzionali |
-| 2              | _System_: valida i parametri e autentica l’utente |
-| 3              | _System_: restituisce misurazioni dettagliate per il sensore indicato nel range temporale __(Code 200)__ |
+| 1              | _Utente_: chiede di ottenere l'elenco delle Misurazioni |
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 4              | _System_:legge `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 5              | _System_:verifica esistenza `networkCode`; `networkCode` trovato |
+| 5              | _System_:verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 5              | _System_:verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 6              | _System_:verifica formato `startDate` e  `endDate`; formato corretto |
+| 7              | _System_: restituisce misurazioni dati per Sensore Specifico __(Code 200)__ |
 
 ##### Scenario 19.2
 
-| UC19 - S19.2     | Scenario 19.2: Recupero delle Statistiche |
+| UC19 - S19.2     | Scenario 19.2: Ottenimento Statistiche per Sensore Specifico (Successful) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato. Il sensore esiste nella Network specificata |
-| Post-condition | L’utente visualizza statistiche aggregate del sensore |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco delle Statistiche è stato ottenuto |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta GET /networks/{`networkCode`}/gateways/{gatewayMac}/sensors/{sensorMac}/stats con startDate e endDate opzionali |
-| 2              | _System_: valida i parametri e autentica l’utente |
-| 3              | _System_: restituisce statistiche (media, varianza, soglie) per il sensore indicato __(Code 200)__ |
+| 1              | _Utente_: chiede di ottenere l'elenco delle Statistiche |
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 4              | _System_:legge `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 5              | _System_:verifica esistenza `networkCode`; `networkCode` trovato |
+| 5              | _System_:verifica esistenza `gatewayMac`;  `gatewayMac` trovato |
+| 5              | _System_:verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 6              | _System_:verifica formato `startDate` e  `endDate`; formato corretto |
+| 7              | _System_: restituisce statistiche dati per Sensore Specifico __(Code 200)__ |
 
 ##### Scenario 19.3
 
-| UC19 - S19.3     | Scenario 19.3: Recupero Outlier |
+| UC19 - S19.3     | Scenario 19.3: Ottenimento Outlier per Sensore Specifico (Successful)|
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato. Il sensore esiste nella Network specificata |
-| Post-condition | L’utente visualizza solo le misurazioni identificate come outlier |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco degli Outlier è stato ottenuto |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta GET /networks/{`networkCode`}/gateways/{gatewayMac}/sensors/{sensorMac}/outliers con startDate e endDate opzionali |
-| 2              | _System_: valida i parametri e autentica l’utente |
-| 3              | _System_: restituisce solo le misurazioni fuori soglia __(Code 200)__ |
+| 1              | _Utente_: chiede di ottenere l'elenco degli Outlier |
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 4              | _System_:legge `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 5              | _System_:verifica esistenza `networkCode`;  `networkCode` trovato |
+| 5              | _System_:verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 5              | _System_:verifica esistenza `sensorMac`;  `sensorMac` trovato |
+| 6              | _System_:verifica formato `startDate` e  `endDate`; formato corretto |
+| 7              | _System_: restituisce Outlier dati per Sensore Specifico __(Code 200)__ |
 
 ##### Scenario 19.4
 
-| UC19 - S19.4     | Scenario 19.4: Utente Non Autorizzato |
+| UC19 - S19.4     | Scenario 19.4: Ottenimento Dati per Sensore Specifico (Non Autorizzato) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | L’utente non ha effettuato l'accesso o il token è invalido |
-| Post-condition | Nessun dato restituito. Mostrato messaggio di errore |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta senza token o con token errato |
-| 2              | _System_: restituisce errore Unauthorized __(Code 401)__ |
+| 1              | _Utente_: chiede di ottenere informazioni Dati per Sensore Specifico |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
 
 ##### Scenario 19.5
 
-| UC19 - S19.5     | Scenario 19.5: Sensore Non Trovato |
+| UC19 - S19.5     | Scenario 19.5: Ottenimento Dati per Sensore Specifico (Network/Gateway/Sensore non Trovato) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Il `networkCode`, gatewayMac o sensorMac non esiste o non è corretto |
-| Post-condition | Nessun dato restituito. Mostrato messaggio di errore |
+| Pre-condition  | Utente autenticato; Network, Gateway o Sensore non esiste |
+| Post-condition | Informazioni non Ottenute. Mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta con parametri non validi o riferiti a entità inesistenti |
-| 2              | _System_: restituisce errore NotFound __(Code 404)__ |
+| 1              | _Utente_: chiede di ottenere informazioni su un Sensore Specifico |
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac` |
+| 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac` |
+| 4              | _System_:legge `networkCode`,`gatewayMac`,`sensorMac` forniti |
+| 5              | _System_:verifica `networkCode`,`gatewayMac`,`sensorMac`; almeno uno non trovato |
+| 6              | _System_: mostra messaggio di errore. Risorsa non trovata __(Code 404)__ |
 
 ##### Scenario 19.6
 
-| UC19 - S19.6     | Scenario 19.6: Errore Interno |
+| UC19 - S19.6     | Scenario 19.6: Ottenimento Dati per Sensore Specifico (Errore Interno) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Condizione imprevista lato server |
-| Post-condition | Nessun dato restituito. Mostrato messaggio di errore |
+| Pre-condition  | // |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta valida |
-| 2              | _System_: si verifica un errore interno |
-| 3              | _System_: restituisce errore InternalServerError __(Code 500)__ |
+| 1              | _Utente_: chiede di ottenere informazioni Dati  per Sensore Specifico |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
 
 
 ## Glossary
