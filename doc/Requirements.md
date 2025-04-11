@@ -9,6 +9,7 @@ Version: V1 - description of Geocontrol as described in the swagger
 |                |        |
 
 ## Contents
+## Contents
 
 - [Requirements Document - GeoControl](#requirements-document---geocontrol)
   * [Contents](#contents)
@@ -69,8 +70,67 @@ Version: V1 - description of Geocontrol as described in the swagger
     + [Glossary Diagram](#glossary-diagram)
   * [System Design](#system-design)
   * [Deployment Diagram](#deployment-diagram)
+  * [Contents](#contents)
+  * [Informal Description](#informal-description)
+  * [Business Model](#business-model)
+  * [Stakeholders](#stakeholders)
+  * [Context Diagram and Interfaces](#context-diagram-and-interfaces)
+    + [Context Diagram](#context-diagram)
+    + [Interfaces](#interfaces)
+  * [Stories and Personas](#stories-and-personas)
+  * [Functional and Non-Functional Requirements](#functional-and-non-functional-requirements)
+    + [Functional Requirements](#functional-requirements)
+      - [Access Rights](#access-rights)
+    + [Non-Functional Requirements](#non-functional-requirements)
+  * [Use Case Diagram and Use Cases](#use-case-diagram-and-use-cases)
+    + [Use Case Diagram](#use-case-diagram)
+    + [Use Cases](#use-cases)
+      - [Use Case 0 (UC0): Template for Use Cases](#use-case-0--uc0---template-for-use-cases)
+        * [Scenario 0.1](#scenario-01)
+      - [Use case 1 (UC1): Autenticazione al Sistema](#use-case-1--uc1---autenticazione-al-sistema)
+        * [Scenario 1.1](#scenario-11)
+        * [Scenario 1.2](#scenario-12)
+        * [Scenario 1.3](#scenario-13)
+        * [Scenario 1.4](#scenario-14)
+        * [Scenario 1.5](#scenario-15)
+      - [Use Case 2 (UC2): Creazione Account](#use-case-2--uc2---creazione-account)
+        * [Scenario 2.1](#scenario-21)
+        * [Scenario 2.2](#scenario-22)
+        * [Scenario 2.3](#scenario-23)
+        * [Scenario 2.4](#scenario-24)
+        * [Scenario 2.5](#scenario-25)
+        * [Scenario 2.6](#scenario-26)
+      - [Use Case 3 (UC3): Ottenimento Utente](#use-case-3--uc3---ottenimento-utente)
+        * [Scenario 3.1](#scenario-31)
+        * [Scenario 3.2](#scenario-32)
+        * [Scenario 3.3](#scenario-33)
+        * [Scenario 3.4](#scenario-34)
+        * [Scenario 3.5](#scenario-35)
+        * [Scenario 3.6](#scenario-36)
+      - [Use Case 4 (UC4): Eliminazione Account](#use-case-4--uc4---eliminazione-account)
+        * [Scenario 4.1](#scenario-41)
+        * [Scenario 4.2](#scenario-42)
+        * [Scenario 4.3](#scenario-43)
+        * [Scenario 4.4](#scenario-44)
+        * [Scenario 4.5](#scenario-45)
+      - [Use case 5, Gestione Networks](#use-case-5--gestione-networks)
+        * [Scenario 5.1: Recupero di tutte le Reti](#scenario-51--recupero-di-tutte-le-reti)
+        * [Scenario 5.2: Recupero di una Rete specifica](#scenario-52--recupero-di-una-rete-specifica)
+        * [Scenario 5.3: Creazione di una Nuova Rete](#scenario-53--creazione-di-una-nuova-rete)
+        * [Scenario 5.4: Aggiornamento della Rete](#scenario-54--aggiornamento-della-rete)
+        * [Scenario 5.5: Cancellazione della Rete](#scenario-55--cancellazione-della-rete)
+        * [Scenario 5.6: Errore di Autorizzazione (401 Unauthorized)](#scenario-56--errore-di-autorizzazione--401-unauthorized-)
+        * [Scenario 5.7: Errore di Permessi Insufficienti (403 Forbidden)](#scenario-57--errore-di-permessi-insufficienti--403-forbidden-)
+        * [Scenario 5.8: Errore Interno del Server (500 Internal Server Error)](#scenario-58--errore-interno-del-server--500-internal-server-error-)
+        * [Scenario 5.9: Rete Non Trovata (404 Not Found)](#scenario-59--rete-non-trovata--404-not-found-)
+        * [Scenario 5.10: Conflitto (409 Conflict)](#scenario-410--conflitto--409-conflict-)
+  * [Glossary](#glossary)
+    + [Glossary Diagram](#glossary-diagram)
+  * [System Design](#system-design)
+  * [Deployment Diagram](#deployment-diagram)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a> TODO: TOGLIERE STA ROBA POI</i></small>
+
 
 ## Informal Description
 
@@ -367,12 +427,6 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | 2              | _Utente_: fornisce un Input Invalido |
 | 3              | _System_: legge Input fornito |
 | 4              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
-=======
-| 1              | _System_: richiede credenziali (Username e Password) |
-| 2              | _Utente_: fornisce credenziali (Username e Password) |
-| 3              | _System_: legge credenziali (Username e Password) |
-| 4              | _System_: cerca Username; Username non trovato |
-| 5              | _System_: mostra messaggio di errore. Utente non trovato |
 
 ##### Scenario 1.3
 
@@ -1609,8 +1663,6 @@ __NOTA:__ In tutti gli Scenari, l'_Utente_ (notare _italics_) indicato negli Ste
 | 2              | _System_: si verifica un errore interno |
 | 3              | _System_: restituisce errore InternalServerError __(Code 500)__ |
 
-
-..
 
 ## Glossary
 
