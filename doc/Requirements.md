@@ -438,8 +438,9 @@ AuthenticationUnit "1" -u-o GS
 
 # Deployment Diagram
 
-___NOTE su DIAGRAMMA__:<br>
-- s
+__NOTE su DIAGRAMMA__:<br>
+- Il diagramma PlantUML viene generato in modo atroce, non lo si consideri più di tanto.
+- Le due componenti "\<\<executionEnvironment>>" del Nodo ClientApp sono da intendersi in alternativa. 
 
 ## Deployment Diagram - Draw.io
 
@@ -448,5 +449,42 @@ ___NOTE su DIAGRAMMA__:<br>
 ## Deployment Diagram - PlantUML
 
 ``` plantuml
+
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+
+
+node "Server" <<device>> as Server {
+    artifact "GeoControl System" <<artifact>> as GCS
+
+    database "GeoControl Database" as DB
+}
+
+node Gateway <<device>> {
+    component "Network Interface"
+}
+
+node Sensore <<device>>
+
+node ClientApp <<device>> {
+    component Browser <<executionEnvironment>> as Browser {
+        artifact "Front-end WebApp" <<artifact>> as FE
+    }
+
+    component "Android/iOS" <<executionEnvironment>> as Mobile {
+        artifact "Mobile App" <<artifact>>
+    }
+
+}
+
+GCS -d- DB
+
+Server "1" -l- "*" Gateway: Internet Protocol (IP)
+Gateway "1" -d- "*" Sensore: Serial Connection
+Server "1" -r- "0..*" ClientApp: HTTPS
+
+Browser -u[hidden]- Mobile
+@enduml
 
 ```
