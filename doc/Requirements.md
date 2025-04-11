@@ -710,7 +710,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
 
-#### Use case 5, Creazione Network
+#### Use case 5 (UC5): Creazione Network
 
 | UC5              | Use Case 5: Creazione Network |
 | :--------------- | :--------------------------------- |
@@ -2005,80 +2005,95 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 2              | _System_: mostra messaggio di errore. Errore interno al Server __(Code 500)__ |
 
 
-##### Use Case 18 (UC18): Visualizzazione Dati Sensori per Network Specifica
+##### Use Case 18 (UC18): Ottenimento Dati Sensori per Network Specifica
 
-| UC18              | Use Case 18: Visualizzazione Dati Sensori per Network Specifica |
+| UC18              | Use Case 18: Ottenimento Dati Sensori per Network Specifica |
 | :--------------- | :--------------------------------- |
 | Actors Involved  | Admin \| Operator \| Viewer |
-| Pre-condition    | Esiste una Network con sensori registrati. Utente autenticato.   |
-| Post-condition   | L’utente ha visualizzato i dati richiesti per i sensori (misurazioni, statistiche o outlier) |
+| Pre-condition    | //  |
+| Post-condition   | Informazioni dati sensori per Network specifica sono state ottenute |
 | Nominal Scenario | Scenario 18.1 |
 | Variants         | Scenario 18.2, 18.3 |
 | Exceptions       | Scenario 18.4, 18.5, 18.6|
 
 ##### Scenario 18.1
 
-| UC18 - S18.1     | Scenario 18.1: Recupero delle Misurazioni |
+| UC18 - S18.1     | Scenario 18.1: Ottenimento Misurazioni per Network Specifica (Successful) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato. Network e sensori esistono. |
-| Post-condition | L’utente visualizza tutte le misurazioni richieste. |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco delle Misurazioni è stato ottenuto |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta GET /networks/{`networkCode`}/measurements con opzionali sensorMacs, startDate, endDate |
-| 2              | _System_: valida i parametri e autentica l’utente |
-| 3              | _System_: restituisce misurazioni per i sensori specificati nel range temporale __(Code 200)__ |
+| 1              | _Utente_: chiede di ottenere l'elenco delle Misurazioni |
+| 2              | _System_: richiede `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 3              | _Utente_: fornisce `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 4              | _System_:legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 5              | _System_:verifica esistenza `networkCode`.  `networkCode` trovato |
+| 6              | _System_:verifica formato `startDate` e  `endDate`.Formato corretto |
+| 7              | _System_: restituisce misurazioni dati sensori per Network specifica __(Code 200)__ |
 
 ##### Scenario 18.2
 
-| UC18 - S18.2     | Scenario 18.2: Recupero delle Statistiche |
+| UC18 - S18.2     | Scenario 18.2: Ottenimento Statistiche per Network Specifica (Successful) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato. Network e sensori esistono |
-| Post-condition | L’utente visualizza statistiche aggregate |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco delle Statistiche è stato ottenuto |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta GET /networks/{`networkCode`}/stats con opzionali sensorMacs, startDate, endDate |
-| 2              | _System_: valida i parametri e autentica l’utente |
-| 3              | _System_: restituisce le statistiche (media, varianza, soglie) per i sensori indicati __(Code 200)__ |
+| 1              | _Utente_: chiede di ottenere l'elenco delle Statistiche |
+| 2              | _System_: richiede `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 3              | _Utente_: fornisce `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 4              | _System_:legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 5              | _System_:verifica esistenza `networkCode`.  `networkCode` trovato |
+| 6              | _System_:verifica formato `startDate` e  `endDate`.Formato corretto |
+| 7              | _System_: restituisce statistiche dati sensori per Network specifica __(Code 200)__ |
 
 ##### Scenario 18.3
 
-| UC18 - S18.3     | Scenario 18.3: Recupero Outlier |
+| UC18 - S18.3     | Scenario 18.3: Ottenimento Outlier per Network Specifica (Successful)|
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Utente autenticato. Network e sensori esistono |
-| Post-condition | L’utente visualizza solo i dati identificati come outlier |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco degli Outlier è stato ottenuto |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta GET /networks/{`networkCode`}/outliers con opzionali sensorMacs, startDate, endDate |
-| 2              | _System_: valida i parametri e autentica l’utente |
-| 3              | _System_: restituisce solo le misurazioni fuori soglia per i sensori specificati __(Code 200)__ |
+| 1              | _Utente_: chiede di ottenere l'elenco degli Outlier |
+| 2              | _System_: richiede `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 3              | _Utente_: fornisce `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 4              | _System_:legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 5              | _System_:verifica esistenza `networkCode`.  `networkCode` trovato |
+| 6              | _System_:verifica formato `startDate` e  `endDate`.Formato corretto |
+| 7              | _System_: restituisce outlier dati sensori per Network specifica __(Code 200)__ |
 
 ##### Scenario 18.4
 
-| UC18 - S18.4     | Scenario 18.4: Utente Non Autorizzato |
+| UC18 - S18.4     | Scenario 18.4: Ottenimento Dati Sensori per Network Specifica (Non Autorizzato) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | L’utente non ha effettuato l'accesso o il token è invalido |
-| Post-condition | Nessun dato restituito. Mostrato messaggio di errore |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta senza token o con token errato |
-| 2              | _System_: restituisce errore Unauthorized __(Code 401)__ |
+| 1              | _Utente_: chiede di ottenere informazioni Dati Sensori |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
 
 ##### Scenario 18.5
 
-| UC18 - S18.5     | Scenario 18.5: Network Non Trovata |
+| UC18 - S18.5     | Scenario 18.5: Ottenimento Dati Sensori per Network Specifica (Network non Trovata) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Il codice della Network (`networkCode`) non è valido o non esiste |
-| Post-condition | Nessun dato restituito. Mostrato messaggio di errore |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta con `networkCode` inesistente |
-| 2              | _System_: restituisce errore NotFound __(Code 404)__ |
+| 1              | _Utente_: chiede di ottenere informazioni su una Network specifica |
+| 2              | _System_: richiede `networkCode`della Network ricercata |
+| 3              | _Utente_: fornisce `networkCode` della Network ricercata |
+| 4              | _System_:legge `networkCode` fornito |
+| 5              | _System_:verifica esistenza `networkCode`;  `networkCode` non trovata |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
 
 ##### Scenario 18.6
 
-| UC18 - S18.6     | Scenario 18.6: Errore Interno |
+| UC18 - S18.6     | Scenario 18.6: Ottenimento Dati Sensori per Network Specifica (Errore Interno) |
 | :------------- | :------------------------------------------------ |
-| Pre-condition  | Condizione imprevista lato server |
-| Post-condition | Nessun dato restituito. Mostrato messaggio di errore |
+| Pre-condition  | // |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: invia richiesta valida |
-| 2              | _System_: si verifica un errore interno |
-| 3              | _System_: restituisce errore InternalServerError __(Code 500)__ |
+| 1              | _Utente_: chiede di ottenere informazioni Dati Sensori per Network Specifica |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
 
 ##### Use Case 19 (UC19): Visualizzazione Dati Sensore Specifico
