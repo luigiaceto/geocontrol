@@ -8,6 +8,8 @@ Version:
 
 Consider the GeoControl project as described in the swagger, assume that you are going to develop the project INDEPENDENT of the deadlines of the course, and from scratch
 
+Nota: "from scratch" inteso come sviluppare tutto da 0, anche il fronted (che nel progetto ci viene fornito già scritto)
+
 # Estimate by size
 
 |                                         | Estimate |
@@ -29,12 +31,12 @@ Classes: user, network, gateway, sensor, stats, measurement, errorHandler, dateT
 | -------------------- | ------------------------------- |
 | requirement document |            20                   |
 | design document      |            20                   |
-| code                 |            100                  |
+| code                 |            150                  |
 | unit tests           |            50                   |
 | api tests            |            20                   |
 | management documents |            10                   |
 
-Note: API molto simili tra loro, principalmente basate su retrieve. Dovrebbero richiedere poco tempo rispetto agli unit tests.
+Nota: API molto simili tra loro, principalmente basate su retrieve. Dovrebbero richiedere poco tempo rispetto agli unit tests.
 
 # Estimate by activity decomposition
 
@@ -48,6 +50,7 @@ Note: API molto simili tra loro, principalmente basate su retrieve. Dovrebbero r
 | Implementazione del sistema di autenticazione e gestione utenti | 10 |
 | Traduzione in classi e implementazione della logica di network, gateways e sensori | 40 |
 | Scrittura delle API | 50 |
+| Sviluppo del frontend | 50 |
 | Testing delle api | 20 |
 | Unit testing | 50 |
 | Scrittura della documentazione del sistema | 10 |
