@@ -1220,7 +1220,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 10.4
 
-| UC10 - S10.4    | Scenario 6.4: Ottenimento Gateway (Errore Interno) |
+| UC10 - S10.4    | Scenario 10.4: Ottenimento Gateway (Errore Interno) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | // |
 | Post-condition | Nessuna informazione restituita; mostrato messaggio di errore |
@@ -1748,7 +1748,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
 | 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
 | 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
-| 8             | _System_: elimina il Sensore __(Code 204)__ |
+| 8              | _System_: elimina il Sensore __(Code 204)__ |
 
 ##### Scenario 15.2
 
@@ -1946,7 +1946,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
 | 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
 | 8              | _SYstem_: verifica uso `macAddress`; `macAddress` già in uso |
-| 3              | _System_: mostra messaggio di errore. MacAddress già in uso __(Code 409)__ |
+| 9              | _System_: mostra messaggio di errore. MacAddress già in uso __(Code 409)__ |
 
 ##### Scenario 16.9
 
@@ -1955,7 +1955,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Pre-condition  | // |
 | Post-condition | Sensore non modificato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_:  hiede di modificare un Sensore |
+| 1              | _Utente_: chiede di modificare un Sensore |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
 
 ##### Use Case 17 (UC17): Creazione Misurazione
@@ -1979,7 +1979,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_: chiede di creare una misurazione | 
 | 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
 | 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
-| 4              | _System_:legge `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 4              | _System_: legge `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
 | 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
 | 5              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
 | 5              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
@@ -2028,8 +2028,8 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_: chiede di creare una Misurazione |
 | 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
 | 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
-| 4              | _System_:legge `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
-| 5              | _System_:verifica `networkCode`, `gatewayMac`, `sensorMac`; almeno uno non trovato |
+| 4              | _System_: legge `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 5              | _System_: verifica `networkCode`, `gatewayMac`, `sensorMac`; almeno uno non trovato |
 | 6              | _System_: mostra messaggio di errore. Risorsa non trovata __(Code 404)__ |
 
 ##### Scenario 17.6
@@ -2039,7 +2039,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Pre-condition  | // |
 | Post-condition | Misurazione non creata; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: chide di creare una Misurazione |
+| 1              | _Utente_: chiede di creare una Misurazione |
 | 2              | _System_: mostra messaggio di errore. Errore interno al Server __(Code 500)__ |
 
 
@@ -2064,9 +2064,9 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_: chiede di ottenere l'elenco delle Misurazioni |
 | 2              | _System_: richiede `networkCode`,`sensorMacs`,`startDate` e `endDate` |
 | 3              | _Utente_: fornisce `networkCode`,`sensorMacs`,`startDate` e `endDate` |
-| 4              | _System_:legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
-| 5              | _System_:verifica esistenza `networkCode`; `networkCode` trovato |
-| 6              | _System_:verifica formato `startDate` e  `endDate`; formato corretto |
+| 4              | _System_: legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica formato `startDate` e  `endDate`; formato corretto |
 | 7              | _System_: restituisce misurazioni dati sensori per Network specifica __(Code 200)__ |
 
 ##### Scenario 18.2
@@ -2079,9 +2079,9 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_: chiede di ottenere l'elenco delle Statistiche |
 | 2              | _System_: richiede `networkCode`,`sensorMacs`,`startDate` e `endDate` |
 | 3              | _Utente_: fornisce `networkCode`,`sensorMacs`,`startDate` e `endDate` |
-| 4              | _System_:legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
-| 5              | _System_:verifica esistenza `networkCode`;  `networkCode` trovato |
-| 6              | _System_:verifica formato `startDate` e  `endDate`; formato corretto |
+| 4              | _System_: legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 5              | _System_: verifica esistenza `networkCode`;  `networkCode` trovato |
+| 6              | _System_: verifica formato `startDate` e  `endDate`; formato corretto |
 | 7              | _System_: restituisce statistiche dati sensori per Network specifica __(Code 200)__ |
 
 ##### Scenario 18.3
@@ -2094,9 +2094,9 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_: chiede di ottenere l'elenco degli Outlier |
 | 2              | _System_: richiede `networkCode`,`sensorMacs`,`startDate` e `endDate` |
 | 3              | _Utente_: fornisce `networkCode`,`sensorMacs`,`startDate` e `endDate` |
-| 4              | _System_:legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
-| 5              | _System_:verifica esistenza `networkCode`;  `networkCode` trovato |
-| 6              | _System_:verifica formato `startDate` e  `endDate`; formato corretto |
+| 4              | _System_: legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 5              | _System_: verifica esistenza `networkCode`;  `networkCode` trovato |
+| 6              | _System_: verifica formato `startDate` e  `endDate`; formato corretto |
 | 7              | _System_: restituisce outlier dati sensori per Network specifica __(Code 200)__ |
 
 ##### Scenario 18.4
@@ -2119,8 +2119,8 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_: chiede di ottenere informazioni su una Network specifica |
 | 2              | _System_: richiede `networkCode`della Network ricercata |
 | 3              | _Utente_: fornisce `networkCode` della Network ricercata |
-| 4              | _System_:legge `networkCode` fornito |
-| 5              | _System_:verifica esistenza `networkCode`; `networkCode` non trovato |
+| 4              | _System_: legge `networkCode` fornito |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
 | 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
 
 ##### Scenario 18.6
@@ -2155,11 +2155,11 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_: chiede di ottenere l'elenco delle Misurazioni |
 | 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
 | 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
-| 4              | _System_:legge `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
-| 5              | _System_:verifica esistenza `networkCode`; `networkCode` trovato |
-| 5              | _System_:verifica esistenza `gatewayMac`; `gatewayMac` trovato |
-| 5              | _System_:verifica esistenza `sensorMac`; `sensorMac` trovato |
-| 6              | _System_:verifica formato `startDate` e  `endDate`; formato corretto |
+| 4              | _System_: legge `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 5              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 5              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 6              | _System_: verifica formato `startDate` e  `endDate`; formato corretto |
 | 7              | _System_: restituisce misurazioni dati per Sensore Specifico __(Code 200)__ |
 
 ##### Scenario 19.2
@@ -2172,11 +2172,11 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_: chiede di ottenere l'elenco delle Statistiche |
 | 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
 | 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
-| 4              | _System_:legge `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
-| 5              | _System_:verifica esistenza `networkCode`; `networkCode` trovato |
-| 5              | _System_:verifica esistenza `gatewayMac`;  `gatewayMac` trovato |
-| 5              | _System_:verifica esistenza `sensorMac`; `sensorMac` trovato |
-| 6              | _System_:verifica formato `startDate` e  `endDate`; formato corretto |
+| 4              | _System_: legge `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 5              | _System_: verifica esistenza `gatewayMac`;  `gatewayMac` trovato |
+| 5              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 6              | _System_: verifica formato `startDate` e  `endDate`; formato corretto |
 | 7              | _System_: restituisce statistiche dati per Sensore Specifico __(Code 200)__ |
 
 ##### Scenario 19.3
@@ -2189,11 +2189,11 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_: chiede di ottenere l'elenco degli Outlier |
 | 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
 | 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
-| 4              | _System_:legge `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
-| 5              | _System_:verifica esistenza `networkCode`;  `networkCode` trovato |
-| 5              | _System_:verifica esistenza `gatewayMac`; `gatewayMac` trovato |
-| 5              | _System_:verifica esistenza `sensorMac`;  `sensorMac` trovato |
-| 6              | _System_:verifica formato `startDate` e  `endDate`; formato corretto |
+| 4              | _System_: legge `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 5              | _System_: verifica esistenza `networkCode`;  `networkCode` trovato |
+| 5              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 5              | _System_: verifica esistenza `sensorMac`;  `sensorMac` trovato |
+| 6              | _System_: verifica formato `startDate` e  `endDate`; formato corretto |
 | 7              | _System_: restituisce Outlier dati per Sensore Specifico __(Code 200)__ |
 
 ##### Scenario 19.4
@@ -2216,8 +2216,8 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_: chiede di ottenere informazioni su un Sensore Specifico |
 | 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac` |
 | 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac` |
-| 4              | _System_:legge `networkCode`,`gatewayMac`,`sensorMac` forniti |
-| 5              | _System_:verifica `networkCode`,`gatewayMac`,`sensorMac`; almeno uno non trovato |
+| 4              | _System_: legge `networkCode`,`gatewayMac`,`sensorMac` forniti |
+| 5              | _System_: verifica `networkCode`,`gatewayMac`,`sensorMac`; almeno uno non trovato |
 | 6              | _System_: mostra messaggio di errore. Risorsa non trovata __(Code 404)__ |
 
 ##### Scenario 19.6
@@ -2227,7 +2227,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | Pre-condition  | // |
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
-| 1              | _Utente_: chiede di ottenere informazioni Dati  per Sensore Specifico |
+| 1              | _Utente_: chiede di ottenere informazioni Dati per Sensore Specifico |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
 
 
@@ -2240,7 +2240,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 ### Glossary Terms
 
 - __Utente__: è un attore del sistema, può essere un Admin, un Operator o un Viewer.<br> È identificato da uno `username` (a volte detto `userName`) e dettagliato con `password` e `type`.
-	- `username`: identificativo unicovo di un `Utente`. [Lunghezza Minima: 1]
+	- `username`: identificativo univoco di un `Utente`. [Lunghezza Minima: 1]
 	- `password`: utilizzata in combinazione con lo `username` per autenticare un `Utente` nel sistema (ricevendo un `Token`). [Lunghezza Minima: 5]
 	- `type`: è il tipo di `Utente`, definisce il ruolo dell'Utente e il livello di accesso alle funzionalità. Può essere:
 		- `admin`: identifica un `Utente` di tipo `Admin`.
@@ -2249,7 +2249,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 	- __Account__: è un Alias di `Utente`. È in pratica la rappresentazione in forma di dato di un Utente del sistema. Si definisce questo Alias per non confondersi tra il concetto di Utente come dato o classe del sistema (Utente, User) e il concetto di Utente come Attore, ovvero una persona fisica del mondo reale che interagisce con il sistema.
 
-- __Admin__: è un Utente con accesso completo alle risorse e alle funzionalità. Può gestire completamente i tutti Network (e quindi tutti i Gateway e Sensori) e tutti gli Utenti (Account). 
+- __Admin__: è un Utente con accesso completo alle risorse e alle funzionalità. Può gestire completamente tutti i Network (e quindi tutti i Gateway e Sensori) e tutti gli Utenti (Account). 
 
 - __Operator__: è un Utente con accesso a tutte le funzionalità di gestione dei Network (e quindi di tutti i Gateway e Sensori) ma senza accesso alla gestione degli Utenti (Account).
 
