@@ -389,9 +389,10 @@ __Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitora
 
 |  ID  | Type        | Description | Refers to |
 | :--: | :---------- | :---------- | :-------: |
-| NFR1 | Domain      | I Timestamp sono convertiti e memorizzati in Formato ISO 8601 (UTC) | FR6 |
+| NFR1 | Domain      | I Timestamp sono convertiti e memorizzati in Formato ISO 8601 (UTC) | FR6, FR7 |
 | NFR2 | Reliability | Non devono essere perse più di 6 Misurazioni per Sensore all'anno | FR6 |
-
+| NFR3 | Domain      | Per ogni Sensore la Misurazione deve avvenire ogni 10 minuti     | FR4, FR6 |
+| NFR4 | Domain      | Il Timestamp deve corrispondere all'esatto momento della misurazione | FR6, FR7 |
 
 ## Use Case Diagram and Use Cases
 
