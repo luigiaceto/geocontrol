@@ -59,6 +59,37 @@ Nota: API molto simili tra loro, principalmente basate su retrieve. Dovrebbero r
 
 Insert here Gantt chart with above activities.
 
+```mermaid
+gantt
+    title 4 persone, 8 ore/giorno, lun-ven
+    dateFormat  YYYY-MM-DD
+    
+    section Pianificazione
+    Analisi requisiti e scrittura del requirement document :a1, 2025-04-01, 1d
+    Design del sistema                                     :a2, after a1, 1d
+    Definizione del database                               :a3, after a2, 1d
+    
+    section Sviluppo Backend
+    Implementazione sistema autenticazione e gestione utenti :b1, after a3, 1d
+    Traduzione classi e implementazione logica              :b2, after b1, 2d
+    Scrittura delle API                                     :b3, after b2, 3d
+    
+    section Sviluppo Frontend
+    Sviluppo del frontend                                   :c1, after a3, 3d
+    
+    section Testing e Documentazione
+    Testing delle API                                       :d1, after b3, 1d
+    Unit testing                                            :d2, after d1, 3d
+    Scrittura della documentazione del sistema              :d3, after d2, 1d
+    
+    section Milestone
+    Completamento del progetto                              :milestone, after d3, 0d
+    
+    section Giorni Feriali
+    Weekend 5-6 Aprile       :crit, 2025-04-05, 2d
+    Weekend 12-13 Aprile     :crit, 2025-04-12, 2d
+```
+
 # Summary
 
 Report here the results of the three estimation approaches. The estimates may differ. Discuss here the possible reasons for the difference
