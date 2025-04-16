@@ -59,30 +59,37 @@ Nota: API molto simili tra loro, principalmente basate su retrieve. Dovrebbero r
 
 Insert here Gantt chart with above activities.
 
+Di seguito si è utilizzata l'estensione di VSCode `Markdown Preview Mermaid Support` per disegnare il diagramma di Gantt.
+
+Nota: sabato e domenica non si lavora. Nel diagramma si sovrappongono della attività in alcuni finesettimana ma questo avviene solo visivamente per non spezzare in due parti alcuni task (es. lo sviluppo del frontend richiede 3 giorni, anche se il chart ne mostra 5 ma solo perchè si sovrappone ad un weekend).
+
 ```mermaid
 gantt
     title 4 persone, 8 ore/giorno, lun-ven
     dateFormat  YYYY-MM-DD
+    todayMarker off
     
     section Pianificazione
     Analisi requisiti e scrittura del requirement document :a1, 2025-04-01, 1d
     Design del sistema                                     :a2, after a1, 1d
-    Definizione del database                               :a3, after a2, 1d
     
     section Sviluppo Backend
-    Implementazione sistema autenticazione e gestione utenti :b1, after a3, 1d
-    Traduzione classi e implementazione logica              :b2, after b1, 2d
-    Scrittura delle API                                     :b3, after b2, 3d
+    Definizione del database                                 :b1, after a2, 1d
+    Implementazione sistema autenticazione e gestione utenti :b2, after b1, 1d
+    Traduzione classi e implementazione logica               :b3, after b2, 4d
+    Scrittura delle API                                      :b4, after b3, 3d
     
     section Sviluppo Frontend
-    Sviluppo del frontend                                   :c1, after a3, 3d
+    Sviluppo del frontend                                   :c1, after b1, 5d
     
     section Testing e Documentazione
-    Testing delle API                                       :d1, after b3, 1d
+    Testing delle API                                       :d1, after b4, 3d
     Unit testing                                            :d2, after d1, 3d
     Scrittura della documentazione del sistema              :d3, after d2, 1d
     
     section Milestone
+    Inizio sviluppo sistema                                 :milestone, after b1, 0d
+    Inizio testing                                          :milestone, after b4, 0d
     Completamento del progetto                              :milestone, after d3, 0d
     
     section Giorni Feriali
@@ -96,6 +103,14 @@ Report here the results of the three estimation approaches. The estimates may di
 
 |                                    | Estimated effort | Estimated duration |
 | ---------------------------------- | ---------------- | ------------------ |
-| estimate by size                   |                  |                    |
-| estimate by product decomposition  |                  |                    |
-| estimate by activity decomposition |                  |                    |
+| estimate by size                   |       160        |       1 week       |
+| estimate by product decomposition  |       320        |       2 week       |
+| estimate by activity decomposition |       277        |       3 week       |
+
+- Il primo approccio si basa solamente sul codice di produzione e non tiene conto dei documenti e attività di pianificazione, test o integrazione tra componenti;
+
+- Il secondo approccio, anche se separa in più attività, non permette ancora di andare a fondo e sviscerare i passaggi in molteplici task;
+
+- L'utimo approccio invece permette di definire le attività proprie del progetto con un vista più dettagliata. 
+
+Come mai, nonstante la penultima attività richieda 320ph, essa necessiti di meno tempo rispetto l'ultima che con 277ph richiede 3 settimane? Si veda il Gantt chart che mostra come per via di alcune dipendenze (e anche per il modo intrinseco con cui si rappresentano le attività sul chart) alcune attività non possono essere parallelizzate. Se ad esempio in un giorno, finita l'attività A, rimanesse un'ora per la successiva attività B, con il penultimo approccio si può direttamente far succedere B ad A nella stessa giornata, mentre sul gantt chart si sposta al giorno dopo. Sarebbe fuorviante indicare sul gantt chart, per una sola ora, un giorno intero di lavoro per l'attività B (che potrebbe anche dipendere da A e quindi essere visualizzate erroneamente come parallelizzabili).
