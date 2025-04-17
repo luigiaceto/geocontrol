@@ -61,9 +61,9 @@ Suddivisione dei Timesheet utile per rendere più comoda la somma finale che fat
 
 | Week | Requirement Engineering | Design | Coding | Unit Testing | Integration Testing | Acceptance Testing | Containerization | Management |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Mar 24 - 30    | 0  | | | | | | | |
-| Mar 31 - Apr 6 | 6  | | | | | | | |
-| Apr 7 - 13     | 9  | | | | | | | |
+| Mar 24 - 30    | | | | | | | | |
+| Mar 31 - Apr 6 | | | | | | | | |
+| Apr 7 - 13     | | | | | | | | |
 | Apr 14 - 20    | | | | | | | | |
 | Apr 21 - 27    | | | | | | | | |
 | Apr 28 - May 4 | | | | | | | | |
