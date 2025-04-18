@@ -199,6 +199,10 @@ Version: V1 - description of Geocontrol as described in the swagger
 
 GeoControl è un software progettato per monitorare le variabili fisiche e ambientali in vari contesti: da analisi idrologiche di aree montane al sorvegliamento di edifici storici, e anche il controllo di parametri interni (quali temperatura o illuminazione) in aree residenziali o di lavoro.
 
+__NOTE GENERICHE__:
+- L'utilizzo misto di Italiano e Inglese può creare confusione, ma tale utilizzo è stato perpretato in modo coerente per tutto il documento. Per le fasi successive si cercherà di utilizzare solo l'Inglese.
+- I Digrammi sono presenti in una doppia versione: Draw.io e PlantUML. La versione "buona" è sempre da considerarsi quella Draw.io. Si lasciano le versioni PlantUML per completezza e come "Legacy".
+
 ## Business Model
 
 __Sistema Software su Licenza__:
@@ -405,9 +409,9 @@ __Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitora
 
 ``` plantuml
 
-'No plantuml per questo
+'No PlantUML per questo
 
-note "Diagramma plantuml troppo confuso.\nNiente diagramma plantuml per UseCase Diagram" as N1
+note "Diagramma PlantUML troppo confuso.\nNiente diagramma PlantUML per UseCase Diagram" as N1
 
 ```
 
