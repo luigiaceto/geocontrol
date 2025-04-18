@@ -1,12 +1,12 @@
 # Requirements Document - GeoControl
 
-Date:
+Date: 20205-04-18
 
 Version: V1 - description of Geocontrol as described in the swagger
 
 | Version number | Change |
 | :------------: | :----: |
-|                |        |
+| v1.0           | First Release |
 
 
 ## Contents
@@ -36,8 +36,6 @@ Version: V1 - description of Geocontrol as described in the swagger
       - [Use Case Diagram - Draw.io](#use-case-diagram---drawio)
       - [Use Case Diagram - PlantUML](#use-case-diagram---plantuml)
     + [Use Cases](#use-cases)
-      - [Use Case 0 (UC0): Template for Use Cases](#use-case-0--uc0---template-for-use-cases)
-        * [Scenario 0.1](#scenario-01)
       - [Use case 1 (UC1): Autenticazione al Sistema](#use-case-1--uc1---autenticazione-al-sistema)
         * [Scenario 1.1](#scenario-11)
         * [Scenario 1.2](#scenario-12)
@@ -195,8 +193,6 @@ Version: V1 - description of Geocontrol as described in the swagger
   * [Deployment Diagram](#deployment-diagram)
     + [Deployment Diagram - Draw.io](#deployment-diagram---drawio)
     + [Deployment Diagram - PlantUML](#deployment-diagram---plantuml)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a> TODO: TOGLIERE STA ROBA POI</i></small>
 
 
 ## Informal Description
@@ -416,35 +412,6 @@ note "Diagramma plantuml troppo confuso.\nNiente diagramma plantuml per UseCase 
 ```
 
 ### Use Cases
-
-
-\##############################################
-<!-- TODO: TOGLIERE QUESTA PARTE POI -->
-
-#### Use Case 0 (UC0): Template for Use Cases
-
-| UC0              | Use Case 0: Template for Use Cases |
-| :--------------- | :--------------------------------- |
-| Actors Involved  |  |
-| Pre-condition    |  |
-| Post-condition   |  |
-| Nominal Scenario |  |
-| Variants         |  |
-| Exceptions       |  |
-
-
-##### Scenario 0.1
-
-| UC0 - S0.1     | Scenario 0.1: Template for Use Cases (Successful) |
-| :------------- | :------------------------------------------------ |
-| Pre-condition  |  |
-| Post-condition |  |
-| __Step#__      | <div align="center"> __Description__ </div> |
-| 1              |  |
-| 2              |  |
-| ...            |  |
-
-\###############################################
 
 __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei possibili Attori che può eseguire il Caso d'Uso (anche quando solo 1 attore è possibile) (in pratica è una variabile che sostituisce il nome dell'attore; questo per coprire quegli scenari che possono essere eseguiti da ruoli differenti). Non va confuso con il termine "Account" che compare in alcune Pre-condition, Post-condition e Step.
 
