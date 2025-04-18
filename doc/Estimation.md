@@ -86,8 +86,9 @@ gantt
     todayMarker off
     tickinterval 1week
 	excludes weekends
-	axisformat Day %j
 	weekday monday
+	axisFormat Day %j
+
 
     section Pianificazione
     	Analisi dei Requisiti								:a1, 2025-01-01, 2.5d
