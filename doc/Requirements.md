@@ -203,7 +203,7 @@ GeoControl è un software progettato per monitorare le variabili fisiche e ambie
 ## Business Model
 
 __Sistema Software su Licenza__:
-la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale o come one-time-purchase. Vi sono diversi Tier di licenza tra cui quelli più avanzati che includono supporto tecnico e manutenzione della parte hardware del sistema (sensori e gateway).
+la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale o come one-time-purchase. Vi sono diversi Tier di licenza tra cui quelli più avanzati che includono supporto tecnico e manutenzione della parte hardware del sistema (Sensori e Gateway).
 
 ## Stakeholders
 
@@ -312,34 +312,34 @@ __Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitora
 
 |  ID   | Description |
 | :---- | :---------- |
-| __FR1__   | __Gestione Utente__ |
+| __FR1__  | __Gestione Utente__ |
 | FR1.1 | Autenticazione Utente |
 | FR1.2 | Creazione Account|
 | FR1.3 | Ottenimento Elenco Utenti |
 | FR1.4 | Ottenimento Utente Specifico |
 | FR1.5 | Eliminazione Account |
-| __FR2__   | __Gestione Networks__ |
+| __FR2__  | __Gestione Networks__ |
 | FR2.1 | Creazione Network |
 | FR2.2 | Ottenimento Elenco Networks |
 | FR2.3 | Ottenimento Network Specifico |
 | FR2.4 | Modifica Dati Network |
 | FR2.5 | Eliminazione Network |
-| __FR3__   | __Gestione Gateways__ |
+| __FR3__  | __Gestione Gateways__ |
 | FR3.1 | Creazione Gateway |
 | FR3.2 | Ottenimento Elenco Gateway per Network Specifico |
 | FR3.3 | Ottenimento Gateway Specifico | 
 | FR3.4 | Modifica Dati Gateway |
 | FR3.5 | Eliminazione Gateway |
-| __FR4__   | __Gestione Sensori__ |
+| __FR4__  | __Gestione Sensori__ |
 | FR4.1 | Creazione Sensore |
 | FR4.2 | Ottenimento Elenco Sensori per Gateway Specifico |
 | FR4.3 | Ottenimento Sensore Specifico |
 | FR4.4 | Modifica Dati Sensore |
 | FR4.5 | Eliminazione Sensore|
-| __FR5__   | __Calcolo Statistiche su Misurazioni__ |
+| __FR5__  | __Calcolo Statistiche su Misurazioni__ |
 | FR5.1 | Calcolo Media su Misurazioni in Range Temporale |
 | FR5.2 | Calcolo Varianza su Misurazioni in Range Temporale |
-| __FR6__   | __Gestione Misurazioni__ |
+| __FR6__  | __Gestione Misurazioni__ |
 | FR6.1 | Creazione Misurazione |
 | FR6.2 | Ottenimento Elenco Misurazioni di Network Specifico |
 | FR6.3 | Ottenimento Elenco Misurazioni di Sensore Specifico |
@@ -347,7 +347,7 @@ __Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitora
 | FR6.5 | Ottenimento Elenco Statistiche di Sensore Specifico |
 | FR6.6 | Ottenimento Elenco Outliers di Network Specifico |
 | FR6.7 | Ottenimento Elenco Outliers di Sensore Specifico |
-| __FR7__   | __Gestione Timestamp__ |
+| __FR7__  | __Gestione Timestamp__ |
 | FR7.1 | Conversione Timestamp al Timezone Locale |
 
 #### Table of Rights
@@ -389,10 +389,11 @@ __Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitora
 
 |  ID  | Type        | Description | Refers to |
 | :--: | :---------- | :---------- | :-------: |
-| NFR1 | Domain      | I Timestamp sono convertiti e memorizzati in Formato ISO 8601 (UTC) | FR6, FR7 |
+| NFR1 | Domain      | I Timestamp sono convertiti e memorizzati in Formato ISO 8601 (UTC) | FR6 |
 | NFR2 | Reliability | Non devono essere perse più di 6 Misurazioni per Sensore all'anno | FR6 |
 | NFR3 | Domain      | Per ogni Sensore la Misurazione deve avvenire ogni 10 minuti     | FR4, FR6 |
 | NFR4 | Domain      | Il Timestamp deve corrispondere all'esatto momento della misurazione | FR6, FR7 |
+
 
 ## Use Case Diagram and Use Cases
 
@@ -1071,7 +1072,8 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_: chiede di modificare una Network |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
 
-#### Use case 9, Creazione Gateway
+
+#### Use case 9 (UC9): Creazione Gateway
 
 | UC9              | Use Case 9: Creazione Gateway |
 | :--------------- | :--------------------------------- |
@@ -1169,9 +1171,10 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_: chiede di creare un Gateway |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
-#### Use case 10, Ottenimento Gateway
 
-| UC10              | Use Case 10: Ottenimento Gateway |
+#### Use case 10 (UC10): Ottenimento Gateway
+
+| UC10             | Use Case 10: Ottenimento Gateway |
 | :--------------- | :--------------------------------- |
 | Actors Involved  | Admin \| Operator \| Viewer |
 | Pre-condition    | //  |
@@ -1182,7 +1185,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 10.1
 
-| UC10 - S10.1     | Scenario 10.1: Ottenimento Elenco Gateway (Successful) |
+| UC10 - S10.1   | Scenario 10.1: Ottenimento Elenco Gateway (Successful) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato |
 | Post-condition | Elenco dei Gateway è stato ottenuto |
@@ -1196,7 +1199,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 10.2
 
-| UC10 - S10.2     | Scenario 10.2: Ottenimento Gateway Specifico (Successful) |
+| UC10 - S10.2   | Scenario 10.2: Ottenimento Gateway Specifico (Successful) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato; Gateway ricercato esiste |
 | Post-condition | Informazioni sul Gateway ricercato sono state ottenute |
@@ -1211,7 +1214,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 10.3
 
-| UC10 - S10.3     | Scenario 10.3: Ottenimento Gateway (Non Autorizzato) |
+| UC10 - S10.3   | Scenario 10.3: Ottenimento Gateway (Non Autorizzato) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente non è autenticato |
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
@@ -1221,7 +1224,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 10.4
 
-| UC10 - S10.4    | Scenario 10.4: Ottenimento Gateway (Errore Interno) |
+| UC10 - S10.4   | Scenario 10.4: Ottenimento Gateway (Errore Interno) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | // |
 | Post-condition | Nessuna informazione restituita; mostrato messaggio di errore |
@@ -1231,7 +1234,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 10.5
 
-| UC10 - S10.5     | Scenario 10.5: Ottenimento Gateway (Network non Trovata) |
+| UC10 - S10.5   | Scenario 10.5: Ottenimento Gateway (Network non Trovata) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato; Network ricercata non esiste |
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
@@ -1245,7 +1248,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 10.6
 
-| UC10 - S10.6     | Scenario 10.6: Ottenimento Gateway Specifico(Network non Trovata) |
+| UC10 - S10.6   | Scenario 10.6: Ottenimento Gateway Specifico(Network non Trovata) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato; Network ricercata non esiste |
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
@@ -1259,7 +1262,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 10.7
 
-| UC10 - S10.7     | Scenario 10.7: Ottenimento Gateway Specifico (Gateway non Trovato) |
+| UC10 - S10.7   | Scenario 10.7: Ottenimento Gateway Specifico (Gateway non Trovato) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato; Gateway non esiste |
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
@@ -1285,7 +1288,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 11.1
 
-| UC11 - S11.1     | Scenario 11.1: Eliminazione Gateway (Successful) |
+| UC11 - S11.1   | Scenario 11.1: Eliminazione Gateway (Successful) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato con ruolo Admin o Operator; gateway esiste |
 | Post-condition | Gateway è stato eliminato |
@@ -1320,7 +1323,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 11.4
 
-| UC11 - S11.4     | Scenario 11.4: Eliminazione Gateway (Network non Trovata) |
+| UC11 - S11.4   | Scenario 11.4: Eliminazione Gateway (Network non Trovata) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato con ruolo adeguato; `networkCode` non corrisponde ad alcuna network esistente |
 | Post-condition | Gateway non eliminato; mostrato messaggio di errore |
@@ -1334,7 +1337,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 11.5
 
-| UC11 - S11.5     | Scenario 11.5: Eliminazione Gateway (Gateway non Trovato) |
+| UC11 - S11.5   | Scenario 11.5: Eliminazione Gateway (Gateway non Trovato) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato con ruolo adeguato; `gatewayMac` non corrisponde ad alcun gateway esistente |
 | Post-condition | Gateway non eliminato; mostrato messaggio di errore |
@@ -1349,13 +1352,14 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 11.6
 
-| UC11 - S11.6     | Scenario 11.6: Eliminazione Gateway (Errore Interno) |
+| UC11 - S11.6   | Scenario 11.6: Eliminazione Gateway (Errore Interno) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | // |
 | Post-condition | Gateway non eliminato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di eliminare un Gateway |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
 
 #### Use Case 12 (UC12): Modifica Gateway
 
@@ -1370,7 +1374,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 12.1
 
-| UC12 - S12.1     | Scenario 12.1: Modifica Gateway (Successful) |
+| UC12 - S12.1   | Scenario 12.1: Modifica Gateway (Successful) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato con ruolo Admin o Operator; gateway esiste; dati validi |
 | Post-condition | Gateway è stato aggiornato |
@@ -1386,7 +1390,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 12.2
 
-| UC12 - S12.2     | Scenario 12.2: Modifica Gateway (Non Autorizzato) |
+| UC12 - S12.2   | Scenario 12.2: Modifica Gateway (Non Autorizzato) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente non è autenticato |
 | Post-condition | Gateway non modificato; mostrato messaggio di errore |
@@ -1396,7 +1400,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 12.3
 
-| UC12 - S12.3     | Scenario 12.3: Modifica Gateway (Permessi Insufficienti) |
+| UC12 - S12.3   | Scenario 12.3: Modifica Gateway (Permessi Insufficienti) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
 | Post-condition | Gateway non modificato; mostrato messaggio di errore |
@@ -1406,7 +1410,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 12.4
 
-| UC12 - S12.4     | Scenario 12.4: Modifica Gateway (Network non Trovata) |
+| UC12 - S12.4   | Scenario 12.4: Modifica Gateway (Network non Trovata) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato con ruolo adeguato; `networkCode` non corrisponde ad alcuna network esistente |
 | Post-condition | Gateway non modificato; mostrato messaggio di errore |
@@ -1420,7 +1424,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 12.5
 
-| UC12 - S12.5     | Scenario 12.5: Modifica Gateway (Gateway non Trovato) |
+| UC12 - S12.5   | Scenario 12.5: Modifica Gateway (Gateway non Trovato) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato con ruolo adeguato; macAddress non corrisponde ad alcun gateway esistente |
 | Post-condition | Gateway non modificato; mostrato messaggio di errore |
@@ -1435,8 +1439,8 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 12.6
 
-| UC12 - S12.6     | Scenario 12.6: Modifica Gateway (Input Invalido) |
-| :------------- | :------------------------------------------------ |
+| UC12 - S12.6   | Scenario 12.6: Modifica Gateway (Input Invalido) |
+| :------------- | :----------------------------------------------- |
 | Pre-condition  | Utente autenticato con ruolo adeguato; gateway esistente |
 | Post-condition | Gateway non modificato; mostrato messaggio di errore |
 | __Step#__      | <div align="center"> __Description__ </div> |
@@ -1472,7 +1476,8 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 1              | _Utente_:  hiede di modificare un Gateway |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
 
-#### Use case 13(UC13): Creazione Sensore
+
+#### Use case 13 (UC13): Creazione Sensore
 
 | UC13             | Use Case 13: Creazione Sensore |
 | :--------------- | :--------------------------------- |
@@ -1577,7 +1582,6 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 7              | _System_: verifica uso `macAddress` ; `macAddress` già in uso|
 | 8			         | _System_: mostra messaggio di errore. MacAddress già in uso __(Code 409)__ |
 
-
 ##### Scenario 13.8
 
 | UC13 - S13.8   | Scenario 13.8: Creazione Sensore (Errore Interno) |
@@ -1587,6 +1591,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di creare un Sensore |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
 
 #### Use case 14 (UC14): Ottenimento Gateway
 
@@ -1724,6 +1729,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` non trovato |
 | 8              | _System_: mostra messaggio di errore. Sensore non trovato __(Code 404)__ |
 
+
 #### Use Case 15 (UC15): Eliminazione Sensore
 
 | UC15             | Use Case 15: Eliminazione Sensore |
@@ -1825,6 +1831,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di eliminare un Sensore |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
 
 #### Use Case 16 (UC16): Modifica Sensore
 
@@ -1958,6 +1965,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 | __Step#__      | <div align="center"> __Description__ </div> |
 | 1              | _Utente_: chiede di modificare un Sensore |
 | 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
+
 
 ##### Use Case 17 (UC17): Creazione Misurazione
 
@@ -2126,7 +2134,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 18.6
 
-| UC18 - S18.6     | Scenario 18.6: Ottenimento Dati Sensori per Network Specifica (Errore Interno) |
+| UC18 - S18.6   | Scenario 18.6: Ottenimento Dati Sensori per Network Specifica (Errore Interno) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | // |
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
@@ -2137,7 +2145,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Use Case 19 (UC19): Ottenimento Dati per Sensore Specifico
 
-| UC19              | Use Case 19: Ottenimento Dati per Sensore Specifico |
+| UC19             | Use Case 19: Ottenimento Dati per Sensore Specifico |
 | :--------------- | :--------------------------------- |
 | Actors Involved  | Admin \| Operator \| Viewer |
 | Pre-condition    | //  |
@@ -2148,7 +2156,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 19.1
 
-| UC19 - S19.1     | Scenario 19.1: Ottenimento Misurazioni per Sensore Specifico (Successful) |
+| UC19 - S19.1   | Scenario 19.1: Ottenimento Misurazioni per Sensore Specifico (Successful) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato |
 | Post-condition | Elenco delle Misurazioni è stato ottenuto |
@@ -2165,7 +2173,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 19.2
 
-| UC19 - S19.2     | Scenario 19.2: Ottenimento Statistiche per Sensore Specifico (Successful) |
+| UC19 - S19.2   | Scenario 19.2: Ottenimento Statistiche per Sensore Specifico (Successful) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato |
 | Post-condition | Elenco delle Statistiche è stato ottenuto |
@@ -2182,7 +2190,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 19.3
 
-| UC19 - S19.3     | Scenario 19.3: Ottenimento Outlier per Sensore Specifico (Successful)|
+| UC19 - S19.3   | Scenario 19.3: Ottenimento Outlier per Sensore Specifico (Successful) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato |
 | Post-condition | Elenco degli Outlier è stato ottenuto |
@@ -2199,7 +2207,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 19.4
 
-| UC19 - S19.4     | Scenario 19.4: Ottenimento Dati per Sensore Specifico (Non Autorizzato) |
+| UC19 - S19.4   | Scenario 19.4: Ottenimento Dati per Sensore Specifico (Non Autorizzato) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente non è autenticato |
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
@@ -2209,7 +2217,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 19.5
 
-| UC19 - S19.5     | Scenario 19.5: Ottenimento Dati per Sensore Specifico (Network/Gateway/Sensore non Trovato) |
+| UC19 - S19.5   | Scenario 19.5: Ottenimento Dati per Sensore Specifico (Network/Gateway/Sensore non Trovato) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | Utente autenticato; Network, Gateway o Sensore non esiste |
 | Post-condition | Informazioni non Ottenute. Mostrato messaggio di errore |
@@ -2223,7 +2231,7 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 ##### Scenario 19.6
 
-| UC19 - S19.6     | Scenario 19.6: Ottenimento Dati per Sensore Specifico (Errore Interno) |
+| UC19 - S19.6   | Scenario 19.6: Ottenimento Dati per Sensore Specifico (Errore Interno) |
 | :------------- | :------------------------------------------------ |
 | Pre-condition  | // |
 | Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
@@ -2233,10 +2241,6 @@ __NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei po
 
 
 ## Glossary
-
-\<use UML class diagram to define important terms, or concepts in the domain of the application, and their relationships>
-
-\<concepts must be used consistently all over the document, ex in use cases, requirements etc>
 
 ### Glossary Terms
 
@@ -2426,7 +2430,7 @@ AuthenticationUnit "1" -u-o GS
 
 __NOTE su DIAGRAMMA__:<br>
 - Il diagramma PlantUML viene generato in modo atroce, non lo si consideri più di tanto.
-- Le due componenti "\<\<executionEnvironment>>" del Nodo ClientApp sono da intendersi in alternativa. 
+- Le due componenti "\<\<executionEnvironment>>" del Nodo Client sono da intendersi in alternativa. 
 
 ### Deployment Diagram - Draw.io
 
@@ -2453,7 +2457,7 @@ node Gateway <<device>> {
 
 node Sensore <<device>>
 
-node ClientApp <<device>> {
+node Client <<device>> {
     component Browser <<executionEnvironment>> as Browser {
         artifact "Front-end WebApp" <<artifact>> as FE
     }
@@ -2468,7 +2472,7 @@ GCS -d- DB
 
 Server "1" -l- "*" Gateway: Internet Protocol (IP)
 Gateway "1" -d- "*" Sensore: Serial Connection
-Server "1" -r- "0..*" ClientApp: HTTPS
+Server "1" -r- "0..*" Client: HTTPS
 
 Browser -u[hidden]- Mobile
 @enduml
