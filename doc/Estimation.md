@@ -1,116 +1,130 @@
 # Project Estimation
 
-Date: 2025-04-13
+Date: 2025-04-18
 
-Version: 
+Version: 1.0
 
-# Estimation approach
+## Estimation approach
 
-Consider the GeoControl project as described in the swagger, assume that you are going to develop the project INDEPENDENT of the deadlines of the course, and from scratch
+<Consider the GeoControl project as described in the swagger, assume that you are going to develop the project INDEPENDENT of the deadlines of the course, and from scratch>
 
-Nota: "from scratch" inteso come sviluppare tutto da 0, anche il fronted (che nel progetto ci viene fornito già scritto)
+## Estimate by Size
 
-# Estimate by size
+__LEGENDA__:
+- NC = __Estimated Number of Classes__ to be developed
+- A = __Estimated Average Size per Class__, in LOC
+- S = __Estimated Size of Project__, in LOC => $NC * A$
+- E = __Estimated Effort__, in person hours => $S / (10 \frac{LOC}{h})$
+- C = __Estimated Cost__, in euro => $E * 30€$
+- __Estimated Calendar Time__, in calendar weeks => $E / (4 * 8 \frac{h}{day} * 5 \frac{days}{week})$
 
-|                                         | Estimate |
-| :-------------------------------------- | :------- |
-| NC = Estimated number of classes to be developed | 8 |
-| A = Estimated average size per class, in LOC | 200 |
-| S = Estimated size of project, in LOC (= NC \* A) | 1600 |
-| E = Estimated effort, in person hours (here use productivity 10 LOC per person hour) | 160 |
-| C = Estimated cost, in euro (here use 1 person hour cost = 30 euro) | 4800 |
-| Estimated calendar time, in calendar weeks (Assume team of 4 people, 8 hours per day, 5 days per week) | 160/(4x8x5) = 1 week |
+| Metric                  | Estimate            |
+| :---------------------- | :------------------ |
+| NC                      | 60                  |
+| A                       | 50                  |
+| S                       | 3000                |
+| E                       | 300                 |
+| C                       | 9000 			    |
+| Estimated Calendar Time | 1.875w (1w, 4d, 3h) |
 
-Classes: user, network, gateway, sensor, stats, measurement, errorHandler, dateTime
+__NOTE__: 
+- Si assume che con "class" si intenda il concetto "class" di Java, ovvero un "modulo". Se così non fosse, la stima NC sarebbe poco informativa in quanto non includerebbe tutti i moduli del sistema che non sono classi.
+- Considerando che per questa stima si assume di partire _from scratch_: si assume un numero di "concetti base" tra 5-6, e si condiera che tali concetti saranno moltiplicati per i vari macro-package (repository, model, controller, view, routes, dao, dto, ecc.). A questi vanno poi sommati i vari moduli di supporto, utils, errori, e configurazione.
+- La stima di 50 LOC per classe è apparente bassa, ma questo è dovuto al fatto che la maggioranza dei moduli sono piccoli (es: DTO, DAO, ecc.) e non contengono codice di gestione algoritmica.
+- La stima imposta di 10 LOC/h è abbastanza pessimistica per questo tipo di situazione (ovvero scrittura di un intero progetto _from scratch_). Per questo la stima finale è probabilmente inflazionata.
+- Le unità di misura sono sempre basate su Person Hours, quindi con `d` si intende `pd` (Person Days), ovvero 8h. Stesso concetto per week.
 
-# Estimate by product decomposition
 
-###
+## Estimate by Product Decomposition
 
-| component name       | Estimated effort (person hours) |
+| Component Name       | Estimated Effort (person hours) |
 | -------------------- | ------------------------------- |
-| requirement document |            20                   |
-| design document      |            20                   |
-| code                 |            150                  |
-| unit tests           |            50                   |
-| api tests            |            20                   |
-| management documents |            10                   |
+| Requirement Document |            40                   |
+| Design Document      |            20                   |
+| Code                 |            120                  |
+| Unit Tests           |            50                   |
+| API Tests            |            20                   |
+| Management Documents |            10                   |
 
-Nota: API molto simili tra loro, principalmente basate su retrieve. Dovrebbero richiedere poco tempo rispetto agli unit tests.
+__NOTE__:
+- La stima del "Code" differisce dalla Estimate by Size in quanto si è deciso, nelle altre Estimate, di non considerare il vincolo di 10 LOC/h.
+- Si indica con "person hours" il tempo di lavoro totale, ovvero l'Estimated Effort totale (senza considerare il numero di persone nel team).
+- Si assume un Design Document semplice, trattandosi di un sistema simil-microservizi e che ha quindi architetture e pattern standardizzate (ed è in più anche di piccole dimensioni).
+- Si assume che "API Test" significhi "Integration Testing". Questa fase è relativamente rapida in quanto ci si basa su REST API le quali sono relativamente semplici da testare.
+- Si assume che "Management Documents" si riferisca a documenti di gestione del progetto (Timesheet, Estimation, tempo passato su tool di ALM e Configuration Management)
 
-# Estimate by activity decomposition
 
-###
+## Estimate by Activity Decomposition
 
-| Activity name | Estimated effort (person hours) |
-| ------------- | ------------------------------- |
-| Analisi requisiti e scrittura del requirement document | 20 |
-| Design del sistema | 20 |
-| Definizione del database | 7 |
-| Implementazione del sistema di autenticazione e gestione utenti | 10 |
-| Traduzione in classi e implementazione della logica di network, gateways e sensori | 40 |
-| Scrittura delle API | 50 |
-| Sviluppo del frontend | 50 |
-| Testing delle api | 20 |
-| Unit testing | 50 |
-| Scrittura della documentazione del sistema | 10 |
+| Activity Name | Estimated Effort (person hours) |
+| :------------ | :------------------------------ |
+| Analisi Requisiti | 20 |
+| Requirements Document | 20 |
+| System Design | 20 |
+| Database Design & Implementazione | 4 |
+| Implementazione Classi e Entità | 12 |
+| Implementazione Autenticazione e Gestione Utenti | 8 |
+| Implementazione Logica di Business | 40 |
+| Implementazione REST API | 24 |
+| Sviluppo del Front-end | 32 |
+| Unit Testing | 50 |
+| Integration Testing | 20 |
+| Documentazione del Sistema | 10 |
 
-###
+__NOTE__:
+- La stima del "Code" differisce dalla Estimate by Size in quanto si è deciso, nelle altre Estimate, di non considerare il vincolo di 10 LOC/h.
+- Si assume di dover seguire una pipeline di Testing standard modello Waterfall, ovvero si inizia a testare solo al termine dello sviluppo, inoltre Unit e Integration Testing sono consequenziali e non paralleli.
+- La Documentazione del Sistema non era presente nelle altre Estimate, ma si crede sia una attività che fa parte del progettare _from scratch_.
 
-Insert here Gantt chart with above activities.
-
-Di seguito si è utilizzata l'estensione di VSCode `Markdown Preview Mermaid Support` per disegnare il diagramma di Gantt.
-
-Nota: sabato e domenica non si lavora. Nel diagramma si sovrappongono della attività in alcuni finesettimana ma questo avviene solo visivamente per non spezzare in due parti alcuni task (es. lo sviluppo del frontend richiede 3 giorni, anche se il chart ne mostra 5 ma solo perchè si sovrappone ad un weekend).
+### GANTT Chart
 
 ```mermaid
+
 gantt
-    title 4 persone, 8 ore/giorno, lun-ven
+    title GANTT Chart (4 p; 1d = 8ph; lun-ven)
     dateFormat  YYYY-MM-DD
     todayMarker off
-    
+    tickinterval 1week
+	excludes weekends
+	axisformat Day %j
+	weekday monday
+
     section Pianificazione
-    Analisi requisiti e scrittura del requirement document :a1, 2025-04-01, 1d
-    Design del sistema                                     :a2, after a1, 1d
-    
+    	Analisi dei Requisiti								:a1, 2025-01-01, 2.5d
+   		Requirements Document								:a2, 2025-01-01, 2.5d
+		System Design										:a3, after a1, 2.5d
+
     section Sviluppo Backend
-    Definizione del database                                 :b1, after a2, 1d
-    Implementazione sistema autenticazione e gestione utenti :b2, after b1, 1d
-    Traduzione classi e implementazione logica               :b3, after b2, 4d
-    Scrittura delle API                                      :b4, after b3, 3d
+		Database Design e Implementazione					:b1, after a3, 0.5d
+		Implementazione Classi e Entità						:b2, after b1, 1.5d
+		Implementazione Autenticazione e Gestione Utenti	:b5, after b2, 1d
+		Implementazione Logica di Business                  :b3, after b2, 5d
+		Implementazione REST API							:b4, after b3, 3d
+
+	section Sviluppo Frontend
+		Sviluppo del Front-end								:c1, after a3, 4d
+
+	section Testing
+		Unit Testing									    :d1, after b4, 6.25d
+		Integration Testing								    :d2, after d1, 2.5d
     
-    section Sviluppo Frontend
-    Sviluppo del frontend                                   :c1, after b1, 5d
-    
-    section Testing e Documentazione
-    Testing delle API                                       :d1, after b4, 3d
-    Unit testing                                            :d2, after d1, 3d
-    Scrittura della documentazione del sistema              :d3, after d2, 1d
-    
-    section Milestone
-    Inizio sviluppo sistema                                 :milestone, after b1, 0d
-    Inizio testing                                          :milestone, after b4, 0d
-    Completamento del progetto                              :milestone, after d3, 0d
-    
-    section Giorni Feriali
-    Weekend 5-6 Aprile       :crit, 2025-04-05, 2d
-    Weekend 12-13 Aprile     :crit, 2025-04-12, 2d
+    section Processo
+		Documentazione del Sistema							:e1, after d2, 1.25d
+
 ```
 
-# Summary
 
-Report here the results of the three estimation approaches. The estimates may differ. Discuss here the possible reasons for the difference
+## Summary
 
-|                                    | Estimated effort | Estimated duration |
+| Estimate Type                      | Estimated Effort | Estimated Duration |
 | ---------------------------------- | ---------------- | ------------------ |
-| estimate by size                   |       160        |       1 week       |
-| estimate by product decomposition  |       320        |       2 week       |
-| estimate by activity decomposition |       277        |       3 week       |
+| Estimate by Size                   |       300        |      1.875 week    |
+| Estimate by Product Decomposition  |       260        |      1.625 week    |
+| Estimate by Activity Decomposition |       260        |      1.450 week    |
 
-- Il primo approccio si basa solamente sul codice di produzione e non tiene conto dei documenti e attività di pianificazione, test o integrazione tra componenti;
+La differenza della Estimed Effort tra la Estimate by Size e le Estimate by Decomposition è dovuta a due motivi:
+- Nella prima ci si basa sulla stima imposta di 10 LOC/h, mentre nelle seconde si è utilizza una stima differenze meno pessimistica.
+- Le stime misurano cose diverse, ad esempio Estimate by Size stima solo il Code, mentre le altre stime includono quasi tutto il processo di sviluppo del Software.
 
-- Il secondo approccio, anche se separa in più attività, non permette ancora di andare a fondo e sviscerare i passaggi in molteplici task;
-
-- L'utimo approccio invece permette di definire le attività proprie del progetto con un vista più dettagliata. 
-
-Come mai, nonstante la penultima attività richieda 320ph, essa necessiti di meno tempo rispetto l'ultima che con 277ph richiede 3 settimane? Si veda il Gantt chart che mostra come per via di alcune dipendenze (e anche per il modo intrinseco con cui si rappresentano le attività sul chart) alcune attività non possono essere parallelizzate. Se ad esempio in un giorno, finita l'attività A, rimanesse un'ora per la successiva attività B, con il penultimo approccio si può direttamente far succedere B ad A nella stessa giornata, mentre sul gantt chart si sposta al giorno dopo. Sarebbe fuorviante indicare sul gantt chart, per una sola ora, un giorno intero di lavoro per l'attività B (che potrebbe anche dipendere da A e quindi essere visualizzate erroneamente come parallelizzabili).
+La differenza della Estimated Duration tra la Estimate by Product Decomposition e la Estimate by Activity Decomposition è dovuta alla scomposizione delle attività utilizzando il GANTT Chart.
+- Utilizzando il GANTT Chart sono state evidenziate delle attività che possono essere _potenzialmente_ svolte in parallelo, accorciando così la stima best-case.
