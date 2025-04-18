@@ -29,7 +29,7 @@ __LEGENDA__:
 
 __NOTE__: 
 - Si assume che con "class" si intenda il concetto "class" di Java, ovvero un "modulo". Se così non fosse, la stima NC sarebbe poco informativa in quanto non includerebbe tutti i moduli del sistema che non sono classi.
-- Considerando che per questa stima si assume di partire _from scratch_: si assume un numero di "concetti base" tra 5-6, e si condiera che tali concetti saranno moltiplicati per i vari macro-package (repository, model, controller, view, routes, dao, dto, ecc.). A questi vanno poi sommati i vari moduli di supporto, utils, errori, e configurazione.
+- Considerando che per questa stima si assume di partire _from scratch_: si assume un numero di "concetti base" tra 5-6, e si considera che tali concetti saranno moltiplicati per i vari macro-package (repository, model, controller, view, routes, dao, dto, ecc.). A questi vanno poi sommati i vari moduli di supporto, utils, errori, e configurazione.
 - La stima di 50 LOC per classe è apparente bassa, ma questo è dovuto al fatto che la maggioranza dei moduli sono piccoli (es: DTO, DAO, ecc.) e non contengono codice di gestione algoritmica.
 - La stima imposta di 10 LOC/h è abbastanza pessimistica per questo tipo di situazione (ovvero scrittura di un intero progetto _from scratch_). Per questo la stima finale è probabilmente inflazionata.
 - Le unità di misura sono sempre basate su Person Hours, quindi con `d` si intende `pd` (Person Days), ovvero 8h. Stesso concetto per week.
@@ -78,7 +78,8 @@ __NOTE__:
 
 ### GANTT Chart
 
-```mermaid
+<!-- La versione di Mermaid su git-softeng.polito.it è troppo arretrata e qui viene lanciato un errore di sintassi, per cui si carica uno screenshot -->
+<!-- ```mermaid
 
 gantt
     title GANTT Chart (4 p; 1d = 8ph; lun-ven)
@@ -112,7 +113,9 @@ gantt
     section Processo
 		Documentazione del Sistema							:e1, after d2, 1.25d
 
-```
+``` -->
+
+![GANTT Chart](./res/Gantt_Chart.png)
 
 
 ## Summary
