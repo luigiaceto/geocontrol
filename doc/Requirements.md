@@ -395,6 +395,9 @@ __Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitora
 | NFR1 | Domain      | I Timestamp sono convertiti e memorizzati in Formato ISO 8601 (UTC) | FR6 |
 | NFR2 | Reliability | Non devono essere perse più di 6 Misurazioni per Sensore all'anno | FR6 |
 
+__NOTE:__
+- Si è scelto di non mappare come requisito l'informazione del "[A Sensor is] the physical device that actually measures the physical quantity every 10 minutes", in quanto non è ritenuta una responsabilità del sistema da sviluppare, fa parte della responsabilità dell'Hardware e del Firmware del Sensore. 
+
 
 ## Use Case Diagram and Use Cases
 
