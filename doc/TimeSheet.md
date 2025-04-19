@@ -13,7 +13,7 @@ These figures will not be used to evaluate neither the project nor the team, the
 | Mar 24 - 30    | 0  | | | | | | | |
 | Mar 31 - Apr 6 | 17 | | | | | | | |
 | Apr 7 - 13     | 66 | | | | | | | |
-| Apr 14 - 20    | 16?| | | | | | | |
+| Apr 14 - 20    | 20?| | | | | | | |
 | Apr 21 - 27    | | | | | | | | |
 | Apr 28 - May 4 | | | | | | | | |
 | May 5 - 11     | | | | | | | | |
@@ -87,7 +87,7 @@ Suddivisione dei Timesheet utile per rendere più comoda la somma finale che fat
 | Mar 24 - 30    | 0  | | | | | | | |
 | Mar 31 - Apr 6 | 5  | | | | | | | |
 | Apr 7 - 13     | 10 | | | | | | | |
-| Apr 14 - 20    | ?  | | | | | | | |
+| Apr 14 - 20    | 4  | | | | | | | |
 | Apr 21 - 27    | | | | | | | | |
 | Apr 28 - May 4 | | | | | | | | |
 | May 5 - 11     | | | | | | | | |
