@@ -10,10 +10,10 @@ These figures will not be used to evaluate neither the project nor the team, the
 
 | Week | Requirement Engineering | Design | Coding | Unit Testing | Integration Testing | Acceptance Testing | Containerization | Management |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Mar 24 - 30    | | | | | | | | |
-| Mar 31 - Apr 6 | | | | | | | | |
-| Apr 7 - 13     | | | | | | | | |
-| Apr 14 - 20    | | | | | | | | |
+| Mar 24 - 30    | 0  | | | | | | | |
+| Mar 31 - Apr 6 | 17 | | | | | | | |
+| Apr 7 - 13     | 66 | | | | | | | |
+| Apr 14 - 20    | 16?| | | | | | | |
 | Apr 21 - 27    | | | | | | | | |
 | Apr 28 - May 4 | | | | | | | | |
 | May 5 - 11     | | | | | | | | |
@@ -84,10 +84,10 @@ Suddivisione dei Timesheet utile per rendere più comoda la somma finale che fat
 
 | Week | Requirement Engineering | Design | Coding | Unit Testing | Integration Testing | Acceptance Testing | Containerization | Management |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Mar 24 - 30    | 0 | | | | | | | |
-| Mar 31 - Apr 6 | 5 | | | | | | | |
+| Mar 24 - 30    | 0  | | | | | | | |
+| Mar 31 - Apr 6 | 5  | | | | | | | |
 | Apr 7 - 13     | 10 | | | | | | | |
-| Apr 14 - 20    | ? | | | | | | | |
+| Apr 14 - 20    | ?  | | | | | | | |
 | Apr 21 - 27    | | | | | | | | |
 | Apr 28 - May 4 | | | | | | | | |
 | May 5 - 11     | | | | | | | | |
@@ -107,10 +107,10 @@ Suddivisione dei Timesheet utile per rendere più comoda la somma finale che fat
 
 | Week | Requirement Engineering | Design | Coding | Unit Testing | Integration Testing | Acceptance Testing | Containerization | Management |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Mar 24 - 30    | 0 | | | | | | | |
-| Mar 31 - Apr 6 | 4 | | | | | | | |
+| Mar 24 - 30    | 0  | | | | | | | |
+| Mar 31 - Apr 6 | 4  | | | | | | | |
 | Apr 7 - 13     | 12 | | | | | | | |
-| Apr 14 - 20    | ? | | | | | | | |
+| Apr 14 - 20    | ?  | | | | | | | |
 | Apr 21 - 27    | | | | | | | | |
 | Apr 28 - May 4 | | | | | | | | |
 | May 5 - 11     | | | | | | | | |
