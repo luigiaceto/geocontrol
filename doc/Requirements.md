@@ -1,162 +1,2498 @@
 # Requirements Document - GeoControl
 
-Date:
+Date: 20205-04-18
 
 Version: V1 - description of Geocontrol as described in the swagger
 
 | Version number | Change |
 | :------------: | :----: |
-|                |        |
+| v1.0           | First Release |
 
-# Contents
+
+## Contents
 
 - [Requirements Document - GeoControl](#requirements-document---geocontrol)
-- [Contents](#contents)
-- [Informal description](#informal-description)
-- [Business model](#business-model)
-- [Stakeholders](#stakeholders)
-- [Context Diagram and interfaces](#context-diagram-and-interfaces)
-  - [Context Diagram](#context-diagram)
-  - [Interfaces](#interfaces)
-- [Stories and personas](#stories-and-personas)
-- [Functional and non functional requirements](#functional-and-non-functional-requirements)
-  - [Functional Requirements](#functional-requirements)
-  - [Non Functional Requirements](#non-functional-requirements)
-- [Use case diagram and use cases](#use-case-diagram-and-use-cases)
-  - [Use case diagram](#use-case-diagram)
-    - [Use case 1, UC1](#use-case-1-uc1)
-      - [Scenario 1.1](#scenario-11)
-      - [Scenario 1.2](#scenario-12)
-      - [Scenario 1.x](#scenario-1x)
-    - [Use case 2, UC2](#use-case-2-uc2)
-    - [Use case x, UCx](#use-case-x-ucx)
-- [Glossary](#glossary)
-- [System Design](#system-design)
-- [Deployment Diagram](#deployment-diagram)
+  * [Contents](#contents)
+  * [Informal Description](#informal-description)
+  * [Business Model](#business-model)
+  * [Stakeholders](#stakeholders)
+  * [Context Diagram and Interfaces](#context-diagram-and-interfaces)
+    + [Context Diagram](#context-diagram)
+      - [Context Diagram - Draw.io](#context-diagram---drawio)
+      - [Context Diagram - PlantUML](#context-diagram---plantuml)
+    + [Interfaces](#interfaces)
+  * [Stories and Personas](#stories-and-personas)
+    + [Persona1 - "Luca"](#persona1----luca-)
+    + [Persona2 - "Giulia"](#persona2----giulia-)
+    + [Persona3 - "Marco"](#persona3----marco-)
+    + [Persona4 - "Francesco"](#persona4----francesco-)
+    + [Persona5 - "Silvia"](#persona5----silvia-)
+  * [Functional and Non-Functional Requirements](#functional-and-non-functional-requirements)
+    + [Functional Requirements](#functional-requirements)
+      - [Table of Rights](#table-of-rights)
+    + [Non-Functional Requirements](#non-functional-requirements)
+  * [Use Case Diagram and Use Cases](#use-case-diagram-and-use-cases)
+    + [Use Case Diagram](#use-case-diagram)
+      - [Use Case Diagram - Draw.io](#use-case-diagram---drawio)
+      - [Use Case Diagram - PlantUML](#use-case-diagram---plantuml)
+    + [Use Cases](#use-cases)
+      - [Use case 1 (UC1): Autenticazione al Sistema](#use-case-1--uc1---autenticazione-al-sistema)
+        * [Scenario 1.1](#scenario-11)
+        * [Scenario 1.2](#scenario-12)
+        * [Scenario 1.3](#scenario-13)
+        * [Scenario 1.4](#scenario-14)
+        * [Scenario 1.5](#scenario-15)
+      - [Use Case 2 (UC2): Creazione Account](#use-case-2--uc2---creazione-account)
+        * [Scenario 2.1](#scenario-21)
+        * [Scenario 2.2](#scenario-22)
+        * [Scenario 2.3](#scenario-23)
+        * [Scenario 2.4](#scenario-24)
+        * [Scenario 2.5](#scenario-25)
+        * [Scenario 2.6](#scenario-26)
+      - [Use Case 3 (UC3): Ottenimento Account Utente](#use-case-3--uc3---ottenimento-account-utente)
+        * [Scenario 3.1](#scenario-31)
+        * [Scenario 3.2](#scenario-32)
+        * [Scenario 3.3](#scenario-33)
+        * [Scenario 3.4](#scenario-34)
+        * [Scenario 3.5](#scenario-35)
+        * [Scenario 3.6](#scenario-36)
+      - [Use Case 4 (UC4): Eliminazione Account](#use-case-4--uc4---eliminazione-account)
+        * [Scenario 4.1](#scenario-41)
+        * [Scenario 4.2](#scenario-42)
+        * [Scenario 4.3](#scenario-43)
+        * [Scenario 4.4](#scenario-44)
+        * [Scenario 4.5](#scenario-45)
+      - [Use case 5 (UC5): Creazione Network](#use-case-5--uc5---creazione-network)
+        * [Scenario 5.1](#scenario-51)
+        * [Scenario 5.2](#scenario-52)
+        * [Scenario 5.3](#scenario-53)
+        * [Scenario 5.4](#scenario-54)
+        * [Scenario 5.5](#scenario-55)
+        * [Scenario 5.6](#scenario-56)
+      - [Use Case 6 (UC6): Ottenimento Network](#use-case-6--uc6---ottenimento-network)
+        * [Scenario 6.1](#scenario-61)
+        * [Scenario 6.2](#scenario-62)
+        * [Scenario 6.3](#scenario-63)
+        * [Scenario 6.4](#scenario-64)
+        * [Scenario 6.5](#scenario-65)
+      - [Use Case 7 (UC7): Eliminazione Network](#use-case-7--uc7---eliminazione-network)
+        * [Scenario 7.1](#scenario-71)
+        * [Scenario 7.2](#scenario-72)
+        * [Scenario 7.3](#scenario-73)
+        * [Scenario 7.4](#scenario-74)
+        * [Scenario 7.5](#scenario-75)
+      - [Use Case 8 (UC8): Modifica Network](#use-case-8--uc8---modifica-network)
+        * [Scenario 8.1](#scenario-81)
+        * [Scenario 8.2](#scenario-82)
+        * [Scenario 8.3](#scenario-83)
+        * [Scenario 8.4](#scenario-84)
+        * [Scenario 8.5](#scenario-85)
+        * [Scenario 8.6](#scenario-86)
+        * [Scenario 8.7](#scenario-87)
+      - [Use case 9 (UC9): Creazione Gateway](#use-case-9--uc9---creazione-gateway)
+        * [Scenario 9.1](#scenario-91)
+        * [Scenario 9.2](#scenario-92)
+        * [Scenario 9.3](#scenario-93)
+        * [Scenario 9.4](#scenario-94)
+        * [Scenario 9.5](#scenario-95)
+        * [Scenario 9.6](#scenario-96)
+        * [Scenario 9.7](#scenario-97)
+      - [Use case 10 (UC10): Ottenimento Gateway](#use-case-10--uc10---ottenimento-gateway)
+        * [Scenario 10.1](#scenario-101)
+        * [Scenario 10.2](#scenario-102)
+        * [Scenario 10.3](#scenario-103)
+        * [Scenario 10.4](#scenario-104)
+        * [Scenario 10.5](#scenario-105)
+        * [Scenario 10.6](#scenario-106)
+        * [Scenario 10.7](#scenario-107)
+      - [Use Case 11 (UC11): Eliminazione Gateway](#use-case-11--uc11---eliminazione-gateway)
+        * [Scenario 11.1](#scenario-111)
+        * [Scenario 11.2](#scenario-112)
+        * [Scenario 11.3](#scenario-113)
+        * [Scenario 11.4](#scenario-114)
+        * [Scenario 11.5](#scenario-115)
+        * [Scenario 11.6](#scenario-116)
+      - [Use Case 12 (UC12): Modifica Gateway](#use-case-12--uc12---modifica-gateway)
+        * [Scenario 12.1](#scenario-121)
+        * [Scenario 12.2](#scenario-122)
+        * [Scenario 12.3](#scenario-123)
+        * [Scenario 12.4](#scenario-124)
+        * [Scenario 12.5](#scenario-125)
+        * [Scenario 12.6](#scenario-126)
+        * [Scenario 12.7](#scenario-127)
+        * [Scenario 12.8](#scenario-128)
+      - [Use case 13 (UC13): Creazione Sensore](#use-case-13--uc13---creazione-sensore)
+        * [Scenario 13.1](#scenario-131)
+        * [Scenario 13.2](#scenario-132)
+        * [Scenario 13.3](#scenario-133)
+        * [Scenario 13.4](#scenario-134)
+        * [Scenario 13.5](#scenario-135)
+        * [Scenario 13.6](#scenario-136)
+        * [Scenario 13.7](#scenario-137)
+        * [Scenario 13.8](#scenario-138)
+      - [Use case 14 (UC14): Ottenimento Sensore](#use-case-14--uc14---ottenimento-sensore)
+        * [Scenario 14.1](#scenario-141)
+        * [Scenario 14.2](#scenario-142)
+        * [Scenario 14.3](#scenario-143)
+        * [Scenario 14.4](#scenario-144)
+        * [Scenario 14.5](#scenario-145)
+        * [Scenario 14.6](#scenario-146)
+        * [Scenario 14.7](#scenario-147)
+        * [Scenario 14.8](#scenario-148)
+        * [Scenario 14.9](#scenario-149)
+      - [Use Case 15 (UC15): Eliminazione Sensore](#use-case-15--uc15---eliminazione-sensore)
+        * [Scenario 15.1](#scenario-151)
+        * [Scenario 15.2](#scenario-152)
+        * [Scenario 15.3](#scenario-153)
+        * [Scenario 15.4](#scenario-154)
+        * [Scenario 15.5](#scenario-155)
+        * [Scenario 15.6](#scenario-156)
+        * [Scenario 15.7](#scenario-157)
+      - [Use Case 16 (UC16): Modifica Sensore](#use-case-16--uc16---modifica-sensore)
+        * [Scenario 16.1](#scenario-161)
+        * [Scenario 16.2](#scenario-162)
+        * [Scenario 16.3](#scenario-163)
+        * [Scenario 16.4](#scenario-164)
+        * [Scenario 16.5](#scenario-165)
+        * [Scenario 16.6](#scenario-166)
+        * [Scenario 16.7](#scenario-167)
+        * [Scenario 16.8](#scenario-168)
+        * [Scenario 16.9](#scenario-169)
+      - [Use Case 17 (UC17): Creazione Misurazione](#use-case-17--uc17---creazione-misurazione)
+        * [Scenario 17.1](#scenario-171)
+        * [Scenario 17.2](#scenario-172)
+        * [Scenario 17.3](#scenario-173)
+        * [Scenario 17.4](#scenario-174)
+        * [Scenario 17.5](#scenario-175)
+        * [Scenario 17.6](#scenario-176)
+      - [Use Case 18 (UC18): Ottenimento Dati Sensori di Network Specifica](#use-case-18--uc18---ottenimento-dati-sensori-di-network-specifica)
+        * [Scenario 18.1](#scenario-181)
+        * [Scenario 18.2](#scenario-182)
+        * [Scenario 18.3](#scenario-183)
+        * [Scenario 18.4](#scenario-184)
+        * [Scenario 18.5](#scenario-185)
+        * [Scenario 18.6](#scenario-186)
+      - [Use Case 19 (UC19): Ottenimento Dati di Sensore Specifico](#use-case-19--uc19---ottenimento-dati-di-sensore-specifico)
+        * [Scenario 19.1](#scenario-191)
+        * [Scenario 19.2](#scenario-192)
+        * [Scenario 19.3](#scenario-193)
+        * [Scenario 19.4](#scenario-194)
+        * [Scenario 19.5](#scenario-195)
+        * [Scenario 19.6](#scenario-196)
+      - [Use Case 20 (UC20): Conversione Timestamp](#use-case-20--uc20---conversione-timestamp)
+        * [Scenario 20.1](#scenario-201)
+        * [Scenario 20.2](#scenario-202)
+  * [Glossary](#glossary)
+    + [Glossary Terms](#glossary-terms)
+    + [Glossary Diagram](#glossary-diagram)
+      - [Glossary Diagram - Draw.io](#glossary-diagram---drawio)
+      - [Glossary Diagram - PlantUML](#glossary-diagram---plantuml)
+  * [System Design](#system-design)
+    + [System Diagram - Draw.io](#system-diagram---drawio)
+    + [System Diagram - PlantUML](#system-diagram---plantuml)
+  * [Deployment Diagram](#deployment-diagram)
+    + [Deployment Diagram - Draw.io](#deployment-diagram---drawio)
+    + [Deployment Diagram - PlantUML](#deployment-diagram---plantuml)
 
-# Informal description
 
-GeoControl is a software system designed for monitoring physical and environmental variables in various contexts: from hydrogeological analyses of mountain areas to the surveillance of historical buildings, and even the control of internal parameters (such as temperature or lighting) in residential or working environments.
+## Informal Description
 
-# Business Model
+GeoControl è un software progettato per monitorare le variabili fisiche e ambientali in vari contesti: da analisi idrologiche di aree montane al sorvegliamento di edifici storici, e anche il controllo di parametri interni (quali temperatura o illuminazione) in aree residenziali o di lavoro.
 
-# Stakeholders
+__NOTE GENERICHE__:
+- L'utilizzo misto di Italiano e Inglese può creare confusione, ma tale utilizzo è stato perpretato in modo coerente per tutto il documento. Per le fasi successive si cercherà di utilizzare solo l'Inglese.
+- I Digrammi sono presenti in una doppia versione: Draw.io e PlantUML. La versione "buona" è sempre da considerarsi quella Draw.io. Si lasciano le versioni PlantUML per completezza e come "Legacy".
+
+## Business Model
+
+__Sistema Software su Licenza__:
+la compagnia che sviluppa GeoControl vende il software offrendo licenza annuale o come one-time-purchase. Vi sono diversi Tier di licenza tra cui quelli più avanzati che includono supporto tecnico e manutenzione della parte hardware del sistema (Sensori e Gateway).
+
+## Stakeholders
 
 | Stakeholder name | Description |
-| :--------------: | :---------: |
-| Stakeholder x..  |             |
-
-# Context Diagram and interfaces
-
-## Context Diagram
-
-\<Define here Context diagram using UML use case diagram>
-
-\<actors are a subset of stakeholders>
-
-## Interfaces
-
-\<describe here each interface in the context diagram>
+| :--------------- | :---------- |
+| Admin |  Utente che ha accesso a tutte le risorse e funzionalità del sistema, inclusa la gestione degli Utenti |
+| Operator |  Utente che può gestire Network, Gateway, Sensori e inserire Misurazioni |
+| Viewer |  Utente che può solo consultare i dati |
+| Unione delle Comunità Montane del Piemonte | Committente principale del Sistema |
+| Aziende Private | Aziende che vogliono monitorare i propri edifici o aree di lavoro |
+| Enti di Ricerca | Università e centri di ricerca che sono interessati ai dati raccolti dal Sistema |
+| Enti Governativi | Enti che si occupano di monitoraggio ambientale e gestione del territorio |
+| Produttori di Componenti | Aziende che si occupano di produzione e distribuzione delle componenti Hardware utilizzate nel Sistema |
+| Manutentori | Tecnici che si occupano della manutenzione e del monitoraggio delle componenti Hardware su cui si basa il Sistema |
+| Servizio di Pagamento Licenza | Servizio di pagamento per l'acquisto della licenza del Software |
 
 
-|   Actor   | Logical Interface | Physical Interface |
-| :-------: | :---------------: | :----------------: |
-| Actor x.. |                   |                    |
+## Context Diagram and Interfaces
 
-# Stories and personas
+### Context Diagram
 
-\<A Persona is a realistic impersonation of an actor. Define here a few personas and describe in plain text how a persona interacts with the system>
+__NOTE su DIAGRAMMA__:<br>
+- In più punti dello Swagger viene suggerito come Gateways e Sensori siano entrambi entità esterne a GeoControl System. Non è specificato da nessuna parte se queste componenti siano poi effettivamente vendute dalla stessa azienda insieme al sistema. Si assume che GeoControl possa funzionare con qualsiasi Gateway e Sensore compatibile (anche di terze parti) per cui si possono considerare entità esterne al sistema.
+- Il collegamento tra Gateway e Sensori è probabilmente un abuso di notazione. L'intento è evidenziare come i Sensori non sono né interni al sistema né si interfacciano direttamente con esso, ma sono indirettamente collegati tramite i Gateway. Questo collegamento sarà meglio dettagliato nel Deployment Diagram.
 
-\<Persona is-an-instance-of actor>
+#### Context Diagram - Draw.io
 
-\<stories will be formalized later as scenarios in use cases>
+<!-- [Context Diagram - Draw.io](./res/Context_Diagram.png) -->
+<img src="./res/Context_Diagram.png" alt="Context Diagram - Draw.io"/>
 
-# Functional and non functional requirements
+#### Context Diagram - PlantUML
 
-## Functional Requirements
+``` plantuml
 
-\<In the form DO SOMETHING, or VERB NOUN, describe high level capabilities of the system>
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
 
-\<they match to high level use cases>
+rectangle System {
+    (GeoControl System) as UC
+}
+
+rectangle "<< actor >>\n\n Gateways\n[physical]" as Gateways
+rectangle "\n Sensori\n[physical]" as Sensori
+
+Actor Admin
+Actor Operator
+Actor Viewer
+
+Admin -l-> UC
+Operator -l-> UC
+Viewer -l-> UC
+
+Gateways -u- Sensori
+Gateways -r-> UC
+
+
+Admin -[hidden]- Operator
+Admin -[hidden]l- Viewer
+Gateways -[hidden]d- Sensori
+@enduml
+
+```
+
+### Interfaces
+
+|   Actor   | Logical Interface      | Physical Interface |
+| :-------- | :--------------------: | :----------------: |
+| Admin     | GUI                    | PC                 |
+| Operator  | GUI                    | PC                 |
+| Viewer    | GUI                    | PC, Smartphone     |
+| Gateways  | Internet Protocol (IP) | Internet           |
+
+
+## Stories and Personas
+
+### Persona1 - "Luca"
+Uomo, Adulto, 50 anni, Informatico, Impiegato al Comune di una cittadina ad alto rischio sismico
+
+__Story__: ha bisogno di un Sistema per monitorare l'attività sismica della città
+
+### Persona2 - "Giulia"
+Donna, Giovane, 25 anni, Guida in una Riserva Naturale
+
+__Story__: ha bisogno di conoscere i rischi idrogeologici potenziali dei suoi percorsi per evitare di mettere in pericolo i visitatori durante le passeggiate
+
+### Persona3 - "Marco"
+Uomo, Giovane Adulto, 34 anni, Gestore Hotel in alta quota aperto in periodo invernale
+
+__Story__: ha bisogno di un sistema per monitorare il rischio di valanghe o temperature estreme al fine di migliorare l'esperienza di chi alloggia nell'hotel
+
+### Persona4 - "Francesco"
+Uomo, Adulta, 40 anni, Ricercatore Universitario
+
+__Story__: hanno bisogno di dati ambientali per addestrare modelli di Machine Learning per predizioni metereologiche per una ricerca
+
+### Persona5 - "Silvia"
+Donna, Adulta, 46 anni, Preside di una Scuola Media
+
+__Story__: nell'attesa di un cambio struttura, la preside ha bisogno di monitorare alcuni parametri particolari di quella attuale, vecchia e decadente, ad esempio crepe e fessurazioni o vibrazioni anomale.
+
+
+## Functional and Non-Functional Requirements
+
+### Functional Requirements
 
 |  ID   | Description |
-| :---: | :---------: |
-|  FR1  |             |
-|  FR2  |             |
-| FRx.. |             |
+| :---- | :---------- |
+| __FR1__  | __Gestione Utente__ |
+| FR1.1 | Autenticazione Utente |
+| FR1.2 | Creazione Account|
+| FR1.3 | Ottenimento Elenco Utenti |
+| FR1.4 | Ottenimento Utente Specifico |
+| FR1.5 | Eliminazione Account |
+| __FR2__  | __Gestione Networks__ |
+| FR2.1 | Creazione Network |
+| FR2.2 | Ottenimento Elenco Networks |
+| FR2.3 | Ottenimento Network Specifico |
+| FR2.4 | Modifica Dati Network |
+| FR2.5 | Eliminazione Network |
+| __FR3__  | __Gestione Gateways__ |
+| FR3.1 | Creazione Gateway |
+| FR3.2 | Ottenimento Elenco Gateway per Network Specifico |
+| FR3.3 | Ottenimento Gateway Specifico | 
+| FR3.4 | Modifica Dati Gateway |
+| FR3.5 | Eliminazione Gateway |
+| __FR4__  | __Gestione Sensori__ |
+| FR4.1 | Creazione Sensore |
+| FR4.2 | Ottenimento Elenco Sensori per Gateway Specifico |
+| FR4.3 | Ottenimento Sensore Specifico |
+| FR4.4 | Modifica Dati Sensore |
+| FR4.5 | Eliminazione Sensore|
+| __FR5__  | __Calcolo Statistiche su Misurazioni__ |
+| FR5.1 | Calcolo Media su Misurazioni in Range Temporale |
+| FR5.2 | Calcolo Varianza su Misurazioni in Range Temporale |
+| __FR6__  | __Gestione Misurazioni__ |
+| FR6.1 | Creazione Misurazione |
+| FR6.2 | Ottenimento Elenco Misurazioni di Network Specifico |
+| FR6.3 | Ottenimento Elenco Misurazioni di Sensore Specifico |
+| FR6.4 | Ottenimento Elenco Statistiche di Network Specifico |
+| FR6.5 | Ottenimento Elenco Statistiche di Sensore Specifico |
+| FR6.6 | Ottenimento Elenco Outliers di Network Specifico |
+| FR6.7 | Ottenimento Elenco Outliers di Sensore Specifico |
+| __FR7__  | __Gestione Timestamp__ |
+| FR7.1 | Conversione Timestamp al Timezone Locale |
 
-## Non Functional Requirements
+#### Table of Rights
 
-\<Describe constraints on functional requirements>
+| FR    | Viewer             | Operator           | Admin              |
+| :---: | :----------------: | :----------------: | :----------------: |
+| FR1.1 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR1.2 | :x:                | :x:                | :white_check_mark: |
+| FR1.3 | :x:                | :x:                | :white_check_mark: |
+| FR1.4 | :x:                | :x:                | :white_check_mark: |
+| FR1.5 | :x:                | :x:                | :white_check_mark: |
+| FR2.1 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR2.2 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR2.3 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR2.4 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR2.5 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR3.1 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR3.2 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR3.3 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR3.4 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR3.5 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR4.1 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR4.2 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR4.3 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR4.4 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR4.5 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR5.1 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR5.2 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR6.1 | :x:                | :white_check_mark: | :white_check_mark: |
+| FR6.2 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR6.3 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR6.4 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR6.5 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR6.6 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR6.7 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
+| FR7.1 | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
-|   ID    | Type (efficiency, reliability, ..) | Description | Refers to |
-| :-----: | :--------------------------------: | :---------: | :-------: |
-|  NFR1   |                                    |             |           |
-|  NFR2   |                                    |             |           |
-|  NFR3   |                                    |             |           |
-| NFRx .. |                                    |             |           |
+### Non-Functional Requirements
 
-# Use case diagram and use cases
+|  ID  | Type        | Description | Refers to |
+| :--: | :---------- | :---------- | :-------: |
+| NFR1 | Domain      | I Timestamp sono convertiti e memorizzati in Formato ISO 8601 (UTC) | FR6 |
+| NFR2 | Reliability | Non devono essere perse più di 6 Misurazioni per Sensore all'anno | FR6 |
 
-## Use case diagram
+__NOTE:__
+- Si è scelto di non mappare come requisito l'informazione del "[A Sensor is] the physical device that actually measures the physical quantity every 10 minutes", in quanto non è ritenuta una responsabilità del sistema da sviluppare, fa parte della responsabilità dell'Hardware e del Firmware del Sensore. 
 
-\<define here UML Use case diagram UCD summarizing all use cases, and their relationships>
 
-\<next describe here each use case in the UCD>
+## Use Case Diagram and Use Cases
 
-### Use case 1, UC1
+### Use Case Diagram
 
-| Actors Involved  |                                                                      |
-| :--------------: | :------------------------------------------------------------------: |
-|   Precondition   | \<Boolean expression, must evaluate to true before the UC can start> |
-|  Post condition  |  \<Boolean expression, must evaluate to true after UC is finished>   |
-| Nominal Scenario |         \<Textual description of actions executed by the UC>         |
-|     Variants     |                      \<other normal executions>                      |
-|    Exceptions    |                        \<exceptions, errors >                        |
+#### Use Case Diagram - Draw.io
+
+<!-- [Use Case Diagram - Draw.io](./res/UseCase_Diagram.png) -->
+<img src="./res/UseCase_Diagram.png" alt="Use Case Diagram - Draw.io"/>
+
+#### Use Case Diagram - PlantUML
+
+``` plantuml
+
+'No PlantUML per questo
+
+note "Diagramma PlantUML troppo confuso.\nNiente diagramma PlantUML per UseCase Diagram" as N1
+
+```
+
+### Use Cases
+
+__NOTA:__ In tutti gli Scenari, _Utente_ (o Utente), è genericamente uno dei possibili Attori che può eseguire il Caso d'Uso (anche quando solo 1 attore è possibile) (in pratica è una variabile che sostituisce il nome dell'attore; questo per coprire quegli scenari che possono essere eseguiti da ruoli differenti). Non va confuso con il termine "Account" che compare in alcune Pre-condition, Post-condition e Step.
+
+#### Use case 1 (UC1): Autenticazione al Sistema
+
+| UC1              | Use Case 1: Autenticazione al Sistema | 
+| :--------------- | :--------------------------------- |
+| Actors Involved  | UtenteNonLoggato |
+| Pre-condition    | Utente non è autenticato |
+| Post-condition   | Utente ha ottenuto un Token per le richieste successive |
+| Nominal Scenario | Scenario 1.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 1.2, 1.3, 1.4, 1.5 |
 
 ##### Scenario 1.1
 
-\<describe here scenarios instances of UC1>
-
-\<a scenario is a sequence of steps that corresponds to a particular execution of one use case>
-
-\<a scenario is a more formal description of a story>
-
-\<only relevant scenarios should be described>
-
-|  Scenario 1.1  |                                                                            |
-| :------------: | :------------------------------------------------------------------------: |
-|  Precondition  | \<Boolean expression, must evaluate to true before the scenario can start> |
-| Post condition |  \<Boolean expression, must evaluate to true after scenario is finished>   |
-|     Step#      |                                Description                                 |
-|       1        |                                                                            |
-|       2        |                                                                            |
-|      ...       |                                                                            |
+| UC1 - S1.1     | Scenario 1.1: Autenticazione al Sistema (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente esiste nel sistema |
+| Post-condition | Utente ha ottenuto un Token per le richieste successive |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _System_: richiede credenziali (`username` e `password`) |
+| 2              | _Utente_: fornisce credenziali (`username` e `password`) |
+| 3              | _System_: legge credenziali (`username` e `password`) |
+| 4              | _System_: cerca `username`; `username` trovato |
+| 5			  	 | _System_: verifica `password`; `password` corretta |
+| 6              | _System_: autorizza Utente e restituisce Token __(Code 200)__ |
 
 ##### Scenario 1.2
+| UC1 - S1.2     | Scenario 1.2: Autenticazione al Sistema (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Utente non è autenticato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _System_: richiede credenziali (`username` e `password`) |
+| 2              | _Utente_: fornisce un Input Invalido |
+| 3              | _System_: legge Input fornito |
+| 4              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
 
-##### Scenario 1.x
+##### Scenario 1.3
 
-### Use case 2, UC2
+| UC1 - S1.3     | Scenario 1.3: Autenticazione al Sistema (Password Errata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente esiste nel sistema |
+| Post-condition | Utente non è autenticato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _System_: richiede credenziali (`username` e `password`) |
+| 2              | _Utente_: fornisce credenziali (`username` e `password`) |
+| 3              | _System_: legge credenziali (`username` e `password`) |
+| 4              | _System_: cerca `username`; `username` trovato |
+| 5              | _System_: verifica `password`; `password` errata |
+| 6              | _System_: mostra messaggio di errore. Password errata __(Code 401)__ |
 
-..
+##### Scenario 1.4
 
-### Use case x, UCx
+| UC1 - S1.4     | Scenario 1.4: Autenticazione al Sistema (Utente non Esiste) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Account) non esiste nel sistema |
+| Post-condition | Utente non è autenticato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _System_: richiede credenziali (`username` e `password`) |
+| 2              | _Utente_: fornisce credenziali (`username` e `password`) |
+| 3              | _System_: legge credenziali (`username` e `password`) |
+| 4              | _System_: cerca `username`; `username` non trovato |
+| 5              | _System_: mostra messaggio di errore. Utente non trovato __(Code 404)__ |
 
-..
+##### Scenario 1.5
 
-# Glossary
+| UC1 - S1.5     | Scenario 1.5: Autenticazione al Sistema (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Utente non è autenticato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _System_: richiede credenziali (`username` e `password`) |
+| 2              | _Utente_: fornisce credenziali (`username` e `password`) |
+| 3              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
 
-\<use UML class diagram to define important terms, or concepts in the domain of the application, and their relationships>
 
-\<concepts must be used consistently all over the document, ex in use cases, requirements etc>
+#### Use Case 2 (UC2): Creazione Account
 
-# System Design
+| UC2              | Use Case 2: Creazione Account |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin |
+| Pre-condition    | Utente (di cui creare Account) non ha un Account |
+| Post-condition   | Account relativo all'Utente è creato |
+| Nominal Scenario | Scenario 2.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 2.2, 2.3, 2.4, 2.5, 2.6 |
 
-\<describe here system design>
+##### Scenario 2.1
 
-\<must be consistent with Context diagram>
+| UC2 - S2.1     | Scenario 2.1: Creazione Account (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato; Utente (di cui creare Account) non ha un Account |
+| Post-condition | Account relativo all'Utente è creato |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un account |
+| 2              | _System_: richiede `username`, `password`, `type` |
+| 3              | _Utente_: fornisce `username`, `password`, `type` |
+| 4              | _System_: legge `username`, `password`, `type` |
+| 5              | _System_: verifica uso `username`; `username` non è in uso |
+| 6			     | _System_: crea e memorizza nuovo Account __(Code 201)__ |
 
-# Deployment Diagram
+##### Scenario 2.2
 
-\<describe here deployment diagram >
+| UC2 - S2.2     | Scenario 2.2: Creazione Account (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato |
+| Post-condition | Account non creato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un account |
+| 2              | _System_: richiede `username`, `password`, `type` |
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
+
+##### Scenario 2.3
+
+| UC2 - S2.3     | Scenario 2.3: Creazione Account (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin non è autenticato |
+| Post-condition | Account non creato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un account |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 2.4
+
+| UC2 - S2.4     | Scenario 2.4: Creazione Account (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Admin`) |
+| Post-condition | Account non creato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un account |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 2.5
+
+| UC2 - S2.5     | Scenario 2.5: Creazione Account (Username in Uso) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato; Utente (di cui creare Account) ha già un account |
+| Post-condition | Account non creato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un account |
+| 2              | _System_: richiede `username`, `password`, `type` |
+| 3              | _Utente_: fornisce `username`, `password`, `type` |
+| 4              | _System_: legge `username`, `password`, `type` |
+| 5              | _System_: verifica uso `username`; `username` in uso |
+| 6			     | _System_: mostra messaggio di errore. `username` in uso __(Code 409)__ |
+
+##### Scenario 2.6
+
+| UC2 - S2.6     | Scenario 2.6: Creazione Account (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Account non creato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un account |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+
+#### Use Case 3 (UC3): Ottenimento Account Utente
+
+| UC3              | Use Case 3: Ottenimento Account Utente |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin |
+| Pre-condition    | // |
+| Post-condition   | Informazioni di almeno un Utente sono state ottenute |
+| Nominal Scenario | Scenario 3.1 |
+| Variants         | Scenario 3.2 |
+| Exceptions       | Scenari: 3.3, 3.4, 3.5, 3.6 |
+
+##### Scenario 3.1
+
+| UC3 - S3.1     | Scenario 3.1: Ottenimento Elenco Account Utenti (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato |
+| Post-condition | Elenco di Account Utenti è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco di Account Utenti |
+| 2              | _System_: ottiene l'elenco di Utenti |
+| 3              | _System_: restituisce l'elenco di Utenti __(Code 200)__ |
+
+##### Scenario 3.2
+
+| UC3 - S3.2     | Scenario 3.2: Ottenimento Account Utente Specifico (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato; Account Utente ricercato esiste |
+| Post-condition | Informazioni su Account Utente ricerato sono state ottenute |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Account Utente specifico |
+| 2              | _System_: richiede `userName` dell'Utente ricercato |
+| 3              | _Utente_: fornisce `userName` dell'Utente ricercato |
+| 4              | _System_: legge `userName` fornito |
+| 5              | _System_: verifica `userName`; Utente esiste |
+| 6              | _System_: restituisce informazioni su Utente __(Code 200)__ |
+
+##### Scenario 3.3
+
+| UC3 - S3.3     | Scenario 3.3: Ottenimento Account Utente (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin non è autenticato |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Account Utenti |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 3.4
+
+| UC3 - S3.4     | Scenario 3.4: Ottenimento Account Utente (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Admin`) |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Account Utenti |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 3.5
+
+| UC3 - S3.5     | Scenario 3.5: Ottenimento Account Utente (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Account Utenti |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+##### Scenario 3.6
+
+| UC3 - S3.6     | Scenario 3.6: Ottenimento Account Utente Specifico (Utente non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato; Account Utente ricercato non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Account Utente specifico |
+| 2              | _System_: richiede `userName` dell'Utente ricercato |
+| 3              | _Utente_: fornisce `userName` dell'Utente ricercato |
+| 4              | _System_: legge `userName` fornito |
+| 5              | _System_: verifica `userName`; Utente non esiste |
+| 6              | _System_: mostra messaggio di errore. Utente non trovato __(Code 404)__ |
+
+
+#### Use Case 4 (UC4): Eliminazione Account
+
+| UC4              | Use Case 4: Eliminazione Account |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin |
+| Pre-condition    | Account (associato a Utente da eliminare) esiste |
+| Post-condition   | Account (associato a Utente da eliminare) è stato eliminato |
+| Nominal Scenario | Scenario 4.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 4.2, 4.3, 4.4, 4.5 |
+
+##### Scenario 4.1
+
+| UC4 - S4.1     | Scenario 4.1: Eliminazione Account (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato; Account (associato a Utente da eliminare) esiste |
+| Post-condition | Account (associato a Utente da eliminare) è stato eliminato |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare Account associato a Utente |
+| 2              | _System_: richiede `userName` dell'Utente da eliminare |
+| 3              | _Utente_: fornisce `userName` dell'Utente da eliminare |
+| 4              | _System_: legge `userName` fornito |
+| 5              | _System_: verifica `userName`; Utente esiste |
+| 6              | _System_: elimina Account associato a Utente __(Code 204)__ |
+
+##### Scenario 4.2
+
+| UC4 - S4.2     | Scenario 4.2: Eliminazione Account (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin non è autenticato |
+| Post-condition | Account non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare Account associato a Utente |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 4.3
+
+| UC4 - S4.3     | Scenario 4.3: Eliminazione Account (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Admin`) |
+| Post-condition | Account non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare Account associato a Utente |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 4.4
+
+| UC4 - S4.4     | Scenario 4.4: Eliminazione Account (Utente non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Admin autenticato; Account (associato a Utente da eliminare) non esiste |
+| Post-condition | Account non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare Account associato a Utente |
+| 2              | _System_: richiede `userName` dell'Utente da eliminare |
+| 3              | _Utente_: fornisce `userName` dell'Utente da eliminare |
+| 4              | _System_: legge `userName` fornito |
+| 5              | _System_: verifica `userName`; Utente non esiste |
+| 6              | _System_: mostra messaggio di errore. Utente non trovato __(Code 404)__ |
+
+##### Scenario 4.5
+
+| UC4 - S4.5     | Scenario 4.5: Eliminazione Account (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Account non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare Account associato a Utente |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+
+#### Use case 5 (UC5): Creazione Network
+
+| UC5              | Use Case 5: Creazione Network |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Utente (Admin o Operator) è autenticato |
+| Post-condition   | Network è creata |
+| Nominal Scenario | Scenario 5.1 |
+| Variants         | // |
+| Exceptions       | Scenario 5.2, 5.3, 5.4, 5.5, 5.6 |
+
+##### Scenario 5.1
+
+| UC5 - S5.1     | Scenario 5.1: Creazione Network (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Admin o Operator) autenticato; Network con stesso `code` non esiste |
+| Post-condition | Network è creata |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Network |
+| 2              | _System_: richiede `code`, `name`, `description` |
+| 3              | _Utente_: fornisce `code`, `name`, `description` |
+| 2              | _System_: legge `code`, `name`, `description` |
+| 3              | _System_: verifica uso `code`; `code` non è in uso |
+| 4			         | _System_: crea e memorizza nuova Network __(Code 201)__ |
+
+##### Scenario 5.2
+
+| UC5 - S5.2     | Scenario 5.2: Creazione Network (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Admin o Operator) autenticato |
+| Post-condition | Network non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare una Network |
+| 2              | _System_: richiede `code`, `name`, `description` |
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
+
+##### Scenario 5.3
+
+| UC5 - S5.3     | Scenario 5.3: Creazione Network (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Network non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare una Network |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 5.4
+
+| UC5 - S5.4     | Scenario 5.4: Creazione Network (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
+| Post-condition | Network non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare una Network |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 5.5
+
+| UC5 - S5.5     | Scenario 5.5: Creazione Network (Code in Uso) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Admin o Operator) autenticato; Network con stesso `code` esiste |
+| Post-condition | Network non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare una Network |
+| 2              | _System_: richiede `code`, `name`, `description` |
+| 3              | _Utente_: fornisce `code`, `name`, `description` |
+| 4              | _System_: legge `code`, `name`, `description` |
+| 5              | _System_: verifica uso `code`; `code` in uso |
+| 6			     | _System_: mostra messaggio di errore. Code in uso __(Code 409)__ |
+
+##### Scenario 5.6
+
+| UC5 - S5.6     | Scenario 5.6: Creazione Network (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Network non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare una Network |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+
+#### Use Case 6 (UC6): Ottenimento Network
+
+| UC6              | Use Case 6: Ottenimento Network |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator \| Viewer |
+| Pre-condition    | // |
+| Post-condition   | Informazioni di almeno una Network sono state ottenute |
+| Nominal Scenario | Scenario 6.1 |
+| Variants         | Scenario 6.2 |
+| Exceptions       | Scenari: 6.3, 6.4, 6.5 |
+
+##### Scenario 6.1
+
+| UC6 - S6.1     | Scenario 6.1: Ottenimento Elenco Network (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco delle Network è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco delle Network |
+| 2              | _System_: ottiene l'elenco delle Network |
+| 3              | _System_: restituisce l'elenco delle Network __(Code 200)__ |
+
+##### Scenario 6.2
+
+| UC6 - S6.2     | Scenario 6.2: Ottenimento Network Specifica (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata esiste |
+| Post-condition | Informazioni sulla Network ricercata sono state ottenute |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su una Network specifica |
+| 2              | _System_: richiede `networkCode` della Network ricercata |
+| 3              | _Utente_: fornisce `networkCode` della Network ricercata |
+| 4              | _System_: legge `networkCode` fornito |
+| 5              | _System_: verifica `networkCode`; Network esiste |
+| 6              | _System_: restituisce informazioni sulla Network __(Code 200)__ |
+
+##### Scenario 6.3
+
+| UC6 - S6.3     | Scenario 6.3: Ottenimento Network (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni Network |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 6.4
+
+| UC6 - S6.4     | Scenario 6.4: Ottenimento Network (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni Network |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+##### Scenario 6.5
+
+| UC6 - S6.5     | Scenario 6.5: Ottenimento Network Specifica (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su una Network specifica |
+| 2              | _System_: richiede `networkCode` della Network ricercata |
+| 3              | _Utente_: fornisce `networkCode` della Network ricercata |
+| 4              | _System_: legge `networkCode` fornito |
+| 5              | _System_: verifica `networkCode`; Network non trovata |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+
+#### Use Case 7 (UC7): Eliminazione Network
+
+| UC7              | Use Case 7: Eliminazione Network |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Utente (Admin o Operator) autenticato |
+| Post-condition   | Network è stata eliminata |
+| Nominal Scenario | Scenario 7.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 7.2, 7.3, 7.4, 7.5 |
+
+##### Scenario 7.1
+
+| UC7 - S7.1     | Scenario 7.1: Eliminazione Network (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Admin o Operator) autenticato; Network da eliminare esiste |
+| Post-condition | Network è stata eliminata |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare una Network |
+| 2              | _System_: richiede `networkCode` della network da eliminare |
+| 3              | _Utente_: fornisce `networkCode` della network da eliminare |
+| 4              | _System_: legge `networkCode` fornito |
+| 5              | _System_: verifica `networkCode`; Network esiste |
+| 6              | _System_: elimina Network __(Code 204)__ |
+
+##### Scenario 7.2
+
+| UC7 - S7.2     | Scenario 7.2: Eliminazione Network (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Network non eliminata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare una Network |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 7.3
+
+| UC7 - S7.3     | Scenario 7.3: Eliminazione Network (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
+| Post-condition | Network non eliminata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare una Network |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 7.4
+
+| UC7 - S7.4     | Scenario 7.4: Eliminazione Network (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network non esiste |
+| Post-condition | Network non eliminata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare una Network |
+| 2              | _System_: richiede `networkCode` della network da eliminare |
+| 3              | _Utente_: fornisce `networkCode` della network da eliminare |
+| 4              | _System_: legge `networkCode` fornito |
+| 5              | _System_: verifica `networkCode`; Network non esiste |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 7.5
+
+| UC7 - S7.5     | Scenario 7.5: Eliminazione Network (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Network non eliminata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare una Network |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+
+#### Use Case 8 (UC8): Modifica Network
+
+| UC8              | Use Case 8: Modifica Network |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Utente (Admin o Operator) autenticato |
+| Post-condition   | Network è aggiornata |
+| Nominal Scenario | Scenario 8.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 8.2, 8.3, 8.4, 8.5, 8.6, 8.7 |
+
+##### Scenario 8.1
+
+| UC8 - S8.1     | Scenario 8.1: Modifica Network (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Admin o Operator) autenticato; Network esiste |
+| Post-condition | Network è aggiornata |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare una Network |
+| 2              | _System_: richiede `networkCode` e {`code` `name`, `description`} |
+| 3              | _Utente_: fornisce `networkCode` e {`code` `name`, `description`} |
+| 4              | _System_: legge `networkCode` e {`code` `name`, `description`} |
+| 5              | _System_: verifica `networkCode`; Network esiste |
+| 6              | _System_: verifica uso `code`; `code` non è in uso |
+| 7              | _System_: aggiorna Network |
+
+##### Scenario 8.2
+
+| UC8 - S8.2     | Scenario 8.2: Modifica Network (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Admin o Operator) autenticato |
+| Post-condition | Network non modificata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare una Network |
+| 2              | _System_: richiede `networkCode` e {`code` `name`, `description`} |
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
+
+##### Scenario 8.3
+
+| UC8 - S8.3     | Scenario 8.3: Modifica Network (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Network non modificata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare una Network |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 8.4
+
+| UC8 - S8.4     | Scenario 8.4: Modifica Network (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
+| Post-condition | Network non modificata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare una Network |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 8.5
+
+| UC8 - S8.5     | Scenario 8.5: Modifica Network (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Network non modificata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare una Network |
+| 2              | _System_: richiede `networkCode` e {`code` `name`, `description`} |
+| 3              | _Utente_: fornisce `networkCode` e {`code` `name`, `description`} |
+| 4              | _System_: legge `networkCode` e {`code` `name`, `description`} |
+| 5              | _System_: verifica `networkCode`; Network non esiste |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 8.6
+
+| UC8 - S8.6     | Scenario 8.6: Modifica Network (NetworkCode in Uso) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Admin o Operator) autenticato; Network ricercata esiste; Network con stesso `code` esiste |
+| Post-condition | Network non modificata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare una Network |
+| 2              | _System_: richiede `networkCode` e {`code` `name`, `description`} |
+| 3              | _Utente_: fornisce `networkCode` e {`code` `name`, `description`} |
+| 4              | _System_: legge `networkCode` e {`code` `name`, `description`} |
+| 5              | _System_: verifica `networkCode`; Network esiste |
+| 6              | _System_: verifica uso `code`; `code` in uso |
+| 7              | _System_: mostra messaggio di errore. `code` in uso __(Code 409)__ |
+
+##### Scenario 8.7
+
+| UC8 - S8.7     | Scenario 8.7: Modifica Network (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Network non modificata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare una Network |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
+
+
+#### Use case 9 (UC9): Creazione Gateway
+
+| UC9              | Use Case 9: Creazione Gateway |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Utente autenticato con ruolo adeguato (Admin o Operator)   |
+| Post-condition   | Gateway creato |
+| Nominal Scenario | Scenario 9.1 |
+| Variants         | // |
+| Exceptions       | Scenario 9.2, 9.3, 9.4, 9.5, 9.6, 9.7 |
+
+##### Scenario 9.1
+
+| UC9 - S9.1     | Scenario 9.1: Creazione Gateway (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | L'utente è autenticato e ha i permessi per creare un gateway |
+| Post-condition | Un nuovo gateway è stato creato nel sistema |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Gateway |
+| 2              | _System_: richiede `networkCode` e {`macAddress`,`name`,`description`}|
+| 3              | _Utente_: fornisce `networkCode` e {`macAddress`,`name`,`description`} |
+| 4              | _System_: legge `networkCode` e {`macAddress`,`name`,`description`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` trovato|
+| 6              | _System_: verifica uso `macAddress` ; `macAddress` non in uso|
+| 7			         | _System_: crea e memorizza nuovo Gateway __(Code 201)__ |
+
+##### Scenario 9.2
+
+| UC9 - S9.2     | Scenario 9.2: Creazione Gateway (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Admin o Operator) autenticato |
+| Post-condition | Gateway non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Gateway |
+| 2              | _System_: richiede `networkCode` e {`macAddress`,`name`,`description`}|
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
+
+##### Scenario 9.3
+
+| UC9 - S9.3     | Scenario 9.3: Creazione Gateway (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non autenticato |
+| Post-condition | Gateway non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 9.4
+
+| UC9 - S9.4     | Scenario 9.4: Creazione Gateway (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`)|
+| Post-condition | Gateway non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 9.5
+
+| UC9 - S9.5     | Scenario 9.5: Creazione Gateway (Network non trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Gateway non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Gateway |
+| 2              | _System_: richiede `networkCode` e {`macAddress`,`name`,`description`}|
+| 3              | _Utente_: fornisce `networkCode` e {`macAddress`,`name`,`description`} |
+| 4              | _System_: legge `networkCode` e {`macAddress`,`name`,`description`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` non trovato|
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 9.6
+
+| UC9 - S9.6     | Scenario 9.6: Creazione Gateway (macAddress già in uso) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; macAddress inserito già in uso |
+| Post-condition | Gateway non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Gateway |
+| 2              | _System_: richiede `networkCode` e {`macAddress`,`name`,`description`}|
+| 3              | _Utente_: fornisce `networkCode` e {`macAddress`,`name`,`description`} |
+| 4              | _System_: legge `networkCode` e {`macAddress`,`name`,`description`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` trovato|
+| 6              | _System_: verifica uso `macAddress` ; `macAddress` già in uso|
+| 7			         | _System_: mostra messaggio di errore. MacAddress già in uso __(Code 409)__ |
+
+##### Scenario 9.7
+
+| UC9 - S9.7     | Scenario 9.7: Creazione Gateway (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Gateway non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+
+#### Use case 10 (UC10): Ottenimento Gateway
+
+| UC10             | Use Case 10: Ottenimento Gateway |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator \| Viewer |
+| Pre-condition    | //  |
+| Post-condition   | Informazioni di almeno un Gateway sono state ottenute |
+| Nominal Scenario | Scenario 10.1 |
+| Variants         | Scenario 10.2 |
+| Exceptions       | Scenario 10.3, 10.4, 10.5, 10.6, 10.7 |
+
+##### Scenario 10.1
+
+| UC10 - S10.1   | Scenario 10.1: Ottenimento Elenco Gateway (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco dei Gateway è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco dei Gateway per una Network|
+| 2              | _System_: richiede `networkCode`a cui appartiene il Gateway|
+| 3              | _Utente_: fornisce `networkCode` | 
+| 4              | _System_: legge `networkCode` |
+| 5              | _System_: verifica esistenza `networkCode`. `networkCode` trovato |
+| 6              | _System_: restituisce l'elenco dei Gateway __(Code 200)__ |
+
+##### Scenario 10.2
+
+| UC10 - S10.2   | Scenario 10.2: Ottenimento Gateway Specifico (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Gateway ricercato esiste |
+| Post-condition | Informazioni sul Gateway ricercato sono state ottenute |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Gateway Specifico |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` |
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _System_: restituisce informazioni sul Gateway __(Code 200)__ |
+
+##### Scenario 10.3
+
+| UC10 - S10.3   | Scenario 10.3: Ottenimento Gateway (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere elenco o Gateway specifico |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 10.4
+
+| UC10 - S10.4   | Scenario 10.4: Ottenimento Gateway (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Nessuna informazione restituita; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere elenco o Gateway specifico|
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+##### Scenario 10.5
+
+| UC10 - S10.5   | Scenario 10.5: Ottenimento Gateway (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco dei Gateway per una Network|
+| 2              | _System_: richiede `networkCode`a cui appartiene il Gateway |
+| 3              | _Utente_: fornisce `networkCode` |
+| 4              | _System_: legge `networkCode` fornito |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 10.6
+
+| UC10 - S10.6   | Scenario 10.6: Ottenimento Gateway Specifico(Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Gateway Specifico |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` |
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 10.7
+
+| UC10 - S10.7   | Scenario 10.7: Ottenimento Gateway Specifico (Gateway non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Gateway non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Gateway Specifico |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` |
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 10             | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+#### Use Case 11 (UC11): Eliminazione Gateway
+
+| UC11             | Use Case 11: Eliminazione Gateway |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Gateway da eliminare esiste |
+| Post-condition   | Gateway è stato eliminato |
+| Nominal Scenario | Scenario 11.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 11.2, 11.3, 11.4, 11.5, 11.6 |
+
+##### Scenario 11.1
+
+| UC11 - S11.1   | Scenario 11.1: Eliminazione Gateway (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo Admin o Operator; gateway esiste |
+| Post-condition | Gateway è stato eliminato |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Gateway |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` |
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 10             | _System_: elimina il Gateway __(Code 204)__ |
+
+##### Scenario 11.2
+
+| UC11 - S11.2   | Scenario 11.2: Eliminazione Gateway (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Gateway non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 11.3
+
+| UC11 - S11.3   | Scenario 11.3: Eliminazione Gateway (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
+| Post-condition | Gateway non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 11.4
+
+| UC11 - S11.4   | Scenario 11.4: Eliminazione Gateway (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `networkCode` non corrisponde ad alcuna network esistente |
+| Post-condition | Gateway non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Gateway |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` |
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 11.5
+
+| UC11 - S11.5   | Scenario 11.5: Eliminazione Gateway (Gateway non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `gatewayMac` non corrisponde ad alcun gateway esistente |
+| Post-condition | Gateway non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Gateway |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` |
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 11.6
+
+| UC11 - S11.6   | Scenario 11.6: Eliminazione Gateway (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Gateway non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+
+#### Use Case 12 (UC12): Modifica Gateway
+
+| UC12             | Use Case 12: Modifica Gateway|
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Gateway da modificare esiste |
+| Post-condition   | Gateway è stato aggiornato |
+| Nominal Scenario | Scenario 12.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8 |
+
+##### Scenario 12.1
+
+| UC12 - S12.1   | Scenario 12.1: Modifica Gateway (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo Admin o Operator; gateway esiste; dati validi |
+| Post-condition | Gateway è stato aggiornato |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _SYstem_: verifica uso `macAddress`; `macAddress` non è in uso |
+| 8              | _System_: aggiorna il Gateway __(Code 204)__ |
+
+##### Scenario 12.2
+
+| UC12 - S12.2   | Scenario 12.2: Modifica Gateway (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 12.3
+
+| UC12 - S12.3   | Scenario 12.3: Modifica Gateway (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 12.4
+
+| UC12 - S12.4   | Scenario 12.4: Modifica Gateway (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `networkCode` non corrisponde ad alcuna network esistente |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 12.5
+
+| UC12 - S12.5   | Scenario 12.5: Modifica Gateway (Gateway non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; macAddress non corrisponde ad alcun gateway esistente |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 12.6
+
+| UC12 - S12.6   | Scenario 12.6: Modifica Gateway (Input Invalido) |
+| :------------- | :----------------------------------------------- |
+| Pre-condition  | Utente autenticato con ruolo adeguato; gateway esistente |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
+
+##### Scenario 12.7
+
+| UC12 - S12.7   | Scenario 12.7: Modifica Gateway (macAddress già in uso) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; `macAddress` fornito è già usato da un altro gateway |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Gateway |
+| 2              | _System_: richiede `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode` e `gatewayMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _SYstem_: verifica uso `macAddress`; `macAddress` già in uso |
+| 8              | _System_: mostra messaggio di errore. macAddress già in uso __(Code 409)__ |
+
+##### Scenario 12.8
+
+| UC12- S12.8     | Scenario 12.8: Modifica Gateway (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Gateway non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_:  hiede di modificare un Gateway |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
+
+
+#### Use case 13 (UC13): Creazione Sensore
+
+| UC13             | Use Case 13: Creazione Sensore |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Utente autenticato con ruolo adeguato (Admin o Operator)   |
+| Post-condition   | Sensore creato |
+| Nominal Scenario | Scenario 13.1 |
+| Variants         | // |
+| Exceptions       | Scenario 13.2, 13.3, 13.4, 13.5, 13.6, 13.7, 13.8 |
+
+##### Scenario 13.1
+
+| UC13 - S13.1     | Scenario 13.1: Creazione Sensore (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | L'utente è autenticato e ha i permessi per creare un sensore |
+| Post-condition | Un nuovo sensore è stato creato nel sistema |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` trovato|
+| 5              | _System_: verifica esistenza `gatewayMac` ; `gatewayMac` trovato|
+| 6              | _System_: verifica uso `macAddress` ; `macAddress` non in uso|
+| 7			         | _System_: crea e memorizza nuovo Sensore __(Code 201)__ |
+
+##### Scenario 13.2
+
+| UC13 - S13.2     | Scenario 13.2: Creazione Sensore (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Admin o Operator) autenticato |
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
+
+##### Scenario 13.3
+
+| UC13 - S13.3   | Scenario 13.3: Creazione Sensore (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non autenticato |
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 13.4
+
+| UC13 - S13.4   | Scenario 13.4: Creazione Sensore (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`)|
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 13.5
+
+| UC13 - S13.5   | Scenario 13.5: Creazione Sensore (Network non trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` non trovato|
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 13.6
+
+| UC13 - S13.6   | Scenario 13.6: Creazione Sensore (Gateway non trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Gateway ricercato non esiste |
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` trovato|
+| 6              | _System_: verifica esistenza `gatewayMac` ; `gatewayMac` non trovato|
+| 7			         | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 13.7
+
+| UC13 - S13.7   | Scenario 13.7: Creazione Sensore (macAddress già in uso) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; macAddress già in uso |
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e {`macAddress`,`name`,`description`, `variable`,`unit`}|
+| 5              | _System_: verifica esistenza `networkCode` ; `networkCode` trovato|
+| 6              | _System_: verifica esistenza `gatewayMac` ; `gatewayMac` non trovato|
+| 7              | _System_: verifica uso `macAddress` ; `macAddress` già in uso|
+| 8			         | _System_: mostra messaggio di errore. MacAddress già in uso __(Code 409)__ |
+
+##### Scenario 13.8
+
+| UC13 - S13.8   | Scenario 13.8: Creazione Sensore (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Sensore non creato; mostrato messaggio d'errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+
+#### Use case 14 (UC14): Ottenimento Sensore
+
+| UC14             | Use Case 14: Ottenimento Sensore |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator \| Viewer |
+| Pre-condition    | //  |
+| Post-condition   | Informazioni di almeno un Sensore sono state ottenute |
+| Nominal Scenario | Scenario 14.1 |
+| Variants         | Scenario 14.2 |
+| Exceptions       | Scenario 14.3, 14.4, 14.5, 14.6, 14.7, 14.8, 14.9 |
+
+##### Scenario 14.1
+
+| UC14 - S14.1   | Scenario 14.1: Ottenimento Elenco Sensori (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco dei Sensori è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco dei Sensori per una Gateway|
+| 2              | _System_: richiede `networkCode` e `gatewayMac` del Gateway a cui appartiene il Sensore|
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` | 
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`. `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`. `gatewayMac` trovato |
+| 7              | _System_: restituisce l'elenco dei Sensori __(Code 200)__ |
+
+##### Scenario 14.2
+
+| UC14 - S14.2   | Scenario 14.2: Ottenimento Sensore Specifico (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Sensore ricercato esiste |
+| Post-condition | Informazioni sul Sensore ricercato sono state ottenute |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 8              | _System_: restituisce informazioni sul Sensore __(Code 200)__ |
+
+##### Scenario 14.3
+
+| UC14 - S14.3     | Scenario 14.3: Ottenimento Sensore (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere elenco o Sensore specifico |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 14.4
+
+| UC14 - S14.4   | Scenario 14.4: Ottenimento Sensore (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Nessuna informazione restituita; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere elenco o Sensore specifico |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+##### Scenario 14.5
+
+| UC14 - S14.5   | Scenario 14.5: Ottenimento Elenco Sensori (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco dei Sensori per una Gateway|
+| 2              | _System_: richiede `networkCode` e `gatewayMac` del Gateway a cui appartiene il Sensore|
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` | 
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`. `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 14.6
+
+| UC14 - S14.6   | Scenario 14.6: Ottenimento Sensore Specifico (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 14.7
+
+| UC14 - S14.7   | Scenario 14.7: Ottenimento Elenco Sensori (Gateway non trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Gateway non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco dei Sensori per una Gateway|
+| 2              | _System_: richiede `networkCode` e `gatewayMac` del Gateway a cui appartiene il Sensore|
+| 3              | _Utente_: fornisce `networkCode` e `gatewayMac` | 
+| 4              | _System_: legge `networkCode` e `gatewayMac` |
+| 5              | _System_: verifica esistenza `networkCode`. `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`. `gatewayMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 14.8
+
+| UC14 - S14.8   | Scenario 14.8: Ottenimento Sensore Specifico (Gateway non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Gateway non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 14.9
+
+| UC14 - S14.9   | Scenario 14.9: Ottenimento Sensore Specifico (Sensore non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Sensore non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` non trovato |
+| 8              | _System_: mostra messaggio di errore. Sensore non trovato __(Code 404)__ |
+
+
+#### Use Case 15 (UC15): Eliminazione Sensore
+
+| UC15             | Use Case 15: Eliminazione Sensore |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Sensore da eliminare esiste |
+| Post-condition   | Sensore è stato eliminato |
+| Nominal Scenario | Scenario 15.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 15.2, 15.3, 15.4, 15.5, 15.6, 15.7 |
+
+##### Scenario 15.1
+
+| UC15 - S15.1   | Scenario 15.1: Eliminazione Sensore (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo Admin o Operator; sensore esiste |
+| Post-condition | Sensore è stato eliminato |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 8              | _System_: elimina il Sensore __(Code 204)__ |
+
+##### Scenario 15.2
+
+| UC15 - S15.2   | Scenario 15.2: Eliminazione Sensore (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Sensore non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 15.3
+
+| UC15 - S15.3   | Scenario 15.3: Eliminazione Sensore (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
+| Post-condition | Sensore non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 15.4
+
+| UC15 - S15.4   | Scenario 15.4: Eliminazione Sensore (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `networkCode` non corrisponde ad alcuna network esistente |
+| Post-condition | Sensore non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 15.5
+
+| UC15 - S15.5   | Scenario 15.5: Eliminazione Sensore (Gateway non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `gatewayMac` non corrisponde ad alcun gateway esistente |
+| Post-condition | Sensore non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 15.6
+
+| UC15 - S15.6   | Scenario 15.6: Eliminazione Sensore (Sensore non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `sensorMac` non corrisponde ad alcun sensore esistente |
+| Post-condition | Sensore non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su Sensore Specifico |
+| 2              | _System_: richiede `networkCode`, `gatewayMac` e `sensorMac`|
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac` e `sensorMac`|
+| 4              | _System_: legge `networkCode`, `gatewayMac` e `sensorMac`|
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 7              | _System_: verifica esistenza `sensoreMac`; `sensorMac` non trovato |
+| 8              | _System_: mostra messaggio di errore. Sensore non trovato __(Code 404)__ |
+
+##### Scenario 15.7
+
+| UC15 - S15.7   | Scenario 15.7: Eliminazione Sensore (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Sensore non eliminato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di eliminare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+
+#### Use Case 16 (UC16): Modifica Sensore
+
+| UC16             | Use Case 16: Modifica Sensore|
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Sensore da modificare esiste |
+| Post-condition   | Sensore è stato aggiornato |
+| Nominal Scenario | Scenario 16.1 |
+| Variants         | // |
+| Exceptions       | Scenari: 16.2, 16.3, 16.4, 16.5, 16.6, 16.7, 16.8, 16.9 |
+
+##### Scenario 16.1
+
+| UC16 - S16.1   | Scenario 16.1: Modifica Sensore (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo Admin o Operator; gateway esiste; dati validi |
+| Post-condition | Sensore è stato aggiornato |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 8              | _SYstem_: verifica uso `macAddress`; `macAddress` non è in uso |
+| 9              | _System_: aggiorna il Sensore __(Code 204)__ |
+
+##### Scenario 16.2
+
+| UC16 - S16.2   | Scenario 12.2: Modifica Sensore (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 16.3
+
+| UC16 - S16.3   | Scenario 16.3: Modifica Sensore (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 16.4
+
+| UC16 - S16.4   | Scenario 16.4: Modifica Sensore (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `networkCode` non corrisponde ad alcuna network esistente |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 16.5
+
+| UC16 - S16.5   | Scenario 16.5: Modifica Sensore (Gateway non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `gatewayMac` non corrisponde ad alcun gateway esistente |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Gateway non trovato __(Code 404)__ |
+
+##### Scenario 16.6
+
+| UC16 - S16.6   | Scenario 16.6: Modifica Sensore (Sensore non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; `sensorMac` non corrisponde ad alcun sensore esistente |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 6              | _System_: verifica esistenza `sensorMac`; `sensorMac` non trovato |
+| 7              | _System_: mostra messaggio di errore. Sensore non trovato __(Code 404)__ |
+
+##### Scenario 16.7
+
+| UC16 - S16.7   | Scenario 16.7: Modifica Sensore (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato con ruolo adeguato; sensore esistente |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
+
+##### Scenario 16.8
+
+| UC16 - S16.8   | Scenario 16.8: Modifica Sensore (macAddress già in uso) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; `macAddress` fornito è già usato da un altro sensore |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: richiede `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 3              | _Utente_: fornisce `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 4              | _System_: legge `networkCode`, `gatewayMac`, `sensorMac` e {`macAddress`, `name`, `description`} da aggiornare |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 7              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 8              | _SYstem_: verifica uso `macAddress`; `macAddress` già in uso |
+| 9              | _System_: mostra messaggio di errore. MacAddress già in uso __(Code 409)__ |
+
+##### Scenario 16.9
+
+| UC16- S16.9    | Scenario 16.9: Modifica Sensore (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Sensore non modificato; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di modificare un Sensore |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
+
+
+#### Use Case 17 (UC17): Creazione Misurazione
+
+| UC17             | Use Case 17: Creazione Misurazione |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator |
+| Pre-condition    | Utente (Admin o Operator) è autenticato |
+| Post-condition   | Misurazione è creata |
+| Nominal Scenario | Scenario 17.1 |
+| Variants         | // |
+| Exceptions       | Scenario 17.2, 17.3, 17.4, 17.5, 17.6|
+
+##### Scenario 17.1
+
+| UC17 - S17.1   | Scenario 17.1: Creazione Misurazione (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Admin o Operator) autenticato |
+| Post-condition | Misurazione è creata |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare una misurazione | 
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 4              | _System_: legge `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 5              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 5              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 6              | _System_: crea e memorizza nuova Misurazione __(Code 201)__ |
+
+##### Scenario 17.2
+
+| UC17 - S17.2   | Scenario 17.2: Creazione Misurazione (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non autenticato |
+| Post-condition | Misurazione non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare una Misurazione |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 17.3
+
+| UC17 - S17.3   | Scenario 17.3: Creazione Misurazione (Permessi Insufficienti) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non ha Permessi sufficienti (inferiori a `Operator`) |
+| Post-condition | Misurazione non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare una Misurazione |
+| 2              | _System_: mostra messaggio di errore. Permessi insufficienti __(Code 403)__ |
+
+##### Scenario 17.4
+
+| UC17 - S17.4   | Scenario 17.4: Creazione Misurazione (Input Invalido) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente (Admin o Operator) autenticato |
+| Post-condition | Misurazione non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare una Misurazione |
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 3              | _Utente_: fornisce Input Invalido |
+| 4              | _System_: legge Input fornito |
+| 5              | _System_: mostra messaggio di errore. Input Invalido __(Code 400)__ |
+
+##### Scenario 17.5
+
+| UC17 - S17.5   | Scenario 17.5: Creazione Misurazione (Network/ Gateway/Sensore Non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network, Gateway o Sensore non esiste |
+| Post-condition | Misurazione non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare una Misurazione |
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 4              | _System_: legge `networkCode`,`gatewayMac`,`sensorMac` e {`createdAt`,`value`} |
+| 5              | _System_: verifica `networkCode`, `gatewayMac`, `sensorMac`; almeno uno non trovato |
+| 6              | _System_: mostra messaggio di errore. Risorsa non trovata __(Code 404)__ |
+
+##### Scenario 17.6
+
+| UC17 - S17.6   | Scenario 17.6: Creazione Misurazione (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Misurazione non creata; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di creare una Misurazione |
+| 2              | _System_: mostra messaggio di errore. Errore interno al Server __(Code 500)__ |
+
+
+#### Use Case 18 (UC18): Ottenimento Dati Sensori di Network Specifica
+
+| UC18             | Use Case 18: Ottenimento Dati Sensori di Network Specifica |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator \| Viewer |
+| Pre-condition    | // |
+| Post-condition   | Informazioni dati sensori di Network specifica sono state ottenute |
+| Nominal Scenario | Scenario 18.1 |
+| Variants         | Scenario 18.2, 18.3 |
+| Exceptions       | Scenario 18.4, 18.5, 18.6|
+
+##### Scenario 18.1
+
+| UC18 - S18.1     | Scenario 18.1: Ottenimento Misurazioni Sensori di Network Specifica (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco delle Misurazioni è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco delle Misurazioni |
+| 2              | _System_: richiede `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 3              | _Utente_: fornisce `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 4              | _System_: legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 6              | _System_: verifica formato `startDate` e  `endDate`; formato corretto |
+| 7              | _System_: restituisce misurazioni dati sensori di Network specifica __(Code 200)__ |
+
+##### Scenario 18.2
+
+| UC18 - S18.2   | Scenario 18.2: Ottenimento Statistiche Sensori di Network Specifica (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco delle Statistiche è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco delle Statistiche |
+| 2              | _System_: richiede `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 3              | _Utente_: fornisce `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 4              | _System_: legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 5              | _System_: verifica esistenza `networkCode`;  `networkCode` trovato |
+| 6              | _System_: verifica formato `startDate` e  `endDate`; formato corretto |
+| 7              | _System_: restituisce statistiche dati sensori di Network specifica __(Code 200)__ |
+
+##### Scenario 18.3
+
+| UC18 - S18.3   | Scenario 18.3: Ottenimento Outlier Sensori di Network Specifica (Successful)|
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco degli Outlier è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco degli Outlier |
+| 2              | _System_: richiede `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 3              | _Utente_: fornisce `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 4              | _System_: legge `networkCode`,`sensorMacs`,`startDate` e `endDate` |
+| 5              | _System_: verifica esistenza `networkCode`;  `networkCode` trovato |
+| 6              | _System_: verifica formato `startDate` e  `endDate`; formato corretto |
+| 7              | _System_: restituisce outlier dati sensori di Network specifica __(Code 200)__ |
+
+##### Scenario 18.4
+
+| UC18 - S18.4   | Scenario 18.4: Ottenimento Dati Sensori di Network Specifica (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni Dati Sensori |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 18.5
+
+| UC18 - S18.5   | Scenario 18.5: Ottenimento Dati Sensori di Network Specifica (Network non Trovata) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network ricercata non esiste |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su una Network specifica |
+| 2              | _System_: richiede `networkCode`della Network ricercata |
+| 3              | _Utente_: fornisce `networkCode` della Network ricercata |
+| 4              | _System_: legge `networkCode` fornito |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` non trovato |
+| 6              | _System_: mostra messaggio di errore. Network non trovata __(Code 404)__ |
+
+##### Scenario 18.6
+
+| UC18 - S18.6   | Scenario 18.6: Ottenimento Dati Sensori di Network Specifica (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni Dati Sensori di Network Specifica |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server __(Code 500)__ |
+
+
+#### Use Case 19 (UC19): Ottenimento Dati di Sensore Specifico
+
+| UC19             | Use Case 19: Ottenimento Dati di Sensore Specifico |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator \| Viewer |
+| Pre-condition    | //  |
+| Post-condition   | Informazioni dati di Sensore Specifico sono state ottenute |
+| Nominal Scenario | Scenario 19.1 |
+| Variants         | Scenario 19.2, 19.3 |
+| Exceptions       | Scenario 19.4, 19.5, 19.6|
+
+##### Scenario 19.1
+
+| UC19 - S19.1   | Scenario 19.1: Ottenimento Misurazioni di Sensore Specifico (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco delle Misurazioni è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco delle Misurazioni |
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 4              | _System_: legge `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 5              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 5              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 6              | _System_: verifica formato `startDate` e  `endDate`; formato corretto |
+| 7              | _System_: restituisce misurazioni dati di Sensore Specifico __(Code 200)__ |
+
+##### Scenario 19.2
+
+| UC19 - S19.2   | Scenario 19.2: Ottenimento Statistiche di Sensore Specifico (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco delle Statistiche è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco delle Statistiche |
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 4              | _System_: legge `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 5              | _System_: verifica esistenza `networkCode`; `networkCode` trovato |
+| 5              | _System_: verifica esistenza `gatewayMac`;  `gatewayMac` trovato |
+| 5              | _System_: verifica esistenza `sensorMac`; `sensorMac` trovato |
+| 6              | _System_: verifica formato `startDate` e  `endDate`; formato corretto |
+| 7              | _System_: restituisce statistiche dati di Sensore Specifico __(Code 200)__ |
+
+##### Scenario 19.3
+
+| UC19 - S19.3   | Scenario 19.3: Ottenimento Outlier di Sensore Specifico (Successful) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato |
+| Post-condition | Elenco degli Outlier è stato ottenuto |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere l'elenco degli Outlier |
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 4              | _System_: legge `networkCode`,`gatewayMac`,`sensorMac`,`startDate` e `endDate` |
+| 5              | _System_: verifica esistenza `networkCode`;  `networkCode` trovato |
+| 5              | _System_: verifica esistenza `gatewayMac`; `gatewayMac` trovato |
+| 5              | _System_: verifica esistenza `sensorMac`;  `sensorMac` trovato |
+| 6              | _System_: verifica formato `startDate` e  `endDate`; formato corretto |
+| 7              | _System_: restituisce Outlier dati di Sensore Specifico __(Code 200)__ |
+
+##### Scenario 19.4
+
+| UC19 - S19.4   | Scenario 19.4: Ottenimento Dati di Sensore Specifico (Non Autorizzato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente non è autenticato |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni Dati di Sensore Specifico |
+| 2              | _System_: mostra messaggio di errore. Non Autorizzato __(Code 401)__ |
+
+##### Scenario 19.5
+
+| UC19 - S19.5   | Scenario 19.5: Ottenimento Dati di Sensore Specifico (Network/Gateway/Sensore non Trovato) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Utente autenticato; Network, Gateway o Sensore non esiste |
+| Post-condition | Informazioni non Ottenute. Mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni su un Sensore Specifico |
+| 2              | _System_: richiede `networkCode`,`gatewayMac`,`sensorMac` |
+| 3              | _Utente_: fornisce `networkCode`,`gatewayMac`,`sensorMac` |
+| 4              | _System_: legge `networkCode`,`gatewayMac`,`sensorMac` forniti |
+| 5              | _System_: verifica `networkCode`,`gatewayMac`,`sensorMac`; almeno uno non trovato |
+| 6              | _System_: mostra messaggio di errore. Risorsa non trovata __(Code 404)__ |
+
+##### Scenario 19.6
+
+| UC19 - S19.6   | Scenario 19.6: Ottenimento Dati di Sensore Specifico (Errore Interno) |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | // |
+| Post-condition | Informazioni non Ottenute; mostrato messaggio di errore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di ottenere informazioni Dati di Sensore Specifico |
+| 2              | _System_: mostra messaggio di errore. Errore Interno al Server  __(Code 500)__ |
+
+
+#### Use Case 20 (UC20): Conversione Timestamp
+
+| UC20             | Use Case 20: Conversione Timestamp |
+| :--------------- | :--------------------------------- |
+| Actors Involved  | Admin \| Operator \| Viewer |
+| Pre-condition    | Almeno un dato con Timestamp è attualmente visualizzato |
+| Post-condition   | Timestamp è mostrato in Tempo Locale del Sensore |
+| Nominal Scenario | Scenario 20.1 |
+| Variants         | Scenario 20.2 |
+| Exceptions       | // |
+
+##### Scenario 20.1
+
+| UC20 - S20.1   | Scenario 20.1: Conversione Timestamp a Tempo Locale Sensore |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Dato con Timestamp è attualmente visualizzato in tempo UTC |
+| Post-condition | Timestamp è mostrato in Tempo Locale del Sensore |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di convertire i Timestamp a Tempo Locale dei Sensori |
+| 2              | _System_: converte i Timestamp a Tempo Locale dei Sensori |
+| 3              | _System_: mostra i Timestamp convertiti in Tempo Locale |
+
+##### Scenario 20.2
+
+| UC20 - S20.2   | Scenario 20.2: Riconversione Timestamp a Tempo UTC |
+| :------------- | :------------------------------------------------ |
+| Pre-condition  | Dato con Timestamp è attualmente visualizzato in Tempo Locale |
+| Post-condition | Timestamp è mostrato in Tempo UTC |
+| __Step#__      | <div align="center"> __Description__ </div> |
+| 1              | _Utente_: chiede di riconvertire i Timestamp a Tempo UTC dei Sensori |
+| 2              | _System_: riconverte i Timestamp a Tempo UTC dei Sensori |
+| 3              | _System_: mostra i Timestamp riconvertiti in Tempo UTC |
+
+
+
+## Glossary
+
+### Glossary Terms
+
+- __Utente__: è un attore del sistema, può essere un Admin, un Operator o un Viewer.<br> È identificato da uno `username` (a volte detto `userName`) e dettagliato con `password` e `type`.
+	- `username`: identificativo univoco di un `Utente`. [Lunghezza Minima: 1]
+	- `password`: utilizzata in combinazione con lo `username` per autenticare un `Utente` nel sistema (ricevendo un `Token`). [Lunghezza Minima: 5]
+	- `type`: è il tipo di `Utente`, definisce il ruolo dell'Utente e il livello di accesso alle funzionalità. Può essere:
+		- `admin`: identifica un `Utente` di tipo `Admin`.
+		- `operator`: identifica un `Utente` di tipo `Operator`.
+		- `viewer`: identifica un `Utente` di tipo `Viewer`.
+
+	- __Account__: è un Alias di `Utente`. È in pratica la rappresentazione in forma di dato di un Utente del sistema. Si definisce questo Alias per non confondersi tra il concetto di Utente come dato o classe del sistema (Utente, User) e il concetto di Utente come Attore, ovvero una persona fisica del mondo reale che interagisce con il sistema.
+
+	- __UtenteNonLoggato__: è un caso particolare di `Utente`, un tipo "speciale" di attore che viene considerato solo per il Caso d'Uso di Login al sistema. Al termine (con successo) di tale Caso d'Uso, tale attore speciale diventa un `Utente` (con `type`) come precedentemente definito.
+
+- __Admin__: è un Utente con accesso completo alle risorse e alle funzionalità. Può gestire completamente tutti i Network (e quindi tutti i Gateway e Sensori) e tutti gli Utenti (Account). 
+
+- __Operator__: è un Utente con accesso a tutte le funzionalità di gestione dei Network (e quindi di tutti i Gateway e Sensori) ma senza accesso alla gestione degli Utenti (Account).
+
+- __Viewer__: è un utente con accesso limitato al sistema. Può solo visualizzare i dati del sistema (tutti) ma non può modificarli. Non ha accesso alla visualizzazione e gestione degli Utenti (Account).
+
+- __Network__: raggruppamento Logico di `Gateway` (e corrispettivi `Sensori` associati). Non corrisponde a un device fisico ma è una entità software per organizzare e gestire gruppi di device. (Esempio: un singolo Network monitora un singolo comune o singolo edificio).<br> È identificato da un `code` (a volte detto `networkCode`) e dettagliato con `name` e `description`.
+	- `code`: identificativo univoco di un `Network`. [Alfanumerico, Lunghezza Minima: 1]
+	- `name`: nome del `Network`. [Nessun Formato Specificato]
+	- `description`: descrizione del `Network`. [Nessun Formato Specificato]
+
+- __Gateway__: device fisico dotato di una interfaccia di rete e connesso al GeoControl System tramite essa; è collegato a uno o più `Sensori` tramite una interfaccia seriale dalla quale riceve le informazioni delle `Misurazioni`. È in grado di eseguire la conversione digitale dei dati ottenuti dai `Sensori` e trasmetterli sulla rete.<br> È identificato da un `macAddess` (a volte detto `gatewayMac`) e dettagliato con `name` e `description`.
+	- `macAddress`: identificativo univoco di un `Gateway`. [Indirizzo MAC (standard Ethernet)]
+	- `name`: nome del `Gateway`. [Nessun Formato Specificato]
+	- `description`: descrizione del `Gateway`. [Nessun Formato Specificato] 
+
+- __Sensore__: device fisico che esegue le effettive misurazioni delle "quantità fisiche" (le misurazioni vengono eseguite ogni 10 minuti). Non dispone di una interfaccia di rete. È associato a un solo `Gateway` al quale è collegato mediante una connessione seriale. Oltre ai dati della misurazione, il `Sensore` invia anche il timestamp della misurazione nel Formato ISO 8601 nella timezone locale.<br> È identificato da un `macAddress` (a volte detto `sensorMac`) e dettagliato con `name`, `description`, `variable` (a volte detto `value`) e `unit`.
+	- `macAddress`: identificativo univoco di un `Sensore`. [Indirizzo MAC (standard Ethernet)]
+	- `name`: nome del `Sensore`. [Nessun Formato Specificato]
+	- `description`: descrizione del `Sensore`. [Nessun Formato Specificato]
+	- `variable`: misura del "dato fisico" misurato dal `Sensore`. [Nessun Formato Specificato]
+	- `unit`: unità di misura del valore `variable`. [Nessun Formato Specificato] 
+
+- __Misurazione__: è eseguita da un `Sensore`, collezionate dal `Gateway` corrispondente, inviata sul `Network` corrispondente e memorizzata dal GeoControl System.<br> Include `timestamp` (a volte detto `createdAt`), `value`, `isOutlier`.
+	- `timestamp`: momento in cui è stata eseguita la misurazione. È convertito dal sistema nella timezone UTC. [Formato ISO 8601]
+	- `value`: valore associato alla misurazione (ovvero valore della misura `variable` del `Sensore`). [Numero Reale]
+	- `isOutlier`: indica se il valore di `value` è fuori dalle threshold `upperThreshold` e `lowerThreshold`. A differenza degli altri attributi, non è un dato persistente. [Booleano]
+
+- __Statistiche di Misurazioni__: (o semplicemente __Statistiche__) è un insieme di valori calcolati rispetto a un insieme di `Misurazioni` identificate da un range temporale.<br> Include `startDate`, `endDate`, `mean`, `variance`, `upperThreshold` e `lowerThreshold`.
+	- `startDate`: timestamp di inizio del range temporale. [Formato ISO 8601]
+	- `endDate`: timestamp di fine del range temporale. [Formato ISO 8601]
+	- `mean`: Media delle misurazioni eseguite nel range temporale. Indicato con $\mu$. [Numero Reale]
+	- `variance`: Varianza delle misurazioni eseguite nel range temporale. Indicato con $\sigma$. [Numero Reale]
+	- `upperThreshold`: threshold superiore utilizzato per l'Outlier Detection. Calcolato tramite Media e varianza. [Numero Reale]
+		- `upperThreshold` $= \mu+2\sigma$.
+	- `lowerThreshold`: threshold inferiore utilizzato per l'Outlier Detection. Calcolato tramite Media e varianza. [Numero Reale]
+		- `lowerThreshold` $= \mu-2\sigma$.
+
+- __Misurazione Outlier__: (o semplicemente __Outlier__) è una `Misurazione` il cui valore `value` è più alto della `upperThreshold` o più basso della `lowerThreshold`. L'insieme delle `Misurazioni` Outlier è un sottoinsieme delle `Misurazioni`.
+
+- __Formato ISO 8601__: è uno standard internazionale per la rappresentazione di date e orari. Ha lo scopo di evitare ambiguità e confusione tra le varie rappresentazioni di date e orari.
+	- __Timezone UTC__: è la Timezone del Coordinated Universal Time (UTC), ovvero il fuso orario standard universale di riferimento. UTC non cambia con l'ora legale, quindi rimane costante durante tutto l'anno.
+
+### Glossary Diagram
+
+__NOTE su DIAGRAMMA__:<br>
+Si assume che questo Diagramma del Glossario non debba essere un vero e proprio UML Class Diagram. In pratica questo diagramma rappresenta concetti e relazioni piuttosto che classi. Si specifica questo in quanto sono state fatte delle scelte appartentemente ambigue.
+- Ovviamente non avrebbe senso rappresentare sia le classi dei Ruoli (Admin, Operator, Viewer) che avere l'attributo di tipo enum `type` in Utente (anzi non avrebbe proprio senso rappresentare Utente in primo luogo, in quanto Viewer è sufficiente). Lo si è fatto in modo da poter rappresentare esplicitamente le relazioni tra i singoli ruoli e le singole funzionalità.
+- Si è scelto di non rappresentare il concetto di "oggetto Misurazione e Statistiche" (ovvero quello che negli Schemas dello Swagger è definito come `Measurements`), in quanto non è qualcosa di tangile dal punto di vista concettuale ma è semplicemente un modo per raggruppare un singolo output.
+- La relazione tra `Operator` e `Misurazione` potrebbe essere omessa in quanto vi è un collegamento implicito tramite `Network`. In ogni caso su questo vi è ambiguità in quanto non è chiaro se le misurazioni siano inserite ogni 10 minuti al momento che il Sensore le produce o se un Operator debba inserirle manualmente. 
+
+#### Glossary Diagram - Draw.io
+
+![Glossary Diagram - Draw.io](./res/Glossary_Diagram.png)
+
+#### Glossary Diagram - PlantUML
+
+``` plantuml
+
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+
+abstract class Utente {
+  - username
+  - password
+  - type : enum {admin, operator, viewer}
+}
+
+class Admin {}
+class Operator {}
+class Viewer {}
+
+class Network {
+  - code
+  - name
+  - description
+}
+
+class Gateway {
+  - macAddress
+  - name
+  - description
+}
+
+class Sensore {
+  - macAddress
+  - name
+  - description
+  - variable
+  - unit
+}
+
+class Misurazione {
+ - timestamp
+ - valore
+ - isOutlier
+}
+
+class Statistiche {
+  - startDate
+  - endDate
+  - mean
+  - variance
+  - upperThreshold
+  - lowerThreshold
+}
+
+Utente <|-- Viewer
+Viewer <|-l- Operator
+Operator <|-l- Admin
+
+Operator -- Network : manages >
+Viewer -- Network : views >
+Viewer -- Misurazione : views >
+Viewer -- Statistiche : views >
+Operator -- Misurazione : inserts > 
+
+Network *-r- "*" Gateway
+Gateway *-r- "*" Sensore
+Sensore "1" --> "0..*" Misurazione : produces >
+
+Statistiche "*" -- "*" Misurazione : is computed from >
+Statistiche "*" -- "1" Sensore : is related >
+@enduml
+
+```
+
+
+## System Design
+
+__NOTE su DIAGRAMMA__:<br>
+- Vale anche qui la nota del Context Diagram.
+- Si assume che il "token-based authentication mechanism" non sia qualcosa di esterno, ma sia compreso nel sistema. Inoltre, viene considerato come un "modulo" o "componente" a se stante.
+
+### System Diagram - Draw.io
+
+![System Diagram - Draw.io](./res/System_Diagram.png)
+
+### System Diagram - PlantUML
+
+``` plantuml
+
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+
+
+class "GeoControl System" as GS {
+  F1 - Gestione Utente()
+  F2 - Gestione Networks()
+  F3 - Gestione Gateways()
+  F4 - Gestione Sensori()
+  F5 - Calcolo Statistiche su Misurazioni()
+  F6 - Gestione Misurazioni()
+  F7 - Gestione Timestamp()
+}
+
+class Network {}
+
+class AuthenticationUnit {
+  F1.1 - Autenticazione Utente()
+}
+
+Network "*" -u-o GS
+AuthenticationUnit "1" -u-o GS
+
+@enduml
+
+```
+
+
+## Deployment Diagram
+
+__NOTE su DIAGRAMMA__:<br>
+- Il diagramma PlantUML viene generato in modo atroce, non lo si consideri più di tanto.
+- Le due componenti "\<\<executionEnvironment>>" del Nodo Client sono da intendersi in alternativa. 
+
+### Deployment Diagram - Draw.io
+
+![Deployment Diagram - Draw.io](./res/Deployment_Diagram.png)
+
+### Deployment Diagram - PlantUML
+
+``` plantuml
+
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+
+
+node "Server" <<device>> as Server {
+    artifact "GeoControl System" <<artifact>> as GCS
+
+    database "GeoControl Database" as DB
+}
+
+node Gateway <<device>> {
+    component "Network Interface"
+}
+
+node Sensore <<device>>
+
+node Client <<device>> {
+    component Browser <<executionEnvironment>> as Browser {
+        artifact "Front-end WebApp" <<artifact>> as FE
+    }
+
+    component "Android/iOS" <<executionEnvironment>> as Mobile {
+        artifact "Mobile App" <<artifact>>
+    }
+
+}
+
+GCS -d- DB
+
+Server "1" -l- "*" Gateway: Internet Protocol (IP)
+Gateway "1" -d- "*" Sensore: Serial Connection
+Server "1" -r- "0..*" Client: HTTPS
+
+Browser -u[hidden]- Mobile
+@enduml
+
+```
