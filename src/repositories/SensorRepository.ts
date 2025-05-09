@@ -15,7 +15,7 @@ export class SensorRepository {
     return this.repo.find({ where: { gatewayMac } });
   }
 
-  async getSensorByMac(macAddress: string): Promise<SensorDAO> {
+  async getSensorByMac(macAddress: string): Promise<SensorDAO> { // definita async poichè deve aspettare un eventuale errore
     return findOrThrowNotFound(
         await this.repo.find({ where: { macAddress } }),
         () => true,
@@ -68,7 +68,7 @@ export class SensorRepository {
     if (sensorDTO.variable !== undefined) toUpdateSensor.variable = sensorDTO.variable;
     if (sensorDTO.unit !== undefined) toUpdateSensor.unit = sensorDTO.unit;
 
-    return await this.repo.save(toUpdateSensor);
+    return this.repo.save(toUpdateSensor);
   }
 
   async deleteSensor(macAddress: string): Promise<void> {

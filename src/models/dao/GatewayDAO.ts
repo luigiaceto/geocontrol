@@ -20,7 +20,7 @@ export class GatewayDAO {
     @ManyToOne(() => NetworkDAO, network => network.gateways, {
         onDelete: 'CASCADE', // Se un network viene eliminato, elimina anche i suoi gateway
         onUpdate: 'CASCADE', // Se il codice del network cambia, aggiorna anche il riferimento nei gateway
-      })
+    })
     @JoinColumn({ name: 'networkCode' }) // Specifica che networkCode è la colonna che contiene la foreign key
     network: NetworkDAO;
 

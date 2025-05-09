@@ -6,6 +6,7 @@ import { UserType } from "@models/UserType";
 import { SensorDAO } from "@models/dao/SensorDAO";
 import { Sensor as SensorDTO } from "@dto/Sensor";
 
+// ERROR
 export function createErrorDTO(
   code: number,
   message?: string,
@@ -18,6 +19,7 @@ export function createErrorDTO(
   }) as ErrorDTO;
 }
 
+// TOKEN
 export function createTokenDTO(token: string): TokenDTO {
   return removeNullAttributes({
     token: token

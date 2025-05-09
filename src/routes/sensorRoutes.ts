@@ -13,7 +13,7 @@ import { SensorFromJSON } from "@models/dto/Sensor";
 const router = Router({ mergeParams: true });
 
 // Get all sensors (Any authenticated user)
-router.get("", 
+router.get("", authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]),
 async (req, res, next) => {
   try {
     res.status(200).json(await getSensorsByGateway(req.params.networkCode, req.params.gatewayMac));
@@ -23,7 +23,7 @@ async (req, res, next) => {
 });
 
 // Create a new sensor (Admin & Operator)
-router.post("", authenticateUser([UserType.Admin, UserType.Operator]), 
+router.post("", authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]), 
 async (req, res, next) => {
   try {
     await createSensor(req.params.networkCode, req.params.gatewayMac, SensorFromJSON(req.body));
@@ -34,7 +34,7 @@ async (req, res, next) => {
 });
 
 // Get a specific sensor (Any authenticated user)
-router.get("/:sensorMac", 
+router.get("/:sensorMac", authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]),
 async (req, res, next) => {
   try {
     res.status(200).json(await getSensorByMac(req.params.networkCode, req.params.gatewayMac, req.params.sensorMac));
