@@ -3,6 +3,8 @@ import { User as UserDTO } from "@dto/User";
 import { UserDAO } from "@models/dao/UserDAO";
 import { ErrorDTO } from "@models/dto/ErrorDTO";
 import { UserType } from "@models/UserType";
+import { SensorDAO } from "@models/dao/SensorDAO";
+import { Sensor as SensorDTO } from "@dto/Sensor";
 
 export function createErrorDTO(
   code: number,
@@ -22,6 +24,7 @@ export function createTokenDTO(token: string): TokenDTO {
   }) as TokenDTO;
 }
 
+// USER
 export function createUserDTO(
   username: string,
   type: UserType,
@@ -37,6 +40,29 @@ export function createUserDTO(
 export function mapUserDAOToDTO(userDAO: UserDAO): UserDTO {
   return createUserDTO(userDAO.username, userDAO.type);
 }
+
+// SENSOR
+export function createSensorDTO(
+  macAddress: string,
+  name: string,
+  description: string,
+  variable: string,
+  unit: string
+): SensorDTO {
+  return removeNullAttributes({
+    macAddress,
+    name,
+    description,
+    variable,
+    unit
+  }) as SensorDTO;
+}
+
+export function mapSensorDAOToDTO(sensorDAO: SensorDAO): SensorDTO {
+  return createSensorDTO(sensorDAO.macAddress, sensorDAO.name, sensorDAO.description, sensorDAO.variable, sensorDAO.unit);
+}
+
+//
 
 function removeNullAttributes<T>(dto: T): Partial<T> {
   return Object.fromEntries(

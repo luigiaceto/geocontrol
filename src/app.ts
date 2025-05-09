@@ -29,5 +29,5 @@ app.use(CONFIG.ROUTES.V1_GATEWAYS, gatewayRouter);
 app.use(CONFIG.ROUTES.V1_SENSORS, sensorRouter);
 app.use(measurementRouter);
 
-//This must always be the last middleware added
+// This must always be the last middleware added
 app.use(errorHandler);
