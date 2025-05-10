@@ -13,7 +13,6 @@ export async function getNetwork(code: string): Promise<NetworkDTO> {
   return mapNetworkDAOToDTO(await networkRepo.getNetworkByCode(code));
 }
 
-
 export async function createNetwork(networkDto: NetworkDTO): Promise<void> {
   const networkRepo = new NetworkRepository();
   await networkRepo.createNetwork(networkDto.code, networkDto.name, networkDto.description);

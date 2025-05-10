@@ -58,7 +58,6 @@ export function createNetworkDTO(
   }) as NetworkDTO;
 }
 
-
 export function mapNetworkDAOToDTO(networkDAO: NetworkDAO): NetworkDTO {
   return createNetworkDTO(networkDAO.code, networkDAO.name, networkDAO.description, networkDAO.gateways);
 }

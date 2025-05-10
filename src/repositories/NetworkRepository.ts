@@ -1,10 +1,8 @@
 import { AppDataSource } from "@database";
 import { Repository } from "typeorm";
 import { NetworkDAO } from "@dao/NetworkDAO";
-import { UserType } from "@models/UserType";
 import { findOrThrowNotFound, throwConflictIfFound } from "@utils";
 import { Network as NetworkDTO } from "@dto/Network";
-
 
 export class NetworkRepository {
   private repo: Repository<NetworkDAO>;
@@ -18,33 +16,32 @@ export class NetworkRepository {
   }
 
   async getNetworkByCode(code: string): Promise<NetworkDAO> {
-      return findOrThrowNotFound(
-        await this.repo.find({ where: { code } }),
-        () => true,
-        `Network with code '${code}' not found`
-      );
-    }
-
+    return findOrThrowNotFound(
+      await this.repo.find({ where: { code } }),
+      () => true,
+      `Network with code '${code}' not found`
+    );
+  }
 
   async createNetwork(
-      code: string,
-      name: string,
-      description: string
-    ): Promise<NetworkDAO> {
-      throwConflictIfFound(
-        await this.repo.find({ where: { code } }),
-        () => true,
-        `Network with code '${code}' already exists`
-      );
+    code: string,
+    name: string,
+    description: string
+  ): Promise<NetworkDAO> {
+    throwConflictIfFound(
+      await this.repo.find({ where: { code } }),
+      () => true,
+      `Network with code '${code}' already exists`
+    );
   
-      return this.repo.save({
-        code: code,
-        name: name,
-        description: description
-      });
-    }
+    return this.repo.save({
+      code: code,
+      name: name,
+      description: description
+    });
+  }
 
-    async updateNetwork(
+  async updateNetwork(
     code: string,
     networkDTO: NetworkDTO
   ): Promise<NetworkDAO> {
@@ -63,14 +60,10 @@ export class NetworkRepository {
     if (networkDTO.name !== undefined) toUpdateNetwork.name = networkDTO.name;
     if (networkDTO.description !== undefined) toUpdateNetwork.description = networkDTO.description;
     
-
     return this.repo.save(toUpdateNetwork);
   }
 
-
-    async deleteNetwork(code: string): Promise<void> {
+  async deleteNetwork(code: string): Promise<void> {
     await this.repo.remove(await this.getNetworkByCode(code));
   }
-
-
 }

@@ -1,9 +1,16 @@
-import { Entity, PrimaryColumn, Column, OneToMany } from "typeorm";
+import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { GatewayDAO } from "./GatewayDAO";
 
 @Entity("networks")
 export class NetworkDAO {
-    @PrimaryColumn({ nullable: false })
+    // la chiave primaria è surrogata autoincrementata
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    // logicamente è la chiave primaria, dunque nelle 
+    // modifiche e negli inserimenti occorre controllare
+    // che non venga duplicata
+    @Column({ nullable: false })
     code: string;
 
     @Column({ nullable: false})
