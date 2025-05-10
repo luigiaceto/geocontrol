@@ -48,7 +48,7 @@ router.patch("/:sensorMac", authenticateUser([UserType.Admin, UserType.Operator]
 async (req, res, next) => {
   try {
     await updateSensor(req.params.networkCode, req.params.gatewayMac, req.params.sensorMac, SensorFromJSON(req.body));
-    res.status(201).send();
+    res.status(204).send();
   } catch (error) {
     next(error);
   }
