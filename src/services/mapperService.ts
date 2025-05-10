@@ -1,8 +1,11 @@
 import { Token as TokenDTO } from "@dto/Token";
 import { User as UserDTO } from "@dto/User";
+import { Network as NetworkDTO } from "@dto/Network";
 import { UserDAO } from "@models/dao/UserDAO";
+import { NetworkDAO } from "@models/dao/NetworkDAO";
 import { ErrorDTO } from "@models/dto/ErrorDTO";
 import { UserType } from "@models/UserType";
+import { Gateway } from "@models/dto/Gateway";
 
 export function createErrorDTO(
   code: number,
@@ -37,6 +40,29 @@ export function createUserDTO(
 export function mapUserDAOToDTO(userDAO: UserDAO): UserDTO {
   return createUserDTO(userDAO.username, userDAO.type);
 }
+
+
+
+//NETWORK
+export function createNetworkDTO(
+  code: string,
+  name: string,
+  description: string,
+  gateways: Gateway[],
+): NetworkDTO {
+  return removeNullAttributes({
+    code,
+    name,
+    description,
+    gateways
+  }) as NetworkDTO;
+}
+
+
+export function mapNetworkDAOToDTO(networkDAO: NetworkDAO): NetworkDTO {
+  return createNetworkDTO(networkDAO.code, networkDAO.name, networkDAO.description, networkDAO.gateways);
+}
+
 
 function removeNullAttributes<T>(dto: T): Partial<T> {
   return Object.fromEntries(
