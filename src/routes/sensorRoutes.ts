@@ -23,7 +23,7 @@ async (req, res, next) => {
 });
 
 // Create a new sensor (Admin & Operator)
-router.post("", authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]), 
+router.post("", authenticateUser([UserType.Admin, UserType.Operator]), 
 async (req, res, next) => {
   try {
     await createSensor(req.params.networkCode, req.params.gatewayMac, SensorFromJSON(req.body));
