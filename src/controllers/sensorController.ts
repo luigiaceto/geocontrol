@@ -1,0 +1,48 @@
+import { Sensor as SensorDTO } from "@dto/Sensor";
+import { SensorRepository, GatewayRepository, NetworkRepository } from "@repositories/SensorRepository";
+import { mapSensorDAOToDTO } from "@services/mapperService";
+
+export async function getSensorsByGateway(networkCode:string, gatewayMac: string): Promise<SensorDTO[]> {
+  const netoworkRepo = new NetworkRepository();
+  await netoworkRepo.getNetworkByCode(networkCode);
+  const gatewayRepo = new GatewayRepository();
+  const gatewayId = (await gatewayRepo.getGatewayByMac(gatewayMac)).id;
+  const sensorRepo = new SensorRepository();
+  return (await sensorRepo.getSensorsByGatewayId(gatewayId)).map(mapSensorDAOToDTO);
+}
+
+export async function createSensor(networkCode:string, gatewayMac: string, sensorDto: SensorDTO): Promise<void> {
+  const netoworkRepo = new NetworkRepository();
+  await netoworkRepo.getNetworkByCode(networkCode);
+  const gatewayRepo = new GatewayRepository();
+  const gatewayId = (await gatewayRepo.getGatewayByMac(gatewayMac)).id;
+  const sensorRepo = new SensorRepository();
+  await sensorRepo.createSensor(sensorDto.macAddress, sensorDto.name, sensorDto.description, sensorDto.variable, sensorDto.unit, gatewayId);
+}
+
+export async function getSensorByMac(networkCode:string, gatewayMac: string, sensorMac: string): Promise<SensorDTO> {
+  const netoworkRepo = new NetworkRepository();
+  await netoworkRepo.getNetworkByCode(networkCode);
+  const gatewayRepo = new GatewayRepository();
+  await gatewayRepo.getGatewayByMac(gatewayMac);
+  const sensorRepo = new SensorRepository();
+  return mapSensorDAOToDTO(await sensorRepo.getSensorByMac(sensorMac));
+}
+
+export async function updateSensor(networkCode:string, gatewayMac: string, sensorMac: string, sensorDTO: SensorDTO): Promise<void> {
+  const netoworkRepo = new NetworkRepository();
+  await netoworkRepo.getNetworkByCode(networkCode);
+  const gatewayRepo = new GatewayRepository();
+  await gatewayRepo.getGatewayByMac(gatewayMac);
+  const sensorRepo = new SensorRepository();
+  await sensorRepo.updateSensor(sensorMac, sensorDTO);
+}
+
+export async function deleteSensor(networkCode:string, gatewayMac: string, sensorMac: string): Promise<void> {
+  const netoworkRepo = new NetworkRepository();
+  await netoworkRepo.getNetworkByCode(networkCode);
+  const gatewayRepo = new GatewayRepository();
+  await gatewayRepo.getGatewayByMac(gatewayMac);
+  const sensorRepo = new SensorRepository();
+  await sensorRepo.deleteSensor(sensorMac);
+}

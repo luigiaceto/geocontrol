@@ -31,4 +31,5 @@ export class GatewayDAO {
         eager: true, // Carica automaticamente i sensori quando si carica un gateway
     })
     sensors: SensorDAO[];
+
 }

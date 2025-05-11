@@ -23,11 +23,12 @@ export class SensorDAO {
 
   // foreign key 
   @Column({ nullable: false })
-  gatewayId: string;
+  gatewayId: number;
 
   @ManyToOne(() => GatewayDAO, gateway => gateway.sensors, {
     onDelete: 'CASCADE'
   })
   @JoinColumn({ name: "gatewayId" })
   gateway: GatewayDAO;
+
 }

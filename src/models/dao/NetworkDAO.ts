@@ -1,4 +1,4 @@
-import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, PrimaryColumn, Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { GatewayDAO } from "./GatewayDAO";
 
 @Entity("networks")
@@ -24,4 +24,5 @@ export class NetworkDAO {
         eager: true,
     })
     gateways: GatewayDAO[];
+
 }
