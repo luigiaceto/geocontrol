@@ -1,9 +1,12 @@
-import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from "typeorm";
 import { GatewayDAO } from "./GatewayDAO";
 
 @Entity("sensors")
 export class SensorDAO {
-  @PrimaryColumn({ nullable: false })
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({ nullable: false })
   macAddress: string;
 
   @Column({ nullable: false })
@@ -20,12 +23,12 @@ export class SensorDAO {
 
   // foreign key 
   @Column({ nullable: false })
-  gatewayMac: string;
+  gatewayId: number;
 
   @ManyToOne(() => GatewayDAO, gateway => gateway.sensors, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+    onDelete: 'CASCADE'
   })
-  @JoinColumn({ name: "gatewayMac" }) // Collega gatewayMac alla primaryKey di Gateway
+  @JoinColumn({ name: "gatewayId" })
   gateway: GatewayDAO;
+
 }

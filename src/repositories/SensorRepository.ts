@@ -11,8 +11,8 @@ export class SensorRepository {
     this.repo = AppDataSource.getRepository(SensorDAO);
   }
 
-  getSensorsByGateway(gatewayMac: string): Promise<SensorDAO[]> {
-    return this.repo.find({ where: { gatewayMac } });
+  getSensorsByGatewayId(gatewayId: number): Promise<SensorDAO[]> {
+    return this.repo.find({ where: { gatewayId } });
   }
 
   async getSensorByMac(macAddress: string): Promise<SensorDAO> { // definita async poichè deve aspettare un eventuale errore
@@ -29,7 +29,7 @@ export class SensorRepository {
     description: string,
     variable: string,
     unit: string,
-    gatewayMac: string
+    gatewayId: number
   ): Promise<SensorDAO> {
     throwConflictIfFound(
       await this.repo.find({ where: { macAddress } }),
@@ -43,7 +43,7 @@ export class SensorRepository {
       description: description,
       variable: variable,
       unit: unit,
-      gatewayMac: gatewayMac
+      gatewayId: gatewayId
     });
   }
 
