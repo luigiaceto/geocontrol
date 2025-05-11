@@ -20,7 +20,7 @@ export class NetworkDAO {
     description: string;
 
     @OneToMany(() => GatewayDAO, gateway => gateway.network, {
-        cascade: true,
+        //cascade: true,
         eager: true,
     })
     gateways: GatewayDAO[];

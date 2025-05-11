@@ -1,7 +1,6 @@
 import { AppDataSource } from "@database";
 import { Repository } from "typeorm";
 import { GatewayDAO } from "@dao/GatewayDAO";
-import { NetworkRepository } from "./NetworkRepository";
 import { findOrThrowNotFound, throwConflictIfFound } from "@utils";
 import { Gateway as GatewayDTO } from "@dto/Gateway";
 
@@ -12,8 +11,8 @@ export class GatewayRepository {
     this.repo = AppDataSource.getRepository(GatewayDAO);
   }
     
-  getGatewaysByNetworkCode(networkCode: string): Promise<GatewayDAO[]> {
-    return this.repo.find({ where: { networkCode } });
+  getGatewaysByNetworkId(networkId: number): Promise<GatewayDAO[]> {
+    return this.repo.find({ where: { networkId } });
   }
 
   async getGatewayByMac(macAddress: string): Promise<GatewayDAO> { 
@@ -28,7 +27,7 @@ export class GatewayRepository {
     macAddress: string,
     name: string,
     description: string,
-    networkCode: string
+    networkId: number
   ): Promise<GatewayDAO> {
     throwConflictIfFound(
       await this.repo.find({ where: { macAddress } }),
@@ -40,7 +39,7 @@ export class GatewayRepository {
       macAddress: macAddress,
       name: name,
       description: description,
-      networkCode: networkCode
+      networkId: networkId
     });
   }
 
@@ -51,7 +50,7 @@ export class GatewayRepository {
     // N.B. il catch degli errori è già fatto a livello di routes
     let toUpdateGateway = await this.getGatewayByMac(macAddress);
 
-    if ( gatewayDTO.macAddress !== undefined && gatewayDTO.macAddress !== macAddress) {
+    if (gatewayDTO.macAddress !== undefined && gatewayDTO.macAddress !== macAddress) {
       throwConflictIfFound(
         await this.repo.find({ where: { macAddress: gatewayDTO.macAddress } }),
         () => true,
