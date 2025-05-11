@@ -5,7 +5,7 @@ import { NetworkDAO } from "./NetworkDAO";
 @Entity("gateways")
 export class GatewayDAO {
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column({ nullable: false })
     macAddress: string;
