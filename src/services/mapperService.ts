@@ -6,6 +6,7 @@ import { NetworkDAO } from "@models/dao/NetworkDAO";
 import { ErrorDTO } from "@models/dto/ErrorDTO";
 import { UserType } from "@models/UserType";
 import { Gateway } from "@models/dto/Gateway";
+import { Sensor } from "@models/dto/Sensor";
 
 export function createErrorDTO(
   code: number,
@@ -62,6 +63,26 @@ export function mapNetworkDAOToDTO(networkDAO: NetworkDAO): NetworkDTO {
   return createNetworkDTO(networkDAO.code, networkDAO.name, networkDAO.description, networkDAO.gateways);
 }
 
+//GATEWAY
+export function createGatewayDTO(
+  macAddress: string,
+  name: string,
+  description: string,
+  sensors: Sensor[],
+): Gateway {
+  return removeNullAttributes({
+    macAddress,
+    name,
+    description,
+    sensors
+  }) as Gateway;
+}
+
+export function mapGatewayDAOToDTO(gatewayDAO: Gateway): Gateway {
+  return createGatewayDTO(gatewayDAO.macAddress, gatewayDAO.name, gatewayDAO.description, gatewayDAO.sensors);
+}
+
+//SENSOR
 
 function removeNullAttributes<T>(dto: T): Partial<T> {
   return Object.fromEntries(
