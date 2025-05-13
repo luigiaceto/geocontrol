@@ -4,6 +4,7 @@ import { GatewayRepository } from "@repositories/GatewayRepository";
 import { NetworkRepository } from "@repositories/NetworkRepository";
 import { mapSensorDAOToDTO } from "@services/mapperService";
 
+// AGGIUNGERE CONTROLLO DI "sensore sta in quel gateway che sta in quel network"
 export async function getSensorsByGateway(networkCode:string, gatewayMac: string): Promise<SensorDTO[]> {
   const netoworkRepo = new NetworkRepository();
   await netoworkRepo.getNetworkByCode(networkCode);
