@@ -1,0 +1,40 @@
+stages:
+  - validate
+  - test
+
+build:
+  stage: validate
+  image: node:20
+  tags:
+    - geocontrol
+  before_script:
+    - npm ci
+  script:
+    - npm run build
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "delivery"'
+      when: always
+  allow_failure: false
+
+test-all:
+  stage: test
+  image: node:20
+  tags:
+    - geocontrol
+  before_script:
+    - npm ci
+  script:
+    - npm run test
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "delivery"'
+      when: always
+  artifacts:
+    when: always
+    reports:
+      junit: reports/junit/jest-results.xml
+    expire_in: 1 week
+  allow_failure: false
