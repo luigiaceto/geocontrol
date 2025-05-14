@@ -10,25 +10,22 @@ import { GatewayRepository } from "@repositories/GatewayRepository";
 import { Stats as StatsDTO } from "@models/dto/Stats";
 
 function computeMean(measurements: Array<MeasurementDAO>): number {
-  if (measurements.length === 0) return undefined;
+  if (measurements.length === 0) return 0;
   const somma = measurements.map(m => m.value).reduce((acc, val) => acc + val, 0);
   return somma / measurements.length;
 }
 
 function computeVariance(measurements: Array<MeasurementDAO>, mu: number): number {
-  if (measurements.length === 0) return undefined;
   if (measurements.length < 2) return 0;
   const sommaQuadrati = measurements.map(m => m.value).reduce((acc, val) => acc + Math.pow(val - mu, 2), 0);
   return sommaQuadrati / (measurements.length);
 }
 
 function computeUpperThreshold(mean: number, variance: number): number {
-  if (mean === undefined || variance === undefined) return undefined;
   return mean+2*variance;
 } 
 
 function computeLowerThreshold(mean: number, variance: number): number {
-  if (mean === undefined || variance === undefined) return undefined;
   return mean-2*variance;
 }
 
@@ -80,13 +77,13 @@ export async function getMeasurementsOfSensor(networkCode: string, gatewayMac: s
     const sensorId = (await sensorRepo.getSensorByMac(sensorMac)).id;
 
     const measurementRepo = new MeasurementRepository();
-    const measurements: Array<MeasurementDAO> = await measurementRepo.getMeasurementsBySensorId(
-        sensorId, 
-        startDate !== undefined ? parseISODateParamToUTC(startDate) : undefined, 
-        endDate !== undefined ? parseISODateParamToUTC(endDate) : undefined);
+    const startDate_as_Date = startDate !== undefined ? parseISODateParamToUTC(startDate) : undefined;
+    const endDate_as_Date = endDate !== undefined ? parseISODateParamToUTC(endDate) : undefined;
+    const measurements: Array<MeasurementDAO> = await measurementRepo.getMeasurementsBySensorId(sensorId, startDate_as_Date, endDate_as_Date);
     const mean = computeMean(measurements);
     const variance = computeVariance(measurements, mean);
-    return mapToMeasurementsDTO(sensorMac, startDate, endDate, mean, variance, computeLowerThreshold(mean, variance), computeLowerThreshold(mean, variance), measurements);
+
+    return mapToMeasurementsDTO(sensorMac, startDate_as_Date, endDate_as_Date, mean, variance, computeLowerThreshold(mean, variance), computeLowerThreshold(mean, variance), measurements);
 }
 
 export async function getStatsOfSensor(networkCode: string, gatewayMac: string, sensorMac: string, startDate: string, endDate: string): Promise<StatsDTO> {
@@ -98,12 +95,11 @@ export async function getStatsOfSensor(networkCode: string, gatewayMac: string, 
     const sensorId = (await sensorRepo.getSensorByMac(sensorMac)).id;
 
     const measurementRepo = new MeasurementRepository();
-    const measurements: Array<MeasurementDAO> = await measurementRepo.getMeasurementsBySensorId(
-        sensorId, 
-        startDate !== undefined ? parseISODateParamToUTC(startDate) : undefined, 
-        endDate !== undefined ? parseISODateParamToUTC(endDate) : undefined);
+    const startDate_as_Date = startDate !== undefined ? parseISODateParamToUTC(startDate) : undefined;
+    const endDate_as_Date = endDate !== undefined ? parseISODateParamToUTC(endDate) : undefined;
+    const measurements: Array<MeasurementDAO> = await measurementRepo.getMeasurementsBySensorId(sensorId, startDate_as_Date, endDate_as_Date);
     const mean = computeMean(measurements);
     const variance = computeVariance(measurements, mean);
-    // NEL CASO DI NESSUN MEASUREMENTS ???
-    return mapToStatsDTO(startDate, endDate, mean, variance, computeUpperThreshold(mean, variance), computeLowerThreshold(mean, variance));
+    
+    return mapToStatsDTO(startDate_as_Date, endDate_as_Date, mean, variance, computeUpperThreshold(mean, variance), computeLowerThreshold(mean, variance));
 }

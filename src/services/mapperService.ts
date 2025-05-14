@@ -150,14 +150,16 @@ export function createStatsDTO(
   }) as StatsDTO;
 }
 
+// se non ci sono misurazioni l'oggetto statsDTO restituito avrà tutti
+// i campi settati a 0.
 export function mapToStatsDTO(
-  startDate: string,
-  endDate: string,
+  startDate: Date,
+  endDate: Date,
   mean: number,
   variance: number,
   upperThreshold: number,
   lowerThreshold: number): StatsDTO {
-  return createStatsDTO(new Date(startDate), new Date(endDate), mean, variance, upperThreshold, lowerThreshold);
+  return createStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
 }
 
 // MEASUREMENTS
@@ -177,8 +179,8 @@ export function createMeasurementsDTO(
 // solo il campo required macAddress.
 export function mapToMeasurementsDTO(
   sensorMac: string,
-  startDate: string,
-  endDate: string,
+  startDate: Date,
+  endDate: Date,
   mean: number,
   variance: number,
   lowerThreshold: number,
