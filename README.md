@@ -65,6 +65,16 @@ To create the SQLite database file and add to it an admin user with credentials 
 npm run create-root
 ```
 
+#### Running Tests 
+
+To run the test, the command provided is:
+
+```sh
+npm test
+```
+
+which runs the test with coverage using Jest
+
 ### Windows Execution Policy Issue
 
 If you encounter an execution policy error like:
