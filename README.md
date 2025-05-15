@@ -65,7 +65,7 @@ To create the SQLite database file and add to it an admin user with credentials 
 npm run create-root
 ```
 
-#### Running Tests 
+#### Running Tests
 
 To run the test, the command provided is:
 
@@ -166,25 +166,31 @@ The project follows a **modular architecture**, ensuring maintainability, separa
   **Run the Docker Compose (from `/docker` folder):**
 
   ```bash
-  docker-compose up
+  docker compose up
+  ```
+
+  **Run the Docker Compose updating service images if newer versions exist:**
+
+  ```bash
+  docker compose up --pull always
   ```
 
   **Run the Docker Compose with automatic rebuild of the backend image:**
 
   ```bash
-  docker-compose up --build
+  docker compose up --build
   ```
 
   **Stop and remove containers:**
 
   ```bash
-  docker-compose down
+  docker compose down
   ```
 
   **Stop, remove containers and reset volumes (reset the DB):**
 
   ```bash
-  docker-compose down -v
+  docker compose down -v
   ```
 
 ### `/logs`
