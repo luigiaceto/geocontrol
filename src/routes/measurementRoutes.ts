@@ -3,19 +3,28 @@ import AppError from "@models/errors/AppError";
 import { Router } from "express";
 import { UserType } from "@models/UserType";
 import { authenticateUser } from "@middlewares/authMiddleware";
-import { 
-  getMeasurementsOfSensor
- } from "@controllers/measurementController";
+import { getMeasurementsOfSensor} from "@controllers/measurementController";
 import { getStatsOfSensor } from "@controllers/measurementController";
 import { getOutliersMeasurementsOfSensor } from "@controllers/measurementController";
+import {  Measurement,MeasurementFromJSON } from "@models/dto/Measurement";
+import { storeMeasurement } from "@controllers/measurementController";
 const router = Router();
 
 // Store a measurement for a sensor (Admin & Operator)
 router.post(
   CONFIG.ROUTES.V1_SENSORS + "/:sensorMac/measurements",
   authenticateUser([UserType.Admin, UserType.Operator]),
-  (req, res, next) => {
-    throw new AppError("Method not implemented", 500);
+  async (req, res, next) => {
+    try {
+        //questa riga solo per assicurare che req.body sia un array anche se è presente una sola misurazione
+        const body = Array.isArray(req.body) ? req.body : [req.body];
+        const measurements : Measurement[] = body.map((json: any) => MeasurementFromJSON(json));
+
+        await storeMeasurement(req.params.networkCode, req.params.gatewayMac, req.params.sensorMac, measurements);
+        res.status(201).send();
+      } catch (error) {
+        next(error);
+      }
   }
 );
 

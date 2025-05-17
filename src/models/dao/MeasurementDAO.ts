@@ -9,7 +9,7 @@ export class MeasurementDAO {
     @Column({ nullable: false, type: 'datetime' })
     createdAt: Date;
 
-    @Column({ nullable: false })
+    @Column({ nullable: false, type: 'float' })
     value: number;
 
     // foreign key

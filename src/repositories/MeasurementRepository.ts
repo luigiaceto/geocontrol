@@ -61,7 +61,7 @@ export class MeasurementRepository {
     return results.flat();
   }
 
-  async createMeasurement(
+  async storeMeasurement(
     createdAt: Date,
     value: number,
     sensorId: number
@@ -70,7 +70,8 @@ export class MeasurementRepository {
     return this.repo.save({
       createdAt: createdAt,
       value: value,
-      sensorsId: sensorId
+      sensorId: sensorId
     });
   }
+
 }

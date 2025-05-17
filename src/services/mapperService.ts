@@ -183,8 +183,8 @@ export function mapToMeasurementsDTO(
   endDate: Date,
   mean: number,
   variance: number,
-  lowerThreshold: number,
   upperThreshold: number,
+  lowerThreshold: number,
   measurements: MeasurementDAO[]
 ): MeasurementsDTO {
   let statsDTO = null;

@@ -8,6 +8,7 @@ import { MeasurementDAO } from "@models/dao/MeasurementDAO";
 import { SensorDAO } from "@models/dao/SensorDAO";
 import { GatewayRepository } from "@repositories/GatewayRepository";
 import { Stats as StatsDTO } from "@models/dto/Stats";
+import { Measurement } from "@models/dto/Measurement";
 
 function computeMean(measurements: Array<MeasurementDAO>): number {
   if (measurements.length === 0) return 0;
@@ -22,11 +23,13 @@ function computeVariance(measurements: Array<MeasurementDAO>, mu: number): numbe
 }
 
 function computeUpperThreshold(mean: number, variance: number): number {
-  return mean+2*variance;
+  const dev = Math.sqrt(variance);
+  return mean+2*dev;
 } 
 
 function computeLowerThreshold(mean: number, variance: number): number {
-  return mean-2*variance;
+  const dev = Math.sqrt(variance);
+  return mean-2*dev;
 }
 
 // - se è stato passato un array di sensorMac, ritorna i sensori che appartengono 
@@ -123,4 +126,19 @@ export async function getOutliersMeasurementsOfSensor(networkCode: string, gatew
     const outliers: Array<MeasurementDAO> = await measurementRepo.getOutliersMeasurementsBySensorId(sensorId, startDate_as_Date, endDate_as_Date, upperThreshold, lowerThreshold);
 
     return mapToMeasurementsDTO(sensorMac, startDate_as_Date, endDate_as_Date, mean, variance, upperThreshold, lowerThreshold, outliers);
+}
+
+export async function storeMeasurement(networkCode: string, gatewayMac: string, sensorMac: string, measurements: Measurement[]): Promise<void> {
+    const networkRepo = new NetworkRepository();
+    await networkRepo.getNetworkByCode(networkCode);
+    const gatewayRepo = new GatewayRepository();
+    await gatewayRepo.getGatewayByMac(gatewayMac);
+    const sensorRepo = new SensorRepository();
+    const sensorId = (await sensorRepo.getSensorByMac(sensorMac)).id;
+
+    const measurementRepo = new MeasurementRepository();
+
+    for (const m of measurements) {
+      await measurementRepo.storeMeasurement(m.createdAt, m.value, sensorId);
+    }
 }
