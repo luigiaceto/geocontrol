@@ -6,7 +6,8 @@ import { authenticateUser } from "@middlewares/authMiddleware";
 import { 
   getMeasurementsOfSensor
  } from "@controllers/measurementController";
-
+import { getStatsOfSensor } from "@controllers/measurementController";
+import { getOutliersMeasurementsOfSensor } from "@controllers/measurementController";
 const router = Router();
 
 // Store a measurement for a sensor (Admin & Operator)
@@ -40,15 +41,42 @@ router.get(
 );
 
 // Retrieve statistics for a specific sensor
-router.get(CONFIG.ROUTES.V1_SENSORS + "/:sensorMac/stats", (req, res, next) => {
-  throw new AppError("Method not implemented", 500);
+router.get(CONFIG.ROUTES.V1_SENSORS + "/:sensorMac/stats",
+  authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]),
+  async (req, res, next) => {
+    const startDate = req.query.startDate as string | undefined;
+    const endDate = req.query.endDate as string | undefined;
+    try {
+      res.status(200).json(await getStatsOfSensor(
+        req.params.networkCode,
+        req.params.gatewayMac,
+        req.params.sensorMac,
+        startDate,
+        endDate
+      ));
+    } catch (error) {
+      next(error);
+    }
 });
 
 // Retrieve only outliers for a specific sensor
 router.get(
   CONFIG.ROUTES.V1_SENSORS + "/:sensorMac/outliers",
-  (req, res, next) => {
-    throw new AppError("Method not implemented", 500);
+  authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]),
+  async (req, res, next) => {
+    const startDate = req.query.startDate as string | undefined;
+    const endDate = req.query.endDate as string | undefined;
+    try {
+      res.status(200).json(await getOutliersMeasurementsOfSensor(
+        req.params.networkCode,
+        req.params.gatewayMac,
+        req.params.sensorMac,
+        startDate,
+        endDate
+      ));
+    } catch (error) {
+      next(error);
+    }
   }
 );
 

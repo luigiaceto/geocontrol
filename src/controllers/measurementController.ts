@@ -69,8 +69,8 @@ export async function getMeasurementsOfNetwork(networkCode: string, sensorMacs: 
 }
 
 export async function getMeasurementsOfSensor(networkCode: string, gatewayMac: string, sensorMac: string, startDate: string, endDate: string): Promise<MeasurementsDTO> {
-    const netoworkRepo = new NetworkRepository();
-    await netoworkRepo.getNetworkByCode(networkCode);
+    const networkRepo = new NetworkRepository();
+    await networkRepo.getNetworkByCode(networkCode);
     const gatewayRepo = new GatewayRepository();
     await gatewayRepo.getGatewayByMac(gatewayMac);
     const sensorRepo = new SensorRepository();
@@ -83,12 +83,12 @@ export async function getMeasurementsOfSensor(networkCode: string, gatewayMac: s
     const mean = computeMean(measurements);
     const variance = computeVariance(measurements, mean);
 
-    return mapToMeasurementsDTO(sensorMac, startDate_as_Date, endDate_as_Date, mean, variance, computeLowerThreshold(mean, variance), computeLowerThreshold(mean, variance), measurements);
+    return mapToMeasurementsDTO(sensorMac, startDate_as_Date, endDate_as_Date, mean, variance, computeUpperThreshold(mean, variance), computeLowerThreshold(mean, variance), measurements);
 }
 
 export async function getStatsOfSensor(networkCode: string, gatewayMac: string, sensorMac: string, startDate: string, endDate: string): Promise<StatsDTO> {
-    const netoworkRepo = new NetworkRepository();
-    await netoworkRepo.getNetworkByCode(networkCode);
+    const networkRepo = new NetworkRepository();
+    await networkRepo.getNetworkByCode(networkCode);
     const gatewayRepo = new GatewayRepository();
     await gatewayRepo.getGatewayByMac(gatewayMac);
     const sensorRepo = new SensorRepository();
@@ -102,4 +102,25 @@ export async function getStatsOfSensor(networkCode: string, gatewayMac: string, 
     const variance = computeVariance(measurements, mean);
     
     return mapToStatsDTO(startDate_as_Date, endDate_as_Date, mean, variance, computeUpperThreshold(mean, variance), computeLowerThreshold(mean, variance));
+}
+
+export async function getOutliersMeasurementsOfSensor(networkCode: string, gatewayMac: string, sensorMac: string, startDate: string, endDate: string): Promise<MeasurementsDTO> {
+    const networkRepo = new NetworkRepository();
+    await networkRepo.getNetworkByCode(networkCode);
+    const gatewayRepo = new GatewayRepository();
+    await gatewayRepo.getGatewayByMac(gatewayMac);
+    const sensorRepo = new SensorRepository();
+    const sensorId = (await sensorRepo.getSensorByMac(sensorMac)).id;
+
+    const measurementRepo = new MeasurementRepository();
+    const startDate_as_Date = startDate !== undefined ? parseISODateParamToUTC(startDate) : undefined;
+    const endDate_as_Date = endDate !== undefined ? parseISODateParamToUTC(endDate) : undefined;
+    const measurements: Array<MeasurementDAO> = await measurementRepo.getMeasurementsBySensorId(sensorId, startDate_as_Date, endDate_as_Date );
+    const mean = computeMean(measurements);
+    const variance = computeVariance(measurements, mean);
+    const upperThreshold = computeUpperThreshold(mean, variance);
+    const lowerThreshold =  computeLowerThreshold(mean, variance)
+    const outliers: Array<MeasurementDAO> = await measurementRepo.getOutliersMeasurementsBySensorId(sensorId, startDate_as_Date, endDate_as_Date, upperThreshold, lowerThreshold);
+
+    return mapToMeasurementsDTO(sensorMac, startDate_as_Date, endDate_as_Date, mean, variance, upperThreshold, lowerThreshold, outliers);
 }
