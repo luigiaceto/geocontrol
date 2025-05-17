@@ -6,7 +6,7 @@ import { authenticateUser } from "@middlewares/authMiddleware";
 import { getMeasurementsOfSensor} from "@controllers/measurementController";
 import { getStatsOfSensor } from "@controllers/measurementController";
 import { getOutliersMeasurementsOfSensor } from "@controllers/measurementController";
-import {  Measurement,MeasurementFromJSON } from "@models/dto/Measurement";
+import {  Measurement as MeasurementDTO, MeasurementFromJSON } from "@models/dto/Measurement";
 import { storeMeasurement } from "@controllers/measurementController";
 const router = Router();
 
@@ -18,7 +18,7 @@ router.post(
     try {
         //questa riga solo per assicurare che req.body sia un array anche se è presente una sola misurazione
         const body = Array.isArray(req.body) ? req.body : [req.body];
-        const measurements : Measurement[] = body.map((json: any) => MeasurementFromJSON(json));
+        const measurements : MeasurementDTO[] = body.map((json: any) => MeasurementFromJSON(json));
 
         await storeMeasurement(req.params.networkCode, req.params.gatewayMac, req.params.sensorMac, measurements);
         res.status(201).send();

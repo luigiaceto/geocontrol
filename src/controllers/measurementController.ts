@@ -1,6 +1,6 @@
 import { Measurements as MeasurementsDTO } from "@dto/Measurements";
 import { MeasurementRepository } from "@repositories/MeasurementRepository";
-import { mapNetworkDAOToDTO, mapToMeasurementsDTO, mapToStatsDTO } from "@services/mapperService";
+import { mapToMeasurementsDTO, mapToStatsDTO } from "@services/mapperService";
 import { NetworkRepository } from "@repositories/NetworkRepository";
 import { SensorRepository } from "@repositories/SensorRepository";
 import { parseISODateParamToUTC } from "@utils";
@@ -8,7 +8,7 @@ import { MeasurementDAO } from "@models/dao/MeasurementDAO";
 import { SensorDAO } from "@models/dao/SensorDAO";
 import { GatewayRepository } from "@repositories/GatewayRepository";
 import { Stats as StatsDTO } from "@models/dto/Stats";
-import { Measurement } from "@models/dto/Measurement";
+import { Measurement as MeasurementDTO } from "@models/dto/Measurement";
 
 function computeMean(measurements: Array<MeasurementDAO>): number {
   if (measurements.length === 0) return 0;
@@ -128,7 +128,7 @@ export async function getOutliersMeasurementsOfSensor(networkCode: string, gatew
     return mapToMeasurementsDTO(sensorMac, startDate_as_Date, endDate_as_Date, mean, variance, upperThreshold, lowerThreshold, outliers);
 }
 
-export async function storeMeasurement(networkCode: string, gatewayMac: string, sensorMac: string, measurements: Measurement[]): Promise<void> {
+export async function storeMeasurement(networkCode: string, gatewayMac: string, sensorMac: string, measurements: MeasurementDTO[]): Promise<void> {
     const networkRepo = new NetworkRepository();
     await networkRepo.getNetworkByCode(networkCode);
     const gatewayRepo = new GatewayRepository();
@@ -138,7 +138,7 @@ export async function storeMeasurement(networkCode: string, gatewayMac: string, 
 
     const measurementRepo = new MeasurementRepository();
 
-    for (const m of measurements) {
+    for (let m of measurements) {
       await measurementRepo.storeMeasurement(m.createdAt, m.value, sensorId);
     }
 }
