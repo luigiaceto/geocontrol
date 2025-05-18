@@ -96,33 +96,6 @@ router.get(
 router.get(
   CONFIG.ROUTES.V1_NETWORKS + "/:networkCode/measurements",
   authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]),
-  (req, res, next) => {
-
-
-    throw new AppError("Method not implemented", 500);
-  }
-);
-
-// Retrieve statistics for a set of sensors of a specific network
-router.get(
-  CONFIG.ROUTES.V1_NETWORKS + "/:networkCode/stats",
-  (req, res, next) => {
-    throw new AppError("Method not implemented", 500);
-  }
-);
-
-// Retrieve only outliers for a set of sensors of a specific network
-router.get(
-  CONFIG.ROUTES.V1_NETWORKS + "/:networkCode/outliers",
-  (req, res, next) => {
-    throw new AppError("Method not implemented", 500);
-  }
-);
-
-// Retrieve measurements for a set of sensors of a specific network
-router.get(
-  CONFIG.ROUTES.V1_NETWORKS + "/:networkCode/measurements",
-  authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]),
   async (req, res, next) => {
     try {
       const startDate = req.query.startDate as string | undefined;
