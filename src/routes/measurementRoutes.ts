@@ -102,7 +102,11 @@ router.get(
       const endDate = req.query.endDate as string | undefined;
       const sensorMacs = req.query.sensorMacs ? (req.query.sensorMacs as string).split(',') : undefined;
 
-      const data = await getMeasurementsOfNetwork(req.params.networkCode, sensorMacs, startDate, endDate);
+      const data = await getMeasurementsOfNetwork(
+        req.params.networkCode, 
+        sensorMacs, 
+        startDate, 
+        endDate);
       res.status(200).json(data);
     } catch (error) {
       next(error);
@@ -138,7 +142,11 @@ router.get(
       const endDate = req.query.endDate as string | undefined;
       const sensorMacs = req.query.sensorMacs ? (req.query.sensorMacs as string).split(',') : undefined;
 
-      const data = await getOutliersMeasurementsOfNetwork(req.params.networkCode, sensorMacs, startDate, endDate);
+      const data = await getOutliersMeasurementsOfNetwork(
+        req.params.networkCode, 
+        sensorMacs, 
+        startDate, 
+        endDate);
       res.status(200).json(data);
     } catch (error) {
       next(error);

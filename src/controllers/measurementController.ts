@@ -36,26 +36,30 @@ function computeLowerThreshold(mean: number, variance: number): number {
 //   effettivamente al network
 // - se non è stato passato un array di sensorMac, ritorna tutti i sensori del
 //   network
-async function verifySensors(code: string, sensorMacs: Array<string>): Promise<SensorDAO[]> {
+async function verifySensors(code: string, sensorMacs?: Array<string>): Promise<SensorDAO[]> {
   const networkRepo = new NetworkRepository();
   const network = await networkRepo.getNetworkByCode(code);
   const networkGateways = network.gateways;
   const sensorRepo = new SensorRepository();
-  let validSensors = []
 
-  if (sensorMacs === undefined) {
-    let sensor = null;
-    for (let sensorMac in sensorMacs) {
-        sensor = await sensorRepo.getSensorByMac(sensorMac);
-        if (networkGateways.includes(sensor.gateway)) {
-            validSensors.push(sensor);
-        }
-    }
-  } else {
-    validSensors = networkGateways.map(gw => gw.sensors).flat();
+  // Tutti i sensori di tutti i gateway
+  const allSensors = networkGateways.flatMap(gw => gw.sensors);
+
+  if (!sensorMacs || sensorMacs.length === 0) {
+    return allSensors;
   }
+
+  const validSensors = [];
+  for (const mac of sensorMacs) {
+    const sensor = await sensorRepo.getSensorByMac(mac);
+    if (sensor && allSensors.some(s => s.id === sensor.id)) {
+      validSensors.push(sensor);
+    }
+  }
+
   return validSensors;
 }
+
 
 export async function getMeasurementsOfNetwork(networkCode: string, sensorMacs: Array<string>, startDate: string, endDate: string): Promise<MeasurementsDTO[]> {
   const sensors = await verifySensors(networkCode, sensorMacs);
