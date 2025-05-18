@@ -58,18 +58,66 @@ async function verifySensors(code: string, sensorMacs: Array<string>): Promise<S
 }
 
 export async function getMeasurementsOfNetwork(networkCode: string, sensorMacs: Array<string>, startDate: string, endDate: string): Promise<MeasurementsDTO[]> {
-  let sensorsId = await verifySensors(networkCode, sensorMacs);
-
-  if (sensorsId.length === 0) {
-    return [];
-  }
+  const sensors = await verifySensors(networkCode, sensorMacs);
+  if (sensors.length === 0) return [];
 
   const measurementRepo = new MeasurementRepository();
+  const startDate_as_Date = startDate ? parseISODateParamToUTC(startDate) : undefined;
+  const endDate_as_Date = endDate ? parseISODateParamToUTC(endDate) : undefined;
 
-  // DA COMPLETARE
-
-  return ;
+  const results: MeasurementsDTO[] = [];
+  for (const sensor of sensors) {
+    const measurements = await measurementRepo.getMeasurementsBySensorId(sensor.id, startDate_as_Date, endDate_as_Date);
+    const mean = computeMean(measurements);
+    const variance = computeVariance(measurements, mean);
+    results.push(mapToMeasurementsDTO(sensor.macAddress, startDate_as_Date, endDate_as_Date, mean, variance, computeUpperThreshold(mean, variance), computeLowerThreshold(mean, variance), measurements));
+  }
+  return results;
 }
+
+export async function getStatsOfNetwork(networkCode: string, sensorMacs: Array<string>, startDate: string, endDate: string): Promise<StatsDTO> {
+  const sensors = await verifySensors(networkCode, sensorMacs);
+  if (sensors.length === 0) return mapToStatsDTO(undefined, undefined, 0, 0, 0, 0);
+
+  const measurementRepo = new MeasurementRepository();
+  const startDate_as_Date = startDate ? parseISODateParamToUTC(startDate) : undefined;
+  const endDate_as_Date = endDate ? parseISODateParamToUTC(endDate) : undefined;
+
+  let allMeasurements: MeasurementDAO[] = [];
+  for (const sensor of sensors) {
+    const measurements = await measurementRepo.getMeasurementsBySensorId(sensor.id, startDate_as_Date, endDate_as_Date);
+    allMeasurements.push(...measurements);
+  }
+
+  const mean = computeMean(allMeasurements);
+  const variance = computeVariance(allMeasurements, mean);
+  return mapToStatsDTO(startDate_as_Date, endDate_as_Date, mean, variance, computeUpperThreshold(mean, variance), computeLowerThreshold(mean, variance));
+}
+
+export async function getOutliersMeasurementsOfNetwork(networkCode: string, sensorMacs: Array<string>, startDate: string, endDate: string): Promise<MeasurementsDTO[]> {
+  const sensors = await verifySensors(networkCode, sensorMacs);
+  if (sensors.length === 0) return [];
+
+  const measurementRepo = new MeasurementRepository();
+  const startDate_as_Date = startDate ? parseISODateParamToUTC(startDate) : undefined;
+  const endDate_as_Date = endDate ? parseISODateParamToUTC(endDate) : undefined;
+
+  const results: MeasurementsDTO[] = [];
+
+  for (const sensor of sensors) {
+    const measurements = await measurementRepo.getMeasurementsBySensorId(sensor.id, startDate_as_Date, endDate_as_Date);
+    const mean = computeMean(measurements);
+    const variance = computeVariance(measurements, mean);
+    const upperThreshold = computeUpperThreshold(mean, variance);
+    const lowerThreshold = computeLowerThreshold(mean, variance);
+    const outliers = await measurementRepo.getOutliersMeasurementsBySensorId(sensor.id, startDate_as_Date, endDate_as_Date, upperThreshold, lowerThreshold);
+    
+    results.push(mapToMeasurementsDTO(sensor.macAddress, startDate_as_Date, endDate_as_Date, mean, variance, upperThreshold, lowerThreshold, outliers));
+  }
+
+  return results;
+}
+
 
 export async function getMeasurementsOfSensor(networkCode: string, gatewayMac: string, sensorMac: string, startDate: string, endDate: string): Promise<MeasurementsDTO> {
     const networkRepo = new NetworkRepository();

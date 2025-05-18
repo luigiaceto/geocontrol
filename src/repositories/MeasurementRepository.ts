@@ -55,14 +55,6 @@ export class MeasurementRepository {
     });
   }
 
-  async getMeasurementsBySensorsId(sensorsId: Array<number>, start: Date, end: Date): Promise<MeasurementDAO[]> {
-    /* probabilmente sbagliata
-    const promises = sensorsId.map(id => this.getMeasurementsBySensorId(id, start, end));
-    const results = await Promise.all(promises);
-    return results.flat();
-    */
-  }
-
   async storeMeasurement(
     createdAt: Date,
     value: number,

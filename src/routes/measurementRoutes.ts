@@ -6,6 +6,9 @@ import { authenticateUser } from "@middlewares/authMiddleware";
 import { getMeasurementsOfSensor} from "@controllers/measurementController";
 import { getStatsOfSensor } from "@controllers/measurementController";
 import { getOutliersMeasurementsOfSensor } from "@controllers/measurementController";
+import { getMeasurementsOfNetwork } from "@controllers/measurementController";
+import { getStatsOfNetwork } from "@controllers/measurementController";
+import { getOutliersMeasurementsOfNetwork } from "@controllers/measurementController";
 import {  Measurement as MeasurementDTO, MeasurementFromJSON } from "@models/dto/Measurement";
 import { storeMeasurement } from "@controllers/measurementController";
 const router = Router();
@@ -115,5 +118,60 @@ router.get(
     throw new AppError("Method not implemented", 500);
   }
 );
+
+// Retrieve measurements for a set of sensors of a specific network
+router.get(
+  CONFIG.ROUTES.V1_NETWORKS + "/:networkCode/measurements",
+  authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]),
+  async (req, res, next) => {
+    try {
+      const startDate = req.query.startDate as string | undefined;
+      const endDate = req.query.endDate as string | undefined;
+      const sensorMacs = req.query.sensorMacs ? (req.query.sensorMacs as string).split(',') : undefined;
+
+      const data = await getMeasurementsOfNetwork(req.params.networkCode, sensorMacs, startDate, endDate);
+      res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Retrieve statistics for a set of sensors of a specific network
+router.get(
+  CONFIG.ROUTES.V1_NETWORKS + "/:networkCode/stats",
+  authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]),
+  async (req, res, next) => {
+    try {
+      const startDate = req.query.startDate as string | undefined;
+      const endDate = req.query.endDate as string | undefined;
+      const sensorMacs = req.query.sensorMacs ? (req.query.sensorMacs as string).split(',') : undefined;
+
+      const data = await getStatsOfNetwork(req.params.networkCode, sensorMacs, startDate, endDate);
+      res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Retrieve only outliers for a set of sensors of a specific network
+router.get(
+  CONFIG.ROUTES.V1_NETWORKS + "/:networkCode/outliers",
+  authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]),
+  async (req, res, next) => {
+    try {
+      const startDate = req.query.startDate as string | undefined;
+      const endDate = req.query.endDate as string | undefined;
+      const sensorMacs = req.query.sensorMacs ? (req.query.sensorMacs as string).split(',') : undefined;
+
+      const data = await getOutliersMeasurementsOfNetwork(req.params.networkCode, sensorMacs, startDate, endDate);
+      res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 
 export default router;
