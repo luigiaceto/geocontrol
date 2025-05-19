@@ -11,6 +11,7 @@ import { getStatsOfNetwork } from "@controllers/measurementController";
 import { getOutliersMeasurementsOfNetwork } from "@controllers/measurementController";
 import {  Measurement as MeasurementDTO, MeasurementFromJSON } from "@models/dto/Measurement";
 import { storeMeasurement } from "@controllers/measurementController";
+import { parseStringArrayParam } from "@utils";
 const router = Router();
 
 // Store a measurement for a sensor (Admin & Operator)
@@ -100,7 +101,7 @@ router.get(
     try {
       const startDate = req.query.startDate as string | undefined;
       const endDate = req.query.endDate as string | undefined;
-      const sensorMacs = req.query.sensorMacs ? (req.query.sensorMacs as string).split(',') : undefined;
+      const sensorMacs = req.query.sensorMacs ? parseStringArrayParam(req.query.sensorMacs) : undefined;
 
       const data = await getMeasurementsOfNetwork(
         req.params.networkCode, 
@@ -122,7 +123,7 @@ router.get(
     try {
       const startDate = req.query.startDate as string | undefined;
       const endDate = req.query.endDate as string | undefined;
-      const sensorMacs = req.query.sensorMacs ? (req.query.sensorMacs as string).split(',') : undefined;
+      const sensorMacs = req.query.sensorMacs ? parseStringArrayParam(req.query.sensorMacs) : undefined;
 
       const data = await getStatsOfNetwork(req.params.networkCode, sensorMacs, startDate, endDate);
       res.status(200).json(data);
@@ -140,7 +141,7 @@ router.get(
     try {
       const startDate = req.query.startDate as string | undefined;
       const endDate = req.query.endDate as string | undefined;
-      const sensorMacs = req.query.sensorMacs ? (req.query.sensorMacs as string).split(',') : undefined;
+      const sensorMacs = req.query.sensorMacs ? parseStringArrayParam(req.query.sensorMacs) : undefined;
 
       const data = await getOutliersMeasurementsOfNetwork(
         req.params.networkCode, 
