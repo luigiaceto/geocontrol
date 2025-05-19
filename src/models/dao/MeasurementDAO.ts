@@ -17,8 +17,8 @@ export class MeasurementDAO {
     sensorId: number;
 
     @ManyToOne(() => SensorDAO, sensor => sensor.measurements, {
-        onDelete: 'CASCADE', // Se un network viene eliminato, elimina anche i suoi gateway
+        onDelete: 'CASCADE',
     })
-    @JoinColumn({ name: 'sensorId' }) // Specifica che networkId è la colonna che contiene la foreign key (pk di network)
+    @JoinColumn({ name: 'sensorId' })
     sensor: SensorDAO;
 }

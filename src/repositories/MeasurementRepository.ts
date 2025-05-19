@@ -1,5 +1,5 @@
 import { AppDataSource } from "@database";
-import { Between, LessThanOrEqual, MoreThanOrEqual, Repository, LessThan, MoreThan } from "typeorm";
+import { Between, LessThanOrEqual, MoreThanOrEqual, Repository } from "typeorm";
 import { MeasurementDAO } from "@models/dao/MeasurementDAO";
 
 export class MeasurementRepository {
@@ -34,27 +34,6 @@ export class MeasurementRepository {
      }});
   }
 
-  //ritorna solo i valori anomali, cioè quando variabile isOutlier è true
-  getOutliersMeasurementsBySensorId(sensorId: number, start: Date, end: Date, upperThreshold: number, lowerThreshold: number): Promise<MeasurementDAO[]> {
-    const baseTimeCondition: any = { sensorId };
-
-    if (start && end) {
-      baseTimeCondition.createdAt = Between(start, end);
-    } else if (start) {
-      baseTimeCondition.createdAt = MoreThanOrEqual(start);
-    } else if (end) {
-      baseTimeCondition.createdAt = LessThanOrEqual(end);
-    }
-
-    // Valori fuori soglia: < lower OR > upper
-    return this.repo.find({
-      where: [
-        { ...baseTimeCondition, value: LessThan(lowerThreshold) },
-        { ...baseTimeCondition, value: MoreThan(upperThreshold) }
-      ]
-    });
-  }
-
   async storeMeasurement(
     createdAt: Date,
     value: number,
@@ -67,5 +46,4 @@ export class MeasurementRepository {
       sensorId: sensorId
     });
   }
-
 }

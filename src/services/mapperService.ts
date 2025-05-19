@@ -77,13 +77,13 @@ export function createGatewayDTO(
   macAddress: string,
   name: string,
   description: string,
-  sensorDTOs: SensorDTO[],
+  sensors: SensorDTO[],
 ): GatewayDTO {
   return removeNullAttributes({
     macAddress,
     name,
     description,
-    sensorDTOs
+    sensors
   }) as GatewayDTO;
 }
 
@@ -96,13 +96,13 @@ export function createNetworkDTO(
   code: string,
   name: string,
   description: string,
-  gatewayDTOs: GatewayDTO[],
+  gateways: GatewayDTO[],
 ): NetworkDTO {
   return removeNullAttributes({
     code,
     name,
     description,
-    gatewayDTOs
+    gateways
   }) as NetworkDTO;
 }
 
@@ -165,18 +165,16 @@ export function mapToStatsDTO(
 // MEASUREMENTS
 export function createMeasurementsDTO(
   sensorMac: string,
-  statsDTO: StatsDTO,
-  measurementDTOs: MeasurementDTO[] 
+  stats: StatsDTO,
+  measurements: MeasurementDTO[] 
 ): MeasurementsDTO {
   return removeNullAttributes({
     sensorMac,
-    statsDTO,
-    measurementDTOs
+    stats,
+    measurements
   }) as MeasurementsDTO
 }
 
-// se non ci sono misurazioni viene restituito un oggetto measurementsDTO contenente
-// solo il campo required macAddress.
 export function mapToMeasurementsDTO(
   sensorMac: string,
   startDate: Date,
@@ -189,10 +187,21 @@ export function mapToMeasurementsDTO(
 ): MeasurementsDTO {
   let statsDTO = null;
   let measurementDTOs = null;
-  if (measurements.length > 0) {
+
+  // se measurements non è proprio definito sono nel caso in cui
+  // mi interessano solo le stats
+  if (!measurements) {
+    statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
+  }
+
+  // se measurements è definito e non è vuoto
+  if (measurements && measurements.length > 0) {
     statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
     measurementDTOs = measurements.map(m => mapMeasurementDAOToDTO(m, lowerThreshold, upperThreshold));
   }
+
+  // nel caso in cui measurements sia un array vuoto allora viene tornato
+  // un DTO con solo campo sensorMac
   return createMeasurementsDTO(sensorMac, statsDTO, measurementDTOs);
 }
 

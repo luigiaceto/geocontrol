@@ -1,5 +1,4 @@
 import { CONFIG } from "@config";
-import AppError from "@models/errors/AppError";
 import { Router } from "express";
 import { UserType } from "@models/UserType";
 import { authenticateUser } from "@middlewares/authMiddleware";
@@ -10,7 +9,7 @@ import { getMeasurementsOfNetwork } from "@controllers/measurementController";
 import { getStatsOfNetwork } from "@controllers/measurementController";
 import { getOutliersMeasurementsOfNetwork } from "@controllers/measurementController";
 import {  Measurement as MeasurementDTO, MeasurementFromJSON } from "@models/dto/Measurement";
-import { storeMeasurement } from "@controllers/measurementController";
+import { storeMeasurements } from "@controllers/measurementController";
 import { parseStringArrayParam } from "@utils";
 const router = Router();
 
@@ -20,11 +19,10 @@ router.post(
   authenticateUser([UserType.Admin, UserType.Operator]),
   async (req, res, next) => {
     try {
-        //questa riga solo per assicurare che req.body sia un array anche se è presente una sola misurazione
+        // questa riga solo per assicurare che req.body sia un array anche se è presente una sola misurazione
         const body = Array.isArray(req.body) ? req.body : [req.body];
         const measurements : MeasurementDTO[] = body.map((json: any) => MeasurementFromJSON(json));
-
-        await storeMeasurement(req.params.networkCode, req.params.gatewayMac, req.params.sensorMac, measurements);
+        await storeMeasurements(req.params.networkCode, req.params.gatewayMac, req.params.sensorMac, measurements);
         res.status(201).send();
       } catch (error) {
         next(error);
@@ -125,7 +123,12 @@ router.get(
       const endDate = req.query.endDate as string | undefined;
       const sensorMacs = req.query.sensorMacs ? parseStringArrayParam(req.query.sensorMacs) : undefined;
 
-      const data = await getStatsOfNetwork(req.params.networkCode, sensorMacs, startDate, endDate);
+      const data = await getStatsOfNetwork(
+        req.params.networkCode, 
+        sensorMacs, 
+        startDate, 
+        endDate
+      );
       res.status(200).json(data);
     } catch (error) {
       next(error);
@@ -147,13 +150,13 @@ router.get(
         req.params.networkCode, 
         sensorMacs, 
         startDate, 
-        endDate);
+        endDate
+      );
       res.status(200).json(data);
     } catch (error) {
       next(error);
     }
   }
 );
-
 
 export default router;
