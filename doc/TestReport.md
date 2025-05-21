@@ -15,7 +15,7 @@
 
 # Dependency graph
 
-     <report the here the dependency graph of EzElectronics>
+     <report here the dependency graph of GeoControl>
 
 # Integration approach
 
