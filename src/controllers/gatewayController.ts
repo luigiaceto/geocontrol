@@ -2,6 +2,7 @@ import { Gateway as GatewayDTO } from "@dto/Gateway";
 import { GatewayRepository } from "@repositories/GatewayRepository";
 import { mapGatewayDAOToDTO } from "@services/mapperService";
 import { NetworkRepository } from "@repositories/NetworkRepository";
+import { verifyChainToGateway } from "@services/verifyService";
 
 export async function getAllGateways(networkCode: string): Promise<GatewayDTO[]> {
   const networkRepo = new NetworkRepository();
@@ -11,9 +12,7 @@ export async function getAllGateways(networkCode: string): Promise<GatewayDTO[]>
 }
 
 export async function getGateway(networkCode: string, macAddress: string): Promise<GatewayDTO> {
-  const networkRepo = new NetworkRepository();
-  await networkRepo.getNetworkByCode(networkCode);
-  const gatewayRepo = new GatewayRepository();
+  const gatewayRepo = await verifyChainToGateway(networkCode, macAddress);
   return mapGatewayDAOToDTO(await gatewayRepo.getGatewayByMac(macAddress));
 }
 
@@ -25,15 +24,11 @@ export async function createGateway(networkCode: string, gatewayDto: GatewayDTO)
 }
 
 export async function updateGateway(networkCode: string, macAddress: string, gatewayDTO: GatewayDTO): Promise<void> {
-  const networkRepo = new NetworkRepository();
-  await networkRepo.getNetworkByCode(networkCode);
-  const gatewayRepo = new GatewayRepository();
+  const gatewayRepo = await verifyChainToGateway(networkCode, macAddress);
   await gatewayRepo.updateGateway(macAddress, gatewayDTO);
 }
 
 export async function deleteGateway(networkCode: string, macAddress: string): Promise<void> {
-  const networkRepo = new NetworkRepository();
-  await networkRepo.getNetworkByCode(networkCode);
-  const gatewayRepo = new GatewayRepository();
+  const gatewayRepo = await verifyChainToGateway(networkCode, macAddress);
   await gatewayRepo.deleteGateway(macAddress);
 }
