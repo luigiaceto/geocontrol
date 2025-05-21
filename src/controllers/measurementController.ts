@@ -50,7 +50,7 @@ async function verifySensors(code: string, sensorMacs?: Array<string>): Promise<
     return networkSensors;
   }
 
-  //rimuovo i duplicati 
+  // rimuovo eventuali   sensori duplicati 
   const uniqueSensorMacs = Array.from(new Set(sensorMacs));
 
   const validSensors = [];
@@ -68,8 +68,6 @@ async function verifySensors(code: string, sensorMacs?: Array<string>): Promise<
 
   return validSensors;
 }
-
-
 
 export async function getMeasurementsOfNetwork(networkCode: string, sensorMacs: Array<string>, startDate: string, endDate: string): Promise<MeasurementsDTO[]> {
   const sensors = await verifySensors(networkCode, sensorMacs);
@@ -127,7 +125,6 @@ export async function getOutliersMeasurementsOfNetwork(networkCode: string, sens
     const lowerThreshold = computeLowerThreshold(mean, variance);
     
     const outliers = measurements.filter(measurement => measurement.value < lowerThreshold || measurement.value > upperThreshold); 
-    //const outliers = await measurementRepo.getOutliersMeasurementsBySensorId(sensor.id, startDate_as_Date, endDate_as_Date, upperThreshold, lowerThreshold);
     
     results.push(mapToMeasurementsDTO(sensor.macAddress, startDate_as_Date, endDate_as_Date, mean, variance, upperThreshold, lowerThreshold, outliers));
   }
@@ -137,6 +134,7 @@ export async function getOutliersMeasurementsOfNetwork(networkCode: string, sens
 
 export async function getMeasurementsOfSensor(networkCode: string, gatewayMac: string, sensorMac: string, startDate: string, endDate: string): Promise<MeasurementsDTO> {
     const sensorRepo = await verifyChainToSensor(networkCode, gatewayMac, sensorMac);
+
     const sensorId = (await sensorRepo.getSensorByMac(sensorMac)).id;
     const measurementRepo = new MeasurementRepository();
     const startDate_as_Date = startDate !== undefined ? parseISODateParamToUTC(startDate) : undefined;
@@ -150,6 +148,7 @@ export async function getMeasurementsOfSensor(networkCode: string, gatewayMac: s
 
 export async function getStatsOfSensor(networkCode: string, gatewayMac: string, sensorMac: string, startDate: string, endDate: string): Promise<StatsDTO> {
     const sensorRepo = await verifyChainToSensor(networkCode, gatewayMac, sensorMac);
+
     const sensorId = (await sensorRepo.getSensorByMac(sensorMac)).id;
     const measurementRepo = new MeasurementRepository();
     const startDate_as_Date = startDate !== undefined ? parseISODateParamToUTC(startDate) : undefined;
@@ -163,6 +162,7 @@ export async function getStatsOfSensor(networkCode: string, gatewayMac: string, 
 
 export async function getOutliersMeasurementsOfSensor(networkCode: string, gatewayMac: string, sensorMac: string, startDate: string, endDate: string): Promise<MeasurementsDTO> {
     const sensorRepo = await verifyChainToSensor(networkCode, gatewayMac, sensorMac);
+
     const sensorId = (await sensorRepo.getSensorByMac(sensorMac)).id;
     const measurementRepo = new MeasurementRepository();
     const startDate_as_Date = startDate !== undefined ? parseISODateParamToUTC(startDate) : undefined;
@@ -180,6 +180,7 @@ export async function getOutliersMeasurementsOfSensor(networkCode: string, gatew
 
 export async function storeMeasurements(networkCode: string, gatewayMac: string, sensorMac: string, measurements: MeasurementDTO[]): Promise<void> {
     const sensorRepo = await verifyChainToSensor(networkCode, gatewayMac, sensorMac);
+    
     const sensorId = (await sensorRepo.getSensorByMac(sensorMac)).id;
     const measurementRepo = new MeasurementRepository();
 

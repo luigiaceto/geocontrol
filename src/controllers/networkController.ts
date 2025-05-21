@@ -2,7 +2,6 @@ import { Network as NetworkDTO } from "@dto/Network";
 import { NetworkRepository } from "@repositories/NetworkRepository";
 import { mapNetworkDAOToDTO } from "@services/mapperService";
 
-
 export async function getAllNetworks(): Promise<NetworkDTO[]> {
   const networkRepo = new NetworkRepository();
   return (await networkRepo.getAllNetworks()).map(mapNetworkDAOToDTO);

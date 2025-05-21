@@ -110,27 +110,6 @@ export function mapNetworkDAOToDTO(networkDAO: NetworkDAO): NetworkDTO {
   return createNetworkDTO(networkDAO.code, networkDAO.name, networkDAO.description, networkDAO.gateways.map(mapGatewayDAOToDTO));
 }
 
-// MEASUREMENT
-export function createMeasurementDTO(
-  createdAt: Date,
-  value: number,
-  isOutlier?: boolean
-): MeasurementDTO {
-  return removeNullAttributes({
-    createdAt,
-    value,
-    isOutlier
-  }) as MeasurementDTO
-}
-
-export function mapMeasurementDAOToDTO(measurementDAO: MeasurementDAO, lowerThreshold: number, upperThreshold: number): MeasurementDTO {
-  let isOutlier = false;
-  if (measurementDAO.value < lowerThreshold || measurementDAO.value > upperThreshold) {
-    isOutlier = true;
-  }
-  return createMeasurementDTO(measurementDAO.createdAt, measurementDAO.value, isOutlier);
-}
-
 // STATS
 export function createStatsDTO(
   startDate: Date,
@@ -160,6 +139,27 @@ export function mapToStatsDTO(
   upperThreshold: number,
   lowerThreshold: number): StatsDTO {
   return createStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
+}
+
+// MEASUREMENT
+export function createMeasurementDTO(
+  createdAt: Date,
+  value: number,
+  isOutlier?: boolean
+): MeasurementDTO {
+  return removeNullAttributes({
+    createdAt,
+    value,
+    isOutlier
+  }) as MeasurementDTO
+}
+
+export function mapMeasurementDAOToDTO(measurementDAO: MeasurementDAO, lowerThreshold: number, upperThreshold: number): MeasurementDTO {
+  let isOutlier = false;
+  if (measurementDAO.value < lowerThreshold || measurementDAO.value > upperThreshold) {
+    isOutlier = true;
+  }
+  return createMeasurementDTO(measurementDAO.createdAt, measurementDAO.value, isOutlier);
 }
 
 // MEASUREMENTS
@@ -194,6 +194,7 @@ export function mapToMeasurementsDTO(
     statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
   }
 
+  // se measurements è array vuoto
   if (measurements && measurements.length == 0) {
     statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
     measurementDTOs = [];
@@ -210,6 +211,7 @@ export function mapToMeasurementsDTO(
   return createMeasurementsDTO(sensorMac, statsDTO, measurementDTOs);
 }
 
+// FARE UNA SECONDA VERSIONE CHE NON RIMUOVA ARRAY VUOTI ???
 function removeNullAttributes<T>(dto: T): Partial<T> {
   return Object.fromEntries(
     Object.entries(dto).filter(

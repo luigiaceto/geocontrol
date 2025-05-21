@@ -1,11 +1,8 @@
 import { Sensor as SensorDTO } from "@dto/Sensor";
 import { SensorRepository } from "@repositories/SensorRepository";
-import { GatewayRepository } from "@repositories/GatewayRepository";
-import { NetworkRepository } from "@repositories/NetworkRepository";
 import { mapSensorDAOToDTO } from "@services/mapperService";
 import { verifyChainToGateway, verifyChainToSensor } from "@services/verifyService";
 
-// AGGIUNGERE CONTROLLO DI "sensore sta in quel gateway che sta in quel network"
 export async function getSensorsByGateway(networkCode:string, gatewayMac: string): Promise<SensorDTO[]> {
   const gatewayRepo = await verifyChainToGateway(networkCode, gatewayMac);
   const gatewayId = (await gatewayRepo.getGatewayByMac(gatewayMac)).id;

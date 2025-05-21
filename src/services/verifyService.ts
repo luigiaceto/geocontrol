@@ -8,9 +8,11 @@ export async function verifyChainToGateway(networkCode: string, gatewayMac: stri
   const network = await networkRepo.getNetworkByCode(networkCode);
   const gatewayRepo = new GatewayRepository();
   const gateway = await gatewayRepo.getGatewayByMac(gatewayMac);
+  
   if (!network.gateways.map(gw => gw.macAddress).includes(gateway.macAddress)) {
-    throw new NotFoundError("Gateway not found in the specified network");
+    throw new NotFoundError("Gateway not found in the network");
   }
+
   return gatewayRepo;
 }
 
@@ -21,11 +23,12 @@ export async function verifyChainToSensor(networkCode: string, gatewayMac: strin
   const gateway = await gatewayRepo.getGatewayByMac(gatewayMac);
   const sensorRepo = new SensorRepository();
   const sensor = await sensorRepo.getSensorByMac(sensorMac);
+
   if (!network.gateways.map(gw => gw.macAddress).includes(gateway.macAddress)) {
-    throw new NotFoundError("Gateway not found in the specified network");
+    throw new NotFoundError("Gateway not found in the network");
   }
   if (!gateway.sensors.map(s => s.macAddress).includes(sensor.macAddress)) {
-    throw new NotFoundError("Sensor not found in the specified gateway");
+    throw new NotFoundError("Sensor not found in the gateway");
   }
     
   return sensorRepo;
