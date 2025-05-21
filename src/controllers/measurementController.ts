@@ -125,6 +125,7 @@ export async function getOutliersMeasurementsOfNetwork(networkCode: string, sens
     const variance = computeVariance(measurements, mean);
     const upperThreshold = computeUpperThreshold(mean, variance);
     const lowerThreshold = computeLowerThreshold(mean, variance);
+    
     const outliers = measurements.filter(measurement => measurement.value < lowerThreshold || measurement.value > upperThreshold); 
     //const outliers = await measurementRepo.getOutliersMeasurementsBySensorId(sensor.id, startDate_as_Date, endDate_as_Date, upperThreshold, lowerThreshold);
     
