@@ -7,6 +7,7 @@ import { UserRepository } from "@repositories/UserRepository";
 jest.mock("@repositories/UserRepository");
 
 describe("UserController integration", () => {
+  // non viene mockato il mapperService
   it("getUser: mapperService integration", async () => {
     const fakeUserDAO: UserDAO = {
       username: "testuser",
