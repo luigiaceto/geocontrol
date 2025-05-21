@@ -192,6 +192,7 @@ export function mapToMeasurementsDTO(
   // mi interessano solo le stats
   if (!measurements) {
     statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
+    measurementDTOs = [];
   }
 
   // se measurements è definito e non è vuoto
