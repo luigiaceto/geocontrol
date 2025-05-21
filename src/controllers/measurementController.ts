@@ -50,8 +50,11 @@ async function verifySensors(code: string, sensorMacs?: Array<string>): Promise<
     return networkSensors;
   }
 
+  //rimuovo i duplicati 
+  const uniqueSensorMacs = Array.from(new Set(sensorMacs));
+
   const validSensors = [];
-  for (let mac of sensorMacs) {
+  for (let mac of uniqueSensorMacs) {
     let sensor: SensorDAO = null;
     try {
       sensor = await sensorRepo.getSensorByMac(mac);
