@@ -2,7 +2,6 @@ import { GatewayRepository } from "@repositories/GatewayRepository";
 import { GatewayDAO } from "@dao/GatewayDAO";
 import { NotFoundError } from "@models/errors/NotFoundError";
 import { ConflictError } from "@models/errors/ConflictError";
-import e from "express";
 
 const mockFind = jest.fn();
 const mockSave = jest.fn();
