@@ -7,33 +7,46 @@ import { UserType } from "@models/UserType";
 
 export const TEST_USERS = {
   admin: { username: "admin", password: "adminpass", type: UserType.Admin },
-  operator: {
-    username: "operator",
-    password: "operatorpass",
-    type: UserType.Operator
-  },
+  operator: { username: "operator", password: "operatorpass", type: UserType.Operator },
   viewer: { username: "viewer", password: "viewerpass", type: UserType.Viewer }
+};
+
+export const TEST_NETWORKS = {
+  network01: { code: "net01", name: "Network01", description: "Network01 Description" },
+  network02: { code: "net02", name: "Network02", description: "Network02 Description" }
+};
+
+export const TEST_GATEWAYS = {
+  gateway01: { macAddress: "AA:BB:CC:DD:EE:FF", name: "Gateway01", description: "Gateway01 Description" },
+  gateway02: { macAddress: "FF:EE:DD:CC:BB:AA", name: "Gateway02", description: "Gateway02 Description" }
+};
+
+export const TEST_SENSORS = {
+  sensor01: { macAddress: "11:22:33:44:55:66", name: "Sensor01", description: "Sensor01 Description", variable: "temp", unit: "C" },
+  sensor02: { macAddress: "66:55:44:33:22:11", name: "Sensor02", description: "Sensor02 Description", variable: "humidity", unit: "%" }
 };
 
 export async function beforeAllE2e() {
   await initializeTestDataSource();
-  const repo = new UserRepository();
-  await repo.createUser(
+
+  const userRepo = new UserRepository();
+  await userRepo.createUser(
     TEST_USERS.admin.username,
     TEST_USERS.admin.password,
     TEST_USERS.admin.type
   );
-  await repo.createUser(
+  await userRepo.createUser(
     TEST_USERS.operator.username,
     TEST_USERS.operator.password,
     TEST_USERS.operator.type
   );
-  await repo.createUser(
+  await userRepo.createUser(
     TEST_USERS.viewer.username,
     TEST_USERS.viewer.password,
     TEST_USERS.viewer.type
   );
 }
+
 export async function afterAllE2e() {
   await closeTestDataSource();
 }
