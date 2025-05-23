@@ -32,7 +32,7 @@ async (req, res, next) => {
 router.get("/:gatewayMac", authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]),
 async (req, res, next) => {
   try {
-    res.status(200).json(await getGateway(req.params.networkCode, req.params.macAddress));
+    res.status(200).json(await getGateway(req.params.networkCode, req.params.gatewayMac));
   } catch (error) {
     next(error);
   }
@@ -42,7 +42,7 @@ async (req, res, next) => {
 // Update a gateway (Admin & Operator)
 router.patch("/:gatewayMac", authenticateUser([UserType.Admin, UserType.Operator]), async (req, res, next) => {
   try {
-    await updateGateway(req.params.networkCode, req.params.macAddress, GatewayFromJSON(req.body));
+    await updateGateway(req.params.networkCode, req.params.gatewayMac, GatewayFromJSON(req.body));
     res.status(204).send();
   } catch (error) {
     next(error);
@@ -52,7 +52,7 @@ router.patch("/:gatewayMac", authenticateUser([UserType.Admin, UserType.Operator
 // Delete a gateway (Admin & Operator)
 router.delete("/:gatewayMac", authenticateUser([UserType.Admin, UserType.Operator]), async (req, res, next) => {
   try {
-    await deleteGateway(req.params.networkCode, req.params.macAddress);
+    await deleteGateway(req.params.networkCode, req.params.gatewayMac);
     res.status(204).send();
   } catch (error) {
     next(error);
