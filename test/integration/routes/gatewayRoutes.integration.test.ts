@@ -98,7 +98,7 @@ describe("GatewayRoutes integration", () => {
         expect(gatewayController.deleteGateway).toHaveBeenCalledWith(networkCode, gatewayMac);
     });
 
-    /*it("get all gateways: 401 UnauthorizedError from auth middleware", async () => {
+    it("get all gateways: 401 UnauthorizedError from auth middleware", async () => {
         (authService.processToken as jest.Mock).mockImplementation(() => {
             throw new UnauthorizedError("Unauthorized: No token provided");
         });
@@ -126,5 +126,84 @@ describe("GatewayRoutes integration", () => {
         expect(response.body).toHaveProperty("message");
         expect(response.body.message).toMatch(/macAddress/);
         expect(gatewayController.createGateway).not.toHaveBeenCalled();
-    });*/
+    });
+
+    it("get all gateways - error branch", async () => {
+        (authService.processToken as jest.Mock).mockResolvedValue(undefined);
+        (gatewayController.getAllGateways as jest.Mock).mockImplementation(() => {
+        throw new Error("Test error");
+        });
+        
+        const res = await request(app)
+        .get(`/api/v1/networks/${networkCode}/gateways`)
+        .set("Authorization", token);
+        
+        expect(res.status).toBe(500); 
+    });
+
+    it("get a specific gateway - error branch", async () => {
+        (authService.processToken as jest.Mock).mockResolvedValue(undefined);
+        (gatewayController.getGateway as jest.Mock).mockImplementation(() => {
+            throw new Error("Test error");
+        });
+
+        const response = await request(app)
+            .get(`/api/v1/networks/${networkCode}/gateways/${gatewayMac}`)
+            .set("Authorization", token);
+
+        expect(response.status).toBe(500);
+        expect(response.body.message).toMatch(/Test error/);
+    });
+
+    it("create a gateway - error branch", async () => {
+        (authService.processToken as jest.Mock).mockResolvedValue(undefined);
+        (gatewayController.createGateway as jest.Mock).mockImplementation(() => {
+            throw new Error("Test error");
+        });
+
+        const gatewayData = { macAddress: "gw3", name: "Gateway 3", description: "gateway 3" };
+
+        const response = await request(app)
+            .post(`/api/v1/networks/${networkCode}/gateways`)
+            .set("Authorization", token)
+            .send(gatewayData);
+
+        expect(response.status).toBe(500);
+        expect(response.body.message).toMatch(/Test error/);
+    });
+
+    it("update a gateway - error branch", async () => {
+        (authService.processToken as jest.Mock).mockResolvedValue(undefined);
+        (gatewayController.updateGateway as jest.Mock).mockImplementation(() => {
+            throw new Error("Test error");
+        });
+
+        const gatewayData = { macAddress: gatewayMac, name: "Updated", description: "Updated" };
+
+        const response = await request(app)
+            .patch(`/api/v1/networks/${networkCode}/gateways/${gatewayMac}`)
+            .set("Authorization", token)
+            .send(gatewayData);
+
+        expect(response.status).toBe(500);
+        expect(response.body.message).toMatch(/Test error/);
+    });
+
+
+    it("delete a gateway - error branch", async () => {
+        (authService.processToken as jest.Mock).mockResolvedValue(undefined);
+        (gatewayController.deleteGateway as jest.Mock).mockImplementation(() => {
+            throw new Error("Test error");
+        });
+
+        const response = await request(app)
+            .delete(`/api/v1/networks/${networkCode}/gateways/${gatewayMac}`)
+            .set("Authorization", token);
+
+        expect(response.status).toBe(500);
+        expect(response.body.message).toMatch(/Test error/);
+    });
+
+
+
 });
