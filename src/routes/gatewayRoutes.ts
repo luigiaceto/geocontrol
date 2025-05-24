@@ -27,7 +27,6 @@ async (req, res, next) => {
   }
 });
 
-
 // Get a specific gateway (Any authenticated user)
 router.get("/:gatewayMac", authenticateUser([UserType.Admin, UserType.Operator, UserType.Viewer]),
 async (req, res, next) => {
@@ -37,7 +36,6 @@ async (req, res, next) => {
     next(error);
   }
 });
-
 
 // Update a gateway (Admin & Operator)
 router.patch("/:gatewayMac", authenticateUser([UserType.Admin, UserType.Operator]), async (req, res, next) => {
@@ -60,4 +58,3 @@ router.delete("/:gatewayMac", authenticateUser([UserType.Admin, UserType.Operato
 });
 
 export default router;
-

@@ -229,7 +229,7 @@ describe("POST /networks/:networkCode/gateways/:gatewayMac/sensors (e2e)", () =>
     expect(res.body).toHaveProperty("macAddress", newSensor.macAddress);
   });
 
-  it("should return 400 for invalid sensor data", async () => {
+  it("should return 400 for invalid sensor MAC", async () => {
     const invalidSensor = {
       macAddress: 1234,
       name: "Invalid Sensor",
@@ -245,6 +245,26 @@ describe("POST /networks/:networkCode/gateways/:gatewayMac/sensors (e2e)", () =>
 
     expect(res.status).toBe(400);
   });
+
+  it("should return 400 for missing property" , () => {
+    const newSensor = {
+      macAddress: "CA:FE:BA:BE:BE:EF",
+      name: "New Sensor",
+      description: "New Sensor Description",
+      variable: "temp"
+      // Missing 'unit'
+    };
+
+    // andare ad aggiungere nel controller che gestisce la creazione delle entità un throw 
+    // dell'errore 400 in caso i campi necessari alla creazione non siano presenti
+    return request(app)
+      .post(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(newSensor)
+      .expect(400);
+  });
+
+
 
   it("should return 401 for unauthorized access", async () => {
     const newSensor = {
