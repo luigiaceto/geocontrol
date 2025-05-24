@@ -42,26 +42,29 @@ export class NetworkRepository {
   }
 
   async updateNetwork(
-    code: string,
-    networkDTO: NetworkDTO
-  ): Promise<NetworkDAO> {
-    // N.B. il catch degli errori è già fatto a livello di routes
-    let toUpdateNetwork = await this.getNetworkByCode(code);
+  code: string,
+  networkDTO: NetworkDTO
+): Promise<NetworkDAO> {
+  let toUpdateNetwork = await this.getNetworkByCode(code);
 
-    if (networkDTO.code !== undefined && networkDTO.code !== code) {
-      throwConflictIfFound(
-        await this.repo.find({ where: { code: networkDTO.code } }),
-        () => true,
-        `Network with code '${code}' already exists`
-      );
-    }
-    
-    if (networkDTO.code !== undefined) toUpdateNetwork.code = networkDTO.code;
-    if (networkDTO.name !== undefined) toUpdateNetwork.name = networkDTO.name;
-    if (networkDTO.description !== undefined) toUpdateNetwork.description = networkDTO.description;
-    
-    return this.repo.save(toUpdateNetwork);
+  // Se si vuole cambiare il code, controlla che non esista già un network con quel code (diverso da quello attuale)
+  if (
+    networkDTO.code !== undefined &&
+    networkDTO.code !== code
+  ) {
+    throwConflictIfFound(
+      await this.repo.find({ where: { code: networkDTO.code } }),
+      () => true,
+      `Network with code '${networkDTO.code}' already exists`
+    );
+    toUpdateNetwork.code = networkDTO.code;
   }
+
+  if (networkDTO.name !== undefined) toUpdateNetwork.name = networkDTO.name;
+  if (networkDTO.description !== undefined) toUpdateNetwork.description = networkDTO.description;
+
+  return this.repo.save(toUpdateNetwork);
+}
 
   async deleteNetwork(code: string): Promise<void> {
     await this.repo.remove(await this.getNetworkByCode(code));
