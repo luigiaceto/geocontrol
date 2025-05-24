@@ -1,7 +1,8 @@
 import request from "supertest";
 import { app } from "@app";
 import { generateToken } from "@services/authService";
-import { beforeAllE2e, afterAllE2e, TEST_USERS, TEST_NETWORKS, TEST_GATEWAYS, TEST_SENSORS } from "@test/e2e/lifecycle";
+import { beforeAllE2e, afterAllE2e, TEST_USERS } from "@test/e2e/lifecycle";
+import { TEST_NETWORKS, TEST_GATEWAYS, TEST_SENSORS } from "@test/e2e/setupEntities";
 import { NetworkRepository } from "@repositories/NetworkRepository";
 import { createGateway } from "@controllers/gatewayController";
 import { createSensor } from "@controllers/sensorController";
