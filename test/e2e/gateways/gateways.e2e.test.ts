@@ -301,3 +301,254 @@ describe("POST /networks/:networkCode/gateways (e2e)", () => {
     });
 
 });
+
+describe("PATCH /networks/:networkCode/gateways/:gatewayMac (e2e)", () => {
+    let token: string;
+
+    beforeAll(async () => {
+        await beforeAllE2e();
+        token = generateToken(TEST_USERS.admin);
+        const networkRepo = new NetworkRepository();
+        await networkRepo.createNetwork(
+            TEST_NETWORKS.network01.code,
+            TEST_NETWORKS.network01.name,
+            TEST_NETWORKS.network01.description
+        );
+        await networkRepo.createNetwork(    
+            TEST_NETWORKS.network02.code,
+            TEST_NETWORKS.network02.name,
+            TEST_NETWORKS.network02.description
+        );
+        await createGateway(
+            TEST_NETWORKS.network01.code,
+            TEST_GATEWAYS.gateway01
+        );
+        await createGateway(
+            TEST_NETWORKS.network01.code,
+            TEST_GATEWAYS.gateway02
+        );
+    });
+
+    afterAll(async () => {
+        await afterAllE2e();
+    });
+
+    it("should update a gateway", async () => {
+        const updatedGateway = {
+            macAddress: "AA:BB:CC:DD:EE:FF",
+            name: "Updated Gateway",
+            description: "This is an updated gateway"
+        };
+
+        let res = await request(app)
+            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(updatedGateway);
+
+        expect(res.status).toBe(204);
+
+        res = await request(app)
+            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${updatedGateway.macAddress}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(res.status).toBe(200);
+        expect(res.body).toHaveProperty("macAddress", updatedGateway.macAddress);
+        expect(res.body).toHaveProperty("name", updatedGateway.name);
+        expect(res.body).toHaveProperty("description", updatedGateway.description);
+    });
+
+    it("should update a gateway without changing macAddress", async () => {
+        const partialUpdate = {
+            name: "Partial Update Name",
+            description: "Partial Update Description"
+        };
+
+        const res = await request(app)
+            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(partialUpdate);
+
+        expect(res.status).toBe(204);
+
+        const getRes = await request(app)
+            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(getRes.status).toBe(200);
+        expect(getRes.body.name).toBe(partialUpdate.name);
+        expect(getRes.body.description).toBe(partialUpdate.description);
+    });
+
+
+    it("should return 400 for invalid gateway data", async () => {
+        const invalidGateway = {
+            macAddress: 123,
+            name: "Invalid Gateway",
+            description: "invalid gateway description"
+        };
+
+        const res = await request(app)
+            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(invalidGateway);
+
+        expect(res.status).toBe(400);
+    });
+
+    it("should return 401 for unauthorized access", async () => {
+        const updatedGateway = {
+            macAddress: "AA:BB:CC:DD:EE:FF",
+            name: "Updated Gateway",
+            description: "This is an updated gateway"
+        };
+
+        const res = await request(app)
+            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", "Bearer invalid-token")
+            .send(updatedGateway);
+
+        expect(res.status).toBe(401);
+    });
+
+    it("should return 403 for being just a viewer", async () => {
+        const viewerToken = generateToken(TEST_USERS.viewer);
+        const updatedGateway = {
+            macAddress: "AA:BB:CC:DD:EE:FF",
+            name: "Updated Gateway",
+            description: "This is an updated gateway"
+        };
+
+        const res = await request(app)
+            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${viewerToken}`)
+            .send(updatedGateway);
+
+        expect(res.status).toBe(403);
+    });
+
+    it("should return 404 for non-existent gateway", async () => {
+        const updatedGateway = {
+            macAddress: "AA:BB:CC:DD:EE:FF",
+            name: "Updated Gateway",
+            description: "This is an updated gateway"
+        };
+
+        const res = await request(app)
+            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/non-existing-gateway`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(updatedGateway);
+
+        expect(res.status).toBe(404);
+    });
+
+    it("should return 404 for non-existent network", async () => {
+        const updatedGateway = {
+            macAddress: "AA:BB:CC:DD:EE:FF",
+            name: "Updated Gateway",
+            description: "This is an updated gateway"
+        };
+
+        const res = await request(app)
+            .patch(`/api/v1/networks/non-existing-network/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(updatedGateway);
+
+        expect(res.status).toBe(404);
+    });
+
+    it("should return 409 for gateway already in use", async () => {
+        const existingGateway = {
+            macAddress: TEST_GATEWAYS.gateway02.macAddress,
+            name: "Existing Gateway",
+            description: "Existing gateway description"
+        };
+
+        const res = await request(app)
+            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(existingGateway);
+
+        expect(res.status).toBe(409);
+    });
+});
+
+describe("DELETE /networks/:networkCode/gateways/:gatewayMac (e2e)", () => {
+    let token: string;
+
+    beforeAll(async () => {
+        await beforeAllE2e();
+        token = generateToken(TEST_USERS.admin);
+        const networkRepo = new NetworkRepository();
+        await networkRepo.createNetwork(
+            TEST_NETWORKS.network01.code,
+            TEST_NETWORKS.network01.name,
+            TEST_NETWORKS.network01.description
+        );
+        await networkRepo.createNetwork(
+            TEST_NETWORKS.network02.code,
+            TEST_NETWORKS.network02.name,
+            TEST_NETWORKS.network02.description
+        );
+        await createGateway(
+            TEST_NETWORKS.network01.code,
+            TEST_GATEWAYS.gateway01
+        );
+        await createGateway(
+            TEST_NETWORKS.network01.code,
+            TEST_GATEWAYS.gateway02
+        );
+    });
+
+    afterAll(async () => {
+        await afterAllE2e();
+    });
+
+    it("should delete a gateway", async () => {
+        const res = await request(app)
+            .delete(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(res.status).toBe(204);
+
+        const getRes = await request(app)
+            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(getRes.status).toBe(404);
+    });
+
+    it("should return 404 for non-existent gateway", async () => {
+        const res = await request(app)
+            .delete(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/non-existing-gateway`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(res.status).toBe(404);
+    });
+
+    it("should return 401 for unauthorized access", async () => {
+        const res = await request(app)
+            .delete(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", "Bearer invalid-token");
+
+        expect(res.status).toBe(401);
+    });
+
+    it("should return 403 for being just a viewer", async () => {
+        const viewerToken = generateToken(TEST_USERS.viewer);
+
+        const res = await request(app)
+            .delete(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${viewerToken}`);
+
+        expect(res.status).toBe(403);
+    });
+
+    it("should return 404 for non-existent network", async () => {
+        const res = await request(app)
+            .delete(`/api/v1/networks/non-existing-network/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(res.status).toBe(404);
+    });
+
+});
