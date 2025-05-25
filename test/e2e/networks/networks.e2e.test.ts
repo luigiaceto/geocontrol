@@ -130,6 +130,20 @@ describe("NETWORKS E2E", () => {
       expect(res.status).toBe(400);
     });
 
+    it("should return 400 for missing required fields", async () => {
+      const newNetwork = {
+        name: "Network 04",
+        description: "Fourth network"
+      };
+
+      const res = await request(app)
+        .post("/api/v1/networks")
+        .set("Authorization", `Bearer ${token}`)
+        .send(newNetwork);
+
+      expect(res.status).toBe(400);
+    });
+
     it("should return 401 for unauthorized access", async () => {
       const newNetwork = {
         code: "net04",

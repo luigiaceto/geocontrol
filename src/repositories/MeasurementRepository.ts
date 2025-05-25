@@ -39,11 +39,7 @@ export class MeasurementRepository {
     createdAt: Date,
     value: number,
     sensorId: number
-  ): Promise<MeasurementDAO> {
-
-    if (createdAt === undefined || value === undefined) {
-      throw new BadRequestError("createdAt/value is required");
-    } 
+  ): Promise<MeasurementDAO> { 
   
     return this.repo.save({
       createdAt: createdAt,

@@ -20,12 +20,12 @@ export const TEST_SENSORS = {
 
 // 2023-10-02T02:00:00+01:00 significa che si è 1 ora avanti rispetto a UTC -> 2023-10-02T01:00:00Z
 export const TEST_MEASUREMENTS = {
-  measurement01: { sensorMacAddress: "11:22:33:44:55:66", value: 25.5, createdAt: new Date("2023-10-01T01:00:00+01:00") },
-  measurement02: { sensorMacAddress: "66:55:44:33:22:11", value: 60, createdAt: new Date("2023-10-01T01:00:00+01:00") },
-  measurement03: { sensorMacAddress: "11:22:33:44:55:66", value: 26.0, createdAt: new Date("2023-10-02T01:00:00+01:00") },
-  measurement04: { sensorMacAddress: "66:55:44:33:22:11", value: 65, createdAt: new Date("2023-10-03T01:00:00+01:00") },
-  measurement05: { sensorMacAddress: "11:22:33:44:55:66", value: 27.0, createdAt: new Date("2023-10-03T01:00:00+01:00") },
-  measurement06: { sensorMacAddress: "66:55:44:33:22:11", value: 10000, createdAt: new Date("2023-10-04T01:00:00+01:00") }
+  measurement01: { value: 25.5, createdAt: new Date("2023-10-01T01:00:00+01:00") },
+  measurement02: { value: 60, createdAt: new Date("2023-10-01T01:00:00+01:00") },
+  measurement03: { value: 26.0, createdAt: new Date("2023-10-02T01:00:00+01:00") },
+  measurement04: { value: 65, createdAt: new Date("2023-10-03T01:00:00+01:00") },
+  measurement05: { value: 27.0, createdAt: new Date("2023-10-03T01:00:00+01:00") },
+  measurement06: { value: 10000, createdAt: new Date("2023-10-04T01:00:00+01:00") }
 };
 
 export const TEST_MEASUREMENTS_OUTLIER = {

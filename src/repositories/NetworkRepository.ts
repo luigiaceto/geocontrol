@@ -36,8 +36,8 @@ export class NetworkRepository {
   
     return this.repo.save({
       code: code,
-      name: name,
-      description: description
+      name: name ?? null,
+      description: description ?? null
     });
   }
 

@@ -239,6 +239,20 @@ describe("POST /networks/:networkCode/gateways (e2e)", () => {
         expect(res.status).toBe(400);
     });
 
+    it("should return 400 for missing required fields", async () => {
+        const newGateway = {
+            name: "Gateway without MAC",
+            description: "This gateway has no MAC address"
+        };
+
+        const res = await request(app)
+            .post(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(newGateway);
+
+        expect(res.status).toBe(400);
+    });
+
     it("should return 401 for unauthorized access", async () => {
         const newGateway = {
             macAddress: "A:B:C:D:E:F",

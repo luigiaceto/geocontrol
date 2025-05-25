@@ -7,7 +7,6 @@ import { NetworkRepository } from "@repositories/NetworkRepository";
 import { createGateway } from "@controllers/gatewayController";
 import { createSensor } from "@controllers/sensorController";
 import { storeMeasurements } from "@controllers/measurementController";
-import { createNetwork } from "@controllers/networkController";
 
 describe("GET /networks/:networkCode/measurements", () => {
   let token: string;
@@ -667,6 +666,13 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/mea
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("sensorMacAddress", TEST_SENSORS.sensor03.macAddress);
   });
+
+  it("should return 401 for invalid token", async () => {
+    const response = await request(app)
+      .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor01.macAddress}/measurements`);
+
+    expect(response.status).toBe(401);
+  });
 });
 
 describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/stats", () => {
@@ -770,9 +776,16 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/sta
     expect(response.body).toHaveProperty("upperThreshold", 0);
     expect(response.body).toHaveProperty("lowerThreshold", 0);
   });
+
+  it("should return 401 for invalid token", async () => {
+    const response = await request(app)
+      .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor01.macAddress}/stats`);
+
+    expect(response.status).toBe(401);
+  });
 });
 
-describe.only("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/outliers", () => {
+describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/outliers", () => {
   let token: string;
   
   beforeAll(async () => {
@@ -821,7 +834,7 @@ describe.only("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMa
     await afterAllE2e();
   });
 
-  it.skip("should return outliers for the specified sensor", async () => {
+  it("should return outliers for the specified sensor", async () => {
     const response = await request(app)
       .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor02.macAddress}/outliers`)
       .set("Authorization", `Bearer ${token}`);
@@ -844,5 +857,12 @@ describe.only("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMa
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
+  });
+
+  it("should return 401 for invalid token", async () => {
+    const response = await request(app)
+      .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor01.macAddress}/outliers`);
+
+    expect(response.status).toBe(401);
   });
 });

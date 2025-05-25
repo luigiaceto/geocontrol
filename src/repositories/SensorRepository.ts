@@ -38,10 +38,6 @@ export class SensorRepository {
       `Sensor with mac address '${macAddress}' already exists`
     );
 
-    if (macAddress === undefined) {
-      throw new BadRequestError("macAddress is required");
-    }
-
     return this.repo.save({
       macAddress: macAddress,
       name: name ?? null,
