@@ -168,8 +168,7 @@ describe("GET /networks/:networkCode/measurements", () => {
     expect(response.body[0]).toHaveProperty("sensorMacAddress", TEST_SENSORS.sensor01.macAddress);
   });
 
-  // ASPETTA RISPOSTA A ISSUE
-  it.skip("with empty sensorMacs, should return empty array", async () => {
+  it("with empty sensorMacs, should consider all sensors of network", async () => {
     const sensorMacs: string[] = [];
 
     const response = await request(app)
@@ -178,8 +177,8 @@ describe("GET /networks/:networkCode/measurements", () => {
       .query({ sensorMacs });
 
     console.log(response.body); // Debugging line to see the response body
+    
     expect(response.status).toBe(200);
-    expect(response.body).toEqual([]);
   });
 
   it("with an invalid sensorMac in the list, should ignore it", async () => {

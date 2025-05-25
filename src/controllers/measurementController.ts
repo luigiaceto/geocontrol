@@ -34,7 +34,7 @@ function computeLowerThreshold(mean: number, variance: number): number {
 
 // - se è stato passato un array di sensorMac, ritorna i sensori, tra quelli 
 //   nell'array, che appartengono effettivamente al network
-// - se non è stato passato un array di sensorMac, ritorna tutti i sensori del
+// - se non è stato passato un array di sensorMac o questo è vuoto, ritorna tutti i sensori del
 //   network (considerando tutti i gateways)
 async function verifySensors(code: string, sensorMacs?: Array<string>): Promise<SensorDAO[]> {
   const networkRepo = new NetworkRepository();
@@ -50,7 +50,7 @@ async function verifySensors(code: string, sensorMacs?: Array<string>): Promise<
     return networkSensors;
   }
 
-  // rimuovo eventuali   sensori duplicati 
+  // rimuovo eventuali sensori duplicati 
   const uniqueSensorMacs = Array.from(new Set(sensorMacs));
 
   const validSensors = [];
