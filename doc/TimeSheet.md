@@ -67,9 +67,9 @@ Suddivisione dei Timesheet utile per rendere più comoda la somma finale che fat
 | Apr 14 - 20    | 3 | | | | | | | |
 | Apr 21 - 27    | | | | | | | | |
 | Apr 28 - May 4 | | | | | | | | |
-| May 5 - 11     | 4 | | | | | | | |
-| May 12 - 18    | 4 | | | | | | | |
-| May 19 - 25    | | | | | | | | |
+| May 5 - 11     | | | 4 | | | | | |
+| May 12 - 18    | | | 4 | | | | | |
+| May 19 - 25    | | | 2 | 3 | 6 | | | |
 | May 26 - Jun 1 | | | | | | | | |
 | Jun 2 - 8      | | | | | | | | |
 | Jun 9 - 15     | | | | | | | | |
