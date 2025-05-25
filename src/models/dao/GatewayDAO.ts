@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column, OneToMany, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, OneToMany, ManyToOne, JoinColumn, PrimaryGeneratedColumn } from "typeorm";
 import { SensorDAO } from "./SensorDAO";
 import { NetworkDAO } from "./NetworkDAO";
 
@@ -10,10 +10,10 @@ export class GatewayDAO {
     @Column({ nullable: false })
     macAddress: string;
 
-    @Column({ nullable: false })
+    @Column({ nullable: true })
     name: string;
 
-    @Column({ nullable: false })
+    @Column({ nullable: true })
     description: string;
 
     // foreign key

@@ -3,6 +3,7 @@ import { Repository } from "typeorm";
 import { SensorDAO } from "@dao/SensorDAO";
 import { findOrThrowNotFound, throwConflictIfFound } from "@utils";
 import { Sensor as SensorDTO } from "@dto/Sensor";
+import { BadRequestError } from "@models/errors/BadRequestError";
 
 export class SensorRepository {
   private repo: Repository<SensorDAO>;
@@ -37,12 +38,16 @@ export class SensorRepository {
       `Sensor with mac address '${macAddress}' already exists`
     );
 
+    if (macAddress === undefined) {
+      throw new BadRequestError("macAddress is required");
+    }
+
     return this.repo.save({
       macAddress: macAddress,
-      name: name,
-      description: description,
-      variable: variable,
-      unit: unit,
+      name: name ?? null,
+      description: description ?? null,
+      variable: variable ?? null,
+      unit: unit ?? null,
       gatewayId: gatewayId
     });
   }
@@ -54,15 +59,16 @@ export class SensorRepository {
     // N.B. il catch degli errori è già fatto a livello di routes
     let toUpdateSensor = await this.getSensorByMac(macAddress);
 
+    // se sto cambiando il MAC e questo è diverso da quello vecchio
     if (sensorDTO.macAddress !== undefined && sensorDTO.macAddress !== macAddress) {
       throwConflictIfFound(
         await this.repo.find({ where: { macAddress: sensorDTO.macAddress } }),
         () => true,
         `Sensor with mac address '${macAddress}' already exists`
       );
+      toUpdateSensor.macAddress = sensorDTO.macAddress;
     }
     
-    if (sensorDTO.macAddress !== undefined) toUpdateSensor.macAddress = sensorDTO.macAddress;
     if (sensorDTO.name !== undefined) toUpdateSensor.name = sensorDTO.name;
     if (sensorDTO.description !== undefined) toUpdateSensor.description = sensorDTO.description;
     if (sensorDTO.variable !== undefined) toUpdateSensor.variable = sensorDTO.variable;

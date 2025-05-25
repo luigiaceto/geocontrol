@@ -13,10 +13,10 @@ export class NetworkDAO {
     @Column({ nullable: false })
     code: string;
 
-    @Column({ nullable: false})
+    @Column({ nullable: true })
     name: string;
 
-    @Column({ nullable: false})
+    @Column({ nullable: true })
     description: string;
 
     @OneToMany(() => GatewayDAO, gateway => gateway.network, {

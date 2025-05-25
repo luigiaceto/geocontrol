@@ -1,6 +1,6 @@
 import { Measurements as MeasurementsDTO } from "@dto/Measurements";
 import { MeasurementRepository } from "@repositories/MeasurementRepository";
-import { mapToMeasurementsDTO, mapToStatsDTO } from "@services/mapperService";
+import { mapToMeasurementsDTO, mapToMeasurementsDTOOutliers, mapToStatsDTO, maptToStatisticsDTOForNetwork } from "@services/mapperService";
 import { NetworkRepository } from "@repositories/NetworkRepository";
 import { SensorRepository } from "@repositories/SensorRepository";
 import { parseISODateParamToUTC } from "@utils";
@@ -13,23 +13,23 @@ import { verifyChainToSensor } from "@services/verifyService";
 function computeMean(measurements: Array<MeasurementDAO>): number {
   if (measurements.length === 0) return 0;
   const somma = measurements.map(m => m.value).reduce((acc, val) => acc + val, 0);
-  return somma / measurements.length;
+  return parseFloat((somma / measurements.length).toFixed(2));
 }
 
 function computeVariance(measurements: Array<MeasurementDAO>, mu: number): number {
   if (measurements.length < 2) return 0;
   const sommaQuadrati = measurements.map(m => m.value).reduce((acc, val) => acc + Math.pow(val - mu, 2), 0);
-  return sommaQuadrati / (measurements.length);
+  return parseFloat((sommaQuadrati / (measurements.length)).toFixed(2));
 }
 
 function computeUpperThreshold(mean: number, variance: number): number {
   const dev = Math.sqrt(variance);
-  return mean+2*dev;
+  return parseFloat((mean+2*dev).toFixed(2));
 } 
 
 function computeLowerThreshold(mean: number, variance: number): number {
   const dev = Math.sqrt(variance);
-  return mean-2*dev;
+  return parseFloat((mean-2*dev).toFixed(2));
 }
 
 // - se è stato passato un array di sensorMac, ritorna i sensori, tra quelli 
@@ -103,7 +103,7 @@ export async function getStatsOfNetwork(networkCode: string, sensorMacs: Array<s
     const measurements = await measurementRepo.getMeasurementsBySensorId(sensor.id, startDate_as_Date, endDate_as_Date);
     const mean = computeMean(measurements);
     const variance = computeVariance(measurements, mean);
-    results.push(mapToMeasurementsDTO(sensor.macAddress, startDate_as_Date, endDate_as_Date, mean, variance, computeUpperThreshold(mean, variance), computeLowerThreshold(mean, variance), undefined));
+    results.push(maptToStatisticsDTOForNetwork(sensor.macAddress, startDate_as_Date, endDate_as_Date, mean, variance, computeUpperThreshold(mean, variance), computeLowerThreshold(mean, variance), measurements));
   }
   return results;
 }
@@ -122,11 +122,9 @@ export async function getOutliersMeasurementsOfNetwork(networkCode: string, sens
     const mean = computeMean(measurements);
     const variance = computeVariance(measurements, mean);
     const upperThreshold = computeUpperThreshold(mean, variance);
-    const lowerThreshold = computeLowerThreshold(mean, variance);
+    const lowerThreshold = computeLowerThreshold(mean, variance); 
     
-    const outliers = measurements.filter(measurement => measurement.value < lowerThreshold || measurement.value > upperThreshold); 
-    
-    results.push(mapToMeasurementsDTO(sensor.macAddress, startDate_as_Date, endDate_as_Date, mean, variance, upperThreshold, lowerThreshold, outliers));
+    results.push(mapToMeasurementsDTOOutliers(sensor.macAddress, startDate_as_Date, endDate_as_Date, mean, variance, upperThreshold, lowerThreshold, measurements));
   }
 
   return results;
@@ -171,11 +169,9 @@ export async function getOutliersMeasurementsOfSensor(networkCode: string, gatew
     const mean = computeMean(measurements);
     const variance = computeVariance(measurements, mean);
     const upperThreshold = computeUpperThreshold(mean, variance);
-    const lowerThreshold =  computeLowerThreshold(mean, variance);
+    const lowerThreshold = computeLowerThreshold(mean, variance); 
 
-    const outliers = measurements.filter(measurement => measurement.value < lowerThreshold || measurement.value > upperThreshold); 
-
-    return mapToMeasurementsDTO(sensorMac, startDate_as_Date, endDate_as_Date, mean, variance, upperThreshold, lowerThreshold, outliers);
+    return mapToMeasurementsDTOOutliers(sensorMac, startDate_as_Date, endDate_as_Date, mean, variance, upperThreshold, lowerThreshold, measurements);
 }
 
 export async function storeMeasurements(networkCode: string, gatewayMac: string, sensorMac: string, measurements: MeasurementDTO[]): Promise<void> {

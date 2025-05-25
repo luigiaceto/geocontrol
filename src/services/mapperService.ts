@@ -164,17 +164,18 @@ export function mapMeasurementDAOToDTO(measurementDAO: MeasurementDAO, lowerThre
 
 // MEASUREMENTS
 export function createMeasurementsDTO(
-  sensorMac: string,
+  sensorMacAddress: string,
   stats: StatsDTO,
   measurements: MeasurementDTO[] 
 ): MeasurementsDTO {
   return removeNullAttributes({
-    sensorMac,
+    sensorMacAddress,
     stats,
     measurements
   }) as MeasurementsDTO
 }
 
+// condiviso tra network e sensor
 export function mapToMeasurementsDTO(
   sensorMac: string,
   startDate: Date,
@@ -185,29 +186,56 @@ export function mapToMeasurementsDTO(
   lowerThreshold: number,
   measurements: MeasurementDAO[]
 ): MeasurementsDTO {
-  let statsDTO = null;
-  let measurementDTOs = null;
 
-  // se measurements non è proprio definito sono nel caso in cui
-  // mi interessano solo le stats
-  if (!measurements) {
-    statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
+  if (measurements.length == 0) {
+    return createMeasurementsDTO(sensorMac, null, null);
   }
 
-  // se measurements è array vuoto
-  if (measurements && measurements.length == 0) {
-    statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
-    measurementDTOs = [];
+  const statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
+  const measurementDTOs = measurements.map(m => mapMeasurementDAOToDTO(m, lowerThreshold, upperThreshold));
+  return createMeasurementsDTO(sensorMac, statsDTO, measurementDTOs);
+}
+
+// solo per network
+export function maptToStatisticsDTOForNetwork(
+  sensorMac: string,
+  startDate: Date,
+  endDate: Date,
+  mean: number,
+  variance: number,
+  upperThreshold: number,
+  lowerThreshold: number,
+  measurements: MeasurementDAO[]
+): MeasurementsDTO {
+
+  if (measurements.length == 0) {
+    return createMeasurementsDTO(sensorMac, null, null);
   }
 
-  // se measurements è definito e non è vuoto
-  if (measurements && measurements.length > 0) {
-    statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
-    measurementDTOs = measurements.map(m => mapMeasurementDAOToDTO(m, lowerThreshold, upperThreshold));
+  const statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
+  return createMeasurementsDTO(sensorMac, statsDTO, null);
+}
+
+// condiviso tra network e sensor
+export function mapToMeasurementsDTOOutliers(
+  sensorMac: string,
+  startDate: Date,
+  endDate: Date,
+  mean: number,
+  variance: number,
+  upperThreshold: number,
+  lowerThreshold: number,
+  measurements: MeasurementDAO[]
+): MeasurementsDTO {
+  
+  if (measurements.length == 0) {
+    return createMeasurementsDTO(sensorMac, null, null);
   }
 
-  // nel caso in cui measurements sia un array vuoto allora viene tornato
-  // un DTO con solo campo sensorMac
+  const outliers = measurements.filter(measurement => measurement.value < lowerThreshold || measurement.value > upperThreshold);
+
+  const statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
+  const measurementDTOs = outliers.length>0 ? outliers.map(m => mapMeasurementDAOToDTO(m, lowerThreshold, upperThreshold)) : [];
   return createMeasurementsDTO(sensorMac, statsDTO, measurementDTOs);
 }
 

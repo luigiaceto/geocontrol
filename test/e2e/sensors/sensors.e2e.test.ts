@@ -2,7 +2,7 @@ import request from "supertest";
 import { app } from "@app";
 import { generateToken } from "@services/authService";
 import { beforeAllE2e, afterAllE2e, TEST_USERS } from "@test/e2e/lifecycle";
-import { TEST_NETWORKS, TEST_GATEWAYS, TEST_SENSORS } from "@test/e2e/setupEntities";
+import { TEST_NETWORKS, TEST_GATEWAYS, TEST_SENSORS,  } from "@test/e2e/setupEntities";
 import { NetworkRepository } from "@repositories/NetworkRepository";
 import { createGateway } from "@controllers/gatewayController";
 import { createSensor } from "@controllers/sensorController";
@@ -229,6 +229,60 @@ describe("POST /networks/:networkCode/gateways/:gatewayMac/sensors (e2e)", () =>
     expect(res.body).toHaveProperty("macAddress", newSensor.macAddress);
   });
 
+  it("should create a new sensor without some optional fields", async () => {
+    const newSensor = {
+      macAddress: "99:99:99:99:99:99",
+      name: "New Sensor without Optional Fields",
+      variable: "temp"
+    };
+
+    let res = await request(app)
+      .post(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(newSensor);
+
+    expect(res.status).toBe(201);
+
+    res = await request(app)
+      .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${newSensor.macAddress}`)
+      .set("Authorization", `Bearer ${token}`);
+    
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty("macAddress", newSensor.macAddress);
+    expect(res.body).toHaveProperty("name", newSensor.name);
+    expect(res.body).not.toHaveProperty("description");
+    expect(res.body).not.toHaveProperty("unit");
+  });
+
+  it("should create a new sensor ignoring extra fields", async () => {
+    const newSensor = {
+      macAddress: "US:EL:SS:FI:EL:DS",
+      name: "New Sensor with Extra Fields",
+      description: "New Sensor Description",
+      variable: "temp",
+      unit: "C",
+      extraField1: "extraValue1",
+      extraField2: "extraValue2"
+    };
+
+    let res = await request(app)
+      .post(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(newSensor);
+
+    expect(res.status).toBe(201);
+
+    res = await request(app)
+      .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${newSensor.macAddress}`)
+      .set("Authorization", `Bearer ${token}`);
+    
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty("macAddress", newSensor.macAddress);
+    expect(res.body).toHaveProperty("name", newSensor.name);
+    expect(res.body).not.toHaveProperty("extraField1");
+    expect(res.body).not.toHaveProperty("extraField2");
+  });
+
   it("should return 400 for invalid sensor MAC", async () => {
     const invalidSensor = {
       macAddress: 1234,
@@ -246,25 +300,19 @@ describe("POST /networks/:networkCode/gateways/:gatewayMac/sensors (e2e)", () =>
     expect(res.status).toBe(400);
   });
 
-  it("should return 400 for missing property" , () => {
+  it("should return 400 for missing macAddress" , () => {
     const newSensor = {
-      macAddress: "CA:FE:BA:BE:BE:EF",
       name: "New Sensor",
       description: "New Sensor Description",
       variable: "temp"
-      // Missing 'unit'
     };
 
-    // andare ad aggiungere nel controller che gestisce la creazione delle entità un throw 
-    // dell'errore 400 in caso i campi necessari alla creazione non siano presenti
     return request(app)
       .post(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors`)
       .set("Authorization", `Bearer ${token}`)
       .send(newSensor)
       .expect(400);
   });
-
-
 
   it("should return 401 for unauthorized access", async () => {
     const newSensor = {
@@ -361,7 +409,7 @@ describe("PATCH /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac (
     await afterAllE2e();
   });
 
-  it("should update a sensor", async () => {
+  it("should update a sensor without touching his MAC", async () => {
     const updatedSensor = {
       name: "Updated Sensor",
       description: "Updated Sensor Description",
@@ -387,9 +435,53 @@ describe("PATCH /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac (
     expect(res.body).toHaveProperty("unit", updatedSensor.unit);
   });
 
+  it("should update a sensor and change his MAC", async () => {
+    const updatedSensor = {
+      macAddress: "FF:EE:DD:CC:BB:AA",
+      name: "Updated Sensor with New MAC",
+      description: "Updated Sensor Description with New MAC",
+      variable: "pressure",
+      unit: "Pa"
+    };
+
+    let res = await request(app)
+      .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor02.macAddress}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(updatedSensor);
+
+    expect(res.status).toBe(204);
+
+    res = await request(app)
+      .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${updatedSensor.macAddress}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty("macAddress", updatedSensor.macAddress);
+    expect(res.body).toHaveProperty("name", updatedSensor.name);
+    expect(res.body).toHaveProperty("description", updatedSensor.description);
+    expect(res.body).toHaveProperty("variable", updatedSensor.variable);
+    expect(res.body).toHaveProperty("unit", updatedSensor.unit);
+  });
+
+  it("should do nothing because the body is empty", async () => {
+    const res = await request(app)
+      .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor01.macAddress}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({});
+
+    expect(res.status).toBe(204);
+
+    const getRes = await request(app)
+      .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor01.macAddress}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(getRes.status).toBe(200);
+    expect(getRes.body).toHaveProperty("macAddress", TEST_SENSORS.sensor01.macAddress);
+  });
+
   it("should return 409 for sensor already in use", async () => {
     const existingSensor = {
-      macAddress: TEST_SENSORS.sensor02.macAddress,
+      macAddress: "FF:EE:DD:CC:BB:AA",
       name: "Existing Sensor",
       description: "Existing Sensor Description",
       variable: "temp",

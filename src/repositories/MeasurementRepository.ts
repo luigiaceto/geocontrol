@@ -1,6 +1,7 @@
 import { AppDataSource } from "@database";
 import { Between, LessThanOrEqual, MoreThanOrEqual, Repository } from "typeorm";
 import { MeasurementDAO } from "@models/dao/MeasurementDAO";
+import { BadRequestError } from "@models/errors/BadRequestError";
 
 export class MeasurementRepository {
   private repo: Repository<MeasurementDAO>;
@@ -39,6 +40,10 @@ export class MeasurementRepository {
     value: number,
     sensorId: number
   ): Promise<MeasurementDAO> {
+
+    if (createdAt === undefined || value === undefined) {
+      throw new BadRequestError("createdAt/value is required");
+    } 
   
     return this.repo.save({
       createdAt: createdAt,
