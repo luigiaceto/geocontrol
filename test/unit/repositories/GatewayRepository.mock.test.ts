@@ -202,4 +202,10 @@ describe("Gateway Repository: mocked database", () => {
         expect(mockRemove).toHaveBeenCalledWith(gatewayToDelete);
     });
 
+    it("delete gateway: NotFoundError", async() => {
+        mockFind.mockResolvedValue([]);
+
+        await expect(repo.deleteGateway('14:14:14:14')).rejects.toThrow(NotFoundError);
+    });
+
 });

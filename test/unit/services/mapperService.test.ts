@@ -1,7 +1,9 @@
 import {createErrorDTO, createTokenDTO,
     createUserDTO, mapUserDAOToDTO, createSensorDTO, mapSensorDAOToDTO, createGatewayDTO, mapGatewayDAOToDTO,
-    createNetworkDTO, mapNetworkDAOToDTO, createStatsDTO, mapToStatsDTO, createMeasurementDTO, mapMeasurementDAOToDTO,createMeasurementsDTO, mapToMeasurementsDTO} from "@services/mapperService";
+    createNetworkDTO, mapNetworkDAOToDTO, createStatsDTO, mapToStatsDTO, createMeasurementDTO, mapMeasurementDAOToDTO,createMeasurementsDTO, mapToMeasurementsDTO,
+    maptToStatisticsDTOForNetwork, mapToMeasurementsDTOOutliers} from "@services/mapperService";
 import { UserType } from "@models/UserType";
+import exp from "constants";
 
 describe("mapperService", () => {
     it("createErrorDTO", async () => {
@@ -191,13 +193,14 @@ describe("mapperService", () => {
         const dto = mapMeasurementDAOToDTO(measurementDAO, lowerThreshold, upperThreshold);
         expect(dto).toEqual({ createdAt: new Date("2025-05-21"), value: 100, isOutlier: true });
     });
+    
 
     it("createMeasurementsDTO", async () => {
     const statsDTO = createStatsDTO(new Date("2025-05-21"), new Date("2025-05-22"), 1, 2, 3, 4);
     const measurements = [createMeasurementDTO(new Date("2025-05-21"), 42)];
     const measurementsDTO = createMeasurementsDTO("11:22:33:44:55:66", statsDTO, measurements);
     expect(measurementsDTO).toEqual({
-        sensorMac: "11:22:33:44:55:66",
+        sensorMacAddress: "11:22:33:44:55:66",
         stats: statsDTO,
         measurements: [{ createdAt: new Date("2025-05-21"), value: 42 }]
     });
@@ -209,47 +212,20 @@ describe("mapperService", () => {
         const endDate = new Date("2025-05-22");
         const mean = 1, variance = 2, upperThreshold = 50, lowerThreshold = 10;
 
-        it("gestisce measurements undefined (solo stats)", () => {
-        const dto = mapToMeasurementsDTO(sensorMac, startDate, endDate, mean, variance, upperThreshold, lowerThreshold, undefined);
-
-        expect(dto).toMatchObject({
-            sensorMac,
-            stats: {
-            startDate,
-            endDate,
-            mean,
-            variance,
-            upperThreshold,
-            lowerThreshold
-            }
-        });
-
-        expect(dto.measurements ?? []).toEqual([]); // fallback nel test
-        });
-
         it("gestisce measurements array vuoto", () => {
-            const dto = mapToMeasurementsDTO(sensorMac, startDate, endDate, mean, variance, upperThreshold, lowerThreshold, []);
+                const dto = mapToMeasurementsDTO(sensorMac, startDate, endDate, mean, variance, upperThreshold, lowerThreshold, []);
             expect(dto).toMatchObject({
-            sensorMac,
-            stats: {
-                startDate,
-                endDate,
-                mean,
-                variance,
-                upperThreshold,
-                lowerThreshold
-            }
+                sensorMacAddress: sensorMac
             });
-            expect(dto.measurements ?? []).toEqual([]);
-        });
+         });
 
         it("gestisce measurements array non vuoto", () => {
             const measurements = [
-            { id: 1, createdAt: startDate, value: 42, sensorId: 1, sensor: undefined }
+                { id: 1, createdAt: startDate, value: 42, sensorId: 1, sensor: undefined }
             ];
             const dto = mapToMeasurementsDTO(sensorMac, startDate, endDate, mean, variance, upperThreshold, lowerThreshold, measurements);
             expect(dto).toEqual({
-            sensorMac,
+            sensorMacAddress: sensorMac,
             stats: {
                 startDate,
                 endDate,
@@ -265,6 +241,114 @@ describe("mapperService", () => {
         });
     });
 
+    describe("maptToStatisticsDTOForNetwork", () => {
+        const sensorMac = "11:22:33:44:55:66";
+        const startDate = new Date("2025-05-21");
+        const endDate = new Date("2025-05-22");
+        const mean = 1, variance = 2, upperThreshold = 50, lowerThreshold = 10;
+
+        it("gestisce measurements array vuoto", () => {
+            const dto = maptToStatisticsDTOForNetwork(sensorMac, startDate, endDate, mean, variance, upperThreshold, lowerThreshold, []);
+            expect(dto).toEqual({
+                sensorMacAddress: sensorMac
+            });
+        });
+
+        it("gestisce measurements array non vuoto", () => {
+            const measurements = [
+                { id: 1, createdAt: startDate, value: 42, sensorId: 1, sensor: undefined }
+            ];
+            const dto = maptToStatisticsDTOForNetwork(sensorMac, startDate, endDate, mean, variance, upperThreshold, lowerThreshold, measurements);
+            expect(dto).toEqual({
+                sensorMacAddress:sensorMac,
+                stats: {
+                    startDate,
+                    endDate,
+                    mean,
+                    variance,
+                    upperThreshold,
+                    lowerThreshold
+                }
+            });
+        });
+    });
+
+
+    describe("mapToMeasurementsDTOOutliers", () => {
+        const sensorMac = "11:22:33:44:55:66";
+        const startDate = new Date("2025-05-21");
+        const endDate = new Date("2025-05-22");
+        const mean = 1, variance = 2, upperThreshold = 50, lowerThreshold = 10;
+
+        it("gestisce measurements array vuoto", () => {
+            const dto = mapToMeasurementsDTOOutliers(sensorMac, startDate, endDate, mean, variance, upperThreshold, lowerThreshold, []);
+            expect(dto).toMatchObject({
+                sensorMacAddress: sensorMac
+            });
+        });
+
+        it("gestisce measurements array non vuoto", () => {
+            const measurements = [
+                { id: 1, createdAt: startDate, value: 55, sensorId: 1, sensor: undefined }
+            ];
+            const dto = mapToMeasurementsDTOOutliers(sensorMac, startDate, endDate, mean, variance, upperThreshold, lowerThreshold, measurements);
+            expect(dto).toEqual({
+                sensorMacAddress: sensorMac,
+                stats: {
+                    startDate,
+                    endDate,
+                    mean,
+                    variance,
+                    upperThreshold,
+                    lowerThreshold
+                },
+                measurements: [
+                    { createdAt: startDate, value: 55, isOutlier: true }
+                ]
+            });
+        });
+
+        it("gestisce outlier sotto la soglia inferiore", () => {
+            const measurements = [
+                { id: 1, createdAt: startDate, value: 5, sensorId: 1, sensor: undefined }
+            ];
+            const dto = mapToMeasurementsDTOOutliers(sensorMac, startDate, endDate, mean, variance, upperThreshold, lowerThreshold, measurements);
+            expect(dto.measurements).toEqual([
+                { createdAt: startDate, value: 5, isOutlier: true }
+            ]);
+        });
+
+        it("esclude misurazioni non outlier", () => {
+            const measurements = [
+                { id: 1, createdAt: startDate, value: 25, sensorId: 1, sensor: undefined }
+            ];
+            const dto = mapToMeasurementsDTOOutliers(sensorMac, startDate, endDate, mean, variance, upperThreshold, lowerThreshold, measurements);
+            expect(dto).toEqual({
+                sensorMacAddress: sensorMac,
+                stats: {
+                    startDate,
+                    endDate,
+                    mean,
+                    variance,
+                    upperThreshold,
+                    lowerThreshold
+                }
+            });
+        });
+
+        it("filtra solo le misurazioni outlier da un array misto", () => {
+            const measurements = [
+                { id: 1, createdAt: startDate, value: 25, sensorId: 1, sensor: undefined },
+                { id: 2, createdAt: startDate, value: 5, sensorId: 1, sensor: undefined },
+                { id: 3, createdAt: startDate, value: 55, sensorId: 1, sensor: undefined }
+            ];
+            const dto = mapToMeasurementsDTOOutliers(sensorMac, startDate, endDate, mean, variance, upperThreshold, lowerThreshold, measurements);
+            expect(dto.measurements).toEqual([
+                { createdAt: startDate, value: 5, isOutlier: true },
+                { createdAt: startDate, value: 55, isOutlier: true }
+            ]);
+        });
+    });
  
 
 });

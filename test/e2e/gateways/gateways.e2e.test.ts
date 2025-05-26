@@ -224,6 +224,55 @@ describe("POST /networks/:networkCode/gateways (e2e)", () => {
         expect(res.body).toHaveProperty("macAddress", newGateway.macAddress);
     });
 
+    it("should create a new gateway without some optional fields", async () => {
+        const newGateway = {
+            macAddress: "99:88:77:66:55:44",
+            name: "New Gateway without description"
+        };
+
+        let res = await request(app)
+            .post(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(newGateway);
+
+        expect(res.status).toBe(201);
+
+        res = await request(app)
+            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${newGateway.macAddress}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(res.status).toBe(200);
+        expect(res.body).toHaveProperty("macAddress", newGateway.macAddress);
+        expect(res.body).toHaveProperty("name", newGateway.name);
+        expect(res.body).not.toHaveProperty("description");
+    });
+
+    it("should create a new gateway ignoring extra fields", async () => {
+        const newGateway = {
+            macAddress: "88:77:66:55:44:33",
+            name: "New Gateway with extra fields",
+            description: "This is a new gateway with extra fields",
+            extraField: "This should be ignored"
+        };
+
+        let res = await request(app)
+            .post(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(newGateway);
+
+        expect(res.status).toBe(201);
+
+        res = await request(app)
+            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${newGateway.macAddress}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(res.status).toBe(200);
+        expect(res.body).toHaveProperty("macAddress", newGateway.macAddress);
+        expect(res.body).toHaveProperty("name", newGateway.name);
+        expect(res.body).toHaveProperty("description", newGateway.description);
+        expect(res.body).not.toHaveProperty("extraField");
+    });
+
     it("should return 400 for invalid gateway data", async () => {
         const invalidGateway = {
             macAddress: 123,
@@ -347,7 +396,7 @@ describe("PATCH /networks/:networkCode/gateways/:gatewayMac (e2e)", () => {
         await afterAllE2e();
     });
 
-    it("should update a gateway", async () => {
+    it("should update a gateway changing macAddress", async () => {
         const updatedGateway = {
             macAddress: "AA:BB:CC:DD:EE:FF",
             name: "Updated Gateway",
@@ -391,6 +440,22 @@ describe("PATCH /networks/:networkCode/gateways/:gatewayMac (e2e)", () => {
         expect(getRes.status).toBe(200);
         expect(getRes.body.name).toBe(partialUpdate.name);
         expect(getRes.body.description).toBe(partialUpdate.description);
+    });
+
+    it("should do nothing because the body is empty", async () => {
+        const res = await request(app)
+            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`)
+            .send({});
+
+        expect(res.status).toBe(204);
+
+        const getRes = await request(app)
+            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(getRes.status).toBe(200);
+        expect(getRes.body.macAddress).toBe(TEST_GATEWAYS.gateway01.macAddress);
     });
 
 
