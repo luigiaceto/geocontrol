@@ -1,5 +1,4 @@
 import { Network as NetworkDTO } from "@dto/Network";
-import { NotFoundError } from "@models/errors/NotFoundError";
 import { NetworkRepository } from "@repositories/NetworkRepository";
 import { mapNetworkDAOToDTO } from "@services/mapperService";
 
@@ -11,10 +10,6 @@ export async function getAllNetworks(): Promise<NetworkDTO[]> {
 export async function getNetwork(code: string) {
   const networkRepo = new NetworkRepository();
   const network = await networkRepo.getNetworkByCode(code);
-
-  if (!network) {
-    throw new NotFoundError(`Network with code '${code}' not found`);
-  }
 
   return mapNetworkDAOToDTO(network);
 }
