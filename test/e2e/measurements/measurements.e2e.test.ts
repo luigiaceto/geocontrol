@@ -695,6 +695,15 @@ describe("POST /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/me
 
     expect(response.status).toBe(403);
   });
+
+  it("should insert nothing if no measurements are provided", async () => {
+    const response = await request(app)
+      .post(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor01.macAddress}/measurements`)
+      .set("Authorization", `Bearer ${token}`)
+      .send([]);
+
+    expect(response.status).toBe(201);
+  });
 });
 
 describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/measurements", () => {
