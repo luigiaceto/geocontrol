@@ -59,6 +59,33 @@ describe("Network Repository: mocked database", () => {
     await expect(repo.createNetwork("n001", "Other", "desc")).rejects.toThrow(ConflictError);
   });
 
+  it("create network with undefined optional fields", async () => {
+    mockFind.mockResolvedValue([]); // Nessun conflitto esistente
+
+    const savedNetwork = new NetworkDAO();
+    savedNetwork.code = "n003";
+    savedNetwork.name = null;
+    savedNetwork.description = null;
+
+    mockSave.mockResolvedValue(savedNetwork);
+
+    const result = await repo.createNetwork("n003", undefined, undefined);
+
+    expect(result).toBeInstanceOf(NetworkDAO);
+    expect(result).toMatchObject({
+      code: "n003",
+      name: null,
+      description: null
+    });
+
+    expect(mockSave).toHaveBeenCalledWith({
+      code: "n003",
+      name: null,
+      description: null
+    });
+  });
+
+
   it("get network by code", async () => {
     const foundNetwork = new NetworkDAO();
     foundNetwork.code = "n001";

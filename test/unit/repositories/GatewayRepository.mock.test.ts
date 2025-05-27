@@ -64,6 +64,38 @@ describe("Gateway Repository: mocked database", () => {
         await expect(repo.createGateway('14:14:14:14', 'g02', 'hi', 14)).rejects.toThrow(ConflictError);
     });
 
+    it("create gateway with undefined optional fields", async () => {
+        mockFind.mockResolvedValue([]);
+
+        const savedGateway = new GatewayDAO();
+        savedGateway.macAddress = '14:14:14:14';
+        savedGateway.name = null;
+        savedGateway.description = null;
+        savedGateway.networkId = 14;
+
+        mockSave.mockResolvedValue(savedGateway);
+
+        const result = await repo.createGateway('14:14:14:14', undefined, undefined, 14);
+
+        expect(result).toBeInstanceOf(GatewayDAO);
+        expect(result).toMatchObject({
+            macAddress: '14:14:14:14',
+            name: null,
+            description: null,
+            networkId: 14
+        });
+
+        expect(mockSave).toHaveBeenCalledWith({
+            macAddress: '14:14:14:14',
+            name: null,
+            description: null,
+            networkId: 14
+        });
+    });
+
+
+    
+
     it("get gateway by mac", async () => {
         const foundGateway = new GatewayDAO();
         foundGateway.macAddress = '14:14:14:14';

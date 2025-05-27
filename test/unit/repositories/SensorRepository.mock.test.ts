@@ -82,6 +82,49 @@ describe("Sensor Repository: mocked database", () => {
     );
   });
 
+  it("create sensor with undefined optional fields", async () => {
+    mockFind.mockResolvedValue([]);
+
+    const savedSensor = new SensorDAO();
+    savedSensor.macAddress = '12:12:12:12';
+    savedSensor.name = null;
+    savedSensor.description = null;
+    savedSensor.variable = null;
+    savedSensor.unit = null;
+    savedSensor.gatewayId = 12;
+
+    mockSave.mockResolvedValue(savedSensor);
+
+    const result = await repo.createSensor(
+      '12:12:12:12',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      12
+    );
+
+    expect(result).toBeInstanceOf(SensorDAO);
+    expect(result).toMatchObject({
+      macAddress: '12:12:12:12',
+      name: null,
+      description: null,
+      variable: null,
+      unit: null,
+      gatewayId: 12
+    });
+
+    expect(mockSave).toHaveBeenCalledWith({
+      macAddress: '12:12:12:12',
+      name: null,
+      description: null,
+      variable: null,
+      unit: null,
+      gatewayId: 12
+    });
+  });
+
+
   it("get sensor by mac", async () => {
     const foundSensor = new SensorDAO();
     foundSensor.macAddress = '12:12:12:12';
