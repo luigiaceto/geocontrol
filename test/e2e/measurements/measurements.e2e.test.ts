@@ -57,13 +57,13 @@ describe("GET /networks/:networkCode/measurements", () => {
       TEST_NETWORKS.network01.code,
       TEST_GATEWAYS.gateway01.macAddress,
       TEST_SENSORS.sensor01.macAddress,
-      [TEST_MEASUREMENTS.measurement01, TEST_MEASUREMENTS.measurement03, TEST_MEASUREMENTS.measurement05]
+      [TEST_MEASUREMENTS.measurement01, TEST_MEASUREMENTS.measurement02, TEST_MEASUREMENTS.measurement03]
     );
     await storeMeasurements(
       TEST_NETWORKS.network01.code,
       TEST_GATEWAYS.gateway01.macAddress,
       TEST_SENSORS.sensor02.macAddress,
-      [TEST_MEASUREMENTS.measurement02, TEST_MEASUREMENTS.measurement04]
+      [TEST_MEASUREMENTS.measurement04, TEST_MEASUREMENTS.measurement05, TEST_MEASUREMENTS.measurement06]
     );
   });
 
@@ -77,10 +77,28 @@ describe("GET /networks/:networkCode/measurements", () => {
       .set("Authorization", `Bearer ${token}`);
 
     console.log(response.body); // Debugging line to see the response body
-    console.log(response.body[0]);
+
+    expect(response.body).toHaveLength(2);
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+        sensorMacAddress: '11:22:33:44:55:66',
+        stats: expect.any(Object),
+        measurements: expect.any(Array)
+      }),
+      expect.objectContaining({
+        sensorMacAddress: '66:55:44:33:22:11',
+        stats: expect.any(Object),
+        measurements: expect.any(Array)
+      })
+    ]));
+    const sensor1 = response.body.find(s => s.sensorMacAddress === '11:22:33:44:55:66');
+    const sensor2 = response.body.find(s => s.sensorMacAddress === '66:55:44:33:22:11');
+
+    expect(sensor1.measurements).toHaveLength(3);
+    expect(sensor2.measurements).toHaveLength(3);
 
     expect(response.status).toBe(200);
-    expect(response.body[0]).toHaveProperty("sensorMacAddress", TEST_SENSORS.sensor01.macAddress);
   });
 
   it("with dates, should return all measurements", async () => {
@@ -93,15 +111,32 @@ describe("GET /networks/:networkCode/measurements", () => {
       .query({ startDate, endDate });
 
     console.log(response.body); // Debugging line to see the response body
-    console.log(response.body[0]);
 
     expect(response.status).toBe(200);
-    expect(response.body[0]).toHaveProperty("sensorMacAddress", TEST_SENSORS.sensor01.macAddress);
+    expect(response.body).toHaveLength(2);
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+        sensorMacAddress: '11:22:33:44:55:66',
+        stats: expect.any(Object),
+        measurements: expect.any(Array)
+      }),
+      expect.objectContaining({
+        sensorMacAddress: '66:55:44:33:22:11',
+        stats: expect.any(Object),
+        measurements: expect.any(Array)
+      })
+    ]));
+    const sensor1 = response.body.find(s => s.sensorMacAddress === '11:22:33:44:55:66');
+    const sensor2 = response.body.find(s => s.sensorMacAddress === '66:55:44:33:22:11');
+
+    expect(sensor1.measurements).toHaveLength(3);
+    expect(sensor2.measurements).toHaveLength(3);
   });
 
   it("with dates, should return measurements inside the range", async () => {
-    const startDate = "2023-10-02T12:00:00+01:00";
-    const endDate = "2023-10-04T12:00:00+01:00";
+    const startDate = "2023-10-02T00:00:00+01:00";
+    const endDate = "2023-10-03T04:00:00+01:00";
 
     const response = await request(app)
       .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/measurements`)
@@ -111,7 +146,26 @@ describe("GET /networks/:networkCode/measurements", () => {
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
-    expect(response.body[0]).toHaveProperty("sensorMacAddress", TEST_SENSORS.sensor01.macAddress);
+    expect(response.body).toHaveLength(2);
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+        sensorMacAddress: '11:22:33:44:55:66',
+        stats: expect.any(Object),
+        measurements: expect.any(Array)
+      }),
+      expect.objectContaining({
+        sensorMacAddress: '66:55:44:33:22:11',
+        stats: expect.any(Object),
+        measurements: expect.any(Array)
+      })
+    ]));
+
+    const sensor1 = response.body.find(s => s.sensorMacAddress === '11:22:33:44:55:66');
+    const sensor2 = response.body.find(s => s.sensorMacAddress === '66:55:44:33:22:11');
+
+    expect(sensor1.measurements).toHaveLength(1);
+    expect(sensor2.measurements).toHaveLength(2);
   });
 
   it("with startDate, should return measurements after the start date", async () => {
@@ -125,7 +179,9 @@ describe("GET /networks/:networkCode/measurements", () => {
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
-    expect(response.body[0]).toHaveProperty("sensorMacAddress", TEST_SENSORS.sensor01.macAddress);
+    expect(response.body
+      .filter(sensor => sensor.measurements)
+      .flatMap(sensor => sensor.measurements)).toHaveLength(4);
   });
 
   it("with endDate, should return measurements before the end date", async () => {
@@ -139,7 +195,10 @@ describe("GET /networks/:networkCode/measurements", () => {
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
-    expect(response.body[0]).toHaveProperty("sensorMacAddress", TEST_SENSORS.sensor01.macAddress);
+    expect(response.status).toBe(200);
+    expect(response.body
+      .filter(sensor => sensor.measurements)
+      .flatMap(sensor => sensor.measurements)).toHaveLength(3);
   });
 
   it("should return 400 for invalid date", async () => {
@@ -179,6 +238,25 @@ describe("GET /networks/:networkCode/measurements", () => {
     console.log(response.body); // Debugging line to see the response body
     
     expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(2);
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+        sensorMacAddress: '11:22:33:44:55:66',
+        stats: expect.any(Object),
+        measurements: expect.any(Array)
+      }),
+      expect.objectContaining({
+        sensorMacAddress: '66:55:44:33:22:11',
+        stats: expect.any(Object),
+        measurements: expect.any(Array)
+      })
+    ]));
+    const sensor1 = response.body.find(s => s.sensorMacAddress === '11:22:33:44:55:66');
+    const sensor2 = response.body.find(s => s.sensorMacAddress === '66:55:44:33:22:11');
+
+    expect(sensor1.measurements).toHaveLength(3);
+    expect(sensor2.measurements).toHaveLength(3);
   });
 
   it("with an invalid sensorMac in the list, should ignore it", async () => {
@@ -192,6 +270,18 @@ describe("GET /networks/:networkCode/measurements", () => {
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(1);
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+        sensorMacAddress: '11:22:33:44:55:66',
+        stats: expect.any(Object),
+        measurements: expect.any(Array)
+      })
+    ]));
+    const sensor1 = response.body.find(s => s.sensorMacAddress === '11:22:33:44:55:66');
+
+    expect(sensor1.measurements).toHaveLength(3);
   });
 
   it("with only invalid sensorMacs, should return empty array", async () => {
@@ -216,8 +306,8 @@ describe("GET /networks/:networkCode/measurements", () => {
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
-    expect(response.body[0]).toHaveProperty("sensorMacAddress", TEST_SENSORS.sensor03.macAddress);
-    expect(response.body).not.toHaveProperty("measurements");
+    expect(response.body[0]).toHaveProperty("sensorMacAddress");
+    expect(response.body[0]).not.toHaveProperty("measurements");
   });
 
   it("should return 401 for unauthorized access", async () => {
@@ -309,7 +399,20 @@ describe("GET /networks/:networkCode/stats", () => {
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
-    expect(response.body).not.toHaveProperty("measurements");
+    expect(response.body).toHaveLength(2);
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+        sensorMacAddress: '11:22:33:44:55:66',
+        stats: expect.any(Object)
+      }),
+      expect.objectContaining({
+        sensorMacAddress: '66:55:44:33:22:11',
+        stats: expect.any(Object)
+      })
+    ]));
+    expect(response.body[0]).not.toHaveProperty("measurements");
+    expect(response.body[1]).not.toHaveProperty("measurements");
   });
 
   it("should return only MACs because no measurements exist", async () => {
@@ -320,8 +423,10 @@ describe("GET /networks/:networkCode/stats", () => {
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
-    expect(response.body[0]).toHaveProperty("sensorMacAddress", TEST_SENSORS.sensor03.macAddress);
-    expect(response.body).not.toHaveProperty("measurements");
+    expect(response.body).toHaveLength(1);
+    expect(response.body[0]).toHaveProperty("sensorMacAddress");
+    expect(response.body[0]).not.toHaveProperty("stats");
+    expect(response.body[0]).not.toHaveProperty("measurements");
   });
 
   it("should return 401 for unauthorized access", async () => {
@@ -391,7 +496,14 @@ describe("GET /networks/:networkCode/outliers", () => {
       TEST_NETWORKS.network01.code,
       TEST_GATEWAYS.gateway01.macAddress,
       TEST_SENSORS.sensor01.macAddress,
-      [TEST_MEASUREMENTS.measurement01, TEST_MEASUREMENTS.measurement03, TEST_MEASUREMENTS.measurement05]
+      [
+        TEST_MEASUREMENTS_OUTLIER.measurement01, 
+        TEST_MEASUREMENTS_OUTLIER.measurement02, 
+        TEST_MEASUREMENTS_OUTLIER.measurement03, 
+        TEST_MEASUREMENTS_OUTLIER.measurement04, 
+        TEST_MEASUREMENTS_OUTLIER.measurement05, 
+        TEST_MEASUREMENTS_OUTLIER.measurement06
+      ]
     );
     await storeMeasurements(
       TEST_NETWORKS.network01.code,
@@ -405,14 +517,28 @@ describe("GET /networks/:networkCode/outliers", () => {
     await afterAllE2e();
   });
 
-  it("should return no measurements field because no outliers exist", async () => {
+  it("should return outliers for the network", async () => {
     const response = await request(app)
       .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/outliers`)
       .set("Authorization", `Bearer ${token}`);
-
-    console.log(response.body); // Debugging line to see the response body
-
+    
     expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(2);
+    expect(response.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+        sensorMacAddress: '11:22:33:44:55:66',
+        stats: expect.any(Object),
+        measurements: expect.any(Array)
+      }),
+      expect.objectContaining({
+        sensorMacAddress: '66:55:44:33:22:11',
+        stats: expect.any(Object)
+      })
+    ]));
+    expect(response.body
+      .filter(sensor => sensor.measurements)
+      .flatMap(sensor => sensor.measurements)).toHaveLength(1);
   });
 
   it("should return only MACs because no measurements exist", async () => {
@@ -423,8 +549,10 @@ describe("GET /networks/:networkCode/outliers", () => {
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
+    expect(response.body).toHaveLength(1);
     expect(response.body[0]).toHaveProperty("sensorMacAddress", TEST_SENSORS.sensor03.macAddress);
-    expect(response.body).not.toHaveProperty("measurements");
+    expect(response.body[0]).not.toHaveProperty("measurements");
+    expect(response.body[0]).not.toHaveProperty("stats");
   });
 
   it("should return 401 for unauthorized access", async () => {
@@ -545,6 +673,9 @@ describe("POST /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/me
       .set("Authorization", `Bearer ${token}`);
 
     console.log(other_res.body); // Debugging line to see the response body
+
+    expect(other_res.body.measurements).toHaveLength(6);
+    expect(other_res.body.measurements[0].createdAt).toBe("2025-02-18T16:00:00.000Z");
   });
 
   it("should return 403 for unsufficient rights", async () => {
@@ -652,6 +783,13 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/mea
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
+    expect(response.body).toEqual(
+      expect.objectContaining({
+        sensorMacAddress: '11:22:33:44:55:66',
+        stats: expect.any(Object),
+        measurements: expect.any(Array)
+      })
+    );
     expect(response.body.measurements).toHaveLength(3);
   });
 
@@ -664,6 +802,8 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/mea
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("sensorMacAddress", TEST_SENSORS.sensor03.macAddress);
+    expect(response.body).not.toHaveProperty("measurements");
+    expect(response.body).not.toHaveProperty("stats");
   });
 
   it("should return 401 for invalid token", async () => {
@@ -671,6 +811,23 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/mea
       .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor01.macAddress}/measurements`);
 
     expect(response.status).toBe(401);
+  });
+
+  it("should return 400 for invalid date format", async () => {
+    const response = await request(app)
+      .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor01.macAddress}/measurements`)
+      .set("Authorization", `Bearer ${token}`)
+      .query({ startDate: "invalid-date", endDate: "2023-11-10T12:00:00+01:00" });
+
+    expect(response.status).toBe(400);
+  });
+
+  it("should return 404 for invalid chain of network/gateway/sensor", async () => {
+    const response = await request(app)
+      .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor03.macAddress}/measurements`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(response.status).toBe(404);
   });
 });
 
@@ -760,6 +917,12 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/sta
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
+    expect(response.body).not.toHaveProperty("sensorMacAddress");
+    expect(response.body).toHaveProperty("mean");
+    expect(response.body).toHaveProperty("variance");
+    expect(response.body).toHaveProperty("upperThreshold");
+    expect(response.body).toHaveProperty("lowerThreshold");
+    expect(response.body).not.toHaveProperty("measurements");
   });
 
   it("should return 0-ed stats for sensor with no measurements", async () => {
@@ -774,6 +937,8 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/sta
     expect(response.body).toHaveProperty("variance", 0);
     expect(response.body).toHaveProperty("upperThreshold", 0);
     expect(response.body).toHaveProperty("lowerThreshold", 0);
+    expect(response.body).not.toHaveProperty("measurements");
+    expect(response.body).not.toHaveProperty("sensorMacAddress");
   });
 
   it("should return 401 for invalid token", async () => {
@@ -841,14 +1006,11 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/out
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
+    expect(response.body.sensorMacAddress).toBe(TEST_SENSORS.sensor02.macAddress);
+    expect(response.body.measurements).toHaveLength(1);
   });
 
   it("should return empty measurements array for sensor with no outliers", async () => {
-    let res = await request(app)
-      .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor01.macAddress}/measurements`)
-      .set("Authorization", `Bearer ${token}`);
-    console.log(res.body); // Debugging line to see the response body
-
     const response = await request(app)
       .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor01.macAddress}/outliers`)
       .set("Authorization", `Bearer ${token}`);
@@ -856,6 +1018,9 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/out
     console.log(response.body); // Debugging line to see the response body
 
     expect(response.status).toBe(200);
+    expect(response.body.sensorMacAddress).toBe(TEST_SENSORS.sensor01.macAddress);
+    expect(response.body).not.toHaveProperty("measurements");
+    expect(response.body).toHaveProperty("stats");
   });
 
   it("should return 401 for invalid token", async () => {

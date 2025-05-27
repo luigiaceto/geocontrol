@@ -1,7 +1,6 @@
 import { AppDataSource } from "@database";
 import { Between, LessThanOrEqual, MoreThanOrEqual, Repository } from "typeorm";
 import { MeasurementDAO } from "@models/dao/MeasurementDAO";
-import { BadRequestError } from "@models/errors/BadRequestError";
 
 export class MeasurementRepository {
   private repo: Repository<MeasurementDAO>;
