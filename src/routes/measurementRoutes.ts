@@ -20,7 +20,8 @@ router.post(
   async (req, res, next) => {
     try {
         // questa riga solo per assicurare che req.body sia un array anche se è presente una sola misurazione
-        const body = Array.isArray(req.body) ? req.body : [req.body];
+        //const body = Array.isArray(req.body) ? req.body : [req.body];
+        const body = req.body;
         const measurements : MeasurementDTO[] = body.map((json: any) => MeasurementFromJSON(json));
         await storeMeasurements(req.params.networkCode, req.params.gatewayMac, req.params.sensorMac, measurements);
         res.status(201).send();

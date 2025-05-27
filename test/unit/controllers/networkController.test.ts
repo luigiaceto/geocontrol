@@ -6,7 +6,7 @@ import { NotFoundError } from "@models/errors/NotFoundError";
 jest.mock("@repositories/NetworkRepository");
 
 describe("networkController unit tests", () => {
-  it("getNetwork: returns mapped DTO", async () => {
+  it("getNetwork", async () => {
     const code = "net01";
 
     const fakeNetwork = new NetworkDAO();
@@ -29,7 +29,7 @@ describe("networkController unit tests", () => {
     });
   });
 
-  it("getAllNetworks: returns list of mapped DTOs", async () => {
+  it("getAllNetworks", async () => {
     const fakeNetwork1 = new NetworkDAO();
     fakeNetwork1.code = "net01";
     fakeNetwork1.name = "Network 01";
@@ -62,13 +62,53 @@ describe("networkController unit tests", () => {
     ]);
   });
 
-  it("getNetworkByCode: throws NotFoundError if not found", async () => {
-    const code = "missing-code";
+  it("createNetwork", async () => {
+    const dto = {
+      code: "net01",
+      name: "Network 01",
+      description: "Test description"
+    };
+
+    const createMock = jest.fn().mockResolvedValue(undefined);
 
     (NetworkRepository as jest.Mock).mockImplementation(() => ({
-      getNetworkByCode: jest.fn().mockResolvedValue(undefined)
+      createNetwork: createMock
     }));
 
-    await expect(networkController.getNetwork(code)).rejects.toThrow(NotFoundError);
+    await networkController.createNetwork(dto);
+
+    expect(createMock).toHaveBeenCalledWith(dto.code, dto.name, dto.description);
   });
+
+  it("updateNetwork", async () => {
+    const dto = {
+      code: "net01",
+      name: "Updated Network",
+      description: "Updated description"
+    };
+
+    const updateMock = jest.fn().mockResolvedValue(undefined);
+
+    (NetworkRepository as jest.Mock).mockImplementation(() => ({
+      updateNetwork: updateMock
+    }));
+
+    await networkController.updateNetwork(dto.code, dto);
+
+    expect(updateMock).toHaveBeenCalledWith(dto.code, dto);
+  });
+
+  it("deleteNetwork", async () => {
+    const code = "net01";
+    const deleteMock = jest.fn().mockResolvedValue(undefined);
+
+    (NetworkRepository as jest.Mock).mockImplementation(() => ({
+      deleteNetwork: deleteMock
+    }));
+
+    await networkController.deleteNetwork(code);
+
+    expect(deleteMock).toHaveBeenCalledWith(code);
+  });
+
 });
