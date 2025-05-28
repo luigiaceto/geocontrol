@@ -14,8 +14,9 @@
   - [Coverage white box](#coverage-white-box)
 
 # Dependency graph
+<img src="dependency-graph.svg" alt="Logo" width="100" height="100">
 
-     <report here the dependency graph of GeoControl>
+  Nota: nel caso l'immagine non dovesse essere visibile si apra direttamente il file `dependency-graph.svg` nella cartella root del progetto.
 
 # Integration approach
 
@@ -26,6 +27,20 @@
     <Some steps may  correspond to unit testing (ex step1 in ex above)>
 
     <One step will  correspond to API testing, or testing unit route.js>
+  
+  L'approccio di integrazione è stato principalmente bottom-up:
+
+  NETWORK
+  step1: unit NetworkRepository
+  ***DA COMPLETARE***
+
+  GATEWAY
+  step1: unit GatewayRepository
+  step2: unit GatewayRepository+gatewayController
+  step3: unit GatewayRepository+gatewayController+mapperService
+  step4: unit GatewayRepository+gatewayController+mapperService+verifyService
+  step5: unit gatewayRoutes+authMiddlewere+validatorMiddlewere
+  step6: e2e
 
 # Tests
 
