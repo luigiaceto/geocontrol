@@ -8,7 +8,7 @@ Goal of this document is to compare actual effort and size of the project, vs th
 
 To compute the lines of code use cloc    
 To install cloc:  
-           `npm install -g cloc-`   
+           `npm install -g cloc`   
 To run cloc  
            `cloc <directory containing ts files> --include-lang=TypeScript`  
 As a result of cloc collect the *code* value (rightmost column of the result table)  
@@ -31,7 +31,9 @@ productivity = ((LOC of production code)+ (LOC of test code)) / effort
 
 |                                        | Estimated (end of task 1) | Actual (june 7, end of task 3)|
 | -------------------------------------------------------------------------------- | -------- |----|
-| size  |||
+| production code size | unknown  ||
+| test code size | unknown ||
+| total size  |||
 | effort |||
 | productivity  | 10 loc / hour ||
 
