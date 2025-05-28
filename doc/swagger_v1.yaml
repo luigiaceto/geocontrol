@@ -217,10 +217,12 @@ paths:
               properties:
                 username:
                   type: string
+                  minLength: 1
                   description: Unique username
                   example: s0123465
                 password:
                   type: string
+                  minLength: 5
                   description: Password for the user account
                   example: "FR90!5g@+ni"
                 type:
