@@ -3,6 +3,8 @@ import { GatewayRepository } from "@repositories/GatewayRepository";
 import { mapGatewayDAOToDTO } from "@services/mapperService";
 import { NetworkRepository } from "@repositories/NetworkRepository";
 import { verifyChainToGateway } from "@services/verifyService";
+import { SensorRepository } from "@repositories/SensorRepository";
+import { ConflictError } from "@models/errors/ConflictError";
 
 export async function getAllGateways(networkCode: string): Promise<GatewayDTO[]> {
   const networkRepo = new NetworkRepository();
@@ -20,11 +22,31 @@ export async function createGateway(networkCode: string, gatewayDto: GatewayDTO)
   const networkRepo = new NetworkRepository();
   const networkId = (await networkRepo.getNetworkByCode(networkCode)).id;
   const gatewayRepo = new GatewayRepository();
-  await gatewayRepo.createGateway(gatewayDto.macAddress, gatewayDto.name, gatewayDto.description, networkId);
+  const sensorRepo = new SensorRepository();
+  let throwFlag = 0;
+  try {
+    if (await sensorRepo.getSensorByMac(gatewayDto.macAddress)) {
+      throwFlag = 1;   
+    }
+  } catch (error) {}
+  if (throwFlag === 1) {
+    throw new ConflictError("Sensor with the same MAC address already exists");
+  }
+  await gatewayRepo.createGateway(gatewayDto.macAddress, gatewayDto.name, gatewayDto.description, networkId); 
 }
 
 export async function updateGateway(networkCode: string, gatewayMac: string, gatewayDTO: GatewayDTO): Promise<void> {
   const gatewayRepo = await verifyChainToGateway(networkCode, gatewayMac);
+  const sensorRepo = new SensorRepository();
+  let throwFlag = 0;
+  try {
+    if (gatewayDTO.macAddress && await sensorRepo.getSensorByMac(gatewayDTO.macAddress)) {
+      throwFlag = 1;
+    }
+  } catch (error) {}
+  if (throwFlag === 1) {
+    throw new ConflictError("Sensor with the same MAC address already exists");
+  }
   await gatewayRepo.updateGateway(gatewayMac, gatewayDTO);
 }
 

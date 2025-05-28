@@ -205,6 +205,23 @@ describe("POST /networks/:networkCode/gateways/:gatewayMac/sensors (e2e)", () =>
     await afterAllE2e();
   });
 
+  it("should return 409 for MAC already used by a gateway", async () => {
+    const newSensor = {
+      macAddress: TEST_GATEWAYS.gateway01.macAddress,
+      name: "New Sensor",
+      description: "New Sensor Description",
+      variable: "temp",
+      unit: "C"
+    };
+
+    const res = await request(app)
+      .post(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(newSensor);
+
+    expect(res.status).toBe(409);
+  });
+
   it("should create a new sensor", async () => {
     const newSensor = {
       macAddress: "AA:BB:CC:DD:EE:FF",
@@ -349,7 +366,7 @@ describe("POST /networks/:networkCode/gateways/:gatewayMac/sensors (e2e)", () =>
     expect(res.status).toBe(403);
   });
 
-  it("should return 409 for sensor already in use", async () => {
+  it("should return 409 for MAC already in use by another sensor", async () => {
     const existingSensor = {
       macAddress: TEST_SENSORS.sensor01.macAddress,
       name: "Existing Sensor",
@@ -409,6 +426,19 @@ describe("PATCH /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac (
     await afterAllE2e();
   });
 
+  it("should return 409 for MAC already used by a gateway", async () => {
+    const updatedSensor = {
+      macAddress: TEST_GATEWAYS.gateway01.macAddress
+    };
+
+    const res = await request(app)
+      .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/${TEST_SENSORS.sensor01.macAddress}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(updatedSensor);
+
+    expect(res.status).toBe(409);
+  });
+
   it("should update a sensor without touching his MAC", async () => {
     const updatedSensor = {
       name: "Updated Sensor",
@@ -437,7 +467,7 @@ describe("PATCH /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac (
 
   it("should update a sensor and change his MAC", async () => {
     const updatedSensor = {
-      macAddress: "FF:EE:DD:CC:BB:AA",
+      macAddress: "AAAAAAAAAAAAA",
       name: "Updated Sensor with New MAC",
       description: "Updated Sensor Description with New MAC",
       variable: "pressure",

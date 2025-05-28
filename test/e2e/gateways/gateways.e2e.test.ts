@@ -176,6 +176,7 @@ describe("POST /networks/:networkCode/gateways (e2e)", () => {
     beforeAll(async () => {
         await beforeAllE2e();
         token = generateToken(TEST_USERS.admin);
+
         const networkRepo = new NetworkRepository();    
         await networkRepo.createNetwork(
             TEST_NETWORKS.network01.code,
@@ -195,11 +196,36 @@ describe("POST /networks/:networkCode/gateways (e2e)", () => {
             TEST_NETWORKS.network01.code,
             TEST_GATEWAYS.gateway02
         );
+        await createSensor(
+            TEST_NETWORKS.network01.code,
+            TEST_GATEWAYS.gateway01.macAddress,
+            TEST_SENSORS.sensor01
+        );
+    });
 
-    }
-    );  
     afterAll(async () => {
         await afterAllE2e();
+    });
+
+    it("should return 409 for MAC already used by a sensor", async () => {
+        const newGateway = {
+            macAddress: TEST_SENSORS.sensor01.macAddress,
+            name: "Gateway with existing sensor MAC",
+            description: "This gateway has a MAC address already used by a sensor"
+        };
+
+        let res = await request(app)
+            .post(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(newGateway);
+
+        expect(res.status).toBe(409);
+
+        res = await request(app)
+            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${newGateway.macAddress}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(res.status).toBe(404);
     });
 
     it("should create a new gateway", async () => {
@@ -390,10 +416,83 @@ describe("PATCH /networks/:networkCode/gateways/:gatewayMac (e2e)", () => {
             TEST_NETWORKS.network01.code,
             TEST_GATEWAYS.gateway02
         );
+        await createSensor(
+            TEST_NETWORKS.network01.code,
+            TEST_GATEWAYS.gateway01.macAddress,
+            TEST_SENSORS.sensor01
+        );
     });
 
     afterAll(async () => {
         await afterAllE2e();
+    });
+
+    it("should update a gateway without changing macAddress", async () => {
+        const partialUpdate = {
+            name: "Partial Update Name",
+            description: "Partial Update Description"
+        };
+
+        const res = await request(app)
+            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(partialUpdate);
+
+        expect(res.status).toBe(204);
+
+        const getRes = await request(app)
+            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(getRes.status).toBe(200);
+        expect(getRes.body.name).toBe(partialUpdate.name);
+        expect(getRes.body.description).toBe(partialUpdate.description);
+    });
+
+    it("should return 409 for MAC already in use by another gateway", async () => {
+        const existingGateway = {
+            macAddress: TEST_GATEWAYS.gateway02.macAddress,
+            name: "Existing Gateway",
+            description: "Existing gateway description"
+        };
+
+        const res = await request(app)
+            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(existingGateway);
+
+        expect(res.status).toBe(409);
+    });
+
+    it("should return 409 for MAC already in use by a sensor", async () => {
+        const updateGateway = {
+            macAddress: TEST_SENSORS.sensor01.macAddress,
+            name: "Existing Gateway",
+            description: "Existing gateway description"
+        };
+
+        const res = await request(app)
+            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`)
+            .send(updateGateway);
+
+        expect(res.status).toBe(409);
+    });
+
+    it("should do nothing because the body is empty", async () => {
+        const res = await request(app)
+            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`)
+            .send({});
+
+        expect(res.status).toBe(204);
+
+        const getRes = await request(app)
+            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(getRes.status).toBe(200);
+        expect(getRes.body.macAddress).toBe(TEST_GATEWAYS.gateway01.macAddress);
     });
 
     it("should update a gateway changing macAddress", async () => {
@@ -419,45 +518,6 @@ describe("PATCH /networks/:networkCode/gateways/:gatewayMac (e2e)", () => {
         expect(res.body).toHaveProperty("name", updatedGateway.name);
         expect(res.body).toHaveProperty("description", updatedGateway.description);
     });
-
-    it("should update a gateway without changing macAddress", async () => {
-        const partialUpdate = {
-            name: "Partial Update Name",
-            description: "Partial Update Description"
-        };
-
-        const res = await request(app)
-            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
-            .set("Authorization", `Bearer ${token}`)
-            .send(partialUpdate);
-
-        expect(res.status).toBe(204);
-
-        const getRes = await request(app)
-            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
-            .set("Authorization", `Bearer ${token}`);
-
-        expect(getRes.status).toBe(200);
-        expect(getRes.body.name).toBe(partialUpdate.name);
-        expect(getRes.body.description).toBe(partialUpdate.description);
-    });
-
-    it("should do nothing because the body is empty", async () => {
-        const res = await request(app)
-            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
-            .set("Authorization", `Bearer ${token}`)
-            .send({});
-
-        expect(res.status).toBe(204);
-
-        const getRes = await request(app)
-            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
-            .set("Authorization", `Bearer ${token}`);
-
-        expect(getRes.status).toBe(200);
-        expect(getRes.body.macAddress).toBe(TEST_GATEWAYS.gateway01.macAddress);
-    });
-
 
     it("should return 400 for invalid gateway data", async () => {
         const invalidGateway = {
@@ -533,21 +593,6 @@ describe("PATCH /networks/:networkCode/gateways/:gatewayMac (e2e)", () => {
             .send(updatedGateway);
 
         expect(res.status).toBe(404);
-    });
-
-    it("should return 409 for gateway already in use", async () => {
-        const existingGateway = {
-            macAddress: TEST_GATEWAYS.gateway02.macAddress,
-            name: "Existing Gateway",
-            description: "Existing gateway description"
-        };
-
-        const res = await request(app)
-            .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}`)
-            .set("Authorization", `Bearer ${token}`)
-            .send(existingGateway);
-
-        expect(res.status).toBe(409);
     });
 });
 

@@ -5,9 +5,9 @@ export const TEST_NETWORKS = {
 };
 
 export const TEST_GATEWAYS = {
-  gateway01: { macAddress: "AA:BB:CC:DD:EE:FF", name: "Gateway01", description: "Gateway01 Description" },
+  gateway01: { macAddress: "cc:cc:cc:cc:cc:cc", name: "Gateway01", description: "Gateway01 Description" },
   gateway02: { macAddress: "FF:EE:DD:CC:BB:AA", name: "Gateway02", description: "Gateway02 Description" },
-  gateway03: { macAddress: "11:22:33:44:55:66", name: "Gateway03", description: "Gateway03 Description" },
+  gateway03: { macAddress: "dd:dd:cc:dd:dd:cc", name: "Gateway03", description: "Gateway03 Description" },
   gateway04: { macAddress: "00:11:00:11:00:11", name: "Gateway04", description: "Gateway04 Description" }
 };
 
