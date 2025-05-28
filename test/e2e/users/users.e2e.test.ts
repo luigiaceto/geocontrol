@@ -29,4 +29,37 @@ describe("GET /users (e2e)", () => {
     expect(usernames).toEqual(["admin", "operator", "viewer"]);
     expect(types).toEqual(["admin", "operator", "viewer"]);
   });
+
+  it("get user by username", async () => {
+    const res = await request(app)
+      .get("/api/v1/users/operator")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.status).toBe(200);
+    expect(res.body.username).toBe("operator");
+    expect(res.body.type).toBe("operator");
+  });
+
+  it("delete user", async () => {
+    const res = await request(app)
+      .delete("/api/v1/users/operator")
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.status).toBe(204);
+  });
+
+  it("create user", async () => {
+    const newUser = {
+      username: "newuser",
+      password: "newpassword",
+      type: "viewer"
+    };
+
+    const res = await request(app)
+      .post("/api/v1/users")
+      .set("Authorization", `Bearer ${token}`)
+      .send(newUser);
+
+    expect(res.status).toBe(201);
+  });
 });
