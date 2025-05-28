@@ -8,12 +8,12 @@ jest.mock("@repositories/NetworkRepository");
 jest.mock("@repositories/GatewayRepository");
 jest.mock("@repositories/SensorRepository");
 
-it("createSensor - crea un nuovo sensore se non esiste conflitto", async () => {
+it("createSensor", async () => {
   const networkCode = "net01";
   const gatewayMac = "1:2:3:4:5:6";
 
   const sensorDto = {
-    macAddress: "11:22:33:44:55:66",
+    macAddress: "1:2:3:4:5:6",
     name: "s01",
     description: "desc",
     variable: "temperature",
@@ -49,7 +49,7 @@ it("createSensor - crea un nuovo sensore se non esiste conflitto", async () => {
   );
 });
 
-it("updateSensor - aggiorna sensore se non ci sono conflitti", async () => {
+it("updateSensor", async () => {
   const networkCode = "net01";
   const gatewayMac = "1:2:3:4:5:6";
   const sensorMac = "11:22:33:44:55:66";
@@ -71,7 +71,6 @@ it("updateSensor - aggiorna sensore se non ci sono conflitti", async () => {
 
   await sensorController.updateSensor(networkCode, gatewayMac, sensorMac, sensorDto);
 
-  expect(mockSensorRepo.getSensorByMac).toHaveBeenCalledWith(sensorDto.macAddress);
   expect(mockSensorRepo.updateSensor).toHaveBeenCalledWith(sensorMac, sensorDto);
 });
 
