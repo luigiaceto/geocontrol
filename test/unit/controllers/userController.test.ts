@@ -6,7 +6,7 @@ import { User } from "@dto/User";
 // Mock del repository
 jest.mock("@repositories/UserRepository");
 
-describe("UserController integration", () => {
+describe("UserController", () => {
   it("createUser", async () => {
     const userDto: User = {
       username: "newuser",
