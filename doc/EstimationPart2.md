@@ -2,12 +2,17 @@
 
 
 
-# Estimation approach
-
 Goal of this document is to compare actual effort and size of the project, vs the estimates made in task1.
-Report, as by the following instructions, actual size and effort at the end the project on june 7, excluding containerization (include task1, task2, task 3, exclude task 4)
+Report, as by the following instructions, actual size and effort at the end the project on june 7, 
+excluding containerization (include task1, task2, task 3, exclude task 4).
 
 # Computation of size
+
+# Computation of effort 
+
+# Computation of productivity
+
+productivity = ((LOC of production code)+ (LOC of test code)) / effort
 
 
 # Comparison
@@ -16,7 +21,10 @@ Report, as by the following instructions, actual size and effort at the end the 
 | -------------------------------------------------------------------------------- | -------- |----|
 | size  |||
 | effort |||
+| productivity  | 10 loc / hour ||
 
+Report, as estimate of size, 
+Report, as estimate of effort, the value obtained via activity decomposition technique
 
 ###
 
