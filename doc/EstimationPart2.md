@@ -1,14 +1,22 @@
-# Project Estimation
+# Project Estimation part 2
 
-Date:
 
-Version:
 
 # Estimation approach
 
-Consider the GeoControl project as described in the swagger, assume that you are going to develop the project INDEPENDENT of the deadlines of the course, and from scratch
+Goal of this document is to compare actual effort and size of the project, vs the estimates made in task1.
+Report, as by the following instructions, actual size and effort at the end the project on june 7, excluding containerization (include task1, task2, task 3, exclude task 4)
 
-# Estimate by size
+# Computation of size
+
+
+# Comparison
+
+|                                        | Estimated (end of task 1) | Actual (june 7, end of task 3)|
+| -------------------------------------------------------------------------------- | -------- |----|
+| size  |||
+| effort |||
+
 
 ###
 
