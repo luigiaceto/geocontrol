@@ -7,16 +7,16 @@ Goal of this document is to compare actual effort and size of the project, vs th
 ## Computation of size
 
 To compute the lines of code use cloc,
-To install cloc:
-           'npm install -g cloc-' 
-To run cloc
-           'cloc <directory containing ts files> --include-lang=TypeScript'
-As a result of cloc collect the 'code' value (rightmost column of the result table)
+To install cloc:  
+           'npm install -g cloc-'   
+To run cloc  
+           'cloc <directory containing ts files> --include-lang=TypeScript'  
+As a result of cloc collect the 'code' value (rightmost column of the result table)  
         
 
-Compute two separate values of size
--LOC of production code     cloc <Geocontrol\src> --include-lang=TypeScript
--LOC of test code      cloc <GeoControl\test> --include-lang=TypeScript
+Compute two separate values of size  
+-LOC of production code     cloc <Geocontrol\src> --include-lang=TypeScript  
+-LOC of test code      cloc <GeoControl\test> --include-lang=TypeScript  
 
 
 ## Computation of effort 
