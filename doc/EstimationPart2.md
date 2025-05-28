@@ -3,16 +3,14 @@
 
 
 Goal of this document is to compare actual effort and size of the project, vs the estimates made in task1.
-Report, as by the following instructions, actual size and effort at the end the project on june 7, 
-excluding containerization (include task1, task2, task 3, exclude task 4).
 
-# Computation of size
+## Computation of size
 
 To compute the lines of code use cloc,
 To install cloc:
-           npm install -g cloc 
+           'npm install -g cloc-' 
 To run cloc
-           cloc <directory containing ts files> --include-lang=TypeScript
+           'cloc <directory containing ts files> --include-lang=TypeScript'
 As a result of cloc collect the 'code' value (rightmost column of the result table)
         
 
@@ -21,15 +19,15 @@ Compute two separate values of size
 -LOC of test code      cloc <GeoControl\test> --include-lang=TypeScript
 
 
-# Computation of effort 
-From timesheet.md sum all effort spent, in all activities in task1, task2, task3 at the end of the project on June 7. Exclude task4
+## Computation of effort 
+From timesheet.md sum all effort spent, in **ALL** activities (task1, task2, task3) at the end of the project on June 7. Exclude task4
 
-# Computation of productivity
+## Computation of productivity
 
 productivity = ((LOC of production code)+ (LOC of test code)) / effort
 
 
-# Comparison
+## Comparison
 
 |                                        | Estimated (end of task 1) | Actual (june 7, end of task 3)|
 | -------------------------------------------------------------------------------- | -------- |----|
