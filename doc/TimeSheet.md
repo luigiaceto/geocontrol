@@ -93,7 +93,7 @@ Suddivisione dei Timesheet utile per rendere più comoda la somma finale che fat
 | May 5 - 11     | | | 10 | | | | | |
 | May 12 - 18    | | | 6 | | | | | |
 | May 19 - 25    | | | 6 | 2 | 9 | | | |
-| May 26 - Jun 1 | | | | | 3 | | | |
+| May 26 - Jun 1 | | | | | 6 | | | |
 | Jun 2 - 8      | | | | | | | | |
 | Jun 9 - 15     | | | | | | | | |
 | Jun 16 - 22    | | | | | | | | |
