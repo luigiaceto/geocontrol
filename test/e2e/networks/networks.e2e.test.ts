@@ -176,7 +176,7 @@ describe("NETWORKS E2E", () => {
   });
 
   describe("PATCH /networks/:networkCode", () => {
-    it("should update a network", async () => {
+    it("no networkCode update, should update a network", async () => {
       const updatedNetwork = {
         name: "Updated Network Name",
         description: "Updated description"
@@ -195,6 +195,28 @@ describe("NETWORKS E2E", () => {
 
       expect(getRes.status).toBe(200);
       expect(getRes.body.name).toBe(updatedNetwork.name);
+      expect(getRes.body.description).toBe(updatedNetwork.description);
+    });
+
+    it("networkCode update, should update a network", async () => {
+      const updatedNetwork = {
+        code: "updated-net01",
+        description: "Updated description"
+      };
+
+      const res = await request(app)
+        .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}`)
+        .set("Authorization", `Bearer ${token}`)
+        .send(updatedNetwork);
+
+      expect(res.status).toBe(204);
+
+      const getRes = await request(app)
+        .get(`/api/v1/networks/${updatedNetwork.code}`)
+        .set("Authorization", `Bearer ${token}`);
+
+      expect(getRes.status).toBe(200);
+      expect(getRes.body.code).toBe(updatedNetwork.code);
       expect(getRes.body.description).toBe(updatedNetwork.description);
     });
 

@@ -46,7 +46,6 @@ describe("GET /networks/:networkCode/gateways (e2e)", () => {
         await afterAllE2e();
     });
 
-
     it("should return all gateways for a network", async () => {
         const res = await request(app)
             .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways`)
@@ -62,8 +61,6 @@ describe("GET /networks/:networkCode/gateways (e2e)", () => {
         expect(res.body[0].sensors.length).toBe(1);
         expect(res.body[0].sensors[0].macAddress).toBe(TEST_SENSORS.sensor01.macAddress);
     });
-
-
 
     it("should return 200 with an empty array when the network has no gateways", async () => {
         const res = await request(app)
@@ -118,13 +115,15 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac (e2e)", () => {
             TEST_NETWORKS.network01.code,
             TEST_GATEWAYS.gateway02
         );
-
         await createSensor(
             TEST_NETWORKS.network01.code,
             TEST_GATEWAYS.gateway01.macAddress,
             TEST_SENSORS.sensor01
         );
-
+        await createGateway(
+            TEST_NETWORKS.network02.code,
+            TEST_GATEWAYS.gateway03
+        );
     });
 
     afterAll(async () => {
@@ -140,9 +139,16 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac (e2e)", () => {
         expect(res.body.macAddress).toBe(TEST_GATEWAYS.gateway01.macAddress);
         expect(res.body.sensors.length).toBe(1);
         expect(res.body.sensors[0].macAddress).toBe(TEST_SENSORS.sensor01.macAddress);
-
     });
 
+    it("should return 404 for invalid chain of entities", async () => {
+        const res = await request(app)
+            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway03.macAddress}`)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(res.status).toBe(404);
+    });
+    
     it("should return 404 for non-existent gateway", async () => {
         const res = await request(app)
             .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/non-existing-gateway`)
@@ -166,8 +172,6 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac (e2e)", () => {
 
         expect(res.status).toBe(404);
     });
-
-
 });
 
 describe("POST /networks/:networkCode/gateways (e2e)", () => {
@@ -220,12 +224,6 @@ describe("POST /networks/:networkCode/gateways (e2e)", () => {
             .send(newGateway);
 
         expect(res.status).toBe(409);
-
-        res = await request(app)
-            .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${newGateway.macAddress}`)
-            .set("Authorization", `Bearer ${token}`);
-
-        expect(res.status).toBe(404);
     });
 
     it("should create a new gateway", async () => {
@@ -374,7 +372,7 @@ describe("POST /networks/:networkCode/gateways (e2e)", () => {
         expect(res.status).toBe(404);
     });
 
-    it("should return 409 for gateway already in use", async () => {
+    it("should return 409 for MAC already in use by another gateway", async () => {
         const existingGateway = {
             macAddress: TEST_GATEWAYS.gateway01.macAddress,
             name: "Existing Gateway",
