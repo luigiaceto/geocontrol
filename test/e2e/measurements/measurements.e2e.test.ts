@@ -7,7 +7,6 @@ import { NetworkRepository } from "@repositories/NetworkRepository";
 import { createGateway } from "@controllers/gatewayController";
 import { createSensor } from "@controllers/sensorController";
 import { storeMeasurements } from "@controllers/measurementController";
-import { create } from "domain";
 
 describe("GET /networks/:networkCode/measurements", () => {
   let token: string;

@@ -23,7 +23,6 @@ describe("NETWORKS E2E", () => {
       TEST_NETWORKS.network02.name,
       TEST_NETWORKS.network02.description
     );
-    
   });
 
   afterAll(async () => {
@@ -194,7 +193,22 @@ describe("NETWORKS E2E", () => {
   });
 
   describe("PATCH /networks/:networkCode", () => {
-    it("no networkCode update, should update a network", async () => {
+    it("should return 409 for networkCode already in use", async () => {
+      const conflictingNetwork = {
+        code: TEST_NETWORKS.network02.code,
+        name: "Conflicting Update",
+        description: "Conflicting"
+      };
+
+      const res = await request(app)
+        .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}`)
+        .set("Authorization", `Bearer ${token}`)
+        .send(conflictingNetwork);
+
+      expect(res.status).toBe(409);
+    });
+
+    it("not updating network code", async () => {
       const updatedNetwork = {
         name: "Updated Network Name",
         description: "Updated description"
@@ -233,7 +247,7 @@ describe("NETWORKS E2E", () => {
       expect(getRes.body.description).toBe(TEST_NETWORKS.network02.description);
     });
 
-    it("networkCode update, should update a network", async () => {
+    it("updating networkCode", async () => {
       const updatedNetwork = {
         code: "updated-net01",
         description: "Updated description"
@@ -311,21 +325,6 @@ describe("NETWORKS E2E", () => {
         .send(updatedNetwork);
 
       expect(res.status).toBe(403);
-    });
-
-    it("should return 409 for conflicting updates", async () => {
-      const conflictingNetwork = {
-        code: TEST_NETWORKS.network02.code,
-        name: "Conflicting Update",
-        description: "Conflicting"
-      };
-
-      const res = await request(app)
-        .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}`)
-        .set("Authorization", `Bearer ${token}`)
-        .send(conflictingNetwork);
-
-      expect(res.status).toBe(409);
     });
   });
 
