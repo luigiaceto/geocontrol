@@ -23,6 +23,7 @@ describe("NETWORKS E2E", () => {
       TEST_NETWORKS.network02.name,
       TEST_NETWORKS.network02.description
     );
+    
   });
 
   afterAll(async () => {
@@ -159,6 +160,23 @@ describe("NETWORKS E2E", () => {
       expect(res.status).toBe(401);
     });
 
+    it("should return 403 for insufficient permissions", async () => {
+      const newNetwork = {
+        code: "net05",
+        name: "Network 05",
+        description: "Fifth network"
+      };
+
+      const userToken = generateToken(TEST_USERS.viewer);
+
+      const res = await request(app)
+        .post("/api/v1/networks")
+        .set("Authorization", `Bearer ${userToken}`)
+        .send(newNetwork);
+
+      expect(res.status).toBe(403);
+    });
+
     it("should return 409 for network code already in use", async () => {
       const existingNetwork = {
         code: TEST_NETWORKS.network01.code,
@@ -196,6 +214,23 @@ describe("NETWORKS E2E", () => {
       expect(getRes.status).toBe(200);
       expect(getRes.body.name).toBe(updatedNetwork.name);
       expect(getRes.body.description).toBe(updatedNetwork.description);
+    });
+
+    it("should do nothing because the body is empty", async () => {
+      const res = await request(app)
+        .patch(`/api/v1/networks/${TEST_NETWORKS.network02.code}`)
+        .set("Authorization", `Bearer ${token}`)
+        .send({});
+
+      expect(res.status).toBe(204);
+
+      const getRes = await request(app)
+        .get(`/api/v1/networks/${TEST_NETWORKS.network02.code}`)
+        .set("Authorization", `Bearer ${token}`);
+
+      expect(getRes.status).toBe(200);
+      expect(getRes.body.name).toBe(TEST_NETWORKS.network02.name);
+      expect(getRes.body.description).toBe(TEST_NETWORKS.network02.description);
     });
 
     it("networkCode update, should update a network", async () => {
@@ -247,6 +282,51 @@ describe("NETWORKS E2E", () => {
 
       expect(res.status).toBe(404);
     });
+
+    it("should return 401 for unauthorized access", async () => {
+      const updatedNetwork = {
+        name: "Unauthorized Update",
+        description: "Unauthorized"
+      };
+
+      const res = await request(app)
+        .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}`)
+        .set("Authorization", "Bearer invalid-token")
+        .send(updatedNetwork);
+
+      expect(res.status).toBe(401);
+    });
+
+    it("should return 403 for insufficient permissions", async () => {
+      const updatedNetwork = {
+        name: "Viewer Update",
+        description: "Viewer"
+      };
+
+      const userToken = generateToken(TEST_USERS.viewer);
+
+      const res = await request(app)
+        .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}`)
+        .set("Authorization", `Bearer ${userToken}`)
+        .send(updatedNetwork);
+
+      expect(res.status).toBe(403);
+    });
+
+    it("should return 409 for conflicting updates", async () => {
+      const conflictingNetwork = {
+        code: TEST_NETWORKS.network02.code,
+        name: "Conflicting Update",
+        description: "Conflicting"
+      };
+
+      const res = await request(app)
+        .patch(`/api/v1/networks/${TEST_NETWORKS.network01.code}`)
+        .set("Authorization", `Bearer ${token}`)
+        .send(conflictingNetwork);
+
+      expect(res.status).toBe(409);
+    });
   });
 
   describe("DELETE /networks/:networkCode", () => {
@@ -270,6 +350,24 @@ describe("NETWORKS E2E", () => {
         .set("Authorization", `Bearer ${token}`);
 
       expect(res.status).toBe(404);
+    });
+
+    it("should return 401 for unauthorized access", async () => {
+      const res = await request(app)
+        .delete(`/api/v1/networks/${TEST_NETWORKS.network01.code}`)
+        .set("Authorization", "Bearer invalid-token");
+
+      expect(res.status).toBe(401);
+    });
+
+    it("should return 403 for insufficient permissions", async () => {
+      const userToken = generateToken(TEST_USERS.viewer);
+
+      const res = await request(app)
+        .delete(`/api/v1/networks/${TEST_NETWORKS.network01.code}`)
+        .set("Authorization", `Bearer ${userToken}`);
+
+      expect(res.status).toBe(403);
     });
   });
 });
