@@ -364,7 +364,7 @@ module.exports = {
        See https://github.com/sverweij/dependency-cruiser/blob/main/doc/options-reference.md#skipanalysisnotinrules
        for details
      */
-    skipAnalysisNotInRules: true,
+    skipAnalysisNotInRules: false,
     
     reporterOptions: {
       dot: {

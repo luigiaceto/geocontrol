@@ -65,3 +65,5 @@
 ## Coverage white box
 
 Report here the screenshot of coverage values obtained with jest-- coverage
+
+<img src="./res/coverage.png" alt="Coverage"/>

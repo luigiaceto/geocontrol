@@ -163,17 +163,12 @@ describe("measurementController integration", () => {
     });
 
     it("getOutliersMeasurementsOfNetwork: returns [] when no sensors are found", async () => {
-    // Setup: nessun sensore valido
-    // Usa un MAC che sicuramente non esiste
     const nonexistentSensorMac = "00:00:00:00:00:00";
 
-    // Nessun bisogno di mockare verifySensors, ma devi assicurarti che
-    // SensorRepository.getSensorByMac ritorni null o undefined
     (SensorRepository as jest.Mock).mockImplementation(() => ({
         getSensorByMac: jest.fn().mockResolvedValue(undefined),
     }));
 
-    // NetworkRepository deve comunque restituire una rete valida
     (NetworkRepository as jest.Mock).mockImplementation(() => ({
         getNetworkByCode: jest.fn().mockResolvedValue(fakeNetwork),
     }));
