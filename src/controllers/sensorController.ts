@@ -16,6 +16,7 @@ export async function createSensor(networkCode:string, gatewayMac: string, senso
   const gatewayId = (await gatewayRepo.getGatewayByMac(gatewayMac)).id;
   let throwFlag = 0;
   try {
+    // se viene trovato un gateway con lo stesso MAC del sensore che vogliamo creare
     if (await gatewayRepo.getGatewayByMac(sensorDto.macAddress)) {
       throwFlag = 1;  
     }
@@ -36,6 +37,7 @@ export async function updateSensor(networkCode:string, gatewayMac: string, senso
   const gatewayRepo = await verifyChainToGateway(networkCode, gatewayMac);
   let throwFlag = 0;
   try {
+    // se vogliamo modificare il MAC del sensore ma questo è giò associato ad un gateway
     if (sensorDTO.macAddress && await gatewayRepo.getGatewayByMac(sensorDTO.macAddress)) {
       throwFlag = 1;  
     }
