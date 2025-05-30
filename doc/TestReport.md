@@ -98,12 +98,12 @@
 | FR3.3 Retrieve a specific network                                      |  9    | 
 | FR3.4 Update a network                                                 |  14   |
 | FR3.5 Delete a specific network                                        |  8    | 
-| **FR4**   Manage gateways                                              |**62** |
+| **FR4**   Manage gateways                                              |**63** |
 | FR4.1 Retrieve all gateways of a network                               |  9    |  
 | FR4.2 Create a new gateway for a network                               |  17   |   
 | FR4.3 Retrieve a specific gateway                                      |  11   |
 | FR4.4 Update a gateway                                                 |  16   |
-| FR4.5 Delete a specific gateway                                        |  9    |
+| FR4.5 Delete a specific gateway                                        |  10   |
 | **FR5**   Manage sensors                                               |**55** |
 | FR5.1 Retrieve all sensors of a gateway                                |  10   | 
 | FR5.2 Create a new sensor for a gateway                                |  15   |
@@ -118,6 +118,9 @@
 | FR6.5 Retrieve measurements for a specific sensor                      |  12   |
 | FR6.6 Retrieve statistics for a specific sensor                        |  6    |
 | FR6.7 Retrieve outliers for a specific sensor                          |  7    |
+
+Il conteggio dei test nella tabella si riferisce esclusivamente ai test che verificano i requisiti funzionali (FR). I test relativi a servizi di supporto come errorService, mapperService e verifyService e a funzioni di uso generico come utils, non sono stati associati a specifici FR, ma contribuiscono comunque alla robustezza complessiva del sistema.
+La differenza tra il totale dei test eseguiti e la somma dei test riportati nella tabella è dovuta quindi a questi test di services/utils.
 
 ## Coverage white box
 
