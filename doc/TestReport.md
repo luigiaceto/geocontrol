@@ -16,7 +16,7 @@
 # Dependency graph
 <img src="dependency-graph.svg" alt="Logo" width="100" height="100">
 
-  Nota: nel caso l'immagine non dovesse essere visibile si apra direttamente il file `dependency-graph.svg` nella cartella root del progetto.
+  Nota: nel caso in cui l'immagine non dovesse essere visibile si apra direttamente il file `dependency-graph.svg` nella cartella root del progetto.
 
 # Integration approach
 
@@ -24,60 +24,115 @@
 
     (ex: step1: unit A, step 2: unit A+B, step 3: unit A+B+C, etc)>
 
-    <Some steps may  correspond to unit testing (ex step1 in ex above)>
+    <Some steps may correspond to unit testing (ex step1 in ex above)>
 
-    <One step will  correspond to API testing, or testing unit route.js>
+    <One step will correspond to API testing, or testing unit route.js>
   
-  L'approccio di integrazione è stato principalmente bottom-up:
+  L'approccio di integrazione è stato principalmente bottom-up (in modo incrementale):
 
-  Step1: unit testing della Repository
-  Step2: integration della Repository con il relativo Controller e Services
-  Step3: integration dellle Route con i Middleware
-  Step4: end-to-end testing, andando a testare le API utilizzate dall'utente
+  - Step1: unit testing della Repository e funzioni di utilità (utils, errorService, mapperService, verifyService)
+
+  - Step2: integration della Repository con il relativo Controller e Services
+
+  - Step3: integration delle Route con i Middleware
+
+  - Step4: end-to-end testing delle API
+  
+  I test unit delle repo mockano i metodi "base" di TypeORM. I test integration dei controller mockano le repo e alcuni servizi. I test di integration delle routes mockano i services e i controller. I test end-to-end (API) usano invece il DB in-memory.
 
 # Tests
 
 <in the table below list the test cases defined For each test report the object tested, the test level (API, integration, unit) and the technique used to define the test case (BB/ eq partitioning, BB/ boundary, WB/ statement coverage, etc)> <split the table if needed>
 
-| Test case name                                           | Object(s) tested                                | Test level | Technique used              |
-|----------------------------------------------------------|--------------------------------------------------|------------|-----------------------------|
-| should return all gateways for a network                 | GET /networks/:networkCode/gateways             | API        | BB / equivalence partitioning |
-| should return 200 with an empty array when the network has no gateways | GET /networks/:networkCode/gateways   | API        | BB / boundary value         |
-| should return 401 for unauthorized access                | GET /networks/:networkCode/gateways             | API        | BB / equivalence partitioning |
-| should return 404 for non-existent network               | GET /networks/:networkCode/gateways             | API        | BB / equivalence partitioning |
-| should return a specific gateway                         | GET /networks/:networkCode/gateways/:gatewayMac | API        | BB / equivalence partitioning |
-| should return 404 for invalid chain of entities          | GET /networks/:networkCode/gateways/:gatewayMac | API        | BB / equivalence partitioning |
-| should return 404 for non-existent gateway               | GET /networks/:networkCode/gateways/:gatewayMac | API        | BB / equivalence partitioning |
-| should return 401 for unauthorized access                | GET /networks/:networkCode/gateways/:gatewayMac | API        | BB / equivalence partitioning |
-| should return 404 for non-existent network               | GET /networks/:networkCode/gateways/:gatewayMac | API        | BB / equivalence partitioning |
-| should return 409 for MAC already used by a sensor       | POST /networks/:networkCode/gateways            | API        | BB / equivalence partitioning |
-| should create a new gateway                              | POST /networks/:networkCode/gateways            | API        | BB / equivalence partitioning |
-| should create a new gateway without some optional fields | POST /networks/:networkCode/gateways            | API        | BB / boundary value         |
-| should create a new gateway ignoring extra fields        | POST /networks/:networkCode/gateways            | API        | BB / robustness testing     |
-| should return 400 for invalid gateway data               | POST /networks/:networkCode/gateways            | API        | BB / equivalence partitioning |
-| should return 400 for missing required fields            | POST /networks/:networkCode/gateways            | API        | BB / boundary value         |
-| should return 401 for unauthorized access                | POST /networks/:networkCode/gateways            | API        | BB / equivalence partitioning |
-| should return 403 for being just a viewer                | POST /networks/:networkCode/gateways            | API        | BB / equivalence partitioning |
-| should return 404 for non-existent network               | POST /networks/:networkCode/gateways            | API        | BB / equivalence partitioning |
-| should return 409 for MAC already in use by another gateway | POST /networks/:networkCode/gateways         | API        | BB / equivalence partitioning |
-| should update a gateway without changing macAddress      | PATCH /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should return 409 for MAC already in use by another gateway | PATCH /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should return 409 for MAC already in use by a sensor     | PATCH /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should do nothing because the body is empty              | PATCH /networks/:networkCode/gateways/:gatewayMac | API      | BB / boundary value         |
-| should update a gateway changing macAddress              | PATCH /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should return 400 for invalid gateway data               | PATCH /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should return 401 for unauthorized access                | PATCH /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should return 403 for being just a viewer                | PATCH /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should return 404 for non-existent gateway               | PATCH /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should return 404 for non-existent network               | PATCH /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should delete a gateway                                  | DELETE /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should return 404 for non-existent gateway               | DELETE /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should return 401 for unauthorized access                | DELETE /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should return 403 for being just a viewer                | DELETE /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
-| should return 404 for non-existent network               | DELETE /networks/:networkCode/gateways/:gatewayMac | API      | BB / equivalence partitioning |
+  Nota: Dato che i test cases sono più di 300, per una lettura migliore e di più alto livello, si è preferito riportare solo le test suites:
 
-
-
+| Test suite name                                           | Object(s) tested                                | Test level | Technique used              |
+|----------------------------------------------------------|-------------------------------------------------|------------|-----------------------------|
+| findOrThrowNotFound | findOrThrowNotFound in utils.ts | Unit | WB |
+| throwCOnflictIfFound | throwCOnflictIfFound in utils.ts | Unit | WB |
+| parseISODateParamToUTC | parseISODateParamToUTC in utils.ts | Unit | WB |
+| parseStringArrayParam | parseStringArrayParam in utils.ts | Unit | WB |
+| authService | authService methods | Unit | WB |
+| createAppError | createAppError in errorService.ts | Unit | WB |
+| mapperService | mapperService standard methods | Unit | WB |
+| mapToMeasurementsDTO | mapToMeasurementDTO in mapperService.ts | Unit | WB |
+| mapToStatisticDTOForNetwork | mapToStatisticDTOForNetwork in mapperService.ts | Unit | WB |
+| mapTOMeasurementsDTOOutliers | mapToMeasurementsDTOOutliers in mapperService.ts | Unit | WB |
+| verifyService | verifyService methods | Unit | WB |
+| verifyChainToGateway | verifyChainToGateway in verifyService.ts | Unit | WB |
+| verifyChainToSensor | verifyChainToSensor in verifyService.ts | Unit | WB |
+| create gateway | createGateway in gatewayRepository.ts | Unit | WB |
+| get gateway by mac | getGatewayByMac in gatewayRepository.ts | Unit | WB |
+| get gateways by networkId | getGatewaysByNetworkId in gatewayRepository.ts | Unit | WB |
+| update gateway | updateGateway in gatewayRepository.ts | Unit | WB |
+| delete gateway | deleteGateway in gatewayRepository.ts | Unit | WB |
+| getMeasurementsBySensorId | getMeasurementsBySensorId in measurementRepository.ts | Unit | WB |
+| storeMeasurement | storeMeasurement in measurementRepository.ts | Unit | WB |
+| create Network | createNetwork in networkRepository.ts | Unit | WB |
+| get network by code | getNetworkByCode in networkRepository.ts | Unit | WB |
+| get all networks | getAllNetworks in networkRepository.ts | Unit | WB |
+| update network | updateNetwork in networkRepository.ts | Unit | WB |
+| delete network | deleteNetwork in networkRepository.ts | Unit | WB |
+| create sensor | createSensor in sensorRepository.ts | Unit | WB |
+| get sensor by mac | getSensorByMac in sensorRepository.ts | Unit | WB |
+| update sensor | updateSensor in sensorRepository.ts | Unit | WB |
+| delete sensor | deleteSensor in sensorRepository.ts | Unit | WB |
+| create user | createUser in userRepository.ts | Unit | WB |
+| find user by username | findUserByUsername in userRepository.ts | Unit | WB |
+| create user | createUser in userRepository.ts | Unit | WB |
+| get all users | getAllUsers in userRepository.ts | Unit | WB |
+| authenticateUser | authenticateUser middlewere | Unit | WB |
+| authController | authController methods | Unit | WB |
+| createGateway | createGateway in gatewayController.ts | Unit | WB |
+| updateGateway | updateGateway in gatewayController.ts | Unit | WB |
+| deleteGateway | deleteGateway in gatewayController.ts | Unit | WB |
+| storeMeasurement | storeMeasurement in measurementController.ts | Unit | WB |
+| getNetwork | getNetwork in networkController.ts | Unit | WB |
+| getAllNetworks | getAllNetworks in networkController.ts | Unit | WB |
+| createNetwork | createNetwork in networkController.ts | Unit | WB |
+| updateNetwork | updateNetwork in networkController.ts | Unit | WB |
+| deleteNetwork | deleteNetwork in networkController.ts | Unit | WB |
+| createSensor | createSensor in sensorController.ts | Unit | WB |
+| updateSensor | updateSensor in sensorController.ts | Unit | WB |
+| deleteSensor | deleteSensor in sensorController.ts | Unit | WB |
+| createUser | createUser in userController.ts | Unit | WB |
+| deleteUser | deleteUser in userController.ts | Unit | WB |
+| getAllGateways: integration with NetworkRepository and GatewayRepository | gatewayController methods | Integration | WB |
+| getGateway: integration with verifyChainToGateway and mapperService | gatewayController methods | Integration | WB |
+| getGateway: throw NotFoundError when gateway not in network | gatewayController methods | Integration | WB |
+| getMeasurementsOfSensor: integration with verifyChainToSensor and mapperService | measurementController methods | Integration | WB |
+| getStatsOfSensor: integration with verifyChainToSensor and mapperService | measurementController methods | Integration | WB |
+| getOutliersMeasurementsOfSensor: integration with verifyChainToSensor and mapperService | measurementController methods | Integration | WB |
+| getNetwork: integration with NetworkRepository and mapNetworkDAOToDTO | networkController methods | Integration | WB |
+| getSensorByMac: integration with verifyChainToSensor and mapperService | sensorController methods | Integration | WB |
+| getSensorByMac: throw NotFoundError when gateway not in network | sensorController methods | Integration | WB |
+| getSensorsByGateway: integration with verifyChainToGateway | sensorController methods | Integration | WB |
+| getUser: mapperService integration | userController methods | Integration | WB |
+| getAllUsers: mapperService integration | userController methods | Integration | WB |
+| AuthenticationRoutes integration | authController methods | Integration | WB |
+| GatewayRoutes integration | gatewayController methods | Integration | WB |
+| MeasurementRoutes integration | measurementController methods | Integration | WB |
+| NetworkRoutes integration | networkController methods | Integration | WB | 
+| SensorRoutes integration | sensorController methods | Integration | WB |
+| UserRoutes integration | userController methods | Integration | WB |
+| AuthenticationRoutes integration | authController methods | Integration | WB |
+| GET /networks/:networkCode/gateways (e2e) | gateway route | API | BB |
+| GET /networks/:networkCode/gateways/:gatewayMac (e2e) | gateway route | API | BB |
+| POST /networks/:networkCode/gateways (e2e) | gateway route | API | BB |
+| PATCH /networks/:networkCode/gateways/:gatewayMac (e2e) | gateway route | API | BB |
+| DELETE /networks/:networkCode/gateways/:gatewayMac (e2e) | gateway route | API | BB |
+| GET /networks/:networkCode/measurements | measurement route | API | BB |
+| GET /networks/:networkCode/stats | measurement route | API | BB |
+| GET /networks/:networkCode/outliers | measurement route | API | BB |
+| POST /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/measurements | measurement route | API | BB |
+| GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/measurements | measurement route | API | BB |
+| GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/stats | measurement route | API | BB |
+| GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/outliers | measurement route | API | BB |
+| GET /networks | network route | API | BB |
+| GET /networks/:networkCode | network route | API | BB |
+| POST /networks | network route | API | BB |
+| PATCH /networks/:networkCode | network route | API | BB |
+| DELETE /networks/:networkCode | network route | API | BB |
 
 
 

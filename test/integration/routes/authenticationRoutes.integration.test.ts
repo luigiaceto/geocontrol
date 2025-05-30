@@ -2,7 +2,6 @@ import request from "supertest";
 import { app } from "@app";
 import * as authController from "@controllers/authController";
 import { User as UserDTO } from "@dto/User";
-import { UserType } from "@models/UserType";
 import { UnauthorizedError } from "@models/errors/UnauthorizedError";
 
 jest.mock("@controllers/authController");

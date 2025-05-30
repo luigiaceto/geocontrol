@@ -57,6 +57,4 @@ describe("createAppError", () => {
 
     expect(logError).toHaveBeenCalled();
   });
-
-  
 });

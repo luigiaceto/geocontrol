@@ -13,13 +13,13 @@ These figures will not be used to evaluate neither the project nor the team, the
 | Mar 24 - 30    | 0  | | | | | | | |
 | Mar 31 - Apr 6 | 17 | | | | | | | |
 | Apr 7 - 13     | 66 | | | | | | | |
-| Apr 14 - 20    | 20?| | | | | | | |
+| Apr 14 - 20    | 20 | | | | | | | |
 | Apr 21 - 27    | | | | | | | | |
 | Apr 28 - May 4 | | | | | | | | |
-| May 5 - 11     | | | | | | | | |
-| May 12 - 18    | | | | | | | | |
-| May 19 - 25    | | | | | | | | |
-| May 26 - Jun 1 | | | | | | | | |
+| May 5 - 11     | | | 20 | | | | | |
+| May 12 - 18    | | | 14 | | | | | |
+| May 19 - 25    | | | 11 | 10 | 19 | | | |
+| May 26 - Jun 1 | | | | | 25 | | | |
 | Jun 2 - 8      | | | | | | | | |
 | Jun 9 - 15     | | | | | | | | |
 | Jun 16 - 22    | | | | | | | | |
@@ -70,7 +70,7 @@ Suddivisione dei Timesheet utile per rendere più comoda la somma finale che fat
 | May 5 - 11     | | | 4 | | | | | |
 | May 12 - 18    | | | 4 | | | | | |
 | May 19 - 25    | | | 2 | 3 | 6 | | | |
-| May 26 - Jun 1 | | | | | 3 | 5 | | |
+| May 26 - Jun 1 | | | | | 8 | | | |
 | Jun 2 - 8      | | | | | | | | |
 | Jun 9 - 15     | | | | | | | | |
 | Jun 16 - 22    | | | | | | | | |
@@ -93,7 +93,7 @@ Suddivisione dei Timesheet utile per rendere più comoda la somma finale che fat
 | May 5 - 11     | | | 10 | | | | | |
 | May 12 - 18    | | | 6 | | | | | |
 | May 19 - 25    | | | 6 | 2 | 9 | | | |
-| May 26 - Jun 1 | | | | | 6 | | | |
+| May 26 - Jun 1 | | | | | 9 | | | |
 | Jun 2 - 8      | | | | | | | | |
 | Jun 9 - 15     | | | | | | | | |
 | Jun 16 - 22    | | | | | | | | |
@@ -110,13 +110,13 @@ Suddivisione dei Timesheet utile per rendere più comoda la somma finale che fat
 | Mar 24 - 30    | 0  | | | | | | | |
 | Mar 31 - Apr 6 | 4  | | | | | | | |
 | Apr 7 - 13     | 12 | | | | | | | |
-| Apr 14 - 20    | ?  | | | | | | | |
+| Apr 14 - 20    | | | | | | | | |
 | Apr 21 - 27    | | | | | | | | |
 | Apr 28 - May 4 | | | | | | | | |
 | May 5 - 11     | | | 6 | | | | | |
 | May 12 - 18    | | | 4 | | | | | |
 | May 19 - 25    | | | 3 | 5 | 4 | | | |
-| May 26 - Jun 1 | | | | | 4 | 4 | | |
+| May 26 - Jun 1 | | | | | 8 | | | |
 | Jun 2 - 8      | | | | | | | | |
 | Jun 9 - 15     | | | | | | | | |
 | Jun 16 - 22    | | | | | | | | |
