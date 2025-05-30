@@ -90,11 +90,41 @@
 
 <Report in the following table the coverage of functional requirements and scenarios(from official requirements) >
 
-| Functional Requirement or scenario | Test(s) |
-| :--------------------------------: | :-----: |
-|                FRx                 |         |
-|                FRy                 |         |
-|                ...                 |         |
+| Functional Requirement or scenario                                     |Test(s)|
+| :--------------------------------------------------------------------: |:-----:|
+| **FR1**   Authentication                                               |**14** |
+| FR1.1 Authenticate user                                                |  14   |
+| **FR2**   Manage users                                                 |**41** |
+| FR2.1 Retrieve all users                                               |  9    |
+| FR2.2 Create a new user                                                |  14   |
+| FR2.3 Retrieve a specific user                                         |  10   |
+| FR2.4 Delete a specific user                                           |  8    |
+| **FR3**   Manage networks                                              |**51** |
+| FR3.1 Retrieve all networks                                            |  7    |
+| FR3.2 Create a new network                                             |  13   |
+| FR3.3 Retrieve a specific network                                      |  9    | 
+| FR3.4 Update a network                                                 |  14   |
+| FR3.5 Delete a specific network                                        |  8    | 
+| **FR4**   Manage gateways                                              |**62** |
+| FR4.1 Retrieve all gateways of a network                               |  9    |  
+| FR4.2 Create a new gateway for a network                               |  17   |   
+| FR4.3 Retrieve a specific gateway                                      |  11   |
+| FR4.4 Update a gateway                                                 |  16   |
+| FR4.5 Delete a specific gateway                                        |  9    |
+| **FR5**   Manage sensors                                               |**55** |
+| FR5.1 Retrieve all sensors of a gateway                                |  10   | 
+| FR5.2 Create a new sensor for a gateway                                |  15   |
+| FR5.3 Retrieve a specific sensor                                       |  8    | 
+| FR5.4 Update a sensor                                                  |  13   |
+| FR5.5 Delete a specific sensor                                         |  9    |
+| **FR6**   Manage measurements                                          |**68** |
+| FR6.1 Retrieve measurements for a set of sensors of a specific network |  18   |
+| FR6.2 Retrieve statistics for a set of sensors of a specific network   |  8    |
+| FR6.3 Retrieve outliers for a set of sensors of a specific network     |  8    |
+| FR6.4 Store measurements for a specific sensor                         |  9    |
+| FR6.5 Retrieve measurements for a specific sensor                      |  12   |
+| FR6.6 Retrieve statistics for a specific sensor                        |  6    |
+| FR6.7 Retrieve outliers for a specific sensor                          |  7    |
 
 ## Coverage white box
 
