@@ -61,8 +61,6 @@
 | gateways-controller-should create a new gateway                                  | `POST /networks/:code/gateways`     | E2E        | BB |
 | gateways-controller-should create gateway without optional fields                | `POST /networks/:code/gateways`     | E2E        | BB |
 | gateways-controller-should ignore extra fields during gateway creation           | `POST /networks/:code/gateways`     | E2E        | BB |
-| Test case name                                                           | Object(s) tested                               | Test level | Technique used |
-| :----------------------------------------------------------------------: | :--------------------------------------------: | :--------: | :------------: |
 | gateways-controller-should return 400 for invalid gateway data (POST)   | `POST /networks/:code/gateways`                | E2E        | BB             |
 | gateways-controller-should return 400 for missing required fields        | `POST /networks/:code/gateways`                | E2E        | BB             |
 | gateways-controller-should return 401 for unauthorized access (POST)     | `POST /networks/:code/gateways`                | E2E        | BB             |
