@@ -30,6 +30,10 @@
   
   L'approccio di integrazione è stato principalmente bottom-up:
 
+  Step1: unit testing della Repository
+  Step2: integration della Repository con il relativo Controller e Services
+  Step3: integration dellle Route con i Middleware
+  Step4: end-to-end testing, andando a testare le API utilizzate dall'utente
   NETWORK
   step1: unit NetworkRepository
   ***DA COMPLETARE***
