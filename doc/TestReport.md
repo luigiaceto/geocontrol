@@ -34,17 +34,6 @@
   Step2: integration della Repository con il relativo Controller e Services
   Step3: integration dellle Route con i Middleware
   Step4: end-to-end testing, andando a testare le API utilizzate dall'utente
-  NETWORK
-  step1: unit NetworkRepository
-  ***DA COMPLETARE***
-
-  GATEWAY
-  step1: unit GatewayRepository
-  step2: unit GatewayRepository+gatewayController
-  step3: unit GatewayRepository+gatewayController+mapperService
-  step4: unit GatewayRepository+gatewayController+mapperService+verifyService
-  step5: unit gatewayRoutes+authMiddlewere+validatorMiddlewere
-  step6: e2e
 
 # Tests
 
