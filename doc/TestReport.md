@@ -133,6 +133,16 @@
 | POST /networks | network route | API | BB |
 | PATCH /networks/:networkCode | network route | API | BB |
 | DELETE /networks/:networkCode | network route | API | BB |
+| GET /networks/:networkCode/gateways/:gatewayMac/sensors | sensor route | API  | BB       |
+| GET /networks/:networkCode/gateways/:gatewayMac/sensors/\:sensorMac| sensor route | API  | BB       |
+| POST /networks/:networkCode/gateways/:gatewayMac/sensors | sensor route | API  | BB  |
+| PATCH /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac  | sensor route | API  | BB  |
+| DELETE /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac | sensor route | API  | BB       |
+| GET /users    | user route   | API  | BB       |
+| GET /users/:username | user route   | API  | BB       |
+| POST /users   | user route   | API  | BB       
+| DELETE /users/:username  | user route   | API  | BB       |
+
 
 
 
