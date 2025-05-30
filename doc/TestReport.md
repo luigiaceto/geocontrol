@@ -48,7 +48,43 @@
 
 | Test case name | Object(s) tested | Test level | Technique used |
 | :------------: | :--------------: | :--------: | :------------: |
-|                |                  |            |                |
+| gateways-controller-should return all gateways for a network                     | `GET /networks/:code/gateways`      | E2E        | BB |
+| gateways-controller-should return empty array if network has no gateways         | `GET /networks/:code/gateways`      | E2E        | BB |
+| gateways-controller-should return 401 for unauthorized access to gateway list    | `GET /networks/:code/gateways`      | E2E        | BB |
+| gateways-controller-should return 404 for non-existent network on gateway list   | `GET /networks/:code/gateways`      | E2E        | BB |
+| gateways-controller-should return a specific gateway                             | `GET /networks/:code/gateways/:mac` | E2E        | BB |
+| gateways-controller-should return 404 for invalid chain of entities              | `GET /networks/:code/gateways/:mac` | E2E        | BB |
+| gateways-controller-should return 404 for non-existent gateway                   | `GET /networks/:code/gateways/:mac` | E2E        | BB |
+| gateways-controller-should return 401 for unauthorized access to single gateway  | `GET /networks/:code/gateways/:mac` | E2E        | BB |
+| gateways-controller-should return 404 for non-existent network in single gateway | `GET /networks/:code/gateways/:mac` | E2E        | BB |
+| gateways-controller-should return 409 for MAC already used by a sensor           | `POST /networks/:code/gateways`     | E2E        | BB |
+| gateways-controller-should create a new gateway                                  | `POST /networks/:code/gateways`     | E2E        | BB |
+| gateways-controller-should create gateway without optional fields                | `POST /networks/:code/gateways`     | E2E        | BB |
+| gateways-controller-should ignore extra fields during gateway creation           | `POST /networks/:code/gateways`     | E2E        | BB |
+| Test case name                                                           | Object(s) tested                               | Test level | Technique used |
+| :----------------------------------------------------------------------: | :--------------------------------------------: | :--------: | :------------: |
+| gateways-controller-should return 400 for invalid gateway data (POST)   | `POST /networks/:code/gateways`                | E2E        | BB             |
+| gateways-controller-should return 400 for missing required fields        | `POST /networks/:code/gateways`                | E2E        | BB             |
+| gateways-controller-should return 401 for unauthorized access (POST)     | `POST /networks/:code/gateways`                | E2E        | BB             |
+| gateways-controller-should return 403 for being just a viewer (POST)     | `POST /networks/:code/gateways`                | E2E        | BB             |
+| gateways-controller-should return 404 for non-existent network (POST)    | `POST /networks/:code/gateways`                | E2E        | BB             |
+| gateways-controller-should return 409 for MAC already in use             | `POST /networks/:code/gateways`                | E2E        | BB             |
+| gateways-controller-should update gateway without changing macAddress    | `PATCH /networks/:code/gateways/:mac`          | E2E        | BB             |
+| gateways-controller-should return 409 if MAC used by another gateway     | `PATCH /networks/:code/gateways/:mac`          | E2E        | BB             |
+| gateways-controller-should return 409 if MAC used by a sensor            | `PATCH /networks/:code/gateways/:mac`          | E2E        | BB             |
+| gateways-controller-should do nothing with empty body                    | `PATCH /networks/:code/gateways/:mac`          | E2E        | BB             |
+| gateways-controller-should update gateway and change macAddress          | `PATCH /networks/:code/gateways/:mac`          | E2E        | BB             |
+| gateways-controller-should return 400 for invalid data (PATCH)           | `PATCH /networks/:code/gateways/:mac`          | E2E        | BB             |
+| gateways-controller-should return 401 for unauthorized access (PATCH)    | `PATCH /networks/:code/gateways/:mac`          | E2E        | BB             |
+| gateways-controller-should return 403 for being just a viewer (PATCH)    | `PATCH /networks/:code/gateways/:mac`          | E2E        | BB             |
+| gateways-controller-should return 404 for non-existent gateway (PATCH)   | `PATCH /networks/:code/gateways/:mac`          | E2E        | BB             |
+| gateways-controller-should return 404 for non-existent network (PATCH)   | `PATCH /networks/:code/gateways/:mac`          | E2E        | BB             |
+| gateways-controller-should delete a gateway                              | `DELETE /networks/:code/gateways/:mac`         | E2E        | BB             |
+| gateways-controller-should return 404 for non-existent gateway (DELETE)  | `DELETE /networks/:code/gateways/:mac`         | E2E        | BB             |
+| gateways-controller-should return 401 for unauthorized access (DELETE)   | `DELETE /networks/:code/gateways/:mac`         | E2E        | BB             |
+| gateways-controller-should return 403 for being just a viewer (DELETE)   | `DELETE /networks/:code/gateways/:mac`         | E2E        | BB             |
+| gateways-controller-should return 404 for non-existent network (DELETE)  | `DELETE /networks/:code/gateways/:mac`         | E2E        | BB             |
+
 
 # Coverage
 
