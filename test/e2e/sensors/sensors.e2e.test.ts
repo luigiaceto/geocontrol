@@ -85,7 +85,7 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors (e2e)", () => 
     expect(res.status).toBe(404);
   });
 
-  it("should return 200 with empty array for gateway with no sensors", async () => {
+  it("should return empty array for gateway with no sensors", async () => {
     const res = await request(app)
       .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway02.macAddress}/sensors`)
       .set("Authorization", `Bearer ${token}`);
@@ -157,6 +157,14 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac (e2
   it("should return 404 for non-existing sensor", async () => {
     const res = await request(app)
       .get(`/api/v1/networks/${TEST_NETWORKS.network01.code}/gateways/${TEST_GATEWAYS.gateway01.macAddress}/sensors/non-existing-sensor`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.status).toBe(404);
+  });
+
+  it("should return 404 for invalid chain of entities", async () => {
+    const res = await request(app)
+      .get(`/api/v1/networks/${TEST_NETWORKS.network02.code}/gateways/${TEST_GATEWAYS.gateway02.macAddress}/sensors/${TEST_SENSORS.sensor01.macAddress}`)
       .set("Authorization", `Bearer ${token}`);
 
     expect(res.status).toBe(404);
@@ -439,7 +447,7 @@ describe("PATCH /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac (
     expect(res.status).toBe(409);
   });
 
-  it("should update a sensor without touching his MAC", async () => {
+  it("should update a sensor without changing his MAC", async () => {
     const updatedSensor = {
       name: "Updated Sensor",
       description: "Updated Sensor Description",

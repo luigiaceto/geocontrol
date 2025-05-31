@@ -1,7 +1,6 @@
 import * as networkController from "@controllers/networkController";
 import { NetworkRepository } from "@repositories/NetworkRepository";
 import { NetworkDAO } from "@dao/NetworkDAO";
-import { NotFoundError } from "@models/errors/NotFoundError";
 
 jest.mock("@repositories/NetworkRepository");
 

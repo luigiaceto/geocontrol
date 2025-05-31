@@ -1,9 +1,6 @@
 import * as measurementController from "@controllers/measurementController";
 import { MeasurementRepository } from "@repositories/MeasurementRepository";
-import { SensorRepository } from "@repositories/SensorRepository";
 import * as verifyService from "@services/verifyService";
-import * as mapperService from "@services/mapperService";
-import { MeasurementDAO } from "@models/dao/MeasurementDAO";
 
 jest.mock("@services/verifyService");
 jest.mock("@repositories/MeasurementRepository");

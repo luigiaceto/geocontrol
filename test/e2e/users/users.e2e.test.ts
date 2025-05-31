@@ -30,14 +30,14 @@ describe("GET /users (e2e)", () => {
     expect(types).toEqual(["admin", "operator", "viewer"]);
   });
 
-  it("should return 401 for unauthorized access", async () => {
+  it("unauthorized access, should return 401", async () => {
     const res = await request(app)
       .get("/api/v1/users")
       .set("Authorization", "Bearer invalid-token");
     expect(res.status).toBe(401);
   });
 
-  it("should return 403 for non-admin user", async () => {
+  it("non-admin user, should return 403", async () => {
     const nonAdminToken = generateToken(TEST_USERS.viewer);
     const res = await request(app)
       .get("/api/v1/users")
@@ -45,9 +45,6 @@ describe("GET /users (e2e)", () => {
 
     expect(res.status).toBe(403);
   });
-
-  
-  
 });
 
 describe("GET /users/:username (e2e)", () => {
@@ -72,14 +69,14 @@ describe("GET /users/:username (e2e)", () => {
     expect(res.body.type).toBe("operator");
   });
 
-  it("should return 401 for unauthorized access", async () => {
+  it("unauthorized access, should return 401", async () => {
     const res = await request(app)
       .get(`/api/v1/users/${TEST_USERS.operator.username}`)
       .set("Authorization", "Bearer invalid-token");
     expect(res.status).toBe(401);
   });
 
-  it("should return 403 for non-admin user", async () => {
+  it("non-admin user, should return 403", async () => {
     const nonAdminToken = generateToken(TEST_USERS.viewer);
     const res = await request(app)
       .get(`/api/v1/users/${TEST_USERS.operator.username}`)
@@ -88,7 +85,7 @@ describe("GET /users/:username (e2e)", () => {
     expect(res.status).toBe(403);
   });
 
-  it("should return 404 for non-existent user", async () => {
+  it("non-existent user, should return 404", async () => {
     const res = await request(app)
       .get(`/api/v1/users/non-existing-user`)
       .set("Authorization", `Bearer ${token}`);
@@ -109,7 +106,6 @@ describe("POST /users (e2e)", () => {
     await afterAllE2e();
   });
 
-  
   it("create user", async () => {
     const newUser = {
       username: "newuser",
@@ -125,7 +121,7 @@ describe("POST /users (e2e)", () => {
     expect(res.status).toBe(201);
   });
 
-  it("should return 401 for unauthorized request", async () => {
+  it("unauthorized access, should return 401", async () => {
     const newUser = {
       username: "unauthorizeduser",
       password: "password",
@@ -139,7 +135,7 @@ describe("POST /users (e2e)", () => {
     expect(res.status).toBe(401);
   });
 
-  it("should return 403 for non-admin user", async () => {
+  it("non-admin user, should return 403", async () => {
     const nonAdminToken = generateToken(TEST_USERS.viewer);
     const newUser = {
       username: "nonadminuser",
@@ -155,7 +151,7 @@ describe("POST /users (e2e)", () => {
     expect(res.status).toBe(403);
   });
 
-  it("should return 409 for username already exists", async () => {
+  it("username already exists, should return 409", async () => {
     const existingUser = {
       username: TEST_USERS.operator.username, // This user already exists
       password: "password",
@@ -170,7 +166,7 @@ describe("POST /users (e2e)", () => {
     expect(res.status).toBe(409);
   });
 
-  it("should return 400 for missing password and type", async () => {
+  it("missing password and type, should return 400", async () => {
     const invalidUser = {
       username: "invaliduser",
     };
@@ -183,7 +179,7 @@ describe("POST /users (e2e)", () => {
     expect(res.status).toBe(400);
   });
 
-  it("should return 400 for invalid user type", async () => {
+  it("invalid user type, should return 400", async () => {
     const invalidUser = {
       username: "invalidtypeuser",
       password: "password",
@@ -219,7 +215,7 @@ describe("DELETE /users/:username (e2e)", () => {
   expect(res.status).toBe(204);
   });
 
-  it("should return 404 for non-existent user", async () => {
+  it("non-existent user, should return 404", async () => {
   const res = await request(app)
     .delete(`/api/v1/users/non-existing-user`)
     .set("Authorization", `Bearer ${token}`);
@@ -227,7 +223,7 @@ describe("DELETE /users/:username (e2e)", () => {
   expect(res.status).toBe(404);
   });
 
-  it("should return 403 for non-admin user", async () => {
+  it("non-admin user, should return 403", async () => {
   const nonAdminToken = generateToken(TEST_USERS.viewer);
   const res = await request(app)
     .delete(`/api/v1/users/${TEST_USERS.operator.username}`)
@@ -236,7 +232,7 @@ describe("DELETE /users/:username (e2e)", () => {
   expect(res.status).toBe(403);
   });
 
-  it("should return 401 for unauthorized request", async () => {
+  it("unauthorized request, should return 401", async () => {
   const res = await request(app)
     .delete(`/api/v1/users/${TEST_USERS.operator.username}`)
     .set("Authorization", "Bearer invalid-token");

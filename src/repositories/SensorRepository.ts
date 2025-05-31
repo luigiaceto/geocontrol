@@ -3,7 +3,6 @@ import { Repository } from "typeorm";
 import { SensorDAO } from "@dao/SensorDAO";
 import { findOrThrowNotFound, throwConflictIfFound } from "@utils";
 import { Sensor as SensorDTO } from "@dto/Sensor";
-import { BadRequestError } from "@models/errors/BadRequestError";
 
 export class SensorRepository {
   private repo: Repository<SensorDAO>;

@@ -1,7 +1,8 @@
 export const TEST_NETWORKS = {
   network01: { code: "net01", name: "Network01", description: "Network01 Description" },
   network02: { code: "net02", name: "Network02", description: "Network02 Description" },
-  network03: { code: "net03", name: "Network03", description: "Network03 Description" }
+  network03: { code: "net03", name: "Network03", description: "Network03 Description" },
+  network04: { code: "net04", name: "Network04", description: "Network04 Description" },
 };
 
 export const TEST_GATEWAYS = {
