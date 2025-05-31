@@ -32,7 +32,7 @@
 
   - Step1: unit testing della Repository e funzioni di utilità (utils, errorService, mapperService, verifyService)
 
-  - Step2: integration della Repository con il relativo Controller e Services
+  - Step2: integration del Controller con la relativa Repository e Services
 
   - Step3: integration delle Route con i Middleware
 
@@ -142,9 +142,6 @@
 | GET /users/:username | user route   | API  | BB       |
 | POST /users   | user route   | API  | BB       
 | DELETE /users/:username  | user route   | API  | BB       |
-
-
-
 
 # Coverage
 
