@@ -8,6 +8,9 @@ const mockFind = jest.fn();
 const mockSave = jest.fn();
 const mockRemove = jest.fn();
 
+// sostituisce il getRepository() del constructor della repo con 
+// un callback che ritorna i metodi di TypeORM mockati, dunque le chiamate
+// a questi metodi dentro la repo saranno "fasulle".
 jest.mock("@database", () => ({
   AppDataSource: {
     getRepository: () => ({
@@ -18,6 +21,7 @@ jest.mock("@database", () => ({
   }
 }));
 
+// non utilizza un DB in-memory, bensì mocka le funzioni della repo
 describe("UserRepository: mocked database", () => {
   const repo = new UserRepository();
 

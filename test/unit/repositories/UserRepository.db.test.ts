@@ -21,6 +21,7 @@ beforeEach(async () => {
   await TestDataSource.getRepository(UserDAO).clear();
 });
 
+// fruttano un DB in-memory, non vengono mockate le funzioni
 describe("UserRepository: SQLite in-memory", () => {
   const repo = new UserRepository();
 
@@ -47,5 +48,22 @@ describe("UserRepository: SQLite in-memory", () => {
     await expect(
       repo.createUser("john", "anotherpass", UserType.Viewer)
     ).rejects.toThrow(ConflictError);
+  });
+
+  it("get all users", async () => {
+    await repo.createUser("john", "pass123", UserType.Admin);
+    await repo.createUser("simon", "pass23", UserType.Admin);
+    const result = await repo.getAllUsers(); 
+    expect(result).toHaveLength(2);
+    expect(result).toContainEqual({
+      username: "john",
+      password: "pass123",
+      type: UserType.Admin
+    });
+    expect(result).toContainEqual({
+      username: "simon",
+      password: "pass23",
+      type: UserType.Admin
+    });
   });
 });

@@ -10,8 +10,11 @@ import sensorRouter from "@routes/sensorRoutes";
 import measurementRouter from "@routes/measurementRoutes";
 import networkRouter from "@routes/networkRoutes";
 import cors from "cors";
+import * as OpenApiValidator from 'express-openapi-validator';
 
 export const app = express();
+
+const apiSpec = YAML.load(CONFIG.SWAGGER_V1_FILE_PATH);
 
 app.use(express.json());
 app.use(cors());
@@ -22,6 +25,14 @@ app.use(
   swaggerUi.setup(YAML.load(CONFIG.SWAGGER_V1_FILE_PATH))
 );
 
+app.use(
+  OpenApiValidator.middleware({
+    apiSpec: CONFIG.SWAGGER_V1_FILE_PATH,
+    validateRequests: true,
+    validateResponses: false, // opzionale
+  })
+);
+
 app.use(CONFIG.ROUTES.V1_AUTH, authenticationRouter);
 app.use(CONFIG.ROUTES.V1_USERS, userRouter);
 app.use(CONFIG.ROUTES.V1_NETWORKS, networkRouter);
@@ -29,5 +40,5 @@ app.use(CONFIG.ROUTES.V1_GATEWAYS, gatewayRouter);
 app.use(CONFIG.ROUTES.V1_SENSORS, sensorRouter);
 app.use(measurementRouter);
 
-//This must always be the last middleware added
+// This must always be the last middleware added
 app.use(errorHandler);
