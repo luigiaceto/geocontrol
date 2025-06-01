@@ -250,7 +250,8 @@ describe("mapperService", () => {
         it("gestisce measurements array vuoto", () => {
             const dto = maptToStatisticsDTOForNetwork(sensorMac, startDate, endDate, mean, variance, upperThreshold, lowerThreshold, []);
             expect(dto).toEqual({
-                sensorMacAddress: sensorMac
+                sensorMacAddress: sensorMac,
+                stats: expect.any(Object)
             });
         });
 
@@ -349,6 +350,4 @@ describe("mapperService", () => {
             ]);
         });
     });
- 
-
 });

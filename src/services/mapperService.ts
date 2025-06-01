@@ -187,8 +187,10 @@ export function mapToMeasurementsDTO(
   measurements: MeasurementDAO[]
 ): MeasurementsDTO {
 
+  // se non ci sono misurazioni mostro comunque la data se essa è presente
   if (measurements.length == 0) {
-    return createMeasurementsDTO(sensorMac, null, null);
+    const statsDTO = mapToStatsDTO(startDate, endDate, null, null, null, null);
+    return createMeasurementsDTO(sensorMac, statsDTO, null);
   }
 
   const statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);
@@ -208,8 +210,10 @@ export function maptToStatisticsDTOForNetwork(
   measurements: MeasurementDAO[]
 ): MeasurementsDTO {
 
+  // no misurazioni per il sensore del network
   if (measurements.length == 0) {
-    return createMeasurementsDTO(sensorMac, null, null);
+    const statsDTO = mapToStatsDTO(startDate, endDate, 0, 0, 0, 0);
+    return createMeasurementsDTO(sensorMac, statsDTO, null);
   }
 
   const statsDTO = mapToStatsDTO(startDate, endDate, mean, variance, upperThreshold, lowerThreshold);

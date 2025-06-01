@@ -229,7 +229,7 @@ describe("GET /networks/:networkCode/measurements", () => {
 
     response.body.forEach(element => {
       expect(element).toHaveProperty("sensorMacAddress");
-      expect(element).not.toHaveProperty("stats");
+      expect(element).toHaveProperty("stats");
       expect(element).not.toHaveProperty("measurements");
     });
   });
@@ -458,7 +458,7 @@ describe("GET /networks/:networkCode/stats", () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveLength(1);
     expect(response.body[0]).toHaveProperty("sensorMacAddress");
-    expect(response.body[0]).not.toHaveProperty("stats");
+    expect(response.body[0]).toHaveProperty("stats");
     expect(response.body[0]).not.toHaveProperty("measurements");
   });
 
@@ -912,7 +912,7 @@ describe("GET /networks/:networkCode/gateways/:gatewayMac/sensors/:sensorMac/mea
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("sensorMacAddress", TEST_SENSORS.sensor03.macAddress);
     expect(response.body).not.toHaveProperty("measurements");
-    expect(response.body).not.toHaveProperty("stats");
+    expect(response.body).toHaveProperty("stats");
   });
 
   it("should return 401 for invalid token", async () => {
