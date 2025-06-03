@@ -243,7 +243,6 @@ export function mapToMeasurementsDTOOutliers(
   return createMeasurementsDTO(sensorMac, statsDTO, measurementDTOs);
 }
 
-// FARE UNA SECONDA VERSIONE CHE NON RIMUOVA ARRAY VUOTI ???
 function removeNullAttributes<T>(dto: T): Partial<T> {
   return Object.fromEntries(
     Object.entries(dto).filter(
