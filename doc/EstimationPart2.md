@@ -38,7 +38,7 @@ productivity = ((LOC of production code)+ (LOC of test code)) / effort
 | effort | 260 person-hour | 206 person-hour |
 | productivity  | 10 loc / hour | 38.17 loc / hour |
 
-il loc della parte di test è la differenza tra il loc totale (10202 loc) e tra il loc degli acceptance test (4426 loc)
+il loc della parte di test è la differenza tra il loc totale di test (10202 loc) e tra il loc degli acceptance test (4426 loc)
 
 Report, as estimate of effort, the value obtained via activity decomposition technique.
 
