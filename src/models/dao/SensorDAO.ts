@@ -33,7 +33,7 @@ export class SensorDAO {
   gateway: GatewayDAO;
 
   @OneToMany(() => MeasurementDAO, measurement => measurement.sensor, {
-    //cascade: true,
+    cascade: true,
     eager: true, // Carica automaticamente i sensori quando si carica un gateway
   })
   measurements: MeasurementDAO[];

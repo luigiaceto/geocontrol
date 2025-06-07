@@ -27,7 +27,7 @@ export class GatewayDAO {
     network: NetworkDAO;
 
     @OneToMany(() => SensorDAO, sensor => sensor.gateway, {
-        //cascade: true,
+        cascade: true,
         eager: true, // Carica automaticamente i sensori quando si carica un gateway
     })
     sensors: SensorDAO[];

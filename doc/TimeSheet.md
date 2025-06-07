@@ -13,14 +13,14 @@ These figures will not be used to evaluate neither the project nor the team, the
 | Mar 24 - 30    | 0  | | | | | | | |
 | Mar 31 - Apr 6 | 17 | | | | | | | |
 | Apr 7 - 13     | 66 | | | | | | | |
-| Apr 14 - 20    | 20 | | | | | | | |
+| Apr 14 - 20    | 23 | | | | | | | |
 | Apr 21 - 27    | | | | | | | | |
 | Apr 28 - May 4 | | | | | | | | |
 | May 5 - 11     | | | 20 | | | | | |
 | May 12 - 18    | | | 14 | | | | | |
 | May 19 - 25    | | | 11 | 10 | 19 | | | |
 | May 26 - Jun 1 | | | | | 25 | | | |
-| Jun 2 - 8      | | | | | | | | |
+| Jun 2 - 8      | | | | | | 1 | | |
 | Jun 9 - 15     | | | | | | | | |
 | Jun 16 - 22    | | | | | | | | |
 | Jun 23 - 29    | | | | | | | | |
@@ -94,7 +94,7 @@ Suddivisione dei Timesheet utile per rendere più comoda la somma finale che fat
 | May 12 - 18    | | | 6 | | | | | |
 | May 19 - 25    | | | 6 | 2 | 9 | | | |
 | May 26 - Jun 1 | | | | | 9 | | | |
-| Jun 2 - 8      | | | | | | | | |
+| Jun 2 - 8      | | | | | | 1 | | |
 | Jun 9 - 15     | | | | | | | | |
 | Jun 16 - 22    | | | | | | | | |
 | Jun 23 - 29    | | | | | | | | |
